@@ -1,0 +1,211 @@
+# Scoping {#scoping}
+
+
+## Introduction
+
+A function creates its own environment. In turn, this environment of the function is a child of the environment where the function was created.  
+Scoping refers to the set of rules on what environment R looks for the value of a name. For instance, if the code contains `myv <- 12`, then later typing `myv` forces R to retrieve 12 from an environment.  
+R uses lexical scoping and, under some circumstances, dynamic scoping. We're interested in lexical scoping.
+
+
+```{r}
+mean <- function(x) {
+  x+1
+}
+mean(1:10)
+
+rm(mean)
+
+mean(1:10)
+```
+
+
+## Rule 1: name masking  
+
+If a name is not defined in a function, R looks one level up, i.e., in the parent:
+
+```{r}
+a <- 10
+
+f <- function(){
+  b <- 2
+  a + b # same as return(a + b)
+}
+
+f()
+
+c <- 11
+g <- function() {
+  d <- 4
+  h <- function() {
+    e <- 5
+    c + 2*d + e
+  }
+  h()
+}
+
+g()
+
+
+
+c <- 11
+d <- 100
+g <- function() {
+  d <- 4
+  h <- function() {
+    e <- 5
+    c + 2*d + e
+  }
+  h()
+}
+ g()
+  
+ 
+```
+
+
+
+## Rule 2: fresh start
+
+Every time a function is called, a new environment is created. In other words, the function does not know that it has been called before.
+
+```{r}
+a 
+t <- function() {
+  if (exists("a")) { 
+    a <- a + 2
+    a
+  } else {
+    a <- 20 
+    a
+  } 
+}
+t()
+
+t()
+t()
+
+a <- 4
+# gives 6 because when the function t looks for 'a', NOW, it finds it in the parent 
+t() 
+
+
+l <- function() {
+  a <- 5 
+  # 'a' is defined in the environment, so there is no need to look into the parent 
+  if (exists("a")) { 
+    a <- a + 2
+    a
+  } else {
+    a <- 10 
+    a
+  } 
+}
+l()
+
+```
+
+## Rule 3: dynamic lookup
+
+R looks for values when the function is called. If the environment where R will look for values has changed in between calls, the result of the function may be different. This is a source of error that should avoided.
+
+```{r}
+u <- function() a^2
+a <- 2
+u() 
+# needs a value for 'a' because it does not define one within its environment; 
+# therefore, u() looks up to, in this case, the global environment
+a <- 3
+u()
+```
+
+## Functions inside functions
+
+Consider the following example of a function, it returns a function!
+
+
+```{r}
+m.power <- function(pow){
+  m.exp <- function(b){ b^pow }
+  m.exp # return the m.exp function
+}
+```
+
+We can create many functions with that function. Importantly, notice that functions preserve the environment in which they were created.
+
+```{r}
+
+mycube <- m.power(3)
+mycube(4)
+
+mysquare <- m.power(2)
+mysquare(5)
+
+# ls(environment(m.power)) gives the global environment
+ls(environment(mycube)) 
+
+w <- function(k){
+  q <- 10
+  k*q
+}
+
+z <- function() w(2) # z is itself a function that inherits the environment of w
+# but z, here, is forced to use 2 as an argument 
+
+z()
+```
+
+
+## Examples
+
+
+The following example illustrates lexical scoping.
+```{r}
+yy <- 10
+
+ff <- function(xx){
+  yy <- 2
+  yy^2 + gg(xx)
+}
+
+gg <- function(xx){
+  xx*yy
+}
+
+ff(3) 
+```
+
+
+As another illustration, we could try to guess what  `g(2)` produces after the following commands. Hint: remember the in which environment the functions were created because it tells you what are the correct bindings (parent).
+
+
+```{r}
+a <- 1
+b <- 2
+f <- function(x){
+  a*x + b
+}
+g <- function(x){
+  a <- 2
+  b <- 1
+  f(x)
+}
+
+g(2)
+```
+
+Compare to `g(2)` here.
+
+```{r}
+a <- 1
+b <- 2
+f <- function(a,b){
+  return( function(x) {a*x + b})
+}
+g <- f(2,1)
+g(2)
+```
+
+
+
+

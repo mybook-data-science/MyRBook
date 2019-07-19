@@ -1,0 +1,76 @@
+# (PART) R Basics {-}
+
+# R as a calculator {#rcalc}
+
+R can be used as a simple calculator. For instance, 45+17=`r 45+17` .   
+Here are a few more examples of the commands.
+
+
+## Usual operators
+
+### Simple operations
+
+The usual symbols `+, -, *, /` apply .
+```{r}
+2 + 6
+56/ 6
+```
+
+
+### Parentheses 
+
+The parentheses work as expected. But they are also a common source of error when they are not matched.
+
+```{r}
+(4+3)*((7-3)/(1+.05))
+```
+The next expression will generate an error and prevent the compilation of the whole book.
+```r
+(4+3)*((7-3/(1+.05))
+```
+
+### Exponents 
+
+There are two ways of expressing the power of a number: `^` and `**`.
+
+```{r}
+3^4
+3**4
+```
+
+## Unusual operators
+
+### Special operations
+
+The symbols `%/%` and `%%` return the entire part of the result of the division and the rest of the division, respectively.
+```{r}
+56/6
+56%/%6
+56%%6
+```
+
+## Usual functions
+
+The common functions found in any calculator also have an equivalent on R. The following examples need no further comment.
+
+```{r}
+log(100)
+sqrt(100)
+```
+
+## Unusual functions
+
+There are several other functions applied to numbers that one does not usually find in a calculator.  
+A few examples below:
+
+```{r}
+# floor / ceiling for the closest integer
+floor(13.47)
+ceiling(13.47)
+```
+
+
+
+
+
+

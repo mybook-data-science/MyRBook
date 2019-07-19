@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 20 Introduction | Learning Data Science in R</title>
+  <meta name="description" content="These are notes gathering my experience in data science with R.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 20 Introduction | Learning Data Science in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are notes gathering my experience in data science with R." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 20 Introduction | Learning Data Science in R" />
+  
+  <meta name="twitter:description" content="These are notes gathering my experience in data science with R." />
+  
+
+<meta name="author" content="Antonio Fidalgo">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="scoping.html">
+<link rel="next" href="conclusion.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Learning Data Science in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a></li>
+<li class="chapter" data-level="1" data-path="getsarted.html"><a href="getsarted.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1.1" data-path="getsarted.html"><a href="getsarted.html#install-applications"><i class="fa fa-check"></i><b>1.1</b> Install applications</a></li>
+<li class="chapter" data-level="1.2" data-path="getsarted.html"><a href="getsarted.html#sign-for-github"><i class="fa fa-check"></i><b>1.2</b> Sign for GitHub</a></li>
+<li class="chapter" data-level="1.3" data-path="getsarted.html"><a href="getsarted.html#create-your-project"><i class="fa fa-check"></i><b>1.3</b> Create your project</a></li>
+<li class="chapter" data-level="1.4" data-path="getsarted.html"><a href="getsarted.html#create-github-repo-and-link-your-machine-to-it"><i class="fa fa-check"></i><b>1.4</b> Create GitHub repo and link your machine to it</a></li>
+<li class="chapter" data-level="1.5" data-path="getsarted.html"><a href="getsarted.html#collaboration-on-github"><i class="fa fa-check"></i><b>1.5</b> Collaboration on GitHub</a></li>
+</ul></li>
+<li class="part"><span><b>I Source and output files</b></span></li>
+<li class="chapter" data-level="2" data-path="rmd.html"><a href="rmd.html"><i class="fa fa-check"></i><b>2</b> <code>.Rmd</code> source files</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmd.html"><a href="rmd.html#options-for-all-chunks"><i class="fa fa-check"></i><b>2.1</b> Options for all chunks</a></li>
+<li class="chapter" data-level="2.2" data-path="rmd.html"><a href="rmd.html#latex"><i class="fa fa-check"></i><b>2.2</b> Latex code</a></li>
+<li class="chapter" data-level="2.3" data-path="rmd.html"><a href="rmd.html#figures"><i class="fa fa-check"></i><b>2.3</b> Figures</a></li>
+<li class="chapter" data-level="2.4" data-path="rmd.html"><a href="rmd.html#cr"><i class="fa fa-check"></i><b>2.4</b> Cross-references</a></li>
+<li class="chapter" data-level="2.5" data-path="rmd.html"><a href="rmd.html#citations"><i class="fa fa-check"></i><b>2.5</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custom-ouptut.html"><a href="custom-ouptut.html"><i class="fa fa-check"></i><b>3</b> Customize output</a><ul>
+<li class="chapter" data-level="3.1" data-path="custom-ouptut.html"><a href="custom-ouptut.html#multiple-built-in-output-types"><i class="fa fa-check"></i><b>3.1</b> Multiple built-in output types</a></li>
+<li class="chapter" data-level="3.2" data-path="custom-ouptut.html"><a href="custom-ouptut.html#new-types-provided-by-packages"><i class="fa fa-check"></i><b>3.2</b> New types provided by packages</a></li>
+<li class="chapter" data-level="3.3" data-path="custom-ouptut.html"><a href="custom-ouptut.html#css-custom-html"><i class="fa fa-check"></i><b>3.3</b> CSS: custom html</a></li>
+<li class="chapter" data-level="3.4" data-path="custom-ouptut.html"><a href="custom-ouptut.html#latex-preamble"><i class="fa fa-check"></i><b>3.4</b> Latex preamble</a></li>
+</ul></li>
+<li class="part"><span><b>II R Basics</b></span></li>
+<li class="chapter" data-level="4" data-path="rcalc.html"><a href="rcalc.html"><i class="fa fa-check"></i><b>4</b> R as a calculator</a><ul>
+<li class="chapter" data-level="4.1" data-path="rcalc.html"><a href="rcalc.html#usual-operators"><i class="fa fa-check"></i><b>4.1</b> Usual operators</a></li>
+<li class="chapter" data-level="4.2" data-path="rcalc.html"><a href="rcalc.html#unusual-operators"><i class="fa fa-check"></i><b>4.2</b> Unusual operators</a></li>
+<li class="chapter" data-level="4.3" data-path="rcalc.html"><a href="rcalc.html#usual-functions"><i class="fa fa-check"></i><b>4.3</b> Usual functions</a></li>
+<li class="chapter" data-level="4.4" data-path="rcalc.html"><a href="rcalc.html#unusual-functions"><i class="fa fa-check"></i><b>4.4</b> Unusual functions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="datastructures.html"><a href="datastructures.html"><i class="fa fa-check"></i><b>5</b> Data stuctures</a><ul>
+<li class="chapter" data-level="5.1" data-path="datastructures.html"><a href="datastructures.html#atomic-vectors"><i class="fa fa-check"></i><b>5.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="5.2" data-path="datastructures.html"><a href="datastructures.html#matrices-and-arrays"><i class="fa fa-check"></i><b>5.2</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="5.3" data-path="datastructures.html"><a href="datastructures.html#lists"><i class="fa fa-check"></i><b>5.3</b> Lists</a></li>
+<li class="chapter" data-level="5.4" data-path="datastructures.html"><a href="datastructures.html#data-frames"><i class="fa fa-check"></i><b>5.4</b> Data frames</a></li>
+<li class="chapter" data-level="5.5" data-path="datastructures.html"><a href="datastructures.html#a-word-about-attributes"><i class="fa fa-check"></i><b>5.5</b> A word about attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="datastructures.html"><a href="datastructures.html#environments"><i class="fa fa-check"></i><b>5.6</b> Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html"><i class="fa fa-check"></i><b>6</b> Simple functions on vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#element-by-element-evaluation"><i class="fa fa-check"></i><b>6.1</b> Element by element evaluation</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#recycling-rule"><i class="fa fa-check"></i><b>6.2</b> Recycling rule</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#functions-for-the-whole-vector"><i class="fa fa-check"></i><b>6.3</b> Functions for the whole vector</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="subset.html"><a href="subset.html"><i class="fa fa-check"></i><b>7</b> Subsetting</a><ul>
+<li class="chapter" data-level="7.1" data-path="subset.html"><a href="subset.html#generalities-about-subsetting"><i class="fa fa-check"></i><b>7.1</b> Generalities about subsetting</a></li>
+<li class="chapter" data-level="7.2" data-path="subset.html"><a href="subset.html#section"><i class="fa fa-check"></i><b>7.2</b> <code>[]</code></a></li>
+<li class="chapter" data-level="7.3" data-path="subset.html"><a href="subset.html#section-1"><i class="fa fa-check"></i><b>7.3</b> <code>[[]]</code></a></li>
+<li class="chapter" data-level="7.4" data-path="subset.html"><a href="subset.html#section-2"><i class="fa fa-check"></i><b>7.4</b> <code>$</code></a></li>
+<li class="chapter" data-level="7.5" data-path="subset.html"><a href="subset.html#combining-subsetting"><i class="fa fa-check"></i><b>7.5</b> Combining subsetting</a></li>
+<li class="chapter" data-level="7.6" data-path="subset.html"><a href="subset.html#subsetting-with-one-condition"><i class="fa fa-check"></i><b>7.6</b> Subsetting with one condition</a></li>
+<li class="chapter" data-level="7.7" data-path="subset.html"><a href="subset.html#subsetting-and-assignment"><i class="fa fa-check"></i><b>7.7</b> Subsetting and assignment</a></li>
+<li class="chapter" data-level="7.8" data-path="subset.html"><a href="subset.html#using-which"><i class="fa fa-check"></i><b>7.8</b> Using <code>which()</code></a></li>
+<li class="chapter" data-level="7.9" data-path="subset.html"><a href="subset.html#more-advanced-stuff"><i class="fa fa-check"></i><b>7.9</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conditions.html"><a href="conditions.html"><i class="fa fa-check"></i><b>8</b> Conditions</a><ul>
+<li class="chapter" data-level="8.1" data-path="conditions.html"><a href="conditions.html#if-statement"><i class="fa fa-check"></i><b>8.1</b> <code>if</code> statement</a></li>
+<li class="chapter" data-level="8.2" data-path="conditions.html"><a href="conditions.html#else-statement"><i class="fa fa-check"></i><b>8.2</b> <code>else</code> statement</a></li>
+<li class="chapter" data-level="8.3" data-path="conditions.html"><a href="conditions.html#else-if-statement"><i class="fa fa-check"></i><b>8.3</b> <code>else if</code> statement</a></li>
+<li class="chapter" data-level="8.4" data-path="conditions.html"><a href="conditions.html#ifelse-statement"><i class="fa fa-check"></i><b>8.4</b> <code>ifelse</code> statement</a></li>
+<li class="chapter" data-level="8.5" data-path="conditions.html"><a href="conditions.html#logical-operators-and"><i class="fa fa-check"></i><b>8.5</b> Logical operators: <code>&amp;</code>, <code>|</code> and <code>!</code></a></li>
+<li class="chapter" data-level="8.6" data-path="conditions.html"><a href="conditions.html#writing-and-interpreting-a-condition"><i class="fa fa-check"></i><b>8.6</b> Writing and interpreting a condition</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>9</b> Functions</a><ul>
+<li class="chapter" data-level="9.1" data-path="functions.html"><a href="functions.html#structure-of-a-simple-function"><i class="fa fa-check"></i><b>9.1</b> Structure of a simple function</a></li>
+<li class="chapter" data-level="9.2" data-path="functions.html"><a href="functions.html#multiple-arguments-and-their-identification"><i class="fa fa-check"></i><b>9.2</b> Multiple arguments and their identification</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>10</b> Loops (avoid them)</a><ul>
+<li class="chapter" data-level="10.1" data-path="loops.html"><a href="loops.html#introduction-to-loops-with-a-silly-example-bad-r-coding"><i class="fa fa-check"></i><b>10.1</b> Introduction to loops with a silly example (bad R coding)</a></li>
+<li class="chapter" data-level="10.2" data-path="loops.html"><a href="loops.html#general-form-of-a-for-loop"><i class="fa fa-check"></i><b>10.2</b> General form of a <code>for</code> loop</a></li>
+<li class="chapter" data-level="10.3" data-path="loops.html"><a href="loops.html#a-good-example-of-a-loop"><i class="fa fa-check"></i><b>10.3</b> A good example of a loop</a></li>
+<li class="chapter" data-level="10.4" data-path="loops.html"><a href="loops.html#looping-over-non-numeric-elements"><i class="fa fa-check"></i><b>10.4</b> Looping over non-numeric elements</a></li>
+<li class="chapter" data-level="10.5" data-path="loops.html"><a href="loops.html#more-advanced-stuff-1"><i class="fa fa-check"></i><b>10.5</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>11</b> Importa data to R</a><ul>
+<li class="chapter" data-level="11.1" data-path="import.html"><a href="import.html#general-idea"><i class="fa fa-check"></i><b>11.1</b> General idea</a></li>
+<li class="chapter" data-level="11.2" data-path="import.html"><a href="import.html#reading-rectangular-data"><i class="fa fa-check"></i><b>11.2</b> Reading rectangular data</a></li>
+<li class="chapter" data-level="11.3" data-path="import.html"><a href="import.html#read-other-data-types"><i class="fa fa-check"></i><b>11.3</b> Read other data types</a></li>
+<li class="chapter" data-level="11.4" data-path="import.html"><a href="import.html#scanning-a-file"><i class="fa fa-check"></i><b>11.4</b> Scanning a file</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="splots.html"><a href="splots.html"><i class="fa fa-check"></i><b>12</b> Simple plots</a><ul>
+<li class="chapter" data-level="12.1" data-path="splots.html"><a href="splots.html#line-plots"><i class="fa fa-check"></i><b>12.1</b> Line plots</a></li>
+<li class="chapter" data-level="12.2" data-path="splots.html"><a href="splots.html#bar-graphs-and-histograms"><i class="fa fa-check"></i><b>12.2</b> Bar graphs and histograms</a></li>
+</ul></li>
+<li class="part"><span><b>III Tidyverse</b></span></li>
+<li class="chapter" data-level="13" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>13</b> What is <code>tidyverse</code></a></li>
+<li class="chapter" data-level="14" data-path="tibble.html"><a href="tibble.html"><i class="fa fa-check"></i><b>14</b> <code>tibble</code></a></li>
+<li class="chapter" data-level="15" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>15</b> <code>readr</code> and <code>readxl</code></a><ul>
+<li class="chapter" data-level="15.1" data-path="readr.html"><a href="readr.html#readr-1"><i class="fa fa-check"></i><b>15.1</b> <code>readr</code></a></li>
+<li class="chapter" data-level="15.2" data-path="readr.html"><a href="readr.html#readxl"><i class="fa fa-check"></i><b>15.2</b> <code>readxl</code></a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="magrittr.html"><a href="magrittr.html"><i class="fa fa-check"></i><b>16</b> <code>magrittr</code></a></li>
+<li class="chapter" data-level="17" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>17</b> <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="17.1" data-path="ggplot2.html"><a href="ggplot2.html#general-purpose"><i class="fa fa-check"></i><b>17.1</b> General purpose</a></li>
+<li class="chapter" data-level="17.2" data-path="ggplot2.html"><a href="ggplot2.html#comparison-with-base-plot"><i class="fa fa-check"></i><b>17.2</b> Comparison with base <code>plot</code></a></li>
+<li class="chapter" data-level="17.3" data-path="ggplot2.html"><a href="ggplot2.html#grammar-of-graphics---leland-wilkinson"><i class="fa fa-check"></i><b>17.3</b> Grammar of graphics - Leland Wilkinson</a></li>
+<li class="chapter" data-level="17.4" data-path="ggplot2.html"><a href="ggplot2.html#understanding-the-grammar"><i class="fa fa-check"></i><b>17.4</b> Understanding the grammar</a></li>
+<li class="chapter" data-level="17.5" data-path="ggplot2.html"><a href="ggplot2.html#aesthetics-1"><i class="fa fa-check"></i><b>17.5</b> Aesthetics</a></li>
+<li class="chapter" data-level="17.6" data-path="ggplot2.html"><a href="ggplot2.html#geometries-1"><i class="fa fa-check"></i><b>17.6</b> Geometries</a></li>
+</ul></li>
+<li class="part"><span><b>IV Intermediate R</b></span></li>
+<li class="chapter" data-level="18" data-path="functionals.html"><a href="functionals.html"><i class="fa fa-check"></i><b>18</b> Functionals</a><ul>
+<li class="chapter" data-level="18.1" data-path="functionals.html"><a href="functionals.html#the-apply-family"><i class="fa fa-check"></i><b>18.1</b> The <code>apply</code> family</a></li>
+<li class="chapter" data-level="18.2" data-path="functionals.html"><a href="functionals.html#apply"><i class="fa fa-check"></i><b>18.2</b> <code>apply</code></a></li>
+<li class="chapter" data-level="18.3" data-path="functionals.html"><a href="functionals.html#lapply"><i class="fa fa-check"></i><b>18.3</b> <code>lapply</code></a></li>
+<li class="chapter" data-level="18.4" data-path="functionals.html"><a href="functionals.html#sapply"><i class="fa fa-check"></i><b>18.4</b> <code>sapply</code></a></li>
+<li class="chapter" data-level="18.5" data-path="functionals.html"><a href="functionals.html#multicore-implementation"><i class="fa fa-check"></i><b>18.5</b> Multicore implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="scoping.html"><a href="scoping.html"><i class="fa fa-check"></i><b>19</b> Scoping</a></li>
+<li class="chapter" data-level="20" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>20</b> Introduction</a><ul>
+<li class="chapter" data-level="20.1" data-path="introduction.html"><a href="introduction.html#rule-1-name-masking"><i class="fa fa-check"></i><b>20.1</b> Rule 1: name masking</a></li>
+<li class="chapter" data-level="20.2" data-path="introduction.html"><a href="introduction.html#rule-2-fresh-start"><i class="fa fa-check"></i><b>20.2</b> Rule 2: fresh start</a></li>
+<li class="chapter" data-level="20.3" data-path="introduction.html"><a href="introduction.html#rule-3-dynamic-lookup"><i class="fa fa-check"></i><b>20.3</b> Rule 3: dynamic lookup</a></li>
+<li class="chapter" data-level="20.4" data-path="introduction.html"><a href="introduction.html#functions-inside-functions"><i class="fa fa-check"></i><b>20.4</b> Functions inside functions</a></li>
+<li class="chapter" data-level="20.5" data-path="introduction.html"><a href="introduction.html#examples"><i class="fa fa-check"></i><b>20.5</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>V Conclusion</b></span></li>
+<li class="chapter" data-level="21" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>21</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning Data Science in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction" class="section level1">
+<h1><span class="header-section-number">Chapter 20</span> Introduction</h1>
+<p>A function creates its own environment. In turn, this environment of the function is a child of the environment where the function was created.<br />
+Scoping refers to the set of rules on what environment R looks for the value of a name. For instance, if the code contains <code>myv &lt;- 12</code>, then later typing <code>myv</code> forces R to retrieve 12 from an environment.<br />
+R uses lexical scoping and, under some circumstances, dynamic scoping. We’re interested in lexical scoping.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mean &lt;-<span class="st"> </span><span class="cf">function</span>(x) {
+  x<span class="op">+</span><span class="dv">1</span>
+}
+<span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="co">#R&gt;  [1]  2  3  4  5  6  7  8  9 10 11</span>
+
+<span class="kw">rm</span>(mean)
+
+<span class="kw">mean</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)
+<span class="co">#R&gt; [1] 5.5</span></code></pre>
+<div id="rule-1-name-masking" class="section level2">
+<h2><span class="header-section-number">20.1</span> Rule 1: name masking</h2>
+<p>If a name is not defined in a function, R looks one level up, i.e., in the parent:</p>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">10</span>
+
+f &lt;-<span class="st"> </span><span class="cf">function</span>(){
+  b &lt;-<span class="st"> </span><span class="dv">2</span>
+  a <span class="op">+</span><span class="st"> </span>b <span class="co"># same as return(a + b)</span>
+}
+
+<span class="kw">f</span>()
+<span class="co">#R&gt; [1] 12</span>
+
+c &lt;-<span class="st"> </span><span class="dv">11</span>
+g &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  d &lt;-<span class="st"> </span><span class="dv">4</span>
+  h &lt;-<span class="st"> </span><span class="cf">function</span>() {
+    e &lt;-<span class="st"> </span><span class="dv">5</span>
+    c <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>d <span class="op">+</span><span class="st"> </span>e
+  }
+  <span class="kw">h</span>()
+}
+
+<span class="kw">g</span>()
+<span class="co">#R&gt; [1] 24</span>
+
+
+
+c &lt;-<span class="st"> </span><span class="dv">11</span>
+d &lt;-<span class="st"> </span><span class="dv">100</span>
+g &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  d &lt;-<span class="st"> </span><span class="dv">4</span>
+  h &lt;-<span class="st"> </span><span class="cf">function</span>() {
+    e &lt;-<span class="st"> </span><span class="dv">5</span>
+    c <span class="op">+</span><span class="st"> </span><span class="dv">2</span><span class="op">*</span>d <span class="op">+</span><span class="st"> </span>e
+  }
+  <span class="kw">h</span>()
+}
+ <span class="kw">g</span>()
+<span class="co">#R&gt; [1] 24</span></code></pre>
+</div>
+<div id="rule-2-fresh-start" class="section level2">
+<h2><span class="header-section-number">20.2</span> Rule 2: fresh start</h2>
+<p>Every time a function is called, a new environment is created. In other words, the function does not know that it has been called before.</p>
+<pre class="sourceCode r"><code class="sourceCode r">a 
+<span class="co">#R&gt; [1] 10</span>
+t &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  <span class="cf">if</span> (<span class="kw">exists</span>(<span class="st">&quot;a&quot;</span>)) { 
+    a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+    a
+  } <span class="cf">else</span> {
+    a &lt;-<span class="st"> </span><span class="dv">20</span> 
+    a
+  } 
+}
+<span class="kw">t</span>()
+<span class="co">#R&gt; [1] 12</span>
+
+<span class="kw">t</span>()
+<span class="co">#R&gt; [1] 12</span>
+<span class="kw">t</span>()
+<span class="co">#R&gt; [1] 12</span>
+
+a &lt;-<span class="st"> </span><span class="dv">4</span>
+<span class="co"># gives 6 because when the function t looks for &#39;a&#39;, NOW, it finds it in the parent </span>
+<span class="kw">t</span>() 
+<span class="co">#R&gt; [1] 6</span>
+
+
+l &lt;-<span class="st"> </span><span class="cf">function</span>() {
+  a &lt;-<span class="st"> </span><span class="dv">5</span> 
+  <span class="co"># &#39;a&#39; is defined in the environment, so there is no need to look into the parent </span>
+  <span class="cf">if</span> (<span class="kw">exists</span>(<span class="st">&quot;a&quot;</span>)) { 
+    a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+    a
+  } <span class="cf">else</span> {
+    a &lt;-<span class="st"> </span><span class="dv">10</span> 
+    a
+  } 
+}
+<span class="kw">l</span>()
+<span class="co">#R&gt; [1] 7</span></code></pre>
+</div>
+<div id="rule-3-dynamic-lookup" class="section level2">
+<h2><span class="header-section-number">20.3</span> Rule 3: dynamic lookup</h2>
+<p>R looks for values when the function is called. If the environment where R will look for values has changed in between calls, the result of the function may be different. This is a source of error that should avoided.</p>
+<pre class="sourceCode r"><code class="sourceCode r">u &lt;-<span class="st"> </span><span class="cf">function</span>() a<span class="op">^</span><span class="dv">2</span>
+a &lt;-<span class="st"> </span><span class="dv">2</span>
+<span class="kw">u</span>() 
+<span class="co">#R&gt; [1] 4</span>
+<span class="co"># needs a value for &#39;a&#39; because it does not define one within its environment; </span>
+<span class="co"># therefore, u() looks up to, in this case, the global environment</span>
+a &lt;-<span class="st"> </span><span class="dv">3</span>
+<span class="kw">u</span>()
+<span class="co">#R&gt; [1] 9</span></code></pre>
+</div>
+<div id="functions-inside-functions" class="section level2">
+<h2><span class="header-section-number">20.4</span> Functions inside functions</h2>
+<p>Consider the following example of a function, it returns a function!</p>
+<pre class="sourceCode r"><code class="sourceCode r">m.power &lt;-<span class="st"> </span><span class="cf">function</span>(pow){
+  m.exp &lt;-<span class="st"> </span><span class="cf">function</span>(b){ b<span class="op">^</span>pow }
+  m.exp <span class="co"># return the m.exp function</span>
+}</code></pre>
+<p>We can create many functions with that function. Importantly, notice that functions preserve the environment in which they were created.</p>
+<pre class="sourceCode r"><code class="sourceCode r">
+mycube &lt;-<span class="st"> </span><span class="kw">m.power</span>(<span class="dv">3</span>)
+<span class="kw">mycube</span>(<span class="dv">4</span>)
+<span class="co">#R&gt; [1] 64</span>
+
+mysquare &lt;-<span class="st"> </span><span class="kw">m.power</span>(<span class="dv">2</span>)
+<span class="kw">mysquare</span>(<span class="dv">5</span>)
+<span class="co">#R&gt; [1] 25</span>
+
+<span class="co"># ls(environment(m.power)) gives the global environment</span>
+<span class="kw">ls</span>(<span class="kw">environment</span>(mycube)) 
+<span class="co">#R&gt; [1] &quot;m.exp&quot; &quot;pow&quot;</span>
+
+w &lt;-<span class="st"> </span><span class="cf">function</span>(k){
+  q &lt;-<span class="st"> </span><span class="dv">10</span>
+  k<span class="op">*</span>q
+}
+
+z &lt;-<span class="st"> </span><span class="cf">function</span>() <span class="kw">w</span>(<span class="dv">2</span>) <span class="co"># z is itself a function that inherits the environment of w</span>
+<span class="co"># but z, here, is forced to use 2 as an argument </span>
+
+<span class="kw">z</span>()
+<span class="co">#R&gt; [1] 20</span></code></pre>
+</div>
+<div id="examples" class="section level2">
+<h2><span class="header-section-number">20.5</span> Examples</h2>
+<p>The following example illustrates lexical scoping.</p>
+<pre class="sourceCode r"><code class="sourceCode r">yy &lt;-<span class="st"> </span><span class="dv">10</span>
+
+ff &lt;-<span class="st"> </span><span class="cf">function</span>(xx){
+  yy &lt;-<span class="st"> </span><span class="dv">2</span>
+  yy<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">gg</span>(xx)
+}
+
+gg &lt;-<span class="st"> </span><span class="cf">function</span>(xx){
+  xx<span class="op">*</span>yy
+}
+
+<span class="kw">ff</span>(<span class="dv">3</span>) 
+<span class="co">#R&gt; [1] 34</span></code></pre>
+<p>As another illustration, we could try to guess what <code>g(2)</code> produces after the following commands. Hint: remember the in which environment the functions were created because it tells you what are the correct bindings (parent).</p>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
+b &lt;-<span class="st"> </span><span class="dv">2</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+  a<span class="op">*</span>x <span class="op">+</span><span class="st"> </span>b
+}
+g &lt;-<span class="st"> </span><span class="cf">function</span>(x){
+  a &lt;-<span class="st"> </span><span class="dv">2</span>
+  b &lt;-<span class="st"> </span><span class="dv">1</span>
+  <span class="kw">f</span>(x)
+}
+
+<span class="kw">g</span>(<span class="dv">2</span>)
+<span class="co">#R&gt; [1] 4</span></code></pre>
+<p>Compare to <code>g(2)</code> here.</p>
+<pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">1</span>
+b &lt;-<span class="st"> </span><span class="dv">2</span>
+f &lt;-<span class="st"> </span><span class="cf">function</span>(a,b){
+  <span class="kw">return</span>( <span class="cf">function</span>(x) {a<span class="op">*</span>x <span class="op">+</span><span class="st"> </span>b})
+}
+g &lt;-<span class="st"> </span><span class="kw">f</span>(<span class="dv">2</span>,<span class="dv">1</span>)
+<span class="kw">g</span>(<span class="dv">2</span>)
+<span class="co">#R&gt; [1] 5</span></code></pre>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="scoping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MyR.pdf", "MyR.epub"],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

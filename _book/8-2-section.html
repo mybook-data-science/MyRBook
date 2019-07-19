@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Learning Data Science in R" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="These are notes gathering my experience in data science with R." />
+<meta name="github-repo" content="rstudio/bookdown-demo" />
+
+<meta name="author" content="Antonio Fidalgo" />
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="These are notes gathering my experience in data science with R.">
+
+<title>Learning Data Science in R</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#foreword">Foreword</a></li>
+<li class="part"><span><b>I Getting started</b></span></li>
+<li class="has-sub"><a href="1-getset.html#getset"><span class="toc-section-number">1</span> Getting set</a><ul>
+<li><a href="1-1-install-applications.html#install-applications"><span class="toc-section-number">1.1</span> Install applications</a></li>
+<li><a href="1-2-sign-for-github.html#sign-for-github"><span class="toc-section-number">1.2</span> Sign for GitHub</a></li>
+<li><a href="1-3-create-your-project.html#create-your-project"><span class="toc-section-number">1.3</span> Create your project</a></li>
+<li><a href="1-4-create-github-repo-and-link-your-machine-to-it.html#create-github-repo-and-link-your-machine-to-it"><span class="toc-section-number">1.4</span> Create GitHub repo and link your machine to it</a></li>
+</ul></li>
+<li class="part"><span><b>II Source file and output files</b></span></li>
+<li class="has-sub"><a href="2-rmd.html#rmd"><span class="toc-section-number">2</span> Rmd files</a><ul>
+<li><a href="2-1-options-for-all-chuncks.html#options-for-all-chuncks"><span class="toc-section-number">2.1</span> Options for all chuncks</a></li>
+<li><a href="2-2-latex-code.html#latex-code"><span class="toc-section-number">2.2</span> Latex code</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-custom-ouptut.html#custom-ouptut"><span class="toc-section-number">3</span> Customize output</a><ul>
+<li><a href="3-1-multiple-built-in-output-types.html#multiple-built-in-output-types"><span class="toc-section-number">3.1</span> Multiple built-in output types</a></li>
+<li><a href="3-2-new-types-provided-by-packages.html#new-types-provided-by-packages"><span class="toc-section-number">3.2</span> New types provided by packages</a></li>
+<li><a href="3-3-css-custom-html.html#css-custom-html"><span class="toc-section-number">3.3</span> CSS: custom html</a></li>
+<li><a href="3-4-latex-preamble.html#latex-preamble"><span class="toc-section-number">3.4</span> Latex preamble</a></li>
+</ul></li>
+<li class="part"><span><b>III R Basics</b></span></li>
+<li class="has-sub"><a href="4-r-as-a-calculator.html#r-as-a-calculator"><span class="toc-section-number">4</span> R as a calculator</a><ul>
+<li class="has-sub"><a href="4-1-usual-operators.html#usual-operators"><span class="toc-section-number">4.1</span> Usual operators</a><ul>
+<li><a href="4-1-usual-operators.html#simple-operations"><span class="toc-section-number">4.1.1</span> Simple operations</a></li>
+<li><a href="4-1-usual-operators.html#parentheses"><span class="toc-section-number">4.1.2</span> Parentheses</a></li>
+<li><a href="4-1-usual-operators.html#exponents"><span class="toc-section-number">4.1.3</span> Exponents</a></li>
+</ul></li>
+<li class="has-sub"><a href="4-2-unusual-operators.html#unusual-operators"><span class="toc-section-number">4.2</span> Unusual operators</a><ul>
+<li><a href="4-2-unusual-operators.html#special-operations"><span class="toc-section-number">4.2.1</span> Special operations</a></li>
+</ul></li>
+<li><a href="4-3-usual-functions.html#usual-functions"><span class="toc-section-number">4.3</span> Usual functions</a></li>
+</ul></li>
+<li class="part"><span><b>IV R Basics</b></span></li>
+<li class="has-sub"><a href="5-rcalc.html#rcalc"><span class="toc-section-number">5</span> R as a calculator</a><ul>
+<li class="has-sub"><a href="5-1-usual-operators-1.html#usual-operators-1"><span class="toc-section-number">5.1</span> Usual operators</a><ul>
+<li><a href="5-1-usual-operators-1.html#simple-operations-1"><span class="toc-section-number">5.1.1</span> Simple operations</a></li>
+<li><a href="5-1-usual-operators-1.html#parentheses-1"><span class="toc-section-number">5.1.2</span> Parentheses</a></li>
+<li><a href="5-1-usual-operators-1.html#exponents-1"><span class="toc-section-number">5.1.3</span> Exponents</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-2-unusual-operators-1.html#unusual-operators-1"><span class="toc-section-number">5.2</span> Unusual operators</a><ul>
+<li><a href="5-2-unusual-operators-1.html#special-operations-1"><span class="toc-section-number">5.2.1</span> Special operations</a></li>
+</ul></li>
+<li><a href="5-3-usual-functions-1.html#usual-functions-1"><span class="toc-section-number">5.3</span> Usual functions</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-datastructures.html#datastructures"><span class="toc-section-number">6</span> Data stuctures</a><ul>
+<li class="has-sub"><a href="6-1-atomic-vectors.html#atomic-vectors"><span class="toc-section-number">6.1</span> Atomic vectors</a><ul>
+<li><a href="6-1-atomic-vectors.html#types-of-data"><span class="toc-section-number">6.1.1</span> Types of data</a></li>
+<li><a href="6-1-atomic-vectors.html#factor-vector"><span class="toc-section-number">6.1.2</span> Factor vector</a></li>
+</ul></li>
+<li><a href="6-2-matrices-and-arrays.html#matrices-and-arrays"><span class="toc-section-number">6.2</span> Matrices and arrays</a></li>
+<li><a href="6-3-lists.html#lists"><span class="toc-section-number">6.3</span> Lists</a></li>
+<li><a href="6-4-data-frames.html#data-frames"><span class="toc-section-number">6.4</span> Data frames</a></li>
+</ul></li>
+<li><a href="7-simple-functions-on-vectors.html#simple-functions-on-vectors"><span class="toc-section-number">7</span> Simple functions on vectors</a></li>
+<li class="has-sub"><a href="8-subset.html#subset"><span class="toc-section-number">8</span> Subsetting</a><ul>
+<li><a href="8-1-generalities-about-subsetting.html#generalities-about-subsetting"><span class="toc-section-number">8.1</span> Generalities about subsetting</a></li>
+<li class="has-sub"><a href="8-2-section.html#section"><span class="toc-section-number">8.2</span> <code>[]</code></a><ul>
+<li><a href="8-2-section.html#on-a-vector"><span class="toc-section-number">8.2.1</span> On a vector</a></li>
+<li><a href="8-2-section.html#on-a-list"><span class="toc-section-number">8.2.2</span> On a list</a></li>
+<li><a href="8-2-section.html#on-a-matrix"><span class="toc-section-number">8.2.3</span> On a matrix</a></li>
+</ul></li>
+<li><a href="8-3-section-1.html#section-1"><span class="toc-section-number">8.3</span> <code>[[]]</code></a></li>
+<li><a href="8-4-section-2.html#section-2"><span class="toc-section-number">8.4</span> <code>$</code></a></li>
+<li><a href="8-5-combining-subsetting.html#combining-subsetting"><span class="toc-section-number">8.5</span> Combining subsetting</a></li>
+<li><a href="8-6-subsetting-with-one-condition.html#subsetting-with-one-condition"><span class="toc-section-number">8.6</span> Subsetting with one condition</a></li>
+<li><a href="8-7-subsetting-and-assignment.html#subsetting-and-assignment"><span class="toc-section-number">8.7</span> Subsetting and assignment</a></li>
+<li><a href="8-8-using-which.html#using-which"><span class="toc-section-number">8.8</span> Using <code>which()</code></a></li>
+<li class="has-sub"><a href="8-9-more-advanced-stuff.html#more-advanced-stuff"><span class="toc-section-number">8.9</span> More advanced stuff</a><ul>
+<li><a href="8-9-more-advanced-stuff.html#difference-between-simplifying-and-preserving"><span class="toc-section-number">8.9.1</span> Difference between simplifying and preserving</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="9-conditions.html#conditions"><span class="toc-section-number">9</span> Conditions</a><ul>
+<li><a href="9-1-if-statement.html#if-statement"><span class="toc-section-number">9.1</span> <code>if</code> statement</a></li>
+<li><a href="9-2-else-statement.html#else-statement"><span class="toc-section-number">9.2</span> <code>else</code> statement</a></li>
+<li><a href="9-3-else-if-statement.html#else-if-statement"><span class="toc-section-number">9.3</span> <code>else if</code> statement</a></li>
+<li><a href="9-4-ifelse-statement.html#ifelse-statement"><span class="toc-section-number">9.4</span> <code>ifelse</code> statement</a></li>
+<li><a href="9-5-logical-operators-and.html#logical-operators-and"><span class="toc-section-number">9.5</span> Logical operators: <code>&amp;</code>, <code>|</code> and <code>!</code></a></li>
+<li><a href="9-6-writing-and-interpreting-a-condition.html#writing-and-interpreting-a-condition"><span class="toc-section-number">9.6</span> Writing and interpreting a condition</a></li>
+</ul></li>
+<li><a href="10-conclusion.html#conclusion"><span class="toc-section-number">10</span> Conclusion</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="section" class="section level2">
+<h2><span class="header-section-number">8.2</span> <code>[]</code></h2>
+<p>Applies to vectors, matrices, lists and data frames.<br />
+Can be used with:</p>
+<pre><code>- positive or negative values,
+- many values in a vector,
+- logical, `NA`,
+- character vectors when names.</code></pre>
+<div id="on-a-vector" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> On a vector</h3>
+<p>Here are a few examples of that object used on a vector.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">va &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">13.1</span>, <span class="fl">-15.2</span>, <span class="fl">0.3</span>, <span class="fl">2.4</span>, <span class="fl">10.5</span>, <span class="fl">-3.6</span>, <span class="fl">9.7</span>)</a>
+<a class="sourceLine" id="cb36-2" title="2">va[<span class="dv">1</span>] <span class="co"># element 1</span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="co">#&gt; [1] 13.1</span></a>
+<a class="sourceLine" id="cb36-4" title="4">va[<span class="kw">c</span>(<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>)] <span class="co"># elements 3 to 5</span></a>
+<a class="sourceLine" id="cb36-5" title="5"><span class="co">#&gt; [1]  0.3  2.4 10.5</span></a>
+<a class="sourceLine" id="cb36-6" title="6">va[<span class="op">-</span><span class="dv">1</span>] <span class="co"># all elements minus the element 1</span></a>
+<a class="sourceLine" id="cb36-7" title="7"><span class="co">#&gt; [1] -15.2   0.3   2.4  10.5  -3.6   9.7</span></a>
+<a class="sourceLine" id="cb36-8" title="8">va[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">TRUE</span>,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>,<span class="ot">FALSE</span>,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)] </a>
+<a class="sourceLine" id="cb36-9" title="9"><span class="co">#&gt; [1]  13.1 -15.2   0.3  -3.6</span></a>
+<a class="sourceLine" id="cb36-10" title="10">va[<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>)] <span class="co"># notice the recycling at play here</span></a>
+<a class="sourceLine" id="cb36-11" title="11"><span class="co">#&gt; [1] 13.1  0.3 10.5  9.7</span></a>
+<a class="sourceLine" id="cb36-12" title="12">va[<span class="ot">NA</span>] </a>
+<a class="sourceLine" id="cb36-13" title="13"><span class="co">#&gt; [1] NA NA NA NA NA NA NA</span></a>
+<a class="sourceLine" id="cb36-14" title="14">va[] <span class="co"># nothing selected gives the full vector</span></a>
+<a class="sourceLine" id="cb36-15" title="15"><span class="co">#&gt; [1]  13.1 -15.2   0.3   2.4  10.5  -3.6   9.7</span></a>
+<a class="sourceLine" id="cb36-16" title="16"><span class="kw">names</span>(va)&lt;-letters[<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(va)] <span class="co"># give names to va</span></a>
+<a class="sourceLine" id="cb36-17" title="17"><span class="co"># notice that we subset the vector letters (given by R) and that we don&#39;t</span></a>
+<a class="sourceLine" id="cb36-18" title="18"><span class="co"># specify the length but give a general value</span></a>
+<a class="sourceLine" id="cb36-19" title="19"><span class="co"># now we can subset using names</span></a>
+<a class="sourceLine" id="cb36-20" title="20">va</a>
+<a class="sourceLine" id="cb36-21" title="21"><span class="co">#&gt;     a     b     c     d     e     f     g </span></a>
+<a class="sourceLine" id="cb36-22" title="22"><span class="co">#&gt;  13.1 -15.2   0.3   2.4  10.5  -3.6   9.7</span></a>
+<a class="sourceLine" id="cb36-23" title="23">va[<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;e&quot;</span>,<span class="st">&quot;b&quot;</span>)]</a>
+<a class="sourceLine" id="cb36-24" title="24"><span class="co">#&gt;     a     e     b </span></a>
+<a class="sourceLine" id="cb36-25" title="25"><span class="co">#&gt;  13.1  10.5 -15.2</span></a></code></pre></div>
+</div>
+<div id="on-a-list" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> On a list</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">mylist&lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">numbers=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>), </a>
+<a class="sourceLine" id="cb37-2" title="2">              <span class="dt">ournames=</span><span class="kw">c</span>(<span class="st">&quot;Jim&quot;</span>,<span class="st">&quot;Jules&quot;</span>), </a>
+<a class="sourceLine" id="cb37-3" title="3">              <span class="dt">results=</span> <span class="kw">c</span>(T,F,F,T), </a>
+<a class="sourceLine" id="cb37-4" title="4">              <span class="dt">school=</span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Primary&quot;</span>, <span class="st">&quot;Secondary&quot;</span>, <span class="st">&quot;Tertiary&quot;</span>), <span class="dt">ordered=</span><span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb37-5" title="5"><span class="kw">str</span>(mylist)</a>
+<a class="sourceLine" id="cb37-6" title="6"><span class="co">#&gt; List of 4</span></a>
+<a class="sourceLine" id="cb37-7" title="7"><span class="co">#&gt;  $ numbers : int [1:20] 1 2 3 4 5 6 7 8 9 10 ...</span></a>
+<a class="sourceLine" id="cb37-8" title="8"><span class="co">#&gt;  $ ournames: chr [1:2] &quot;Jim&quot; &quot;Jules&quot;</span></a>
+<a class="sourceLine" id="cb37-9" title="9"><span class="co">#&gt;  $ results : logi [1:4] TRUE FALSE FALSE TRUE</span></a>
+<a class="sourceLine" id="cb37-10" title="10"><span class="co">#&gt;  $ school  : Ord.factor w/ 3 levels &quot;Primary&quot;&lt;&quot;Secondary&quot;&lt;..: 1 2 3</span></a>
+<a class="sourceLine" id="cb37-11" title="11"></a>
+<a class="sourceLine" id="cb37-12" title="12">mylist[<span class="dv">1</span>] <span class="co"># first element of the list</span></a>
+<a class="sourceLine" id="cb37-13" title="13"><span class="co">#&gt; $numbers</span></a>
+<a class="sourceLine" id="cb37-14" title="14"><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20</span></a>
+<a class="sourceLine" id="cb37-15" title="15"><span class="kw">class</span>(mylist[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb37-16" title="16"><span class="co">#&gt; [1] &quot;list&quot;</span></a>
+<a class="sourceLine" id="cb37-17" title="17">mylist[[<span class="dv">3</span>]][<span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb37-18" title="18"><span class="co">#&gt; [1] FALSE</span></a></code></pre></div>
+<p>Notice that the result of this subsetting is a r class(mylist[1])!</p>
+</div>
+<div id="on-a-matrix" class="section level3">
+<h3><span class="header-section-number">8.2.3</span> On a matrix</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">set.seed</span>(<span class="dv">42</span>)</a>
+<a class="sourceLine" id="cb38-2" title="2">my.mat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">floor</span>(<span class="kw">runif</span>(<span class="dv">30</span>)<span class="op">*</span><span class="dv">10</span>), <span class="dt">nrow=</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb38-3" title="3">my.mat</a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="co">#&gt; [1,]    9    5    4    9    9    5</span></a>
+<a class="sourceLine" id="cb38-6" title="6"><span class="co">#&gt; [2,]    9    7    7    9    1    3</span></a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="co">#&gt; [3,]    2    1    9    1    9    9</span></a>
+<a class="sourceLine" id="cb38-8" title="8"><span class="co">#&gt; [4,]    8    6    2    4    9    4</span></a>
+<a class="sourceLine" id="cb38-9" title="9"><span class="co">#&gt; [5,]    6    7    4    5    0    8</span></a>
+<a class="sourceLine" id="cb38-10" title="10"><span class="kw">str</span>(my.mat)</a>
+<a class="sourceLine" id="cb38-11" title="11"><span class="co">#&gt;  num [1:5, 1:6] 9 9 2 8 6 5 7 1 6 7 ...</span></a>
+<a class="sourceLine" id="cb38-12" title="12"><span class="kw">length</span>(my.mat)</a>
+<a class="sourceLine" id="cb38-13" title="13"><span class="co">#&gt; [1] 30</span></a></code></pre></div>
+<p>The structure shows that there are r length(dim(my.mat)) dimensions. For subsetting, we must give r length(dim(my.mat)) dimensions! Same rules as for the vectors apply.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">my.mat[<span class="dv">2</span>,<span class="dv">3</span>] <span class="co"># 2nd row, 3rd row</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="co">#&gt; [1] 7</span></a>
+<a class="sourceLine" id="cb39-3" title="3">my.mat[<span class="op">-</span><span class="dv">1</span>,]</a>
+<a class="sourceLine" id="cb39-4" title="4"><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]</span></a>
+<a class="sourceLine" id="cb39-5" title="5"><span class="co">#&gt; [1,]    9    7    7    9    1    3</span></a>
+<a class="sourceLine" id="cb39-6" title="6"><span class="co">#&gt; [2,]    2    1    9    1    9    9</span></a>
+<a class="sourceLine" id="cb39-7" title="7"><span class="co">#&gt; [3,]    8    6    2    4    9    4</span></a>
+<a class="sourceLine" id="cb39-8" title="8"><span class="co">#&gt; [4,]    6    7    4    5    0    8</span></a>
+<a class="sourceLine" id="cb39-9" title="9"><span class="kw">colnames</span>(my.mat) &lt;-<span class="st"> </span>letters[<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(my.mat)] <span class="co"># give names to the columns</span></a>
+<a class="sourceLine" id="cb39-10" title="10"><span class="kw">rownames</span>(my.mat) &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(my.mat)] <span class="co"># give names to the rows</span></a>
+<a class="sourceLine" id="cb39-11" title="11">my.mat</a>
+<a class="sourceLine" id="cb39-12" title="12"><span class="co">#&gt;   a b c d e f</span></a>
+<a class="sourceLine" id="cb39-13" title="13"><span class="co">#&gt; A 9 5 4 9 9 5</span></a>
+<a class="sourceLine" id="cb39-14" title="14"><span class="co">#&gt; B 9 7 7 9 1 3</span></a>
+<a class="sourceLine" id="cb39-15" title="15"><span class="co">#&gt; C 2 1 9 1 9 9</span></a>
+<a class="sourceLine" id="cb39-16" title="16"><span class="co">#&gt; D 8 6 2 4 9 4</span></a>
+<a class="sourceLine" id="cb39-17" title="17"><span class="co">#&gt; E 6 7 4 5 0 8</span></a>
+<a class="sourceLine" id="cb39-18" title="18">my.mat[<span class="st">&quot;C&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;e&quot;</span>)]</a>
+<a class="sourceLine" id="cb39-19" title="19"><span class="co">#&gt; a c e </span></a>
+<a class="sourceLine" id="cb39-20" title="20"><span class="co">#&gt; 2 9 9</span></a></code></pre></div>
+</div>
+</div>
+<p style="text-align: center;">
+<a href="8-1-generalities-about-subsetting.html"><button class="btn btn-default">Previous</button></a>
+<a href="8-3-section-1.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

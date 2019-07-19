@@ -1,0 +1,485 @@
+# `dplyr` {#dplyr}
+
+
+There are essentially two parts in this package, both dealing with manipulating data set.  
+The first gives tools to work on a given data frame, the second to combine data frames. We describe both in turn.  
+
+## Grammar of data manipulation  
+
+`dplyr` introduces a easier and faster way to manipulate datasets and extract information from them.   
+Hence, all the functions introduced here are redundant with other functions in base R. As for the rest of the `tidyverse`, they just happen to do the job in a clearer way (among other advantages).  
+The approach builds on "verbs" (functions) applied successively thanks to the pipe operator `%>%`.
+
+The five main verbs are the following:
+
+
+
+- `select`
+- `mutate`
+- `filter`
+- `arrange`
+- `summarize`
+
+These operations can be made on groups thanks to the function `group_by`.  
+A few comments before we describe the verbs are in turn.
+
+- These verbs are better used in tidy data: 
+  - each column is a variable,  
+  - each row is an observation.
+
+- `select` and `mutate` manipulate/apply on the variables (columns).  
+
+- `filter` and `arrange` manipulate/apply on the observations (rows).
+
+- `summarise` manipulates groups of observations.
+
+- Like in other packages of the `tidyverse`, there is no need for the usual quotes `" "` for the names.  
+
+
+For the examples below, we will be using the `starwars` data set from the `dplyr`package. So, we can first have a glimpse at it.
+
+```{r}
+starwars
+```
+
+## `select`
+
+The call for this function is of the form:
+
+```r
+select(df, var1, ..., varn)
+```
+
+where `df` is the original data frame from which one wishes to select data.    
+Alternatively, we can write the above code. with the pipe operator
+
+```r
+df %>%
+  select(var1, ..., varn)
+```
+
+Notice that the underlying data frame is not modified. However, the extracted data can be saved in the usual way, i.e., as an object with a name. 
+
+```r
+piece_df <- df %>%
+              select(var1, ..., varn)
+```
+
+Here is an example of a selection of variables.
+
+```{r}
+starwars %>%
+  select(name, species)
+
+# compare with base R
+
+starwars[,c("name", "species")]
+```
+
+There are any ways of selecting variables
+
+```r
+## columns/variables 1 to 4
+select(starwars, 1:4) 
+## works also with the name
+select(starwars, name:hair_color) 
+## with a negative number for all but some variable
+select(starwars, -3) 
+## works also with the name
+select(starwars, -mass) 
+```
+
+
+### Helper arguments
+
+These are arguments to help `select` the variables/columns. Here are a few of them (see `?select` for a complete list):
+
+- `starts_with("x")`
+- `ends_with("x")`
+- `contains("x")`
+- `matches("x")`
+
+Notice the use of the quotes `" "` for the strings because they are not variables names.   
+For instance, here, we select all the variables that have `color` in their name.
+```{r}
+starwars %>%
+  select(
+    name,
+    matches("color")
+    )
+
+starwars %>%
+  select(name, gender, films)
+```
+
+## `mutate`
+
+The `mutate` function allows to create new variables/columns, based on the existing variables.   
+The generic call is as follows.
+
+```r
+mutate(df, new_variable = expression)
+
+# with pipe
+
+df %>%
+  mutate(new_variable = expression)
+``` 
+
+We play a bit with it.  
+
+```{r}
+## add variable bmi
+starwars %>%
+         mutate(bmi = mass / (height/100)^2 )  
+
+## two variables created, including one created in the same call
+df_b <- starwars %>%
+          mutate(
+            bmi = mass / (height/100)^2,
+            sr.bmi = sqrt(bmi)
+            ) 
+df_b
+
+starwars %>%
+  mutate(
+    g_b = sample(c("G", "B"),
+                 87,
+                 replace = TRUE
+                 )
+    )
+```
+
+
+## `filter`
+
+The `filter` function is equivalent of a selection, but for rows. The call is generically
+
+```r
+filter(df, condition)
+
+# with the pipe
+
+df %>%
+  filter(condition) 
+```
+
+At this stage, it might be useful to recall the operators for conditions under `?Comparison`.  
+Here are examples for this function.
+
+```{r}
+starwars %>%
+  filter(species != "Human")
+
+starwars %>%
+  filter(
+    species != "Human" &
+    eye_color == "red"
+    )
+
+# in base R
+
+starwars[starwars$species!="Human" & starwars$eye_color=="red" , ]
+```
+
+
+## `arrange`
+
+This function reorders the rows of the data set, by default in ascending order of a given variable. The typical call, for a reordering over `var1`, is:
+
+```r
+arrange(df, var1)
+
+# with pipe
+
+df %>%
+  arrange(var1)
+
+```
+
+The use of multiple variables for reordering is sometimes necessary in order to break ties.
+
+```r
+## in case of several rows with same value of var1, use var2
+df %>%
+  arrange(
+    var1,
+    var2)
+```
+
+Use `desc` on the variable to show in descending order.  
+Here is an example that combines these two points.
+
+```{r, results='hide'}
+starwars %>%
+        arrange(
+          height, 
+          desc(mass))
+
+starwars %>%
+  arrange(desc(name))
+```
+
+## `summarise`
+
+Contrary to the other verbs, the `summarise` function creates a new data frame. The usual call is:
+
+```r
+summarise(df, name = expr)
+
+# with the pipe
+df %>%
+  summarise(name = expr)
+```  
+
+where `expr` stands for any function on a vector (most of the time, one of the variables) that returns a single value. That function can either be built-in or a function provided by the user.  
+In that sense, notice that `summarise` does not mean to make a summary but, instead, to collapse a full vector into one single value.
+
+```{r}
+starwars %>%
+  summarise(min_h = min(height, na.rm = TRUE),
+            av_m= mean(mass, na.rm = TRUE)
+            )
+```
+
+### Helper functions
+
+These are functions to help `summarise`, but are essentially wrappers for the function `[[`. These include `first(x)`, `last(x)`, `nth(x,n)`, `n()`... where `x` is the variable.
+
+```{r}
+starwars %>%
+  summarise(nth(species, 3))
+```
+Other functions can be used as logical tests.
+
+```{r}
+starwars %>%
+  summarise(sum(species == "Human", na.rm=TRUE))
+
+starwars %>%
+  summarise(mean(species != "Human", na.rm=TRUE))
+``` 
+
+
+## Piping verbs
+
+Since each verb requires a data frame and returns a data frame, we can combine verbs in a pipe.  
+Here is an example.
+
+```{r}
+## average mass of humans 
+starwars %>%
+  filter(species == "Human") %>%
+  summarise(av_m=mean(mass, na.rm=TRUE))
+
+# without pipe
+summarise(filter(starwars, species == "Human"), av_m=mean(mass, na.rm=TRUE))
+
+temp1 <- filter(starwars, species == "Human")
+summarise(temp1, av_m=mean(mass, na.rm=TRUE))
+
+# with base R
+temp2 <- starwars[starwars$species=="Human",]
+av_m <- mean(temp2$mass, na.rm=TRUE)
+
+av_m <- mean(starwars[starwars$species=="Human",]$mass, na.rm=TRUE)
+av_m
+```
+
+Another example.
+
+```{r}
+# create the variable n_films for each name
+
+# with base R
+aa <- numeric(length(starwars$films))
+for (i in 1:length(starwars$films)){
+  aa[i] <- length(starwars$films[[i]])
+}
+
+starwars$n_films <- aa
+
+# with dplyr 
+c_l <- function(ll){
+  aa <- numeric(length(ll))
+  for (i in 1:length(ll)){
+   aa[i] <- length(ll[[i]])
+  }
+  return(aa)
+}
+
+starwars %>%
+  mutate(n_films = c_l(films)) %>%
+  select(name, n_films) %>%
+  filter( n_films >=5)
+
+```
+
+## `group_by`
+
+The function `group_by` allows to make manipulations on groups.  
+Let's make an example.
+
+```{r}
+starwars %>%
+  group_by(eye_color) %>%
+  summarise(
+    n_per_group = n()
+  ) %>%
+  filter(n_per_group > 1)
+``` 
+
+## Keys for joins
+
+`dplyr` also contains tools to join data sets. We have a glimpse at them here.  
+Notice that joining data sets means forming a third data set with columns of a first and a second data set.  
+
+A key is a column or a combination of columns.  
+In order to join two data sets, two keys: a primary and a secondary key.  
+The primary key must **uniquely identify the rows** of the primary data set; hence it can consist on many variables.  
+The secondary key only needs to match the primary key.  
+
+An example to illustrate this point uses the two following data sets `population` and `capital`.  
+
+- If `population` was the primary data set, then the variable `country` alone could not be the primary key because it has repeated values.  
+
+- On the other hand, if `capitals` was the primary data set, then the variable `country` could be that primary key.
+
+```{r}
+population <- tribble(
+~country, ~year, ~population,
+"UK", 2010, 62.7,
+"UK", 2000, 58.9,
+"FR", 2010, 65,
+"FR", 2000, 60.9,
+"RSA", 2010, 50.7,
+"PT", 2010, 10.5
+)
+
+capitals <- tribble(
+  ~country, ~capital, 
+  "RSA", "Pretoria",
+  "FR", "Paris",
+  "UK", "London",
+  "SP", "Madrid"
+)
+
+```
+
+
+
+## Joins
+
+Some joins are called mutate because they create a new data set: left_, right_, inner_ or full_ joins are of this type. Filter joins include semi_ and anti_join and they filter one data set.
+
+- `left_join` and `right_join`
+
+The usage is, for instance,
+
+```r
+left_join(df1, df2, by=c("key1", "key2"))
+# with pipe
+df1 %>%
+  left_join(
+    df2,
+    by=c("key1", "key2")
+    )
+
+```
+This call will keep all the rows of `df1` and augment it with columns of `df2`. Notice that some `NA`s will be created and the rows on `df2` that do not match the primary key will not appear.  
+`right_join` would do for `df2` what `left_join` join does for `df1`.
+
+```{r}
+capitals %>%
+  left_join(
+    population,
+    by = "country"
+    )
+
+population %>%
+  left_join(
+    capitals,
+    by= "country"
+    )
+
+```
+
+
+- `inner_join` and `full_join` 
+
+The call is similar to above.  
+`inner` takes the rows that match in **both** datasets while `full` takes all the rows that match and those that do not match.
+
+```{r}
+capitals %>%
+  inner_join(
+    population,
+    by = "country"
+    )
+
+capitals %>%
+  full_join(
+    population,
+    by = "country"
+    )
+
+```
+
+
+- `semi_join` and `anti_join`
+
+These give a copy of the first data set filtered with the second data set. Hence, it's a way to filter data from the first dataset based on information in a second dataset.  
+It can be used to quickly check which rows appear in both datasets
+
+```{r}
+capitals %>%
+  semi_join(
+    population,
+    by = "country"
+    )
+
+capitals %>%
+  anti_join(
+    population,
+    by = "country"
+    )
+
+```
+
+
+## Operations on data sets
+
+A few other functions allow to compare data sets. These include  the self-explanatory `union`, `intersect` and `setdiff`
+
+```{r}
+population2 <- add_row(population, country="CH", year=2010, population=8)
+
+setdiff(population, population2)
+setdiff(population2, population)
+```
+
+Other useful functions are `setequal` and `identical`.
+Use `setequal(df1, df2)` which will be `TRUE` if the datasets have the same data even if the rows are not in the same order, opposed to `identical(df1, df2)`
+
+
+```{r}
+capitals <- tribble(
+  ~country, ~capital, 
+  "RSA", "Pretoria",
+  "FR", "Paris",
+  "UK", "London",
+  "SP", "Madrid"
+)
+
+capitals2 <- tribble(
+  ~country, ~capital, 
+  "RSA", "Pretoria",
+  "UK", "London",
+  "FR", "Paris",
+  "SP", "Madrid"
+)
+
+identical(capitals, capitals2)
+setequal(capitals,capitals2)
+```
+

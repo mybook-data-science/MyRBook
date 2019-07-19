@@ -1,0 +1,17 @@
+# (PART) Tidyverse {-}
+
+# What is `tidyverse` {#tidyverse}
+
+`tidyverse` is a bundle of packages due mainly by Hadley Wickham. Essentially, it is a redesign of the core functions of R with a coherent philosophy. It comes close to become a complete and self-contained system on its own thanks to all its packages.  
+Arguably, it is also an improvement over the standard R packages: faster, more consistent and more beautiful. 
+The huge benefits of embracing the `tidyverse` come at the cost needing to learn a sub-dialect of R. This can be daunting for a beginner in R programming that put lots of effort into learning basic R functions.  
+I understand, however, that these initial efforts will still pay off with this new system. And the advantages will become overwhelming.  
+The next chapters all develop a relevant package, selected from the `tidyverse`. The list of all packages along with a fuller description of the system can be found on [tidyverse.org](https://www.tidyverse.org/).
+
+To begin,
+
+```r
+install.packages("tidyverse")
+```
+
+

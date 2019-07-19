@@ -1,0 +1,85 @@
+# `tibble` {#tibble}
+
+A tibble is the equivalent of a data frame in the `tidyverse`. The specific package of the bundle is called `tibble`.  
+All the packages in the `tidyverse` work with tibbles.   
+Notice that all the functions applicable to a data frame will also work on a tibble. This is because **all tibbles are data frames** (while the reverse is not true, all data frames are not necessarily tibbles).  
+So why bother?  
+The reasons to choose tibbles include: 
+
+- faster calculations,
+- better printing of the content,
+- more information about the content,
+- more useful warnings of errors,
+- simpler and more limited functionalities.
+
+
+## Creating a tibble
+
+There are various ways to create a tibble.
+
+### `as_tibble`
+
+The simplest way is declare a data frame a tibble with the function `as_tibble`. 
+
+```{r}
+data(iris)
+# print the data frame
+iris
+
+t_iris <- as_tibble(iris)
+# print the tibble
+class(t_iris)
+t_iris
+
+```
+
+### Manually
+
+A tibble can also be created manually. Notice the following two points:
+
+- vectors of length 1 (only) are recycled,  
+- vectors that depend on others can be directly created.
+  
+```{r}
+my_tbl <- tibble(
+  x1 = 1:10, 
+  x2 = 5, 
+  x3 = x1^2 * x2
+)
+my_tbl
+```
+
+
+### `tribble`
+
+A tribble is a tibble created in a transposed way. To be noticed:
+
+- column headings are entered (as a formula) with a `~`,
+- data are entered in rows,
+- all values are separated by commas.
+
+```{r}
+my_tr <- tribble(
+	~x1, ~x2, ~x3,
+	"A", 2, 7,
+	"B", 5, 12,
+	"C", 4, 8 
+	)
+my_tr
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

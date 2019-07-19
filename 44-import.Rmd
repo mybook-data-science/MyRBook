@@ -1,0 +1,66 @@
+# Import data to R {#import}
+
+
+
+The first step in order to analyze data with R is to get the data in R.  
+Data out there exists in many formats and it is not always consistently recorded. In R speaking, we will need to `read` the data from a file and put it in an object, often a data frame.  
+Base R has has base functions to read some types of files. For special types of files, special packages are needed.
+
+**Important note:** these base functions are introduced here for documentation purpose only. Indeed, their task is usually better achieved by the functions developed in the `tidyverse` (see Chapter \@ref(tidyverse) and following).
+
+## Reading rectangular data
+
+Rectangular data is intended here as a data set with values of variables in columns and each row representing a case. Arguably, this is the simplest and probably most common way to store data sets.  
+The ad hoc function in R is `read.table`. Other similar functions exist, e.g., `read.csv`, but they are essentially a wrapper of `read.table`.   
+This function reads rectangular data and assigns it to an object, in almost all cases a data frame. The arguments of the function are numerous are, depending on the case, potentially very useful (check `?read.table`).  We mention here a few of them in the typical call:
+
+```r
+my.data <- read.table(...)
+``` 
+
+`file` is the name of the file to be read. It requires a valid path. It can also be an `url`, with some adaptations.  
+`header` is a logical indicating whether the data's first line gives the names of the variables.  
+`sep` indicates the character that separates the values between columns.
+
+```{r}
+# assuming we have the file AH001.txt in the same folder
+df <- read.table(file="AH001.txt",
+				header=TRUE,
+				sep=",")
+head(df)
+```
+
+
+## Read other data types
+
+R can import virtually all types of data. For special types, a ad hoc package will be necessary. `foreign` is one of them and it allows to import data from other applications. Its functions are of the form
+
+```r
+read.XXX
+```
+ where the `XXX` is an extension specific to the external software. Examples include "read.dta" for Stata data files, `read.spss` for SPSS files or `read.dbf` for dBASE files.   
+
+A very important data source type is Excel. Functions for this type of data are covered in Chapter \@ref(readr) from the part on `tidyverse`.
+
+
+## Scanning a file
+
+The base function `scan` can sometimes be useful, though it is not used to import data. `scan()` imports to a vector (or a list), which can then be used.   
+
+- `what` gives the type of vector to be imported.  
+- `skip` is the number of lines to be skipped in the file.  
+- `nlines` determines the number of lines to be read and imported.
+
+```{r}
+df <- scan("AH001.txt", what=character())
+#df
+df <- scan("AH001.txt", what=character(), skip=1, sep=",")
+#df
+given.line <- scan("AH001.txt", what=character(), nlines=1, sep=",")
+given.line
+```
+
+
+
+
+

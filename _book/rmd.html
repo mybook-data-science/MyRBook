@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 2 .Rmd source files | Learning R for Data Science</title>
+  <meta name="description" content="These are notes gathering my experience in R for data science.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 2 .Rmd source files | Learning R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are notes gathering my experience in R for data science." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 .Rmd source files | Learning R for Data Science" />
+  
+  <meta name="twitter:description" content="These are notes gathering my experience in R for data science." />
+  
+
+<meta name="author" content="Antonio Fidalgo">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="getsarted.html">
+<link rel="next" href="custom-ouptut.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Learning R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a></li>
+<li class="chapter" data-level="1" data-path="getsarted.html"><a href="getsarted.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1.1" data-path="getsarted.html"><a href="getsarted.html#install-applications"><i class="fa fa-check"></i><b>1.1</b> Install applications</a></li>
+<li class="chapter" data-level="1.2" data-path="getsarted.html"><a href="getsarted.html#sign-for-github"><i class="fa fa-check"></i><b>1.2</b> Sign for GitHub</a></li>
+<li class="chapter" data-level="1.3" data-path="getsarted.html"><a href="getsarted.html#create-your-project"><i class="fa fa-check"></i><b>1.3</b> Create your project</a></li>
+<li class="chapter" data-level="1.4" data-path="getsarted.html"><a href="getsarted.html#create-github-repo-and-link-your-machine-to-it"><i class="fa fa-check"></i><b>1.4</b> Create GitHub repo and link your machine to it</a></li>
+<li class="chapter" data-level="1.5" data-path="getsarted.html"><a href="getsarted.html#collaboration-on-github"><i class="fa fa-check"></i><b>1.5</b> Collaboration on GitHub</a></li>
+</ul></li>
+<li class="part"><span><b>I Source and output files</b></span></li>
+<li class="chapter" data-level="2" data-path="rmd.html"><a href="rmd.html"><i class="fa fa-check"></i><b>2</b> <code>.Rmd</code> source files</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmd.html"><a href="rmd.html#options-for-all-chunks"><i class="fa fa-check"></i><b>2.1</b> Options for all chunks</a></li>
+<li class="chapter" data-level="2.2" data-path="rmd.html"><a href="rmd.html#latex"><i class="fa fa-check"></i><b>2.2</b> Latex code</a></li>
+<li class="chapter" data-level="2.3" data-path="rmd.html"><a href="rmd.html#figures"><i class="fa fa-check"></i><b>2.3</b> Figures</a></li>
+<li class="chapter" data-level="2.4" data-path="rmd.html"><a href="rmd.html#cr"><i class="fa fa-check"></i><b>2.4</b> Cross-references</a></li>
+<li class="chapter" data-level="2.5" data-path="rmd.html"><a href="rmd.html#citations"><i class="fa fa-check"></i><b>2.5</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custom-ouptut.html"><a href="custom-ouptut.html"><i class="fa fa-check"></i><b>3</b> Customize output</a><ul>
+<li class="chapter" data-level="3.1" data-path="custom-ouptut.html"><a href="custom-ouptut.html#multiple-built-in-output-types"><i class="fa fa-check"></i><b>3.1</b> Multiple built-in output types</a></li>
+<li class="chapter" data-level="3.2" data-path="custom-ouptut.html"><a href="custom-ouptut.html#new-types-provided-by-packages"><i class="fa fa-check"></i><b>3.2</b> New types provided by packages</a></li>
+<li class="chapter" data-level="3.3" data-path="custom-ouptut.html"><a href="custom-ouptut.html#css-custom-html"><i class="fa fa-check"></i><b>3.3</b> CSS: custom html</a></li>
+<li class="chapter" data-level="3.4" data-path="custom-ouptut.html"><a href="custom-ouptut.html#latex-preamble"><i class="fa fa-check"></i><b>3.4</b> Latex preamble</a></li>
+</ul></li>
+<li class="part"><span><b>II R Basics</b></span></li>
+<li class="chapter" data-level="4" data-path="rcalc.html"><a href="rcalc.html"><i class="fa fa-check"></i><b>4</b> R as a calculator</a><ul>
+<li class="chapter" data-level="4.1" data-path="rcalc.html"><a href="rcalc.html#usual-operators"><i class="fa fa-check"></i><b>4.1</b> Usual operators</a></li>
+<li class="chapter" data-level="4.2" data-path="rcalc.html"><a href="rcalc.html#unusual-operators"><i class="fa fa-check"></i><b>4.2</b> Unusual operators</a></li>
+<li class="chapter" data-level="4.3" data-path="rcalc.html"><a href="rcalc.html#usual-functions"><i class="fa fa-check"></i><b>4.3</b> Usual functions</a></li>
+<li class="chapter" data-level="4.4" data-path="rcalc.html"><a href="rcalc.html#unusual-functions"><i class="fa fa-check"></i><b>4.4</b> Unusual functions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="datastructures.html"><a href="datastructures.html"><i class="fa fa-check"></i><b>5</b> Data stuctures</a><ul>
+<li class="chapter" data-level="5.1" data-path="datastructures.html"><a href="datastructures.html#atomic-vectors"><i class="fa fa-check"></i><b>5.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="5.2" data-path="datastructures.html"><a href="datastructures.html#matrices-and-arrays"><i class="fa fa-check"></i><b>5.2</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="5.3" data-path="datastructures.html"><a href="datastructures.html#lists"><i class="fa fa-check"></i><b>5.3</b> Lists</a></li>
+<li class="chapter" data-level="5.4" data-path="datastructures.html"><a href="datastructures.html#data-frames"><i class="fa fa-check"></i><b>5.4</b> Data frames</a></li>
+<li class="chapter" data-level="5.5" data-path="datastructures.html"><a href="datastructures.html#a-word-about-attributes"><i class="fa fa-check"></i><b>5.5</b> A word about attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="datastructures.html"><a href="datastructures.html#environments"><i class="fa fa-check"></i><b>5.6</b> Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html"><i class="fa fa-check"></i><b>6</b> Simple functions on vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#element-by-element-evaluation"><i class="fa fa-check"></i><b>6.1</b> Element by element evaluation</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#recycling-rule"><i class="fa fa-check"></i><b>6.2</b> Recycling rule</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#functions-for-the-whole-vector"><i class="fa fa-check"></i><b>6.3</b> Functions for the whole vector</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="subset.html"><a href="subset.html"><i class="fa fa-check"></i><b>7</b> Subsetting</a><ul>
+<li class="chapter" data-level="7.1" data-path="subset.html"><a href="subset.html#section"><i class="fa fa-check"></i><b>7.1</b> <code>[]</code></a></li>
+<li class="chapter" data-level="7.2" data-path="subset.html"><a href="subset.html#section-1"><i class="fa fa-check"></i><b>7.2</b> <code>[[]]</code></a></li>
+<li class="chapter" data-level="7.3" data-path="subset.html"><a href="subset.html#section-2"><i class="fa fa-check"></i><b>7.3</b> <code>$</code></a></li>
+<li class="chapter" data-level="7.4" data-path="subset.html"><a href="subset.html#combining-subsetting"><i class="fa fa-check"></i><b>7.4</b> Combining subsetting</a></li>
+<li class="chapter" data-level="7.5" data-path="subset.html"><a href="subset.html#subsetting-with-one-condition"><i class="fa fa-check"></i><b>7.5</b> Subsetting with one condition</a></li>
+<li class="chapter" data-level="7.6" data-path="subset.html"><a href="subset.html#subsetting-and-assignment"><i class="fa fa-check"></i><b>7.6</b> Subsetting and assignment</a></li>
+<li class="chapter" data-level="7.7" data-path="subset.html"><a href="subset.html#using-which"><i class="fa fa-check"></i><b>7.7</b> Using <code>which()</code></a></li>
+<li class="chapter" data-level="7.8" data-path="subset.html"><a href="subset.html#more-advanced-stuff"><i class="fa fa-check"></i><b>7.8</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conditions.html"><a href="conditions.html"><i class="fa fa-check"></i><b>8</b> Conditions</a><ul>
+<li class="chapter" data-level="8.1" data-path="conditions.html"><a href="conditions.html#if-statement"><i class="fa fa-check"></i><b>8.1</b> <code>if</code> statement</a></li>
+<li class="chapter" data-level="8.2" data-path="conditions.html"><a href="conditions.html#else-statement"><i class="fa fa-check"></i><b>8.2</b> <code>else</code> statement</a></li>
+<li class="chapter" data-level="8.3" data-path="conditions.html"><a href="conditions.html#else-if-statement"><i class="fa fa-check"></i><b>8.3</b> <code>else if</code> statement</a></li>
+<li class="chapter" data-level="8.4" data-path="conditions.html"><a href="conditions.html#ifelse-statement"><i class="fa fa-check"></i><b>8.4</b> <code>ifelse</code> statement</a></li>
+<li class="chapter" data-level="8.5" data-path="conditions.html"><a href="conditions.html#logical-operators-and"><i class="fa fa-check"></i><b>8.5</b> Logical operators: <code>&amp;</code>, <code>|</code> and <code>!</code></a></li>
+<li class="chapter" data-level="8.6" data-path="conditions.html"><a href="conditions.html#writing-and-interpreting-a-condition"><i class="fa fa-check"></i><b>8.6</b> Writing and interpreting a condition</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>9</b> Functions</a><ul>
+<li class="chapter" data-level="9.1" data-path="functions.html"><a href="functions.html#structure-of-a-simple-function"><i class="fa fa-check"></i><b>9.1</b> Structure of a simple function</a></li>
+<li class="chapter" data-level="9.2" data-path="functions.html"><a href="functions.html#multiple-arguments-and-their-identification"><i class="fa fa-check"></i><b>9.2</b> Multiple arguments and their identification</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>10</b> Loops (avoid them)</a><ul>
+<li class="chapter" data-level="10.1" data-path="loops.html"><a href="loops.html#introduction-to-loops-with-a-silly-example-bad-r-coding"><i class="fa fa-check"></i><b>10.1</b> Introduction to loops with a silly example (bad R coding)</a></li>
+<li class="chapter" data-level="10.2" data-path="loops.html"><a href="loops.html#general-form-of-a-for-loop"><i class="fa fa-check"></i><b>10.2</b> General form of a <code>for</code> loop</a></li>
+<li class="chapter" data-level="10.3" data-path="loops.html"><a href="loops.html#a-good-example-of-a-loop"><i class="fa fa-check"></i><b>10.3</b> A good example of a loop</a></li>
+<li class="chapter" data-level="10.4" data-path="loops.html"><a href="loops.html#looping-over-non-numeric-elements"><i class="fa fa-check"></i><b>10.4</b> Looping over non-numeric elements</a></li>
+<li class="chapter" data-level="10.5" data-path="loops.html"><a href="loops.html#more-advanced-stuff-1"><i class="fa fa-check"></i><b>10.5</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>11</b> Import data to R</a><ul>
+<li class="chapter" data-level="11.1" data-path="import.html"><a href="import.html#reading-rectangular-data"><i class="fa fa-check"></i><b>11.1</b> Reading rectangular data</a></li>
+<li class="chapter" data-level="11.2" data-path="import.html"><a href="import.html#read-other-data-types"><i class="fa fa-check"></i><b>11.2</b> Read other data types</a></li>
+<li class="chapter" data-level="11.3" data-path="import.html"><a href="import.html#scanning-a-file"><i class="fa fa-check"></i><b>11.3</b> Scanning a file</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="splots.html"><a href="splots.html"><i class="fa fa-check"></i><b>12</b> Simple plots</a><ul>
+<li class="chapter" data-level="12.1" data-path="splots.html"><a href="splots.html#line-plots"><i class="fa fa-check"></i><b>12.1</b> Line plots</a></li>
+<li class="chapter" data-level="12.2" data-path="splots.html"><a href="splots.html#bar-graphs-and-histograms"><i class="fa fa-check"></i><b>12.2</b> Bar graphs and histograms</a></li>
+</ul></li>
+<li class="part"><span><b>III Tidyverse</b></span></li>
+<li class="chapter" data-level="13" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>13</b> What is <code>tidyverse</code></a></li>
+<li class="chapter" data-level="14" data-path="tibble.html"><a href="tibble.html"><i class="fa fa-check"></i><b>14</b> <code>tibble</code></a><ul>
+<li class="chapter" data-level="14.1" data-path="tibble.html"><a href="tibble.html#creating-a-tibble"><i class="fa fa-check"></i><b>14.1</b> Creating a tibble</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>15</b> <code>readr</code> and <code>readxl</code></a><ul>
+<li class="chapter" data-level="15.1" data-path="readr.html"><a href="readr.html#readr-1"><i class="fa fa-check"></i><b>15.1</b> <code>readr</code></a></li>
+<li class="chapter" data-level="15.2" data-path="readr.html"><a href="readr.html#readxl"><i class="fa fa-check"></i><b>15.2</b> <code>readxl</code></a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="magrittr.html"><a href="magrittr.html"><i class="fa fa-check"></i><b>16</b> <code>magrittr</code></a><ul>
+<li class="chapter" data-level="16.1" data-path="magrittr.html"><a href="magrittr.html#how-to-pipe"><i class="fa fa-check"></i><b>16.1</b> How to pipe</a></li>
+<li class="chapter" data-level="16.2" data-path="magrittr.html"><a href="magrittr.html#using-a-placeholder"><i class="fa fa-check"></i><b>16.2</b> Using a placeholder</a></li>
+<li class="chapter" data-level="16.3" data-path="magrittr.html"><a href="magrittr.html#multiple-placeholders"><i class="fa fa-check"></i><b>16.3</b> Multiple placeholders</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="tidyr.html"><a href="tidyr.html"><i class="fa fa-check"></i><b>17</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="17.1" data-path="tidyr.html"><a href="tidyr.html#gather"><i class="fa fa-check"></i><b>17.1</b> <code>gather</code></a></li>
+<li class="chapter" data-level="17.2" data-path="tidyr.html"><a href="tidyr.html#spread"><i class="fa fa-check"></i><b>17.2</b> <code>spread</code></a></li>
+<li class="chapter" data-level="17.3" data-path="tidyr.html"><a href="tidyr.html#separate"><i class="fa fa-check"></i><b>17.3</b> <code>separate</code></a></li>
+<li class="chapter" data-level="17.4" data-path="tidyr.html"><a href="tidyr.html#unite"><i class="fa fa-check"></i><b>17.4</b> <code>unite</code></a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>18</b> <code>dplyr</code></a><ul>
+<li class="chapter" data-level="18.1" data-path="dplyr.html"><a href="dplyr.html#grammar-of-data-manipulation"><i class="fa fa-check"></i><b>18.1</b> Grammar of data manipulation</a></li>
+<li class="chapter" data-level="18.2" data-path="dplyr.html"><a href="dplyr.html#select"><i class="fa fa-check"></i><b>18.2</b> <code>select</code></a></li>
+<li class="chapter" data-level="18.3" data-path="dplyr.html"><a href="dplyr.html#mutate"><i class="fa fa-check"></i><b>18.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="18.4" data-path="dplyr.html"><a href="dplyr.html#filter"><i class="fa fa-check"></i><b>18.4</b> <code>filter</code></a></li>
+<li class="chapter" data-level="18.5" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>18.5</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="18.6" data-path="dplyr.html"><a href="dplyr.html#summarise"><i class="fa fa-check"></i><b>18.6</b> <code>summarise</code></a></li>
+<li class="chapter" data-level="18.7" data-path="dplyr.html"><a href="dplyr.html#piping-verbs"><i class="fa fa-check"></i><b>18.7</b> Piping verbs</a></li>
+<li class="chapter" data-level="18.8" data-path="dplyr.html"><a href="dplyr.html#group_by"><i class="fa fa-check"></i><b>18.8</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="18.9" data-path="dplyr.html"><a href="dplyr.html#keys-for-joins"><i class="fa fa-check"></i><b>18.9</b> Keys for joins</a></li>
+<li class="chapter" data-level="18.10" data-path="dplyr.html"><a href="dplyr.html#joins"><i class="fa fa-check"></i><b>18.10</b> Joins</a></li>
+<li class="chapter" data-level="18.11" data-path="dplyr.html"><a href="dplyr.html#operations-on-data-sets"><i class="fa fa-check"></i><b>18.11</b> Operations on data sets</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>19</b> <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="19.1" data-path="ggplot2.html"><a href="ggplot2.html#comparison-with-base-plot"><i class="fa fa-check"></i><b>19.1</b> Comparison with base <code>plot</code></a></li>
+<li class="chapter" data-level="19.2" data-path="ggplot2.html"><a href="ggplot2.html#grammar-of-graphics---leland-wilkinson"><i class="fa fa-check"></i><b>19.2</b> Grammar of graphics - Leland Wilkinson</a></li>
+<li class="chapter" data-level="19.3" data-path="ggplot2.html"><a href="ggplot2.html#understanding-the-grammar"><i class="fa fa-check"></i><b>19.3</b> Understanding the grammar</a></li>
+<li class="chapter" data-level="19.4" data-path="ggplot2.html"><a href="ggplot2.html#aesthetics-1"><i class="fa fa-check"></i><b>19.4</b> Aesthetics</a></li>
+<li class="chapter" data-level="19.5" data-path="ggplot2.html"><a href="ggplot2.html#geometries-1"><i class="fa fa-check"></i><b>19.5</b> Geometries</a></li>
+</ul></li>
+<li class="part"><span><b>IV Intermediate R</b></span></li>
+<li class="chapter" data-level="20" data-path="functionals.html"><a href="functionals.html"><i class="fa fa-check"></i><b>20</b> Functionals</a><ul>
+<li class="chapter" data-level="20.1" data-path="functionals.html"><a href="functionals.html#the-apply-family"><i class="fa fa-check"></i><b>20.1</b> The <code>apply</code> family</a></li>
+<li class="chapter" data-level="20.2" data-path="functionals.html"><a href="functionals.html#apply"><i class="fa fa-check"></i><b>20.2</b> <code>apply</code></a></li>
+<li class="chapter" data-level="20.3" data-path="functionals.html"><a href="functionals.html#lapply"><i class="fa fa-check"></i><b>20.3</b> <code>lapply</code></a></li>
+<li class="chapter" data-level="20.4" data-path="functionals.html"><a href="functionals.html#sapply"><i class="fa fa-check"></i><b>20.4</b> <code>sapply</code></a></li>
+<li class="chapter" data-level="20.5" data-path="functionals.html"><a href="functionals.html#multicore-implementation"><i class="fa fa-check"></i><b>20.5</b> Multicore implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="scoping.html"><a href="scoping.html"><i class="fa fa-check"></i><b>21</b> Scoping</a><ul>
+<li class="chapter" data-level="21.1" data-path="scoping.html"><a href="scoping.html#introduction"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="scoping.html"><a href="scoping.html#rule-1-name-masking"><i class="fa fa-check"></i><b>21.2</b> Rule 1: name masking</a></li>
+<li class="chapter" data-level="21.3" data-path="scoping.html"><a href="scoping.html#rule-2-fresh-start"><i class="fa fa-check"></i><b>21.3</b> Rule 2: fresh start</a></li>
+<li class="chapter" data-level="21.4" data-path="scoping.html"><a href="scoping.html#rule-3-dynamic-lookup"><i class="fa fa-check"></i><b>21.4</b> Rule 3: dynamic lookup</a></li>
+<li class="chapter" data-level="21.5" data-path="scoping.html"><a href="scoping.html#functions-inside-functions"><i class="fa fa-check"></i><b>21.5</b> Functions inside functions</a></li>
+<li class="chapter" data-level="21.6" data-path="scoping.html"><a href="scoping.html#examples"><i class="fa fa-check"></i><b>21.6</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>V Conclusion</b></span></li>
+<li class="chapter" data-level="22" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>22</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rmd" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> <code>.Rmd</code> source files</h1>
+<p>This chapter gathers general comments about <code>.Rmd</code> files.</p>
+<div id="options-for-all-chunks" class="section level2">
+<h2><span class="header-section-number">2.1</span> Options for all chunks</h2>
+<p>It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks.<br />
+A natural place to set these options is in a first R chunk.</p>
+<pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">OPTION1 =</span> <span class="ot">TRUE</span><span class="op">/</span><span class="ot">FALSE</span>,
+                      <span class="dt">OPTION2 =</span> <span class="ot">TRUE</span><span class="op">/</span><span class="ot">FALSE</span>,
+                      ...)</code></pre>
+<p>Importantly, these options are overridden by the particular chunk options.</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r, OPTION2=FALSE}</span></code></pre>
+<p>Options actually take R code. So, the following are examples that could be used to define the option.</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r, eval=4&gt;3, echo=format(Sys.Date(), &#39;%Y-%B-%d&#39;) &gt; &#39;2019-March-10&#39;}</span>
+<span class="bn"># eval is always TRUE</span>
+<span class="bn"># echo = TRUE if current date is after March 10, 2019</span>
+<span class="bn">```</span></code></pre>
+<p>The list of options can be found here <a href="https://yihui.name/knitr/options/">https://yihui.name/knitr/options/</a>. Below are some comments on some of these options (the least trivial for the author).</p>
+<ul>
+<li><code>collapse</code> determines whether the source code and the output should be merged into a single block.
+Here is the same chunk with different values of the option:</li>
+</ul>
+<p><code>collapse=TRUE</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+<span class="co">#R&gt; [1] 4</span>
+<span class="dv">3</span><span class="op">*</span><span class="st"> </span><span class="dv">5</span>
+<span class="co">#R&gt; [1] 15</span></code></pre>
+<p><code>collapse=FALSE</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">+</span><span class="st"> </span><span class="dv">2</span></code></pre>
+<pre><code>#R&gt; [1] 4</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span><span class="op">*</span><span class="st"> </span><span class="dv">5</span></code></pre>
+<pre><code>#R&gt; [1] 15</code></pre>
+<ul>
+<li><code>comment</code> gives the string to be printed before the output.</li>
+</ul>
+<p><code>comment='##'</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+<span class="co">## [1] 4</span></code></pre>
+<p><code>comment='R&gt;'</code></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">+</span><span class="st"> </span><span class="dv">2</span>
+R<span class="op">&gt;</span><span class="st"> </span>[<span class="dv">1</span>] <span class="dv">4</span></code></pre>
+<p>Worth noting: a <code>#</code> as a first character of the comment string (with <code>collpase=TRUE</code>) turns the output font into a comment-like text.</p>
+<ul>
+<li><code>child</code> allows a document to call and use another file as input in the document.</li>
+</ul>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r, child=&#39;PATH/TO/OTHER/file.Rmd&#39;}</span></code></pre>
+<p>The path can be either absolute or relative.<br />
+For relative paths, the following applies:</p>
+<ul>
+<li><code>~/</code> starts a path a the root,</li>
+<li><code>../</code> indicates the parent directory,</li>
+<li><code>../../</code> for parent of the parent directory,</li>
+<li>to move forward, start with the name of the included folder in the current directory.</li>
+</ul>
+</div>
+<div id="latex" class="section level2">
+<h2><span class="header-section-number">2.2</span> Latex code</h2>
+<p>The overwhelming reason to introduce Latex code in a <code>.Rmd</code> file is for typesetting mathematical expressions.<br />
+There are two main ways to type math in Latex:</p>
+<ul>
+<li>in the text, surrounded by special delimiters, <code>\( math \)</code> (alternatively, one can use the deprecated <code>$ math $</code>),</li>
+<li>in an equation, surrounded by special delimiters, <code>\[ math equation \]</code>, or in a dedicated environment such as <code>\begin{equation} math equation \end{equation}</code> (also deprecated, <code>$$ math equation $$</code>).</li>
+</ul>
+<p>Math format is usually distinct from the text format. For instance, compare a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup> (simple markdown) to <span class="math inline">\(a^2 + b^2 = c^2\)</span> (Latex). Notice, however, that most mathematical symbols are not supported by markdown. This why basic knowledge of Latex is essential for producing documents with math formula.<br />
+The first part of that knowledge consists in the list of Latex symbols. These are typed into a document starting with a slash <code>\</code>. For instance, the Latex symbol <span class="math inline">\(\alpha\)</span> is produced by the code <code>\alpha</code> while <span class="math inline">\(\sum\)</span> is given by <code>\sum</code>.<br />
+Superscripts and subscripts are produced with the characters <code>^</code> and <code>_</code>, respectively, and the content of the super- and subscripts enclosed within <code>{ }</code>. For instance, <span class="math inline">\(x_{2}^{3}\)</span> is produced by the code <code>x_{2}^{3}</code> (or <code>x^{3}_{2}</code>) and <span class="math inline">\(\sum_{i=1}^{4}\)</span> is given by <code>\sum_{i=1}^{4}</code>.<br />
+A comprehensive list of symbols (some of them requiring special Latex packages) can be found in <span class="citation">Pakin (<a href="#ref-latexlist" role="doc-biblioref">2009</a>)</span>. Shorter lists can be found online, including on <a href="https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols">wiki</a>.<br />
+A web-based application helps beginners by offering suggestions to a hand-drawn symbol, <a href="http://detexify.kirelabs.org/classify.html">detexify</a>.<br />
+A second bulk in the knowledge of Latex is the understanding of special environments. But then, if a document requires lots of special Latex environments, then <code>.Rmd</code> files are not the most appropriate type of files to use.<br />
+Some of these environments, however, have a perfect integration in <code>.Rmd</code> files, such as the most common, the equation. Here is an example, given by the code</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">\[
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert &lt; 1
+\]</code></pre>
+<p><span class="math display">\[
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert &lt; 1
+\]</span></p>
+</div>
+<div id="figures" class="section level2">
+<h2><span class="header-section-number">2.3</span> Figures</h2>
+<p>Figures usually appear after the chunk that calls them, except on <code>.pdf</code> format because Latex makes them float and they may appear in the next page.<br />
+Beyond the actual R calls that produces the figure, the figure’s appearance will be tweaked by the options specified in the R chunk. The following options are worth noticing:</p>
+<ul>
+<li><code>fig.width</code> and <code>fig.height</code> set in inches the graphical device size of the R plots.</li>
+<li><code>out.width</code> and <code>out.height</code> set the size of the R plots, including possibly rescaled images. Easier use with percentages as <code>out-width = "50%"</code> means that the figure stretches over 50% of the page’s width.</li>
+<li><code>fig.align</code> takes the value <code>left</code>, <code>right</code> or <code>center</code> and is self-explained.</li>
+<li><code>fig.cap</code> sets the caption of the figure.</li>
+<li><code>fig.show</code> takes the default value <code>asis</code> to produce the command as it is read by R. Contrast this with the value <code>hold</code> which forces R to wait until the end of the chunk to produce the plots. It may be useful to hold if one wants to put multiple plots on the same line (side-by-side).</li>
+</ul>
+<p>As an example, the figure below was created with the chunk options</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r plot-one, echo=FALSE, out.width=&quot;60%&quot;,</span>
+<span class="bn">fig.align=&quot;center&quot;, fig.cap=&quot;Including a plot.&quot;}</span></code></pre>
+<div class="figure" style="text-align: center"><span id="fig:plot-one"></span>
+<img src="MyR_files/figure-html/plot-one-1.png" alt="Including a plot." width="60%" />
+<p class="caption">
+Figure 2.1: Including a plot.
+</p>
+</div>
+<p>For two plots next to each other, the chunk options could be</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="bn">```{r plot-two, echo=FALSE, out.width=&quot;30%&quot;, fig.align=&quot;center&quot;,  </span>
+<span class="bn">fig.cap=&quot;Including two plots.&quot;, fig.show=&quot;hold&quot;}</span></code></pre>
+<div class="figure" style="text-align: center"><span id="fig:plot-two"></span>
+<img src="MyR_files/figure-html/plot-two-1.png" alt="Including two plots." width="30%" /><img src="MyR_files/figure-html/plot-two-2.png" alt="Including two plots." width="30%" />
+<p class="caption">
+Figure 2.2: Including two plots.
+</p>
+</div>
+</div>
+<div id="cr" class="section level2">
+<h2><span class="header-section-number">2.4</span> Cross-references</h2>
+<p>Cross-references are references to different elements somewhere in the content such as a specific chapter, figure, equation, etc.<br />
+These work under a simple rule: the element to be referenced takes a <strong>label</strong>, e.g., ‘foo’, and this label is called from anywhere in the text with the command <code>\@ref(foo)</code>.<br />
+Slightly different rules apply depending on which element is to be referenced. Below is a selected list.<br />
+Notice that all labels in <code>bookdown</code> can only contain alphanumeric characters, or the special characters <code>:</code>, <code>-</code>, and <code>/</code>.</p>
+<div id="cr-chapters" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Chapters, sections, …</h3>
+<p>Headers (chapters, sections, …) have an ID that serves as a label. By default, it is formed by the words of the header in small letters separated by dashes (e.g., <code>my-great-chapter</code>). It is better practice, however, to assign a label to useful headers by appending to them the code <code>{#foo}</code> where <code>foo</code> is the chosen label for the header.
+This subsection, for instance, has the header</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu">### Chapters, sections, ... {#cr-chapters}</span></code></pre>
+<p>The cross-reference is then achieved with <code>\@ref(foo)</code>.<br />
+As an example, notice that this line belongs to Subsection <a href="rmd.html#cr-chapters">2.4.1</a>, included in Section <a href="rmd.html#cr">2.4</a> of Chapter <a href="rmd.html#rmd">2</a>.<br />
+These cross-references were obtained by the text/code:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">As an example, notice that this line belongs to Subsection \@ref(cr-chapters), 
+included in Section \@ref(cr) of Chapter \@ref(rmd).</code></pre>
+<p>For <code>.html</code> formats, one may use a direct link to the header by using the format for regular links but with <code>#label</code> as the destination. For instance, since the label of this section is <code>cr</code>, the code <code>[Cross-references](#cr)</code> produces this link: <a href="rmd.html#cr">Cross-references</a>.</p>
+</div>
+<div id="figures-1" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Figures</h3>
+<p>The label of a figure is given by the name of the chunk where it was created preceded by <code>fig:</code>.<br />
+The chunk that created Figure <a href="rmd.html#fig:plot-one">2.1</a> had the name <code>plot-one</code>. Therefore, the cross-reference is achieved through <code>\@ref(fig:plot-one)</code>.</p>
+</div>
+<div id="tables" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Tables</h3>
+<p>The label of a table is given by the name of the chunk where it was created preceded by <code>tab:</code>.<br />
+If the chunk that created a Table had the name <code>table-one</code>, then cross-reference is achieved through <code>\@ref(tab:table-one)</code>.</p>
+</div>
+<div id="equations" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Equations</h3>
+<p>As explained in Section <a href="rmd.html#latex">2.2</a>, good rendering of equations requires coding in a Latex environment. For numbering of equations, various environments can be used, such as <code>equation</code>, <code>eqnarray</code>, etc.<br />
+The label is then included in this environment within parentheses and by adding the prefix <code>\#eq:</code>, e.g., <code>\#eq:foo</code>.<br />
+As for the cross-reference, one uses <code>\@ref(eq:foo)</code>.<br />
+Below is a modified version of the equation in Section <a href="rmd.html#latex">2.2</a> to include a number and a label.<br />
+This is Equation <a href="rmd.html#eq:series">(2.1)</a>.</p>
+<p><span class="math display" id="eq:series">\[\begin{equation} 
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert &lt; 1
+  \tag{2.1}
+\end{equation}\]</span></p>
+<p>The previous lines were obtained with the code:</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">This is Equation \@ref(eq:series).
+
+\begin{equation} 
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert &lt; 1
+  (\#eq:series)
+\end{equation}</code></pre>
+</div>
+</div>
+<div id="citations" class="section level2">
+<h2><span class="header-section-number">2.5</span> Citations</h2>
+<p>It is of utmost importance to give credit to sources. This subsection illustrates a simple way to make citations in <code>bookdown</code>. For further details, including for changing references styles, see this <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html">RStudio page</a>.<br />
+The general idea is similar to the cross-references. The source has a label <code>foo</code> and the citation is made with <code>@foo</code>.<br />
+There are numerous ways to tweak the format of the citation, but default format is often good enough.<br />
+The citation procedure in <code>bookdown</code> is borrowed from the Latex constellation.<br />
+Sources are listed in a separated bibliography file, <code>.bib</code>.<br />
+For use in <code>bookdown</code>, this file must be given in the <code>YAML</code> (along with its path if it is not in the same folder) under the entry <code>bibliography</code>:</p>
+<pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="ot">---</span>
+<span class="fu">title:</span><span class="at"> </span><span class="st">&quot;Great title&quot;</span>
+<span class="fu">output:</span><span class="at"> pdf_document</span>
+<span class="fu">bibliography:</span><span class="at"> BIBLIOGRAPHY_FILE.bib</span>
+<span class="ot">---</span></code></pre>
+<p>The <code>BIBLIOGRAPHY_FILE.bib</code> is a simple text file that has one entry for each source.<br />
+The format of this entry depends on the type of source (article, book, blogpost, etc). Its construction, however, is quite similar and simply requires some fields (some compulsory, other optional) such as in the following example for a book.</p>
+<pre class="sourceCode markdown"><code class="sourceCode markdown">@book{wickham2014,
+  title={Advanced {R}},
+  author={Wickham, Hadley},
+  year={2014},
+  publisher={Chapman and Hall/CRC}
+}</code></pre>
+<p>All the fields shown (<code>title</code>, <code>author</code>, <code>year</code> and <code>publisher</code>) are required for a book. Further fields such as <code>volume</code> or <code>edition</code> would be optional.<br />
+Importantly, notice the very first element in the curly brackets: that is the label of the source, freely chosen by the author.<br />
+The citation of this particular book would then be made thanks to the label, with the code <code>@wickham2014</code>.<br />
+A few comments are the following:</p>
+<ul>
+<li>a reference inside square brackets with or without a prefix and a suffix puts the citation inside parentheses: <code>[see the reference (prefix) @wickham2014 for further details (suffix)]</code> produces <span class="citation">(see the reference (prefix) Wickham <a href="#ref-wickham2014" role="doc-biblioref">2014</a> for further details (suffix))</span>,</li>
+<li>without square brackets, no parentheses in the output,</li>
+<li>multiple references are separated by a semi-column <code>;</code>: <code>[@wickham2014; @xie2015]</code>produces <span class="citation">(Wickham <a href="#ref-wickham2014" role="doc-biblioref">2014</a>; Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>,</li>
+<li>a minus sign <code>-</code> in front of the <code>@</code> suppresses the name of the author in the text: <code>-@wickham2014</code> produces <span class="citation">(<a href="#ref-wickham2014" role="doc-biblioref">2014</a>)</span>,</li>
+<li>the references are <strong>automatically</strong> put at the end of the book; the last level-one header should therefore be ‘Bibliography’ or ‘References’.</li>
+</ul>
+<div id="writing-.bib-entries" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Writing <code>.bib</code> entries</h3>
+<p>One advantage of using <code>.bib</code> files is that the fields for each entry, i.e., all the information about the source, are usually available online in the easiest of forms.<br />
+The site Google Scholar, for instance, provides these entries in <code>.bib</code> form.<br />
+As an example, search there the book mentioned above, e.g., “wickham advanced r”. Under each hit, there is an icon of inverted commas. By clicking it, the reference is given in different formats but also with a link to the BibTeX code (along with others). One can then simply copy this BibTex code and paste it anywhere in the bibliography file. For easier use, the label could be changed.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-latexlist">
+<p>Pakin, Scott. 2009. “The Comprehensive Latex Symbol List.” Citeseer.</p>
+</div>
+<div id="ref-wickham2014">
+<p>Wickham, Hadley. 2014. <em>Advanced R</em>. Chapman; Hall/CRC.</p>
+</div>
+<div id="ref-xie2015">
+<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="getsarted.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="custom-ouptut.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MyR.pdf", "MyR.epub"],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

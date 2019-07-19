@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 15 readr and readxl | Learning R for Data Science</title>
+  <meta name="description" content="These are notes gathering my experience in R for data science.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 15 readr and readxl | Learning R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are notes gathering my experience in R for data science." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 readr and readxl | Learning R for Data Science" />
+  
+  <meta name="twitter:description" content="These are notes gathering my experience in R for data science." />
+  
+
+<meta name="author" content="Antonio Fidalgo">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="tibble.html">
+<link rel="next" href="magrittr.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Learning R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a></li>
+<li class="chapter" data-level="1" data-path="getsarted.html"><a href="getsarted.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1.1" data-path="getsarted.html"><a href="getsarted.html#install-applications"><i class="fa fa-check"></i><b>1.1</b> Install applications</a></li>
+<li class="chapter" data-level="1.2" data-path="getsarted.html"><a href="getsarted.html#sign-for-github"><i class="fa fa-check"></i><b>1.2</b> Sign for GitHub</a></li>
+<li class="chapter" data-level="1.3" data-path="getsarted.html"><a href="getsarted.html#create-your-project"><i class="fa fa-check"></i><b>1.3</b> Create your project</a></li>
+<li class="chapter" data-level="1.4" data-path="getsarted.html"><a href="getsarted.html#create-github-repo-and-link-your-machine-to-it"><i class="fa fa-check"></i><b>1.4</b> Create GitHub repo and link your machine to it</a></li>
+<li class="chapter" data-level="1.5" data-path="getsarted.html"><a href="getsarted.html#collaboration-on-github"><i class="fa fa-check"></i><b>1.5</b> Collaboration on GitHub</a></li>
+</ul></li>
+<li class="part"><span><b>I Source and output files</b></span></li>
+<li class="chapter" data-level="2" data-path="rmd.html"><a href="rmd.html"><i class="fa fa-check"></i><b>2</b> <code>.Rmd</code> source files</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmd.html"><a href="rmd.html#options-for-all-chunks"><i class="fa fa-check"></i><b>2.1</b> Options for all chunks</a></li>
+<li class="chapter" data-level="2.2" data-path="rmd.html"><a href="rmd.html#latex"><i class="fa fa-check"></i><b>2.2</b> Latex code</a></li>
+<li class="chapter" data-level="2.3" data-path="rmd.html"><a href="rmd.html#figures"><i class="fa fa-check"></i><b>2.3</b> Figures</a></li>
+<li class="chapter" data-level="2.4" data-path="rmd.html"><a href="rmd.html#cr"><i class="fa fa-check"></i><b>2.4</b> Cross-references</a></li>
+<li class="chapter" data-level="2.5" data-path="rmd.html"><a href="rmd.html#citations"><i class="fa fa-check"></i><b>2.5</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custom-ouptut.html"><a href="custom-ouptut.html"><i class="fa fa-check"></i><b>3</b> Customize output</a><ul>
+<li class="chapter" data-level="3.1" data-path="custom-ouptut.html"><a href="custom-ouptut.html#multiple-built-in-output-types"><i class="fa fa-check"></i><b>3.1</b> Multiple built-in output types</a></li>
+<li class="chapter" data-level="3.2" data-path="custom-ouptut.html"><a href="custom-ouptut.html#new-types-provided-by-packages"><i class="fa fa-check"></i><b>3.2</b> New types provided by packages</a></li>
+<li class="chapter" data-level="3.3" data-path="custom-ouptut.html"><a href="custom-ouptut.html#css-custom-html"><i class="fa fa-check"></i><b>3.3</b> CSS: custom html</a></li>
+<li class="chapter" data-level="3.4" data-path="custom-ouptut.html"><a href="custom-ouptut.html#latex-preamble"><i class="fa fa-check"></i><b>3.4</b> Latex preamble</a></li>
+</ul></li>
+<li class="part"><span><b>II R Basics</b></span></li>
+<li class="chapter" data-level="4" data-path="rcalc.html"><a href="rcalc.html"><i class="fa fa-check"></i><b>4</b> R as a calculator</a><ul>
+<li class="chapter" data-level="4.1" data-path="rcalc.html"><a href="rcalc.html#usual-operators"><i class="fa fa-check"></i><b>4.1</b> Usual operators</a></li>
+<li class="chapter" data-level="4.2" data-path="rcalc.html"><a href="rcalc.html#unusual-operators"><i class="fa fa-check"></i><b>4.2</b> Unusual operators</a></li>
+<li class="chapter" data-level="4.3" data-path="rcalc.html"><a href="rcalc.html#usual-functions"><i class="fa fa-check"></i><b>4.3</b> Usual functions</a></li>
+<li class="chapter" data-level="4.4" data-path="rcalc.html"><a href="rcalc.html#unusual-functions"><i class="fa fa-check"></i><b>4.4</b> Unusual functions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="datastructures.html"><a href="datastructures.html"><i class="fa fa-check"></i><b>5</b> Data stuctures</a><ul>
+<li class="chapter" data-level="5.1" data-path="datastructures.html"><a href="datastructures.html#atomic-vectors"><i class="fa fa-check"></i><b>5.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="5.2" data-path="datastructures.html"><a href="datastructures.html#matrices-and-arrays"><i class="fa fa-check"></i><b>5.2</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="5.3" data-path="datastructures.html"><a href="datastructures.html#lists"><i class="fa fa-check"></i><b>5.3</b> Lists</a></li>
+<li class="chapter" data-level="5.4" data-path="datastructures.html"><a href="datastructures.html#data-frames"><i class="fa fa-check"></i><b>5.4</b> Data frames</a></li>
+<li class="chapter" data-level="5.5" data-path="datastructures.html"><a href="datastructures.html#a-word-about-attributes"><i class="fa fa-check"></i><b>5.5</b> A word about attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="datastructures.html"><a href="datastructures.html#environments"><i class="fa fa-check"></i><b>5.6</b> Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html"><i class="fa fa-check"></i><b>6</b> Simple functions on vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#element-by-element-evaluation"><i class="fa fa-check"></i><b>6.1</b> Element by element evaluation</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#recycling-rule"><i class="fa fa-check"></i><b>6.2</b> Recycling rule</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#functions-for-the-whole-vector"><i class="fa fa-check"></i><b>6.3</b> Functions for the whole vector</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="subset.html"><a href="subset.html"><i class="fa fa-check"></i><b>7</b> Subsetting</a><ul>
+<li class="chapter" data-level="7.1" data-path="subset.html"><a href="subset.html#section"><i class="fa fa-check"></i><b>7.1</b> <code>[]</code></a></li>
+<li class="chapter" data-level="7.2" data-path="subset.html"><a href="subset.html#section-1"><i class="fa fa-check"></i><b>7.2</b> <code>[[]]</code></a></li>
+<li class="chapter" data-level="7.3" data-path="subset.html"><a href="subset.html#section-2"><i class="fa fa-check"></i><b>7.3</b> <code>$</code></a></li>
+<li class="chapter" data-level="7.4" data-path="subset.html"><a href="subset.html#combining-subsetting"><i class="fa fa-check"></i><b>7.4</b> Combining subsetting</a></li>
+<li class="chapter" data-level="7.5" data-path="subset.html"><a href="subset.html#subsetting-with-one-condition"><i class="fa fa-check"></i><b>7.5</b> Subsetting with one condition</a></li>
+<li class="chapter" data-level="7.6" data-path="subset.html"><a href="subset.html#subsetting-and-assignment"><i class="fa fa-check"></i><b>7.6</b> Subsetting and assignment</a></li>
+<li class="chapter" data-level="7.7" data-path="subset.html"><a href="subset.html#using-which"><i class="fa fa-check"></i><b>7.7</b> Using <code>which()</code></a></li>
+<li class="chapter" data-level="7.8" data-path="subset.html"><a href="subset.html#more-advanced-stuff"><i class="fa fa-check"></i><b>7.8</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conditions.html"><a href="conditions.html"><i class="fa fa-check"></i><b>8</b> Conditions</a><ul>
+<li class="chapter" data-level="8.1" data-path="conditions.html"><a href="conditions.html#if-statement"><i class="fa fa-check"></i><b>8.1</b> <code>if</code> statement</a></li>
+<li class="chapter" data-level="8.2" data-path="conditions.html"><a href="conditions.html#else-statement"><i class="fa fa-check"></i><b>8.2</b> <code>else</code> statement</a></li>
+<li class="chapter" data-level="8.3" data-path="conditions.html"><a href="conditions.html#else-if-statement"><i class="fa fa-check"></i><b>8.3</b> <code>else if</code> statement</a></li>
+<li class="chapter" data-level="8.4" data-path="conditions.html"><a href="conditions.html#ifelse-statement"><i class="fa fa-check"></i><b>8.4</b> <code>ifelse</code> statement</a></li>
+<li class="chapter" data-level="8.5" data-path="conditions.html"><a href="conditions.html#logical-operators-and"><i class="fa fa-check"></i><b>8.5</b> Logical operators: <code>&amp;</code>, <code>|</code> and <code>!</code></a></li>
+<li class="chapter" data-level="8.6" data-path="conditions.html"><a href="conditions.html#writing-and-interpreting-a-condition"><i class="fa fa-check"></i><b>8.6</b> Writing and interpreting a condition</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>9</b> Functions</a><ul>
+<li class="chapter" data-level="9.1" data-path="functions.html"><a href="functions.html#structure-of-a-simple-function"><i class="fa fa-check"></i><b>9.1</b> Structure of a simple function</a></li>
+<li class="chapter" data-level="9.2" data-path="functions.html"><a href="functions.html#multiple-arguments-and-their-identification"><i class="fa fa-check"></i><b>9.2</b> Multiple arguments and their identification</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>10</b> Loops (avoid them)</a><ul>
+<li class="chapter" data-level="10.1" data-path="loops.html"><a href="loops.html#introduction-to-loops-with-a-silly-example-bad-r-coding"><i class="fa fa-check"></i><b>10.1</b> Introduction to loops with a silly example (bad R coding)</a></li>
+<li class="chapter" data-level="10.2" data-path="loops.html"><a href="loops.html#general-form-of-a-for-loop"><i class="fa fa-check"></i><b>10.2</b> General form of a <code>for</code> loop</a></li>
+<li class="chapter" data-level="10.3" data-path="loops.html"><a href="loops.html#a-good-example-of-a-loop"><i class="fa fa-check"></i><b>10.3</b> A good example of a loop</a></li>
+<li class="chapter" data-level="10.4" data-path="loops.html"><a href="loops.html#looping-over-non-numeric-elements"><i class="fa fa-check"></i><b>10.4</b> Looping over non-numeric elements</a></li>
+<li class="chapter" data-level="10.5" data-path="loops.html"><a href="loops.html#more-advanced-stuff-1"><i class="fa fa-check"></i><b>10.5</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>11</b> Import data to R</a><ul>
+<li class="chapter" data-level="11.1" data-path="import.html"><a href="import.html#reading-rectangular-data"><i class="fa fa-check"></i><b>11.1</b> Reading rectangular data</a></li>
+<li class="chapter" data-level="11.2" data-path="import.html"><a href="import.html#read-other-data-types"><i class="fa fa-check"></i><b>11.2</b> Read other data types</a></li>
+<li class="chapter" data-level="11.3" data-path="import.html"><a href="import.html#scanning-a-file"><i class="fa fa-check"></i><b>11.3</b> Scanning a file</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="splots.html"><a href="splots.html"><i class="fa fa-check"></i><b>12</b> Simple plots</a><ul>
+<li class="chapter" data-level="12.1" data-path="splots.html"><a href="splots.html#line-plots"><i class="fa fa-check"></i><b>12.1</b> Line plots</a></li>
+<li class="chapter" data-level="12.2" data-path="splots.html"><a href="splots.html#bar-graphs-and-histograms"><i class="fa fa-check"></i><b>12.2</b> Bar graphs and histograms</a></li>
+</ul></li>
+<li class="part"><span><b>III Tidyverse</b></span></li>
+<li class="chapter" data-level="13" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>13</b> What is <code>tidyverse</code></a></li>
+<li class="chapter" data-level="14" data-path="tibble.html"><a href="tibble.html"><i class="fa fa-check"></i><b>14</b> <code>tibble</code></a><ul>
+<li class="chapter" data-level="14.1" data-path="tibble.html"><a href="tibble.html#creating-a-tibble"><i class="fa fa-check"></i><b>14.1</b> Creating a tibble</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>15</b> <code>readr</code> and <code>readxl</code></a><ul>
+<li class="chapter" data-level="15.1" data-path="readr.html"><a href="readr.html#readr-1"><i class="fa fa-check"></i><b>15.1</b> <code>readr</code></a></li>
+<li class="chapter" data-level="15.2" data-path="readr.html"><a href="readr.html#readxl"><i class="fa fa-check"></i><b>15.2</b> <code>readxl</code></a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="magrittr.html"><a href="magrittr.html"><i class="fa fa-check"></i><b>16</b> <code>magrittr</code></a><ul>
+<li class="chapter" data-level="16.1" data-path="magrittr.html"><a href="magrittr.html#how-to-pipe"><i class="fa fa-check"></i><b>16.1</b> How to pipe</a></li>
+<li class="chapter" data-level="16.2" data-path="magrittr.html"><a href="magrittr.html#using-a-placeholder"><i class="fa fa-check"></i><b>16.2</b> Using a placeholder</a></li>
+<li class="chapter" data-level="16.3" data-path="magrittr.html"><a href="magrittr.html#multiple-placeholders"><i class="fa fa-check"></i><b>16.3</b> Multiple placeholders</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="tidyr.html"><a href="tidyr.html"><i class="fa fa-check"></i><b>17</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="17.1" data-path="tidyr.html"><a href="tidyr.html#gather"><i class="fa fa-check"></i><b>17.1</b> <code>gather</code></a></li>
+<li class="chapter" data-level="17.2" data-path="tidyr.html"><a href="tidyr.html#spread"><i class="fa fa-check"></i><b>17.2</b> <code>spread</code></a></li>
+<li class="chapter" data-level="17.3" data-path="tidyr.html"><a href="tidyr.html#separate"><i class="fa fa-check"></i><b>17.3</b> <code>separate</code></a></li>
+<li class="chapter" data-level="17.4" data-path="tidyr.html"><a href="tidyr.html#unite"><i class="fa fa-check"></i><b>17.4</b> <code>unite</code></a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>18</b> <code>dplyr</code></a><ul>
+<li class="chapter" data-level="18.1" data-path="dplyr.html"><a href="dplyr.html#grammar-of-data-manipulation"><i class="fa fa-check"></i><b>18.1</b> Grammar of data manipulation</a></li>
+<li class="chapter" data-level="18.2" data-path="dplyr.html"><a href="dplyr.html#select"><i class="fa fa-check"></i><b>18.2</b> <code>select</code></a></li>
+<li class="chapter" data-level="18.3" data-path="dplyr.html"><a href="dplyr.html#mutate"><i class="fa fa-check"></i><b>18.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="18.4" data-path="dplyr.html"><a href="dplyr.html#filter"><i class="fa fa-check"></i><b>18.4</b> <code>filter</code></a></li>
+<li class="chapter" data-level="18.5" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>18.5</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="18.6" data-path="dplyr.html"><a href="dplyr.html#summarise"><i class="fa fa-check"></i><b>18.6</b> <code>summarise</code></a></li>
+<li class="chapter" data-level="18.7" data-path="dplyr.html"><a href="dplyr.html#piping-verbs"><i class="fa fa-check"></i><b>18.7</b> Piping verbs</a></li>
+<li class="chapter" data-level="18.8" data-path="dplyr.html"><a href="dplyr.html#group_by"><i class="fa fa-check"></i><b>18.8</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="18.9" data-path="dplyr.html"><a href="dplyr.html#keys-for-joins"><i class="fa fa-check"></i><b>18.9</b> Keys for joins</a></li>
+<li class="chapter" data-level="18.10" data-path="dplyr.html"><a href="dplyr.html#joins"><i class="fa fa-check"></i><b>18.10</b> Joins</a></li>
+<li class="chapter" data-level="18.11" data-path="dplyr.html"><a href="dplyr.html#operations-on-data-sets"><i class="fa fa-check"></i><b>18.11</b> Operations on data sets</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>19</b> <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="19.1" data-path="ggplot2.html"><a href="ggplot2.html#comparison-with-base-plot"><i class="fa fa-check"></i><b>19.1</b> Comparison with base <code>plot</code></a></li>
+<li class="chapter" data-level="19.2" data-path="ggplot2.html"><a href="ggplot2.html#grammar-of-graphics---leland-wilkinson"><i class="fa fa-check"></i><b>19.2</b> Grammar of graphics - Leland Wilkinson</a></li>
+<li class="chapter" data-level="19.3" data-path="ggplot2.html"><a href="ggplot2.html#understanding-the-grammar"><i class="fa fa-check"></i><b>19.3</b> Understanding the grammar</a></li>
+<li class="chapter" data-level="19.4" data-path="ggplot2.html"><a href="ggplot2.html#aesthetics-1"><i class="fa fa-check"></i><b>19.4</b> Aesthetics</a></li>
+<li class="chapter" data-level="19.5" data-path="ggplot2.html"><a href="ggplot2.html#geometries-1"><i class="fa fa-check"></i><b>19.5</b> Geometries</a></li>
+</ul></li>
+<li class="part"><span><b>IV Intermediate R</b></span></li>
+<li class="chapter" data-level="20" data-path="functionals.html"><a href="functionals.html"><i class="fa fa-check"></i><b>20</b> Functionals</a><ul>
+<li class="chapter" data-level="20.1" data-path="functionals.html"><a href="functionals.html#the-apply-family"><i class="fa fa-check"></i><b>20.1</b> The <code>apply</code> family</a></li>
+<li class="chapter" data-level="20.2" data-path="functionals.html"><a href="functionals.html#apply"><i class="fa fa-check"></i><b>20.2</b> <code>apply</code></a></li>
+<li class="chapter" data-level="20.3" data-path="functionals.html"><a href="functionals.html#lapply"><i class="fa fa-check"></i><b>20.3</b> <code>lapply</code></a></li>
+<li class="chapter" data-level="20.4" data-path="functionals.html"><a href="functionals.html#sapply"><i class="fa fa-check"></i><b>20.4</b> <code>sapply</code></a></li>
+<li class="chapter" data-level="20.5" data-path="functionals.html"><a href="functionals.html#multicore-implementation"><i class="fa fa-check"></i><b>20.5</b> Multicore implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="scoping.html"><a href="scoping.html"><i class="fa fa-check"></i><b>21</b> Scoping</a><ul>
+<li class="chapter" data-level="21.1" data-path="scoping.html"><a href="scoping.html#introduction"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="scoping.html"><a href="scoping.html#rule-1-name-masking"><i class="fa fa-check"></i><b>21.2</b> Rule 1: name masking</a></li>
+<li class="chapter" data-level="21.3" data-path="scoping.html"><a href="scoping.html#rule-2-fresh-start"><i class="fa fa-check"></i><b>21.3</b> Rule 2: fresh start</a></li>
+<li class="chapter" data-level="21.4" data-path="scoping.html"><a href="scoping.html#rule-3-dynamic-lookup"><i class="fa fa-check"></i><b>21.4</b> Rule 3: dynamic lookup</a></li>
+<li class="chapter" data-level="21.5" data-path="scoping.html"><a href="scoping.html#functions-inside-functions"><i class="fa fa-check"></i><b>21.5</b> Functions inside functions</a></li>
+<li class="chapter" data-level="21.6" data-path="scoping.html"><a href="scoping.html#examples"><i class="fa fa-check"></i><b>21.6</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>V Conclusion</b></span></li>
+<li class="chapter" data-level="22" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>22</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="readr" class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> <code>readr</code> and <code>readxl</code></h1>
+<div id="readr-1" class="section level2">
+<h2><span class="header-section-number">15.1</span> <code>readr</code></h2>
+<p>As shown in Chapter <a href="import.html#import">11</a>, base R has many functions to read some types of files.<br />
+<code>readr</code> improves on them because it:</p>
+<ul>
+<li>is much faster,</li>
+<li>has mainly functionalities,</li>
+<li>converts data directly into tibbles,</li>
+<li>handles the conversion of the type of data in a better way.</li>
+</ul>
+<p>Notice that <code>readr</code> uses names of functions that are very close to the base R functions: e.g., <code>read_csv</code> instead of <code>read.csv</code> in base R.<br />
+The functions form a <code>read_xxx</code> family where ‘xxx’ stands for the way the data you want read was recorded:</p>
+<ul>
+<li><code>csv</code> for comma separated values,</li>
+<li><code>tsv</code> for tab separated values,</li>
+<li><code>delim</code> for any delimiter between values,</li>
+<li>other exist as well, for instance for columns separated by a white space.</li>
+</ul>
+<p>In my experience, using the right member of the family yields better results, for instance in parsing the columns.</p>
+<div id="read_delim" class="section level3">
+<h3><span class="header-section-number">15.1.1</span> <code>read_delim</code></h3>
+<p>We’ll describe <code>read_delim</code> because functions of the family behave are special cases of this function. For instance, <code>read_csv</code> is equivalent to <code>read_delim</code> with a <code>,</code> as a character to separate the columns.</p>
+<ul>
+<li>The <code>file</code> argument gives the name of a file, possibly with the path to it, if it is not in the same folder. Again, the path can also be an url.<br />
+</li>
+<li><code>delim</code> provides the character that separates columns in the data.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># assuming that the AH001.txt is in the folder</span>
+df &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;AH001.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span> , <span class="dt">trim_ws=</span><span class="ot">TRUE</span>)
+<span class="co">#R&gt; Parsed with column specification:</span>
+<span class="co">#R&gt; cols(</span>
+<span class="co">#R&gt;   Area = col_character(),</span>
+<span class="co">#R&gt;   AreaCode = col_character(),</span>
+<span class="co">#R&gt;   AreaCode2 = col_logical(),</span>
+<span class="co">#R&gt;   Grain = col_character(),</span>
+<span class="co">#R&gt;   Year = col_double(),</span>
+<span class="co">#R&gt;   Month = col_double(),</span>
+<span class="co">#R&gt;   LPrice = col_double(),</span>
+<span class="co">#R&gt;   HPrice = col_double()</span>
+<span class="co">#R&gt; )</span>
+df
+<span class="co">#R&gt; # A tibble: 9,765 x 8</span>
+<span class="co">#R&gt;    Area  AreaCode AreaCode2 Grain  Year Month LPrice HPrice</span>
+<span class="co">#R&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;lgl&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#R&gt;  1 AH    001      NA        BO     1738     9     98    120</span>
+<span class="co">#R&gt;  2 AH    001      NA        BO     1738    10     99    120</span>
+<span class="co">#R&gt;  3 AH    001      NA        BO     1738    11    100    120</span>
+<span class="co">#R&gt;  4 AH    001      NA        BO     1738    12     93    120</span>
+<span class="co">#R&gt;  5 AH    001      NA        BO     1739     1     90    120</span>
+<span class="co">#R&gt;  6 AH    001      NA        BO     1739     2     98    120</span>
+<span class="co">#R&gt;  7 AH    001      NA        BO     1739     3    100    124</span>
+<span class="co">#R&gt;  8 AH    001      NA        BO     1739     4    100    121</span>
+<span class="co">#R&gt;  9 AH    001      NA        BO     1739     9     90    125</span>
+<span class="co">#R&gt; 10 AH    001      NA        BO     1740     6     75    130</span>
+<span class="co">#R&gt; # … with 9,755 more rows</span>
+<span class="kw">class</span>(df)
+<span class="co">#R&gt; [1] &quot;spec_tbl_df&quot; &quot;tbl_df&quot;      &quot;tbl&quot;         &quot;data.frame&quot;</span></code></pre>
+<p>Notice an important message, the types of the columns were guessed by the function. For instance, the column “Area” was guessed to be of type “character”. With that respect, the next arguments are particularly useful.<br />
+- First, <code>trim_ws</code> is a logical for whether the leading white space in each recording should be erased before parsing. With a white space, columns of numeric values with different number of digits could be guessed as character vectors.<br />
+Second, we can override the guess of <code>read_delim</code> by specifying the types: this is called “to parse” a file.<br />
+We can parse into many types and use abbreviations to set them: c = character, i = integer, n = number, d = double, l = logical, D = date, T = date time, t = time, ? = guess.</p>
+<p>All of these parsing calls can cause unexpected problems. For instance, one may need to change the symbol for decimal with the extra argument for the column type <code>locale=locale(decimal_mark=",")</code>.
+Notice the behavior when an observation is not of the same type as expected: it is changed to <code>NA</code>.<br />
+The function <code>problems</code> lists the rows with problems.</p>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;AH001.txt&quot;</span>, <span class="dt">delim=</span><span class="st">&quot;,&quot;</span>, <span class="dt">trim_ws=</span><span class="ot">TRUE</span>,
+                <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">LPrice=</span><span class="st">&quot;d&quot;</span>, <span class="dt">HPrice =</span><span class="st">&quot;d&quot;</span>) )
+df
+<span class="co">#R&gt; # A tibble: 9,765 x 8</span>
+<span class="co">#R&gt;    Area  AreaCode AreaCode2 Grain  Year Month LPrice HPrice</span>
+<span class="co">#R&gt;    &lt;chr&gt; &lt;chr&gt;    &lt;lgl&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#R&gt;  1 AH    001      NA        BO     1738     9     98    120</span>
+<span class="co">#R&gt;  2 AH    001      NA        BO     1738    10     99    120</span>
+<span class="co">#R&gt;  3 AH    001      NA        BO     1738    11    100    120</span>
+<span class="co">#R&gt;  4 AH    001      NA        BO     1738    12     93    120</span>
+<span class="co">#R&gt;  5 AH    001      NA        BO     1739     1     90    120</span>
+<span class="co">#R&gt;  6 AH    001      NA        BO     1739     2     98    120</span>
+<span class="co">#R&gt;  7 AH    001      NA        BO     1739     3    100    124</span>
+<span class="co">#R&gt;  8 AH    001      NA        BO     1739     4    100    121</span>
+<span class="co">#R&gt;  9 AH    001      NA        BO     1739     9     90    125</span>
+<span class="co">#R&gt; 10 AH    001      NA        BO     1740     6     75    130</span>
+<span class="co">#R&gt; # … with 9,755 more rows</span>
+<span class="kw">problems</span>(df)
+<span class="co">#R&gt; [1] row      col      expected actual  </span>
+<span class="co">#R&gt; &lt;0 rows&gt; (or 0-length row.names)</span></code></pre>
+<p>Notice that the names of the variables are not within <code>" "</code>. This is a general feature of the <code>tidyverse</code>.<br />
+By default, the first line of the data file is used for naming the columns. This can be changed.<br />
+- <code>col_names</code> is the vector of names set for the variables.
+- <code>skip</code> determines how many lines to be skipped in the file. This is useful when the file does contain names that one does not want to keep.</p>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;AH001.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span> , <span class="dt">trim_ws=</span><span class="ot">TRUE</span>,
+                <span class="dt">skip =</span> <span class="dv">1</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>)
+<span class="co">#R&gt; Parsed with column specification:</span>
+<span class="co">#R&gt; cols(</span>
+<span class="co">#R&gt;   X1 = col_character(),</span>
+<span class="co">#R&gt;   X2 = col_character(),</span>
+<span class="co">#R&gt;   X3 = col_logical(),</span>
+<span class="co">#R&gt;   X4 = col_character(),</span>
+<span class="co">#R&gt;   X5 = col_double(),</span>
+<span class="co">#R&gt;   X6 = col_double(),</span>
+<span class="co">#R&gt;   X7 = col_double(),</span>
+<span class="co">#R&gt;   X8 = col_double()</span>
+<span class="co">#R&gt; )</span>
+df
+<span class="co">#R&gt; # A tibble: 9,765 x 8</span>
+<span class="co">#R&gt;    X1    X2    X3    X4       X5    X6    X7    X8</span>
+<span class="co">#R&gt;    &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#R&gt;  1 AH    001   NA    BO     1738     9    98   120</span>
+<span class="co">#R&gt;  2 AH    001   NA    BO     1738    10    99   120</span>
+<span class="co">#R&gt;  3 AH    001   NA    BO     1738    11   100   120</span>
+<span class="co">#R&gt;  4 AH    001   NA    BO     1738    12    93   120</span>
+<span class="co">#R&gt;  5 AH    001   NA    BO     1739     1    90   120</span>
+<span class="co">#R&gt;  6 AH    001   NA    BO     1739     2    98   120</span>
+<span class="co">#R&gt;  7 AH    001   NA    BO     1739     3   100   124</span>
+<span class="co">#R&gt;  8 AH    001   NA    BO     1739     4   100   121</span>
+<span class="co">#R&gt;  9 AH    001   NA    BO     1739     9    90   125</span>
+<span class="co">#R&gt; 10 AH    001   NA    BO     1740     6    75   130</span>
+<span class="co">#R&gt; # … with 9,755 more rows</span>
+<span class="kw">colnames</span>(df) &lt;-<span class="st"> </span>LETTERS[<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df)]
+df
+<span class="co">#R&gt; # A tibble: 9,765 x 8</span>
+<span class="co">#R&gt;    A     B     C     D         E     F     G     H</span>
+<span class="co">#R&gt;    &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#R&gt;  1 AH    001   NA    BO     1738     9    98   120</span>
+<span class="co">#R&gt;  2 AH    001   NA    BO     1738    10    99   120</span>
+<span class="co">#R&gt;  3 AH    001   NA    BO     1738    11   100   120</span>
+<span class="co">#R&gt;  4 AH    001   NA    BO     1738    12    93   120</span>
+<span class="co">#R&gt;  5 AH    001   NA    BO     1739     1    90   120</span>
+<span class="co">#R&gt;  6 AH    001   NA    BO     1739     2    98   120</span>
+<span class="co">#R&gt;  7 AH    001   NA    BO     1739     3   100   124</span>
+<span class="co">#R&gt;  8 AH    001   NA    BO     1739     4   100   121</span>
+<span class="co">#R&gt;  9 AH    001   NA    BO     1739     9    90   125</span>
+<span class="co">#R&gt; 10 AH    001   NA    BO     1740     6    75   130</span>
+<span class="co">#R&gt; # … with 9,755 more rows</span></code></pre>
+<p>Data often contain specific special character, in particular for comments and NA’s.</p>
+<ul>
+<li><code>comment</code> takes the character that signals comments.</li>
+<li><code>na</code> signals what values should be consider as NA’s.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;AH001.txt&quot;</span>, <span class="dt">delim =</span> <span class="st">&quot;,&quot;</span> , <span class="dt">trim_ws=</span><span class="ot">TRUE</span>,
+                <span class="dt">skip =</span> <span class="dv">1</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>, 
+                <span class="dt">comment =</span> <span class="st">&quot;%&quot;</span>, <span class="dt">na =</span> <span class="st">&quot;9999&quot;</span>)</code></pre>
+</div>
+</div>
+<div id="readxl" class="section level2">
+<h2><span class="header-section-number">15.2</span> <code>readxl</code></h2>
+<p>Lots of rectangular data out there is in Excel files. One way is to handle it could be to first transform the data into a <code>.csv</code> file and then import it as described above.<br />
+Thanks to the <code>readxl</code> package, one can also read it directly.[^Notice that R can also write to an Excel file. Why would one do that? Maybe because collaborators only work with Excel. This is achieved with the package <code>XLConnect</code> but we won’t dig into these details here.]
+As part of the <code>tidyverse</code> bundle, <code>readxl</code> shares features and rules with <code>readr</code>.<br />
+Below are some of the specific features.</p>
+<ul>
+<li><code>read_excel</code> is the function that reads the data in the file and assigns it to an object, as illustrated in the following chunk.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data_china.xlsx&quot;</span>)
+df 
+<span class="co">#R&gt; # A tibble: 19 x 8</span>
+<span class="co">#R&gt;    Area  AreaCode AreaCode2 Grain  Year Month LPrice HPrice</span>
+<span class="co">#R&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#R&gt;  1 AH           1 NA        BO     1738     9     98    120</span>
+<span class="co">#R&gt;  2 AH           1 NA        BO     1738    10     99    120</span>
+<span class="co">#R&gt;  3 AH           1 NA        BO     1738    11    100    120</span>
+<span class="co">#R&gt;  4 AH           1 NA        BO     1738    12     93    120</span>
+<span class="co">#R&gt;  5 AH           1 NA        BO     1739     1     90    120</span>
+<span class="co">#R&gt;  6 AH           1 NA        BO     1739     2     98    120</span>
+<span class="co">#R&gt;  7 AH           1 NA        BO     1739     3    100    124</span>
+<span class="co">#R&gt;  8 AH           1 NA        BO     1739     4    100    121</span>
+<span class="co">#R&gt;  9 AH           1 NA        BO     1739     9     90    125</span>
+<span class="co">#R&gt; 10 AH           1 NA        BO     1740     6     75    130</span>
+<span class="co">#R&gt; 11 AH           1 NA        BO     1740     7     75    130</span>
+<span class="co">#R&gt; 12 AH           1 NA        BO     1740     8     75    150</span>
+<span class="co">#R&gt; 13 AH           1 NA        BO     1740     9     75    150</span>
+<span class="co">#R&gt; 14 AH           1 NA        BO     1740    10     75    150</span>
+<span class="co">#R&gt; 15 AH           1 NA        BO     1740    11     75    150</span>
+<span class="co">#R&gt; 16 AH           1 NA        BO     1740    12     75    150</span>
+<span class="co">#R&gt; 17 AH           1 NA        BO     1741     1     75    150</span>
+<span class="co">#R&gt; 18 AH           1 NA        BO     1741     2     75    138</span>
+<span class="co">#R&gt; 19 AH           1 NA        BO     1741     3     90    125</span></code></pre>
+<p>Importantly, notice that the exact extension does not matter as <code>readxl</code> recognizes both <code>.xls</code> and <code>.xlsx</code>.<br />
+Notice that if the file contains multiple sheets, these can all be accessed.</p>
+<ul>
+<li><code>excel_sheets</code> is a function that yields the names of the different sheets in a file.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">excel_sheets</span>(<span class="st">&quot;data_china.xlsx&quot;</span>)
+<span class="co">#R&gt; [1] &quot;AH&quot; &quot;FJ&quot;</span></code></pre>
+<p>To know the specific sheets allows to call them directly by name. Alternatively, this can also be done by a number.</p>
+<ul>
+<li>The <code>sheet</code> argument specifies the required sheet either by a name or by a number.</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;data_china.xlsx&quot;</span>, <span class="dt">sheet=</span><span class="st">&quot;FJ&quot;</span>) </code></pre>
+<p>A specific range for the data to be read can also be specified. Here are arguments that allow that.</p>
+<ul>
+<li><code>n_max</code> for the maximum number of line to be read.</li>
+<li><code>range</code> for a specific range, describe in one of the possible ways:
+<ul>
+<li>extreme cells of rectangular data: <code>range="B1:D10"</code>,</li>
+<li>with <code>cell_rows</code> for the required rows: <code>range=cell_rows(1:10)</code>,</li>
+<li>with <code>cell_cols</code> for the required columns: <code>range=cell_cols("B:E")</code>.</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tibble.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="magrittr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MyR.pdf", "MyR.epub"],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

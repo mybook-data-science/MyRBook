@@ -1,0 +1,139 @@
+# `readr`  and `readxl`  {#readr}  
+ 
+ 
+
+
+## `readr`
+
+
+
+As shown in Chapter \@ref(import), base R has many functions to read some types of files.  
+`readr` improves on them because it:  
+
+- is much faster,
+- has mainly functionalities,
+- converts data directly into tibbles,
+- handles the conversion of the type of data in a better way.
+
+
+Notice that `readr` uses names of functions that are very close to the base R functions: e.g., `read_csv` instead of `read.csv` in base R.    
+The functions form  a `read_xxx` family where 'xxx' stands for the way the data you want read was recorded:
+
+- `csv` for comma separated values,
+- `tsv` for tab separated values,
+- `delim` for any delimiter between values,
+- other exist as well, for instance for columns separated by a white space.
+
+In my experience, using the right member of the family yields better results, for instance in parsing the columns.
+
+
+
+### `read_delim`  
+
+We'll describe `read_delim` because functions of the family behave are special cases of this function. For instance, `read_csv` is equivalent to `read_delim` with a `,` as a character to separate the columns.  
+
+- The `file` argument gives the name of a file, possibly with the path to it, if it is not in the same folder. Again, the path can also be an url.  
+- `delim` provides the character that separates columns in the data.
+
+
+```{r}
+# assuming that the AH001.txt is in the folder
+df <- read_delim("AH001.txt", delim = "," , trim_ws=TRUE)
+df
+class(df)
+
+```
+
+Notice an important message, the types of the columns were guessed by the function. For instance, the column "`r names(df)[1]`" was guessed to be of type "`r class(names(df)[1])`". With that respect, the next arguments are particularly useful.    
+- First, `trim_ws` is a logical for whether the leading white space in each recording should be erased before parsing. With a white space, columns of numeric values with different number of digits could be guessed as character vectors.  
+Second, we can override the guess of `read_delim` by specifying the types: this is called "to parse" a file.  
+We can parse into many types and use abbreviations to set them: c = character, i = integer, n = number, d = double, l = logical, D = date, T = date time, t = time, ? = guess.
+
+All of these parsing calls can cause unexpected problems. For instance, one may need to change the symbol for decimal with the extra argument for the column type `locale=locale(decimal_mark=",")`. 
+Notice the behavior when an observation is not of the same type as expected: it is changed to `NA`.  
+The function `problems` lists the rows with problems.
+
+```{r}
+df <- read_delim("AH001.txt", delim=",", trim_ws=TRUE,
+                col_types = cols(LPrice="d", HPrice ="d") )
+df
+problems(df)
+```
+
+Notice that the names of the variables are not within `" "`. This is a general feature of the `tidyverse`.   
+By default, the first line of the data file is used for naming the columns. This can be changed.  
+- `col_names` is the vector of names set for the variables.
+- `skip` determines how many lines to be skipped in the file. This is useful when the file does contain names that one does not want to keep.
+
+```{r}
+df <- read_delim("AH001.txt", delim = "," , trim_ws=TRUE,
+                skip = 1, col_names = FALSE)
+df
+colnames(df) <- LETTERS[1:length(df)]
+df
+```
+
+Data often contain specific special character, in particular for comments and NA's.
+
+- `comment` takes the character that signals comments.
+- `na` signals what values should be consider as NA's.
+
+
+```r
+df <- read_delim("AH001.txt", delim = "," , trim_ws=TRUE,
+                skip = 1, col_names = FALSE, 
+                comment = "%", na = "9999")
+```
+
+
+
+## `readxl`
+
+Lots of rectangular data out there is in Excel files. One way is to handle it could be to first transform the data into a `.csv` file and then import it as described above.  
+Thanks to the `readxl` package, one can also read it directly.[^Notice that R can also write to an Excel file. Why would one do that? Maybe because collaborators only work with Excel. This is achieved with the package `XLConnect` but we won't dig into these details here.]
+As part of the `tidyverse` bundle, `readxl` shares features and rules with `readr`.   
+Below are some of the specific features.  
+
+- `read_excel` is the function that reads the data in the file and assigns it to an object, as illustrated in the following chunk.
+
+```{r}
+df <- read_excel("data_china.xlsx")
+df 
+```
+Importantly, notice that the exact extension does not matter as `readxl` recognizes both `.xls` and `.xlsx`.  
+Notice that if the file contains multiple sheets, these can all be accessed.
+
+- `excel_sheets` is a function that yields the names of the different sheets in a file.  
+
+```{r}
+excel_sheets("data_china.xlsx")
+```
+
+To know the specific sheets allows to call them directly by name. Alternatively, this can also be done by a number.
+
+- The `sheet` argument specifies the required sheet either by a name or by a number.
+```r
+df <- read_excel("data_china.xlsx", sheet="FJ") 
+```
+
+A specific range for the data to be read can also be specified. Here are arguments that allow that.  
+
+- `n_max` for the maximum number of line to be read.
+- `range` for a specific range, describe in one of the possible ways:
+  - extreme cells of rectangular data: `range="B1:D10"`,
+  - with `cell_rows` for the required rows: `range=cell_rows(1:10)`,
+  - with `cell_cols` for the required columns: `range=cell_cols("B:E")`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

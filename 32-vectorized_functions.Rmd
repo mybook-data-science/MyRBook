@@ -1,0 +1,80 @@
+# Simple functions on vectors 
+
+In this section, we illustrate calculations with a single vector.  
+
+
+## Element by element evaluation
+
+The main point to notice is how these functions are carried **element by element**. This means that the function is typically applied for each element individually and in sequence. 
+
+The following simple example illustrates this procedure and emphasizes the effect on the length of the vectors.
+```{r}
+# create two numeric vector of same length
+visits1 <-  c(12, 2, 45, 75, 65, 11, 3)
+visits2 <- c(23, 4, 5, 78, 12, 0, 200)
+length(visits1)
+length(visits1) == length(visits2)
+
+total <- visits1 + visits2
+# their sum is the vector of same length, with the element by element sums
+
+length(total)
+total
+
+```
+
+Another clear example with the function `^2`.
+
+
+```{r}
+total.p2 <- total^2
+total.p2
+
+(trop <- total - 2)
+length(trop)
+```
+
+
+
+## Recycling rule
+
+
+With the emphasis on the length of the vectors above, one could wonder what happens when vectors' length differ. This is an important point to remember: the shortest vector has its elements **recycled** as much as it is necessary.
+
+```{r}
+l3 <- c(12, 34, 50)
+l2 <- c(10, 3)
+tt <- l3 + 5
+tt
+
+ltotal <- l3+l2 # recycling!!!
+ltotal
+```
+
+
+## Functions for the whole vector
+
+Some functions are meant to be applied to whole vector and do not necessarily return a vector of the same length of the vector to which it is applied.   
+Here is an illustration of some of these functions.
+
+```{r}
+ages <- c(28, 33, 39, 56, 34, 45, 27, 40)
+ages
+max(ages)
+sum(ages)
+length(ages)
+
+ages <- c(28, 33, 39, 56, 34, 45, 27, 40, NA)
+mean(ages)
+
+# for help on a command, simply type ? in front of it
+?mean
+
+```
+
+
+
+
+
+
+

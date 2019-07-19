@@ -1,0 +1,40 @@
+# Customize output {#custom-ouptut}
+
+This chapter is about choosing and/or modifying the way the output file looks like.
+
+## Multiple built-in output types
+
+[complete this section]
+From pdf to slides, through webpages and notebooks.
+
+## New types provided by packages
+
+[complete this section]
+These are more variations of the above.
+
+## CSS: custom html
+
+A file to change how html outputs look like.
+
+## Latex preamble
+
+This file is added to the preamble of the Latex file to modify how the `.pdf` output is compiled.   
+Literally, these commands are placed in the Latex file before the self-explaining command: 
+```latex
+\begin{document}
+```  
+The most common commands call the packages to be used in the compilation of the Latex file, e.g.,
+```latex
+\usepackage{multirow}
+```
+Each package, in turn, includes a set of functions that can be used in the file to produce some particular output.  
+The other set of commands are typically definitions of new commands or environments as well as redefinitions of existing commands to produced a special output.  
+These latter require an excellent command of the language. The good news is that people are keen to share their expertise. Here is an example that I included in another `preamble.tex` for counting the sections in reverse order. I found it on a blog, [texblog](https://texblog.org/2013/04/03/reverse-numbering-for-chapters-sections-etc/).
+
+```latex
+\usepackage{totcount}
+\regtotcounter{section}
+\makeatletter
+    \renewcommand{\thesection}{\number\numexpr\c@section@totc-\c@section+1\relax}
+\makeatother
+```

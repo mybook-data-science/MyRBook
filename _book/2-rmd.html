@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Learning Data Science in R" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="These are notes gathering my experience in data science with R." />
+<meta name="github-repo" content="rstudio/bookdown-demo" />
+
+<meta name="author" content="Antonio Fidalgo" />
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+
+<meta name="description" content="These are notes gathering my experience in data science with R.">
+
+<title>Learning Data Science in R</title>
+
+<link href="libs/tufte-css-2015.12.29/tufte-fonts.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-background.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte-italics.css" rel="stylesheet" />
+<link href="libs/tufte-css-2015.12.29/tufte.css" rel="stylesheet" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="toc.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#foreword">Foreword</a></li>
+<li class="part"><span><b>I Getting started</b></span></li>
+<li class="has-sub"><a href="1-getset.html#getset"><span class="toc-section-number">1</span> Getting set</a><ul>
+<li><a href="1-1-install-applications.html#install-applications"><span class="toc-section-number">1.1</span> Install applications</a></li>
+<li><a href="1-2-sign-for-github.html#sign-for-github"><span class="toc-section-number">1.2</span> Sign for GitHub</a></li>
+<li><a href="1-3-create-your-project.html#create-your-project"><span class="toc-section-number">1.3</span> Create your project</a></li>
+<li><a href="1-4-create-github-repo-and-link-your-machine-to-it.html#create-github-repo-and-link-your-machine-to-it"><span class="toc-section-number">1.4</span> Create GitHub repo and link your machine to it</a></li>
+</ul></li>
+<li class="part"><span><b>II Source file and output files</b></span></li>
+<li class="has-sub"><a href="2-rmd.html#rmd"><span class="toc-section-number">2</span> Rmd files</a><ul>
+<li><a href="2-1-options-for-all-chuncks.html#options-for-all-chuncks"><span class="toc-section-number">2.1</span> Options for all chuncks</a></li>
+<li><a href="2-2-latex-code.html#latex-code"><span class="toc-section-number">2.2</span> Latex code</a></li>
+</ul></li>
+<li class="has-sub"><a href="3-custom-ouptut.html#custom-ouptut"><span class="toc-section-number">3</span> Customize output</a><ul>
+<li><a href="3-1-multiple-built-in-output-types.html#multiple-built-in-output-types"><span class="toc-section-number">3.1</span> Multiple built-in output types</a></li>
+<li><a href="3-2-new-types-provided-by-packages.html#new-types-provided-by-packages"><span class="toc-section-number">3.2</span> New types provided by packages</a></li>
+<li><a href="3-3-css-custom-html.html#css-custom-html"><span class="toc-section-number">3.3</span> CSS: custom html</a></li>
+<li><a href="3-4-latex-preamble.html#latex-preamble"><span class="toc-section-number">3.4</span> Latex preamble</a></li>
+</ul></li>
+<li class="part"><span><b>III R Basics</b></span></li>
+<li class="has-sub"><a href="4-r-as-a-calculator.html#r-as-a-calculator"><span class="toc-section-number">4</span> R as a calculator</a><ul>
+<li class="has-sub"><a href="4-1-usual-operators.html#usual-operators"><span class="toc-section-number">4.1</span> Usual operators</a><ul>
+<li><a href="4-1-usual-operators.html#simple-operations"><span class="toc-section-number">4.1.1</span> Simple operations</a></li>
+<li><a href="4-1-usual-operators.html#parentheses"><span class="toc-section-number">4.1.2</span> Parentheses</a></li>
+<li><a href="4-1-usual-operators.html#exponents"><span class="toc-section-number">4.1.3</span> Exponents</a></li>
+</ul></li>
+<li class="has-sub"><a href="4-2-unusual-operators.html#unusual-operators"><span class="toc-section-number">4.2</span> Unusual operators</a><ul>
+<li><a href="4-2-unusual-operators.html#special-operations"><span class="toc-section-number">4.2.1</span> Special operations</a></li>
+</ul></li>
+<li><a href="4-3-usual-functions.html#usual-functions"><span class="toc-section-number">4.3</span> Usual functions</a></li>
+</ul></li>
+<li class="part"><span><b>IV R Basics</b></span></li>
+<li class="has-sub"><a href="5-rcalc.html#rcalc"><span class="toc-section-number">5</span> R as a calculator</a><ul>
+<li class="has-sub"><a href="5-1-usual-operators-1.html#usual-operators-1"><span class="toc-section-number">5.1</span> Usual operators</a><ul>
+<li><a href="5-1-usual-operators-1.html#simple-operations-1"><span class="toc-section-number">5.1.1</span> Simple operations</a></li>
+<li><a href="5-1-usual-operators-1.html#parentheses-1"><span class="toc-section-number">5.1.2</span> Parentheses</a></li>
+<li><a href="5-1-usual-operators-1.html#exponents-1"><span class="toc-section-number">5.1.3</span> Exponents</a></li>
+</ul></li>
+<li class="has-sub"><a href="5-2-unusual-operators-1.html#unusual-operators-1"><span class="toc-section-number">5.2</span> Unusual operators</a><ul>
+<li><a href="5-2-unusual-operators-1.html#special-operations-1"><span class="toc-section-number">5.2.1</span> Special operations</a></li>
+</ul></li>
+<li><a href="5-3-usual-functions-1.html#usual-functions-1"><span class="toc-section-number">5.3</span> Usual functions</a></li>
+</ul></li>
+<li class="has-sub"><a href="6-datastructures.html#datastructures"><span class="toc-section-number">6</span> Data stuctures</a><ul>
+<li class="has-sub"><a href="6-1-atomic-vectors.html#atomic-vectors"><span class="toc-section-number">6.1</span> Atomic vectors</a><ul>
+<li><a href="6-1-atomic-vectors.html#types-of-data"><span class="toc-section-number">6.1.1</span> Types of data</a></li>
+<li><a href="6-1-atomic-vectors.html#factor-vector"><span class="toc-section-number">6.1.2</span> Factor vector</a></li>
+</ul></li>
+<li><a href="6-2-matrices-and-arrays.html#matrices-and-arrays"><span class="toc-section-number">6.2</span> Matrices and arrays</a></li>
+<li><a href="6-3-lists.html#lists"><span class="toc-section-number">6.3</span> Lists</a></li>
+<li><a href="6-4-data-frames.html#data-frames"><span class="toc-section-number">6.4</span> Data frames</a></li>
+</ul></li>
+<li><a href="7-simple-functions-on-vectors.html#simple-functions-on-vectors"><span class="toc-section-number">7</span> Simple functions on vectors</a></li>
+<li class="has-sub"><a href="8-subset.html#subset"><span class="toc-section-number">8</span> Subsetting</a><ul>
+<li><a href="8-1-generalities-about-subsetting.html#generalities-about-subsetting"><span class="toc-section-number">8.1</span> Generalities about subsetting</a></li>
+<li class="has-sub"><a href="8-2-section.html#section"><span class="toc-section-number">8.2</span> <code>[]</code></a><ul>
+<li><a href="8-2-section.html#on-a-vector"><span class="toc-section-number">8.2.1</span> On a vector</a></li>
+<li><a href="8-2-section.html#on-a-list"><span class="toc-section-number">8.2.2</span> On a list</a></li>
+<li><a href="8-2-section.html#on-a-matrix"><span class="toc-section-number">8.2.3</span> On a matrix</a></li>
+</ul></li>
+<li><a href="8-3-section-1.html#section-1"><span class="toc-section-number">8.3</span> <code>[[]]</code></a></li>
+<li><a href="8-4-section-2.html#section-2"><span class="toc-section-number">8.4</span> <code>$</code></a></li>
+<li><a href="8-5-combining-subsetting.html#combining-subsetting"><span class="toc-section-number">8.5</span> Combining subsetting</a></li>
+<li><a href="8-6-subsetting-with-one-condition.html#subsetting-with-one-condition"><span class="toc-section-number">8.6</span> Subsetting with one condition</a></li>
+<li><a href="8-7-subsetting-and-assignment.html#subsetting-and-assignment"><span class="toc-section-number">8.7</span> Subsetting and assignment</a></li>
+<li><a href="8-8-using-which.html#using-which"><span class="toc-section-number">8.8</span> Using <code>which()</code></a></li>
+<li class="has-sub"><a href="8-9-more-advanced-stuff.html#more-advanced-stuff"><span class="toc-section-number">8.9</span> More advanced stuff</a><ul>
+<li><a href="8-9-more-advanced-stuff.html#difference-between-simplifying-and-preserving"><span class="toc-section-number">8.9.1</span> Difference between simplifying and preserving</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="9-conditions.html#conditions"><span class="toc-section-number">9</span> Conditions</a><ul>
+<li><a href="9-1-if-statement.html#if-statement"><span class="toc-section-number">9.1</span> <code>if</code> statement</a></li>
+<li><a href="9-2-else-statement.html#else-statement"><span class="toc-section-number">9.2</span> <code>else</code> statement</a></li>
+<li><a href="9-3-else-if-statement.html#else-if-statement"><span class="toc-section-number">9.3</span> <code>else if</code> statement</a></li>
+<li><a href="9-4-ifelse-statement.html#ifelse-statement"><span class="toc-section-number">9.4</span> <code>ifelse</code> statement</a></li>
+<li><a href="9-5-logical-operators-and.html#logical-operators-and"><span class="toc-section-number">9.5</span> Logical operators: <code>&amp;</code>, <code>|</code> and <code>!</code></a></li>
+<li><a href="9-6-writing-and-interpreting-a-condition.html#writing-and-interpreting-a-condition"><span class="toc-section-number">9.6</span> Writing and interpreting a condition</a></li>
+</ul></li>
+<li><a href="10-conclusion.html#conclusion"><span class="toc-section-number">10</span> Conclusion</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="rmd" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Rmd files</h1>
+<p>This chapter gathers general comments about <code>.Rmd</code> files.</p> 
+</div>
+<p style="text-align: center;">
+<a href="1-4-create-github-repo-and-link-your-machine-to-it.html"><button class="btn btn-default">Previous</button></a>
+<a href="2-1-options-for-all-chuncks.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+
+</body>
+</html>

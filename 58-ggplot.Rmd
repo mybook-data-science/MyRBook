@@ -1,0 +1,307 @@
+# `ggplot2` {#ggplot2}
+
+
+
+Data visualization is part of the skill set of a data scientist.  
+It is made to, either
+    - explore (confirm, analyse)
+    - explain (inform, convince)
+Depends who you communicate to (can be you).
+
+
+## Comparison with base `plot`
+
+Limitations of base plot
+    - plot does not redraw, i.e., the range will not adapt to new data 
+    - plot is drawn as an image, i.e., it's not an object
+    - manual legend
+    - no unified framework for plotting, i.e., need to master other commands for other types of graphs
+
+
+```{r, fig.show='hold', results='hide', tidy=FALSE}
+library(ggplot2)
+rm(mtcarts)
+data("mtcars")
+mtcars$cyl <- as.factor(mtcars$cyl) # treat 'cyl' as a factor
+
+plot(mtcars$wt, mtcars$mpg, col = mtcars$cyl)
+abline(lm(mpg ~ wt, data = mtcars), lty = 2)
+lapply(mtcars$cyl, function(x) {
+  abline(lm(mpg ~ wt, mtcars, subset = (cyl == x)), col = x)
+  })
+legend(x = 5, y = 33, legend = levels(mtcars$cyl),col = 1:3, pch = 1, bty = "n")
+       
+plot1 <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
+         geom_point() +
+         geom_smooth(method=lm , se=FALSE, aes(col=cyl)) +
+         geom_smooth(method=lm , se=FALSE, linetype=2, col="grey", aes(group=1))       
+plot1 # print the object 'plot1'
+```
+
+
+
+## Grammar of graphics - Leland Wilkinson
+
+### A graphic = layers of grammatical elements
+The layers are the adjectives and the nouns
+Seven grammatical elements, three are essential
+
+### Meaningful plots are built around appropriate aesthetic mappings
+The mappings are the rules to assemble the nouns and adjectives
+
+
+## Understanding the grammar
+
+
+Building an example
+```{r}
+
+p1 <- ggplot(data=diamonds, mapping= aes(x=carat, y= price)) # data and mappings
+
+#p2 <- p1 + geom_point()  # + the general form
+
+p2 <- p1 + geom_line()  # + the general form
+
+p3 <- ggplot(diamonds, aes(x=carat, y= price, col=clarity)) +
+      geom_point() # adding a mapping / variable
+
+p3b <- ggplot(diamonds, aes(x=carat, y= price)) +
+      geom_point(col="red") # adding a attribute
+
+
+p4 <- p1 + geom_point(aes(col=clarity)) # or changing some attributes
+grid.arrange(p1, p2, p3, p4, ncol=2)
+```
+
+### Data and proper data format
+The data being plotted
+Includes: variables of interest
+Tidy data helps make good `ggplot()`s
+```{r, fig.show='hold', tidy=FALSE}
+iris.tidy <- iris %>%
+  gather(key, Value, -Species) %>%
+  separate(key, c("Part", "Measure"), "\\.")
+
+p1 <- ggplot(iris.tidy, aes(x = Species, y = Value, col = Part)) +
+geom_jitter() +
+facet_grid(. ~ Measure)
+
+p2 <- ggplot(iris.tidy, aes(x = Measure, y = Value, col = Part)) +
+geom_jitter() +
+facet_grid(. ~ Species)
+
+
+p3 <- ggplot(iris.tidy, aes(x = Species, y = Value, col = Part)) +
+geom_point()
+
+grid.arrange(p1, p2, p3, ncol=2)
+
+```
+
+
+### Aesthetics
+The scales onto which we map our data
+Includes: x-axis, y-axis, colour, fill, size, labels, line width, line type,...
+
+### Geometries
+The visual elements (shape) used for our data in the plot
+Includes: point, line, histogram, bar, boxplot,...
+
+### Other grammatical elements
+These are
+    - facets
+    - statistics
+    - coordinates
+    - themes
+
+
+
+
+
+### Juggling with `aes`
+```{r}
+data("mtcars")
+p1 <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+      geom_point()
+
+# color dependent on 'disp',
+# 'disp' is continuous, hence the shades of same colour
+p2 <- ggplot(mtcars, aes(x = wt, y = mpg, col = disp)) +
+      geom_point()  + geom_smooth(se=FALSE)
+
+# changing the colour depending on the variable 'clarity', 
+# 'clarity' is a factor, hence the different colours
+p3 <- ggplot(diamonds, aes(x = carat, y = price, col=clarity)) +
+      geom_smooth()
+
+# size dependent on 'disp'
+p4 <- ggplot(mtcars, aes(x = wt, y = mpg, size = disp)) +
+      geom_point()
+
+grid.arrange(p1, p2, p3, p4, ncol=2)
+```
+
+
+### Juggling with `geom`
+
+```{r,  fig.show='hold'}
+# points and smoother layer
+p1 <- ggplot(diamonds, aes(x = carat, y = price)) + 
+      geom_point() + 
+      geom_smooth(se=TRUE) # se = T by default
+
+# only the smoother layer
+p2 <- ggplot(diamonds, aes(x = carat, y = price)) + 
+      geom_smooth()
+
+# changing the parameters of the point geometry, much more transparent, here
+p3 <- ggplot(diamonds, aes(x = carat, y = price)) + 
+      geom_point(alpha=.04)
+
+# only the smoother layer and different aesthetics,
+# aes recognizes the groups and therefore separates for them
+p4 <- ggplot(diamonds, aes(x = carat, y = price, col=clarity)) +
+      geom_smooth() + geom_point(alpha=.04)
+
+grid.arrange(p1, p2, p3,p4,  ncol=2)
+```
+
+
+
+
+
+## Aesthetics
+
+### Understanding aesthetics
+Usually considered as how something looks, as attributes: that's *notcorrect in `ggplot()` 
+Aesthetics refers to what a variable is *mappedonto it
+*Aesthetics is mapping*
+We want to map as many variables as possible in a plot, that's visible aesthetics
+Aesthetics/mappings are called in `aes()` while attributes are called in `geom_()`
+
+For instance:
+    - `aes(x = variable1, ...)`  means 'variable1' is mapped onto the x-axis
+    - `aes(..., col = variable2)` means that 'variable2' is mapped onto a colour
+
+Simply changing the colour of the dots, is NOT aesthetics
+    - `ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point(col="red")`
+because there is no mapping
+`aes()` includes: x-axis, y-axis, colour, fill, size, alpha, labels, line width, line type,...
+Some aesthetics are only applicable to categorical variables: e.g., label and shape 
+
+```{r, fig.show='hold'}
+p1 <- ggplot(mtcars, aes(x = wt, y = mpg, col = cyl)) +
+      geom_point(shape = 1, size = 4)
+p2 <- ggplot(mtcars, aes(x=mpg, y=qsec,size=(hp/wt), shape=factor(am), col=factor(cyl))) + 
+      geom_point()
+
+grid.arrange(p1, p2,  ncol=2)
+```
+
+Attributes go to `geom_`
+
+
+### Modifying aesthetics
+
+Modifying aesthetics is modifying the mapping
+
+`position` defaults to `identity`, `jitter` adds some random noise to the observations so that they do not overlap
+```{r}
+
+p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
+      geom_point()
+p2 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
+      geom_point(position="jitter")
+
+grid.arrange(p1, p2,  ncol=2)
+```
+
+`scale_..._...(variable1, args)` modifies the scale of the mapping of 'variable1' with several arguments such as `limits`, `breaks`, etc...
+Sometimes, you need to assign a dummy to the aesthetics, e.g., when you want to plot only one variable
+
+```{r}
+mtcars$mydummy <- 1
+ 
+ggplot(mtcars, aes(x = mpg, y=mydummy, col=factor(cyl))) + 
+geom_jitter() + 
+scale_y_continuous(limits=c(-0,2)) + 
+labs(title="My nice graph", x="Miles per gallon", y="", col="Cylindres")
+```
+
+
+
+
+## Geometries
+
+Geometries control how your plot is going to look like: currently, there are more than 37 gemoetries available
+Common plots are: scatter, bar, line plots
+Geometries required some aesthetics and can take other aesthetics as optional
+Geometries can take their own aesthetics (useful to control mappings of each layer)
+Geometries can take their own data, too!
+
+### Scatter plots
+We've seen a lot, already: recall `geom_point()`
+
+### Bar plots
+The simplest is a histogram
+```{r}
+p1 <- ggplot(iris, aes(x=Sepal.Length)) + geom_histogram()
+p2 <- ggplot(iris, aes(x=Sepal.Length)) + 
+      geom_histogram(binwidth = 1)
+p3 <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
+      geom_histogram()
+p4 <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
+      geom_histogram(position="dodge") # or "stack", or "fill"
+
+grid.arrange(p1, p2, p3, p4,  ncol=2)
+```
+
+
+A more general bar plot can be obtained with `geom_bar()`
+```{r}
+data("mtcars")
+mtcars$cyl <- as.factor(mtcars$cyl) # changing 'cyl' to factor, which is actually is 
+mtcars$am <- as.factor(mtcars$am)
+p1 <- ggplot(mtcars, aes(x=cyl, fill=am)) +
+      geom_bar(position="stack")
+p2 <- ggplot(mtcars, aes(x=cyl, fill=am)) +
+      geom_bar(position="dodge") # or "stack", or "fill"
+
+posn_d <- position_dodge(width=.2) # like for jitter
+p3 <- ggplot(mtcars, aes(x=cyl, fill=am)) +
+      geom_bar(position=posn_d, alpha=.6)
+
+p4 <- ggplot(mtcars, aes(mpg, fill=cyl)) +
+      geom_histogram(binwidth = 1, position="identity", alpha=.4)
+
+
+grid.arrange(p1, p2, p3, p4,  ncol=2)
+```
+
+
+```{r}
+data <- data.frame(a=1:6, b=rep(1/6,6))
+
+p1 <- ggplot(data, aes(x=a, y=b)) +
+      geom_bar(position="stack", alpha = 0.7, stat = "identity") +
+      labs(title = "Probability distribution of die roll", x = "Value on the die (x)", y = "P(x)") +
+  scale_x_discrete(limits=1:6, labels=c("1", "2", "3", "4", "5", "6"))
+      
+p1
+```
+
+### Line plots
+
+Particularly suited for line plots over time
+```{r}
+p1 <- ggplot(economics, aes(x = date, y = unemploy)) + 
+geom_line()
+
+data("beavers")
+p2 <- ggplot(beaver1, aes(x = time, y = temp, col=factor(activ))) + 
+geom_line(aes(group=1)) # group = 1 indicates you want a single line connecting all the points, you can set group=variable
+
+grid.arrange(p1, p2, ncol=2)
+```
+
+

@@ -1,0 +1,4276 @@
+\documentclass[]{book}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Learning Data Science in R},
+            pdfauthor={Antonio Fidalgo},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{natbib}
+\bibliographystyle{apalike}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Learning Data Science in R}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Antonio Fidalgo}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{Last update: April 01, 2019}
+
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+
+%%% BEGIN custom section titles
+
+
+%%% END custom section titles
+
+
+
+
+%%% BEGIN book headers 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\thesection~ ~#1~}}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter~ ~#1~}{}}
+
+% Fancyhdr setup
+\fancypagestyle{main}{
+\fancyhf{} % clear all header fields
+\fancyhead[LE]{\footnotesize\scshape\thepage}
+\fancyhead[RE]{\footnotesize\scshape\leftmark}
+\fancyhead[LO]{\footnotesize\scshape\rightmark}
+\fancyhead[RO]{\footnotesize\scshape\thepage}
+%\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0 pt}
+\renewcommand{\footrulewidth}{0 pt}
+}
+
+\pagestyle{main}
+
+%%% END book headers
+
+
+
+%%% BEGIN hyperlinks
+% https://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=false,% hyperlinks will be black
+  linkbordercolor=black,% hyperlink borders will be red
+  pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+}
+
+%%% END hyperlinks
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{corollary}{Corollary}[chapter]
+\newtheorem{proposition}{Proposition}[chapter]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[chapter]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{foreword}{%
+\chapter*{Foreword}\label{foreword}}
+\addcontentsline{toc}{chapter}{Foreword}
+
+\begin{quote}
+``Data science is like teenage sex: everyone talks about it, nobody
+really knows how to do it, everyone thinks everyone else is doing it, so
+everyone claims they are doing it\ldots{}''
+
+--- paraphrase of Dan Ariely's quote on big data
+\end{quote}
+
+There is already a large number of excellent and free references for
+learning data science in R. The list would be too vast, but two names
+stand out: \href{http://hadley.nz/}{Hadley Wickham} and
+\href{https://yihui.name/en/about/}{Yihui Xie}.\\
+Work of the first includes the books \citet{wickham2016} and
+\citet{wickham2014} (freely available, including source code, on
+\href{https://github.com/hadley}{github.com/hadley}) as well as some of
+the most popular packages in R such as \texttt{ggplot2}
+\citep{R-ggplot2} and \texttt{tidyverse}\citep{R-tidyverse}.\\
+Work of the second is used precisely in the current file thanks to the
+\texttt{rmarkdown} package \citep{R-rmarkdown}, \texttt{knitr}
+\citep{R-knitr} and \texttt{bookdown} \citep{R-bookdown}. His source
+code is also on \href{https://github.com/yihui/}{github.com/yihui/}.
+
+So, the question arises of why one should even bother to write on the
+topic. The present ``book'' is justified on the following grounds.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  There is no better way of learning data science and R than
+  \textbf{doing oneself} the pages of code.\\
+\item
+  The material gathered here is a \textbf{personal selection} made on
+  what I judge most relevant for my work, the most important techniques
+  in general or, sometimes, the least obvious for the regular
+  practitioner.\\
+\item
+  These notes serve as an \textbf{archive} of what I did in the domain
+  so that I can easily access it in the future.
+\end{enumerate}
+
+\hypertarget{getsarted}{%
+\chapter{Getting started}\label{getsarted}}
+
+\hypertarget{install-applications}{%
+\section{Install applications}\label{install-applications}}
+
+Download the following free applications, available on all platforms:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \href{https://cran.uni-muenster.de/}{R}
+\item
+  \href{https://www.rstudio.com/products/rstudio/download/\#download}{RStudio,
+  free Desktop version}
+\item
+  \href{https://www.latex-project.org/get/}{A Latex distribution} (e.g.,
+  MacTex for Mac or MiKTeX for Windows machines)
+\end{enumerate}
+
+The first two are easily and quickly installed. The last is a very large
+program (a few Gb) and needs time to install.
+
+Another application needed is a
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \href{https://git-scm.com/downloads}{Git distribution}
+\end{enumerate}
+
+This is also a free software.\\
+Once you have installed Git for version control, activate it in RStudio:
+\emph{Tools\textgreater{} Global Options\textgreater{} Git/SVN} and
+click on \emph{Enable version control interface for RStudio projects}.\\
+Also generate a SHH RSA key. We will use it to identify at the GitHub
+repo.
+
+\hypertarget{sign-for-github}{%
+\section{Sign for GitHub}\label{sign-for-github}}
+
+Create an account at GitHub at
+\href{https://github.com/join}{https://github.com}.
+
+\hypertarget{create-your-project}{%
+\section{Create your project}\label{create-your-project}}
+
+\emph{File\textgreater{} New project\textgreater{} Existing Directory}
+and chose that book folder.\\
+Now, every time you create content for your book, you must start a
+Rstudio session \emph{File\textgreater{} Open Project\ldots{}}\\
+All the files of the project are the files of the folder, and vice
+versa.
+
+\hypertarget{create-github-repo-and-link-your-machine-to-it}{%
+\section{Create GitHub repo and link your machine to
+it}\label{create-github-repo-and-link-your-machine-to-it}}
+
+Create a new repository (pronounced `repo') whose name is
+\textbf{exactly} the same as your R project / book folder (e.g.,
+`myRbook').\\
+On the top left menu in GitHub, go to \emph{Settings\textgreater{} SHH
+and GPG keys} and click on `New SHH key'. Paste the SHH key generated by
+RStudio.
+
+In RStudio go to \emph{Tools\textgreater{} Project
+Options\ldots\textgreater{} Git/SVN}. Under \emph{Version control
+system}, select `Git'.\\
+Still in RStudio, \emph{Tools\textgreater{} Terminal\textgreater{} New
+Terminal}. This open a Terminal where you type commands.
+
+Start by initializing Git on the terminal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{git init}
+\end{Highlighting}
+\end{Shaded}
+
+Then paste the message shown at the creation of the repo (changing the
+names, of course):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{git remote add origin https}\OperatorTok{:}\ErrorTok{//}\NormalTok{github.com}\OperatorTok{/}\NormalTok{YOURNAME}\OperatorTok{/}\NormalTok{YOURREPO.git}
+\NormalTok{git push }\OperatorTok{-}\NormalTok{u origin master}
+\end{Highlighting}
+\end{Shaded}
+
+Your local \texttt{master} should now be connected to the
+\texttt{master} on GitHub.\\
+If necessary, restart RStudio. At the restart, a Git thumbnail should
+appear in a pane. You are ready to commit and push your files.
+
+\hypertarget{troubleshooting}{%
+\subsection{Troubleshooting}\label{troubleshooting}}
+
+If the procedure above works, great! One must be aware, however, that it
+sometimes hits some problem unexpected and difficult to understand
+problem. In these cases, a classic solution is to copy and google the
+error message with a first term such as ``RStudio''.\\
+In my experience, the following hack worked. Find the invisible file of
+the repo \emph{.git\textgreater{} config}. Hidden files on Mac are
+turned visible by the keyboard key \texttt{CMD\ +\ SHIFT\ +\ .}. In that
+file, delete the following part (including the space it takes)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{[remote }\StringTok{"origin"}\NormalTok{]}
+\NormalTok{    url =}\StringTok{ }\NormalTok{git}\OperatorTok{@}\NormalTok{github.com}\OperatorTok{:}\NormalTok{USERNAME}\OperatorTok{/}\NormalTok{repo.git}
+\NormalTok{    fetch =}\StringTok{ }\OperatorTok{+}\NormalTok{refs}\OperatorTok{/}\NormalTok{heads}\OperatorTok{/}\ErrorTok{*:}\NormalTok{refs}\OperatorTok{/}\NormalTok{remotes}\OperatorTok{/}\NormalTok{origin}\OperatorTok{/}\ErrorTok{*}
+\end{Highlighting}
+\end{Shaded}
+
+Then, try again the procedure above.
+
+\hypertarget{collaboration-on-github}{%
+\section{Collaboration on GitHub}\label{collaboration-on-github}}
+
+There are various established ways for collaborating on a GitHub repo.
+As a matter of facts, collaboration on a project is the \emph{raison
+d'etre} of GitHub.\\
+We illustrate here the easiest of them, namely the joint reading and
+writing into one repo by all the members of a team.\\
+Importantly, it is assumed that all members of the group are able to
+push/pull code from RStudio to an experimental repo on GitHub (see
+above).\\
+The following are the steps in the collaboration's setup.
+
+\hypertarget{owner-of-the-organization}{%
+\subsection{Owner of the organization}\label{owner-of-the-organization}}
+
+One member of the group creates an organization on GitHub under
+\emph{Settings\textgreater{} Organizations\textgreater{} New
+organization}.\\
+Then, under that organization, this member of the team creates a new
+repo whose name is the same as the folder and R project that the group
+will work on (e.g., `ouRbook').\\
+The owner of the organization connects from RStudio to the repo and
+populates it with the current files of the project.\\
+Still as a task of the owner, create a team. Under the organization page
+in GitHub, simply click on `New team' and give it a name.\\
+A team now appears in the organization page. In the page of that team,
+click on `Add a member'. A window appears where the member to be added
+can be searched for and added.\\
+Once that member is found and selected, make the double step of adding
+him/her to the team AND assign him/her to the repo. This second step can
+still be made later, but it's simpler to do it right then.\\
+Importantly, make sure that the new member has reading and
+\textbf{writing} rights into the repo. This again, can be changed later
+by navigating the team's page.
+
+\hypertarget{member-of-the-team}{%
+\subsection{Member of the team}\label{member-of-the-team}}
+
+After the steps above, the newly added member receives an email to
+confirm the participation the organization / team.\\
+Navigate now to the team's page and locate the repo that the owner has
+created.\\
+A button-menu allows to `Clone or download the repo'. Click to show the
+https address of the repo,
+\texttt{https://github.com/ORGANIZATION/repo.git} and copy that link.\\
+Open a simple RStudio session (not a project!). Open a new Terminal
+(\emph{Tools\textgreater{} Terminal\textgreater{} New Terminal}) and
+type \texttt{cd} (change directory) and a path to the folder where you
+want the repo to be saved. For instance,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cd Dropbox}\OperatorTok{/}\NormalTok{Fresenius}\OperatorTok{/}\NormalTok{DS4B }
+\end{Highlighting}
+\end{Shaded}
+
+The terminal is writing into that folder, as indicated by the path
+before the \texttt{\$} sign in command line of the terminal.\\
+Recall that you copied the address of the team's repo. Then, in command
+line, now type the following commands and your copied address:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{git clone https}\OperatorTok{:}\ErrorTok{//}\NormalTok{github.com}\OperatorTok{/}\NormalTok{ORGANIZATION}\OperatorTok{/}\NormalTok{repo.git }
+\end{Highlighting}
+\end{Shaded}
+
+The whole repo is now a new folder in your directory. If all went well,
+you can now pull and push into that repo in GitHub.
+
+\hypertarget{part-source-and-output-files}{%
+\part{Source and output
+files}\label{part-source-and-output-files}}
+
+\hypertarget{rmd}{%
+\chapter{\texorpdfstring{\texttt{.Rmd} source
+files}{.Rmd source files}}\label{rmd}}
+
+This chapter gathers general comments about \texttt{.Rmd} files.
+
+\hypertarget{options-for-all-chunks}{%
+\section{Options for all chunks}\label{options-for-all-chunks}}
+
+It is convenient to set options for all the R chunks of the document.
+This saves time when writing these chunks.\\
+A natural place to set these options is in a first R chunk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{OPTION1 =} \OtherTok{TRUE}\OperatorTok{/}\OtherTok{FALSE}\NormalTok{,}
+                      \DataTypeTok{OPTION2 =} \OtherTok{TRUE}\OperatorTok{/}\OtherTok{FALSE}\NormalTok{,}
+\NormalTok{                      ...)}
+\end{Highlighting}
+\end{Shaded}
+
+Importantly, these options are overridden by the particular chunk
+options.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BaseNTok{```\{r, OPTION2=FALSE\}}
+\end{Highlighting}
+\end{Shaded}
+
+Options actually take R code. So, the following are examples that could
+be used to define the option.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BaseNTok{```\{r, eval=4>3, echo=format(Sys.Date(), '%Y-%B-%d') > '2019-March-10'\}}
+\BaseNTok{# eval is always TRUE}
+\BaseNTok{# echo = TRUE if current date is after March 10, 2019}
+\BaseNTok{```}
+\end{Highlighting}
+\end{Shaded}
+
+The list of options can be found here
+\url{https://yihui.name/knitr/options/}. Below are some comments on some
+of these options (the least trivial for the author).
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{collapse} determines whether the source code and the output
+  should be merged into a single block. Here is the same chunk with
+  different values of the option:
+\end{itemize}
+
+\texttt{collapse=TRUE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{+}\StringTok{ }\DecValTok{2}
+\CommentTok{#R> [1] 4}
+\DecValTok{3}\OperatorTok{*}\StringTok{ }\DecValTok{5}
+\CommentTok{#R> [1] 15}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{collapse=FALSE}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{+}\StringTok{ }\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#R> [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{3}\OperatorTok{*}\StringTok{ }\DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#R> [1] 15
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{comment} gives the string to be printed before the output.
+\end{itemize}
+
+\texttt{comment=\textquotesingle{}\#\#\textquotesingle{}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{+}\StringTok{ }\DecValTok{2}
+\CommentTok{## [1] 4}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{comment=\textquotesingle{}R\textgreater{}\textquotesingle{}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{+}\StringTok{ }\DecValTok{2}
+\NormalTok{R}\OperatorTok{>}\StringTok{ }\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+Worth noting: a \texttt{\#} as a first character of the comment string
+(with \texttt{collpase=TRUE}) turns the output font into a comment-like
+text.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{child} allows a document to call and use another file as input
+  in the document.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BaseNTok{```\{r, child='PATH/TO/OTHER/file.Rmd'\}}
+\end{Highlighting}
+\end{Shaded}
+
+The path can be either absolute or relative.\\
+For relative paths, the following applies:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{\textasciitilde{}/} starts a path a the root,
+\item
+  \texttt{../} indicates the parent directory,
+\item
+  \texttt{../../} for parent of the parent directory,
+\item
+  to move forward, start with the name of the included folder in the
+  current directory.
+\end{itemize}
+
+\hypertarget{latex}{%
+\section{Latex code}\label{latex}}
+
+The overwhelming reason to introduce Latex code in a \texttt{.Rmd} file
+is for typesetting mathematical expressions.\\
+There are two main ways to type math in Latex:
+
+\begin{itemize}
+\tightlist
+\item
+  in the text, surrounded by special delimiters,
+  \texttt{\textbackslash{}(\ math\ \textbackslash{})} (alternatively,
+  one can use the deprecated \texttt{\$\ math\ \$}),
+\item
+  in an equation, surrounded by special delimiters,
+  \texttt{\textbackslash{}{[}\ math\ equation\ \textbackslash{}{]}}, or
+  in a dedicated environment such as
+  \texttt{\textbackslash{}begin\{equation\}\ math\ equation\ \textbackslash{}end\{equation\}}
+  (also deprecated, \texttt{\$\$\ math\ equation\ \$\$}).
+\end{itemize}
+
+Math format is usually distinct from the text format. For instance,
+compare a\textsuperscript{2} + b\textsuperscript{2} =
+c\textsuperscript{2} (simple markdown) to \(a^2 + b^2 = c^2\) (Latex).
+Notice, however, that most mathematical symbols are not supported by
+markdown. This why basic knowledge of Latex is essential for producing
+documents with math formula.\\
+The first part of that knowledge consists in the list of Latex symbols.
+These are typed into a document starting with a slash
+\texttt{\textbackslash{}}. For instance, the Latex symbol \(\alpha\) is
+produced by the code \texttt{\textbackslash{}alpha} while \(\sum\) is
+given by \texttt{\textbackslash{}sum}.\\
+Superscripts and subscripts are produced with the characters
+\texttt{\^{}} and \texttt{\_}, respectively, and the content of the
+super- and subscripts enclosed within \texttt{\{\ \}}. For instance,
+\(x_{2}^{3}\) is produced by the code \texttt{x\_\{2\}\^{}\{3\}} (or
+\texttt{x\^{}\{3\}\_\{2\}}) and \(\sum_{i=1}^{4}\) is given by
+\texttt{\textbackslash{}sum\_\{i=1\}\^{}\{4\}}.\\
+A comprehensive list of symbols (some of them requiring special Latex
+packages) can be found in \citet{latexlist}. Shorter lists can be found
+online, including on
+\href{https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols}{wiki}.\\
+A web-based application helps beginners by offering suggestions to a
+hand-drawn symbol,
+\href{http://detexify.kirelabs.org/classify.html}{detexify}.\\
+A second bulk in the knowledge of Latex is the understanding of special
+environments. But then, if a document requires lots of special Latex
+environments, then \texttt{.Rmd} files are not the most appropriate type
+of files to use.\\
+Some of these environments, however, have a perfect integration in
+\texttt{.Rmd} files, such as the most common, the equation. Here is an
+example, given by the code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{\textbackslash{}[}
+\NormalTok{\textbackslash{}sum_\{i=0\}^\{\textbackslash{}infty\} ak^\{i\} = \textbackslash{}frac\{a\}\{1-k\} \textbackslash{}text\{, for \}  \textbackslash{}lvert k \textbackslash{}rvert < 1}
+\NormalTok{\textbackslash{}]}
+\end{Highlighting}
+\end{Shaded}
+
+\[
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+\]
+
+\hypertarget{figures}{%
+\section{Figures}\label{figures}}
+
+Figures usually appear after the chunk that calls them, except on
+\texttt{.pdf} format because Latex makes them float and they may appear
+in the next page.\\
+Beyond the actual R calls that produces the figure, the figure's
+appearance will be tweaked by the options specified in the R chunk. The
+following options are worth noticing:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{fig.width} and \texttt{fig.height} set in inches the graphical
+  device size of the R plots.
+\item
+  \texttt{out.width} and \texttt{out.height} set the size of the R
+  plots, including possibly rescaled images. Easier use with percentages
+  as \texttt{out-width\ =\ "50\%"} means that the figure stretches over
+  50\% of the page's width.
+\item
+  \texttt{fig.align} takes the value \texttt{left}, \texttt{right} or
+  \texttt{center} and is self-explained.
+\item
+  \texttt{fig.cap} sets the caption of the figure.
+\item
+  \texttt{fig.show} takes the default value \texttt{asis} to produce the
+  command as it is read by R. Contrast this with the value \texttt{hold}
+  which forces R to wait until the end of the chunk to produce the
+  plots. It may be useful to hold if one wants to put multiple plots on
+  the same line (side-by-side).
+\end{itemize}
+
+As an example, the figure below was created with the chunk options
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BaseNTok{```\{r plot-one, echo=FALSE, out.width="60%",}
+\BaseNTok{fig.align="center", fig.cap="Including a plot."\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{MyR_files/figure-latex/plot-one-1} 
+
+}
+
+\caption{Including a plot.}\label{fig:plot-one}
+\end{figure}
+
+For two plots next to each other, the chunk options could be
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BaseNTok{```\{r plot-two, echo=FALSE, out.width="30%", fig.align="center",  }
+\BaseNTok{fig.cap="Including two plots.", fig.show="hold"\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.3\linewidth]{MyR_files/figure-latex/plot-two-1} \includegraphics[width=0.3\linewidth]{MyR_files/figure-latex/plot-two-2} 
+
+}
+
+\caption{Including two plots.}\label{fig:plot-two}
+\end{figure}
+
+\hypertarget{cr}{%
+\section{Cross-references}\label{cr}}
+
+Cross-references are references to different elements somewhere in the
+content such as a specific chapter, figure, equation, etc.\\
+These work under a simple rule: the element to be referenced takes a
+\textbf{label}, e.g., `foo', and this label is called from anywhere in
+the text with the command \texttt{\textbackslash{}@ref(foo)}.\\
+Slightly different rules apply depending on which element is to be
+referenced. Below is a selected list.\\
+Notice that all labels in \texttt{bookdown} can only contain
+alphanumeric characters, or the special characters \texttt{:},
+\texttt{-}, and \texttt{/}.
+
+\hypertarget{cr-chapters}{%
+\subsection{Chapters, sections, \ldots{}}\label{cr-chapters}}
+
+Headers (chapters, sections, \ldots) have an ID that serves as a label.
+By default, it is formed by the words of the header in small letters
+separated by dashes (e.g., \texttt{my-great-chapter}). It is better
+practice, however, to assign a label to useful headers by appending to
+them the code \texttt{\{\#foo\}} where \texttt{foo} is the chosen label
+for the header. This subsection, for instance, has the header
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{### Chapters, sections, ... \{#cr-chapters\}}
+\end{Highlighting}
+\end{Shaded}
+
+The cross-reference is then achieved with
+\texttt{\textbackslash{}@ref(foo)}.\\
+As an example, notice that this line belongs to Subsection
+\ref{cr-chapters}, included in Section \ref{cr} of Chapter \ref{rmd}.\\
+These cross-references were obtained by the text/code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{As an example, notice that this line belongs to Subsection \textbackslash{}@ref(cr-chapters), }
+\NormalTok{included in Section \textbackslash{}@ref(cr) of Chapter \textbackslash{}@ref(rmd).}
+\end{Highlighting}
+\end{Shaded}
+
+For \texttt{.html} formats, one may use a direct link to the header by
+using the format for regular links but with \texttt{\#label} as the
+destination. For instance, since the label of this section is
+\texttt{cr}, the code \texttt{{[}Cross-references{]}(\#cr)} produces
+this link: \protect\hyperlink{cr}{Cross-references}.
+
+\hypertarget{figures-1}{%
+\subsection{Figures}\label{figures-1}}
+
+The label of a figure is given by the name of the chunk where it was
+created preceded by \texttt{fig:}.\\
+The chunk that created Figure \ref{fig:plot-one} had the name
+\texttt{plot-one}. Therefore, the cross-reference is achieved through
+\texttt{\textbackslash{}@ref(fig:plot-one)}.
+
+\hypertarget{tables}{%
+\subsection{Tables}\label{tables}}
+
+The label of a table is given by the name of the chunk where it was
+created preceded by \texttt{tab:}.\\
+If the chunk that created a Table had the name \texttt{table-one}, then
+cross-reference is achieved through
+\texttt{\textbackslash{}@ref(tab:table-one)}.
+
+\hypertarget{equations}{%
+\subsection{Equations}\label{equations}}
+
+As explained in Section \ref{latex}, good rendering of equations
+requires coding in a Latex environment. For numbering of equations,
+various environments can be used, such as \texttt{equation},
+\texttt{eqnarray}, etc.\\
+The label is then included in this environment within parentheses and by
+adding the prefix \texttt{\textbackslash{}\#eq:}, e.g.,
+\texttt{\textbackslash{}\#eq:foo}.\\
+As for the cross-reference, one uses
+\texttt{\textbackslash{}@ref(eq:foo)}.\\
+Below is a modified version of the equation in Section \ref{latex} to
+include a number and a label.\\
+This is Equation \eqref{eq:series}.
+
+\begin{equation} 
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+  \label{eq:series}
+\end{equation}
+
+The previous lines were obtained with the code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{This is Equation \textbackslash{}@ref(eq:series).}
+
+\NormalTok{\textbackslash{}begin\{equation\} }
+\NormalTok{\textbackslash{}sum_\{i=0\}^\{\textbackslash{}infty\} ak^\{i\} = \textbackslash{}frac\{a\}\{1-k\} \textbackslash{}text\{, for \}  \textbackslash{}lvert k \textbackslash{}rvert < 1}
+\NormalTok{  (\textbackslash{}#eq:series)}
+\NormalTok{\textbackslash{}end\{equation\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{citations}{%
+\section{Citations}\label{citations}}
+
+It is of utmost importance to give credit to sources. This subsection
+illustrates a simple way to make citations in \texttt{bookdown}. For
+further details, including for changing references styles, see this
+\href{https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html}{RStudio
+page}.\\
+The general idea is similar to the cross-references. The source has a
+label \texttt{foo} and the citation is made with \texttt{@foo}.\\
+There are numerous ways to tweak the format of the citation, but default
+format is often good enough.\\
+The citation procedure in \texttt{bookdown} is borrowed from the Latex
+constellation.\\
+Sources are listed in a separated bibliography file, \texttt{.bib}.\\
+For use in \texttt{bookdown}, this file must be given in the
+\texttt{YAML} (along with its path if it is not in the same folder)
+under the entry \texttt{bibliography}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{---}
+\FunctionTok{title:}\AttributeTok{ }\StringTok{"Great title"}
+\FunctionTok{output:}\AttributeTok{ pdf_document}
+\FunctionTok{bibliography:}\AttributeTok{ BIBLIOGRAPHY_FILE.bib}
+\OtherTok{---}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{BIBLIOGRAPHY\_FILE.bib} is a simple text file that has one
+entry for each source.\\
+The format of this entry depends on the type of source (article, book,
+blogpost, etc). Its construction, however, is quite similar and simply
+requires some fields (some compulsory, other optional) such as in the
+following example for a book.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{@book\{wickham2014,}
+\NormalTok{  title=\{Advanced \{R\}\},}
+\NormalTok{  author=\{Wickham, Hadley\},}
+\NormalTok{  year=\{2014\},}
+\NormalTok{  publisher=\{Chapman and Hall/CRC\}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+All the fields shown (\texttt{title}, \texttt{author}, \texttt{year} and
+\texttt{publisher}) are required for a book. Further fields such as
+\texttt{volume} or \texttt{edition} would be optional.\\
+Importantly, notice the very first element in the curly brackets: that
+is the label of the source, freely chosen by the author.\\
+The citation of this particular book would then be made thanks to the
+label, with the code \texttt{@wickham2014}.\\
+A few comments are the following:
+
+\begin{itemize}
+\tightlist
+\item
+  a reference inside square brackets with or without a prefix and a
+  suffix puts the citation inside parentheses:
+  \texttt{{[}see\ the\ reference\ (prefix)\ @wickham2014\ for\ further\ details\ (suffix){]}}
+  produces \citep[see the reference (prefix)][ for further details
+  (suffix)]{wickham2014},
+\item
+  without square brackets, no parentheses in the output,
+\item
+  multiple references are separated by a semi-column \texttt{;}:
+  \texttt{{[}@wickham2014;\ @xie2015{]}}produces
+  \citep{wickham2014, xie2015},
+\item
+  a minus sign \texttt{-} in front of the \texttt{@} suppresses the name
+  of the author in the text: \texttt{-@wickham2014} produces
+  \citeyearpar{wickham2014},
+\item
+  the references are \textbf{automatically} put at the end of the book;
+  the last level-one header should therefore be `Bibliography' or
+  `References'.
+\end{itemize}
+
+\hypertarget{writing-.bib-entries}{%
+\subsection{\texorpdfstring{Writing \texttt{.bib}
+entries}{Writing .bib entries}}\label{writing-.bib-entries}}
+
+One advantage of using \texttt{.bib} files is that the fields for each
+entry, i.e., all the information about the source, are usually available
+online in the easiest of forms.\\
+The site Google Scholar, for instance, provides these entries in
+\texttt{.bib} form.\\
+As an example, search there the book mentioned above, e.g., ``wickham
+advanced r''. Under each hit, there is an icon of inverted commas. By
+clicking it, the reference is given in different formats but also with a
+link to the BibTeX code (along with others). One can then simply copy
+this BibTex code and paste it anywhere in the bibliography file. For
+easier use, the label could be changed.
+
+\hypertarget{custom-ouptut}{%
+\chapter{Customize output}\label{custom-ouptut}}
+
+This chapter is about choosing and/or modifying the way the output file
+looks like.
+
+\hypertarget{multiple-built-in-output-types}{%
+\section{Multiple built-in output
+types}\label{multiple-built-in-output-types}}
+
+{[}complete this section{]} From pdf to slides, through webpages and
+notebooks.
+
+\hypertarget{new-types-provided-by-packages}{%
+\section{New types provided by
+packages}\label{new-types-provided-by-packages}}
+
+{[}complete this section{]} These are more variations of the above.
+
+\hypertarget{css-custom-html}{%
+\section{CSS: custom html}\label{css-custom-html}}
+
+A file to change how html outputs look like.
+
+\hypertarget{latex-preamble}{%
+\section{Latex preamble}\label{latex-preamble}}
+
+This file is added to the preamble of the Latex file to modify how the
+\texttt{.pdf} output is compiled.\\
+Literally, these commands are placed in the Latex file before the
+self-explaining command:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{\textbackslash{}begin}\NormalTok{\{}\ExtensionTok{document}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The most common commands call the packages to be used in the compilation
+of the Latex file, e.g.,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{\textbackslash{}usepackage}\NormalTok{\{}\ExtensionTok{multirow}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Each package, in turn, includes a set of functions that can be used in
+the file to produce some particular output.\\
+The other set of commands are typically definitions of new commands or
+environments as well as redefinitions of existing commands to produced a
+special output.\\
+These latter require an excellent command of the language. The good news
+is that people are keen to share their expertise. Here is an example
+that I included in another \texttt{preamble.tex} for counting the
+sections in reverse order. I found it on a blog,
+\href{https://texblog.org/2013/04/03/reverse-numbering-for-chapters-sections-etc/}{texblog}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\BuiltInTok{\textbackslash{}usepackage}\NormalTok{\{}\ExtensionTok{totcount}\NormalTok{\}}
+\FunctionTok{\textbackslash{}regtotcounter}\NormalTok{\{section\}}
+\FunctionTok{\textbackslash{}makeatletter}
+    \FunctionTok{\textbackslash{}renewcommand}\NormalTok{\{}\ExtensionTok{\textbackslash{}thesection}\NormalTok{\}\{}\FunctionTok{\textbackslash{}number\textbackslash{}numexpr\textbackslash{}c@section@totc}\NormalTok{-}\FunctionTok{\textbackslash{}c@section+}\NormalTok{1}\FunctionTok{\textbackslash{}relax}\NormalTok{\}}
+\FunctionTok{\textbackslash{}makeatother}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{part-r-basics}{%
+\part{R Basics}\label{part-r-basics}}
+
+\hypertarget{rcalc}{%
+\chapter{R as a calculator}\label{rcalc}}
+
+R can be used as a simple calculator. For instance, 45+17=62 .\\
+Here are a few more examples of the commands.
+
+\hypertarget{usual-operators}{%
+\section{Usual operators}\label{usual-operators}}
+
+\hypertarget{simple-operations}{%
+\subsection{Simple operations}\label{simple-operations}}
+
+The usual symbols \texttt{+,\ -,\ *,\ /} apply .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2} \OperatorTok{+}\StringTok{ }\DecValTok{6}
+\CommentTok{#R> [1] 8}
+\DecValTok{56}\OperatorTok{/}\StringTok{ }\DecValTok{6}
+\CommentTok{#R> [1] 9.333333}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{parentheses}{%
+\subsection{Parentheses}\label{parentheses}}
+
+The parentheses work as expected. But they are also a common source of
+error when they are not matched.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{4}\OperatorTok{+}\DecValTok{3}\NormalTok{)}\OperatorTok{*}\NormalTok{((}\DecValTok{7-3}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\FloatTok{+.05}\NormalTok{))}
+\CommentTok{#R> [1] 26.66667}
+\end{Highlighting}
+\end{Shaded}
+
+The next expression will generate an error and prevent the compilation
+of the whole book.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{4}\OperatorTok{+}\DecValTok{3}\NormalTok{)}\OperatorTok{*}\NormalTok{((}\DecValTok{7-3}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\FloatTok{+.05}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{exponents}{%
+\subsection{Exponents}\label{exponents}}
+
+There are two ways of expressing the power of a number: \texttt{\^{}}
+and \texttt{**}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{3}\OperatorTok{^}\DecValTok{4}
+\CommentTok{#R> [1] 81}
+\DecValTok{3}\OperatorTok{**}\DecValTok{4}
+\CommentTok{#R> [1] 81}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unusual-operators}{%
+\section{Unusual operators}\label{unusual-operators}}
+
+\hypertarget{special-operations}{%
+\subsection{Special operations}\label{special-operations}}
+
+The symbols \texttt{\%/\%} and \texttt{\%\%} return the entire part of
+the result of the division and the rest of the division, respectively.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{56}\OperatorTok{/}\DecValTok{6}
+\CommentTok{#R> [1] 9.333333}
+\DecValTok{56}\OperatorTok{%/%}\DecValTok{6}
+\CommentTok{#R> [1] 9}
+\DecValTok{56}\OperatorTok{%%}\DecValTok{6}
+\CommentTok{#R> [1] 2}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{usual-functions}{%
+\section{Usual functions}\label{usual-functions}}
+
+The common functions found in any calculator also have an equivalent on
+R. The following examples need no further comment.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{log}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\CommentTok{#R> [1] 4.60517}
+\KeywordTok{sqrt}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\CommentTok{#R> [1] 10}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unusual-functions}{%
+\section{Unusual functions}\label{unusual-functions}}
+
+There are several other functions applied to numbers that one does not
+usually find in a calculator.\\
+A few examples below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# floor / ceiling for the closest integer}
+\KeywordTok{floor}\NormalTok{(}\FloatTok{13.47}\NormalTok{)}
+\CommentTok{#R> [1] 13}
+\KeywordTok{ceiling}\NormalTok{(}\FloatTok{13.47}\NormalTok{)}
+\CommentTok{#R> [1] 14}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{datastructures}{%
+\chapter{Data stuctures}\label{datastructures}}
+
+This chapter lists the most common objects to store data.
+
+\hypertarget{atomic-vectors}{%
+\section{Atomic vectors}\label{atomic-vectors}}
+
+The basic data structure in R is the vector. Vectors have three
+characteristics:
+
+\begin{itemize}
+\tightlist
+\item
+  a type, \texttt{typeof()},
+\item
+  a length, \texttt{length()},
+\item
+  some attributes, \texttt{attributes()}.
+\end{itemize}
+
+\hypertarget{types-of-data}{%
+\subsection{Types of data}\label{types-of-data}}
+
+There are four common types of atomic vectors:
+
+\begin{itemize}
+\tightlist
+\item
+  logical,
+\item
+  integer,
+\item
+  double (often called numeric),
+\item
+  character.
+\end{itemize}
+
+Note that if vector elements not all of the same type, R makes coercion.
+In that case, the order becomes: ``logical \textless{} numeric
+\textless{} character''.
+
+Here are a few illustrations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# logical vector}
+\NormalTok{log_vector <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{log_vector}
+\CommentTok{#R> [1]  TRUE FALSE FALSE}
+
+\CommentTok{# numeric vector}
+\NormalTok{num_vector <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\KeywordTok{typeof}\NormalTok{(num_vector)}
+\CommentTok{#R> [1] "double"}
+
+\CommentTok{# integer vector}
+\NormalTok{int_vector <-}\StringTok{ }\KeywordTok{c}\NormalTok{(12L, 10L, 3L)}
+\KeywordTok{typeof}\NormalTok{(int_vector)}
+\CommentTok{#R> [1] "integer"}
+
+
+\CommentTok{# character vector}
+\NormalTok{chr_vector <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{)}
+\KeywordTok{typeof}\NormalTok{(chr_vector)}
+\CommentTok{#R> [1] "character"}
+
+\CommentTok{# mixed types vector}
+\NormalTok{mix_vector <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\StringTok{"a"}\NormalTok{)}
+\KeywordTok{is.numeric}\NormalTok{(mix_vector)}
+\CommentTok{#R> [1] FALSE}
+\KeywordTok{typeof}\NormalTok{(mix_vector)}
+\CommentTok{#R> [1] "character"}
+\end{Highlighting}
+\end{Shaded}
+
+Numeric vectors can be created with the shortcut \texttt{:}, which is
+used to imply all the integers from the number on the left of \texttt{:}
+to the number on its right. Even if it is not good practice, these do
+not require the \texttt{c()} call.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vector_A <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{5}
+\NormalTok{vector_A}
+\CommentTok{#R> [1] 1 2 3 4 5}
+\KeywordTok{length}\NormalTok{(vector_A)}
+\CommentTok{#R> [1] 5}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{factor-vector}{%
+\subsection{Factor vector}\label{factor-vector}}
+
+This is a special type of vector. It has a limited number of values,
+called levels. These levels can be unordered (e.g., gender is either
+``Female'' or ``Male'') or ordered (e.g.~school level is ``Primary'',
+``Secondary'', ``Tertiary'')
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gender <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Female"}\NormalTok{, }\StringTok{"Male"}\NormalTok{))}
+\NormalTok{gender}
+\CommentTok{#R> [1] Male   Male   Female Male   Female Female Male  }
+\CommentTok{#R> Levels: Female Male}
+\KeywordTok{levels}\NormalTok{(gender)}
+\CommentTok{#R> [1] "Female" "Male"}
+\KeywordTok{summary}\NormalTok{(gender)}
+\CommentTok{#R> Female   Male }
+\CommentTok{#R>      3      4}
+\NormalTok{school <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Primary"}\NormalTok{, }\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{),}
+                    \DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{school}
+\CommentTok{#R> [1] Primary   Secondary Tertiary }
+\CommentTok{#R> Levels: Primary < Secondary < Tertiary}
+
+\NormalTok{school2 <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Primary"}\NormalTok{, }\StringTok{"Secondary"}\NormalTok{,}\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{),}
+                    \DataTypeTok{labels=}\KeywordTok{c}\NormalTok{( }\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{,}\StringTok{"Primary"}\NormalTok{),}
+                    \DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{school2}
+\CommentTok{#R> [1] Secondary Tertiary  Tertiary  Primary  }
+\CommentTok{#R> Levels: Secondary < Tertiary < Primary}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{matrices-and-arrays}{%
+\section{Matrices and arrays}\label{matrices-and-arrays}}
+
+R is not often used for matrices calculations: it is too slow for that
+and there are better programs for it out there (e.g.~Matlab).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# populate a matrix with the elements in of the vector, and give the dimensions}
+\NormalTok{M <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{), }\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{) }
+\NormalTok{M}
+\CommentTok{#R>      [,1] [,2]}
+\CommentTok{#R> [1,]    4    3}
+\CommentTok{#R> [2,]    1    6}
+\CommentTok{#R> [3,]    0    8}
+\end{Highlighting}
+\end{Shaded}
+
+If we think of a matrix as a 2 dimensions vector, then arrays are \(n\)
+dimensions vectors. Is it important? It might be in some very specific
+cases.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mya <-}\StringTok{ }\KeywordTok{array}\NormalTok{(}\DataTypeTok{data=}\DecValTok{1}\OperatorTok{:}\DecValTok{18}\NormalTok{, }\DataTypeTok{dim=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\NormalTok{mya}
+\CommentTok{#R> , , 1}
+\CommentTok{#R> }
+\CommentTok{#R>      [,1] [,2] [,3]}
+\CommentTok{#R> [1,]    1    3    5}
+\CommentTok{#R> [2,]    2    4    6}
+\CommentTok{#R> }
+\CommentTok{#R> , , 2}
+\CommentTok{#R> }
+\CommentTok{#R>      [,1] [,2] [,3]}
+\CommentTok{#R> [1,]    7    9   11}
+\CommentTok{#R> [2,]    8   10   12}
+\CommentTok{#R> }
+\CommentTok{#R> , , 3}
+\CommentTok{#R> }
+\CommentTok{#R>      [,1] [,2] [,3]}
+\CommentTok{#R> [1,]   13   15   17}
+\CommentTok{#R> [2,]   14   16   18}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{lists}{%
+\section{Lists}\label{lists}}
+
+These are the one-size fit all structure\ldots{} A list is an object
+composed of any other object, even\ldots{} another list! Very useful
+data structure!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{school<-}\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Primary"}\NormalTok{, }\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{), }\DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{mylist <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{numbers=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{60}\NormalTok{),}
+                \DataTypeTok{somenames=}\KeywordTok{c}\NormalTok{(}\StringTok{"Jim"}\NormalTok{,}\StringTok{"Jules"}\NormalTok{),}
+                \DataTypeTok{results=} \KeywordTok{c}\NormalTok{(T,F,F,T),}
+                \DataTypeTok{school=}\NormalTok{school)}
+\NormalTok{mylist}
+\CommentTok{#R> $numbers}
+\CommentTok{#R>  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23}
+\CommentTok{#R> [24] 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46}
+\CommentTok{#R> [47] 47 48 49 50 51 52 53 54 55 56 57 58 59 60}
+\CommentTok{#R> }
+\CommentTok{#R> $somenames}
+\CommentTok{#R> [1] "Jim"   "Jules"}
+\CommentTok{#R> }
+\CommentTok{#R> $results}
+\CommentTok{#R> [1]  TRUE FALSE FALSE  TRUE}
+\CommentTok{#R> }
+\CommentTok{#R> $school}
+\CommentTok{#R> [1] Primary   Secondary Tertiary }
+\CommentTok{#R> Levels: Primary < Secondary < Tertiary}
+
+\CommentTok{# change the names of the elements of the list}
+\KeywordTok{names}\NormalTok{(mylist) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"O"}\NormalTok{,}\StringTok{"R"}\NormalTok{,}\StringTok{"S"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-frames}{%
+\section{Data frames}\label{data-frames}}
+
+Data frames are the second most important data structure in R. We can
+think of it as a better version of a data set in Excel. It stacks
+together observations over many variables, each of these variables being
+a vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# mtcars is a built-in data set}
+\KeywordTok{data}\NormalTok{(mtcars)}
+\KeywordTok{class}\NormalTok{(mtcars)}
+\CommentTok{#R> [1] "data.frame"}
+\NormalTok{mtcars}
+\CommentTok{#R>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb}
+\CommentTok{#R> Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4}
+\CommentTok{#R> Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4}
+\CommentTok{#R> Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1}
+\CommentTok{#R> Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1}
+\CommentTok{#R> Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2}
+\CommentTok{#R> Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1}
+\CommentTok{#R> Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4}
+\CommentTok{#R> Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2}
+\CommentTok{#R> Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2}
+\CommentTok{#R> Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4}
+\CommentTok{#R> Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4}
+\CommentTok{#R> Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3}
+\CommentTok{#R> Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3}
+\CommentTok{#R> Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3}
+\CommentTok{#R> Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4}
+\CommentTok{#R> Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4}
+\CommentTok{#R> Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4}
+\CommentTok{#R> Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1}
+\CommentTok{#R> Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2}
+\CommentTok{#R> Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1}
+\CommentTok{#R> Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1}
+\CommentTok{#R> Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2}
+\CommentTok{#R> AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2}
+\CommentTok{#R> Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4}
+\CommentTok{#R> Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2}
+\CommentTok{#R> Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1}
+\CommentTok{#R> Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2}
+\CommentTok{#R> Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2}
+\CommentTok{#R> Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4}
+\CommentTok{#R> Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6}
+\CommentTok{#R> Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8}
+\CommentTok{#R> Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2}
+\KeywordTok{head}\NormalTok{(mtcars)}
+\CommentTok{#R>                    mpg cyl disp  hp drat    wt  qsec vs am gear carb}
+\CommentTok{#R> Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4}
+\CommentTok{#R> Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4}
+\CommentTok{#R> Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1}
+\CommentTok{#R> Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1}
+\CommentTok{#R> Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2}
+\CommentTok{#R> Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1}
+\KeywordTok{str}\NormalTok{(mtcars)}
+\CommentTok{#R> 'data.frame':   32 obs. of  11 variables:}
+\CommentTok{#R>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...}
+\CommentTok{#R>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...}
+\CommentTok{#R>  $ disp: num  160 160 108 258 360 ...}
+\CommentTok{#R>  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...}
+\CommentTok{#R>  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...}
+\CommentTok{#R>  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...}
+\CommentTok{#R>  $ qsec: num  16.5 17 18.6 19.4 17 ...}
+\CommentTok{#R>  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...}
+\CommentTok{#R>  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...}
+\CommentTok{#R>  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...}
+\CommentTok{#R>  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...}
+
+\CommentTok{# names of the variables in the data frame}
+\KeywordTok{names}\NormalTok{(mtcars) }
+\CommentTok{#R>  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"}
+\CommentTok{#R> [11] "carb"}
+\KeywordTok{length}\NormalTok{(mtcars)}
+\CommentTok{#R> [1] 11}
+\KeywordTok{nrow}\NormalTok{(mtcars)}
+\CommentTok{#R> [1] 32}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-frame-creation}{%
+\subsection{Data frame creation}\label{data-frame-creation}}
+
+A data frame can be created manually by providing the function
+\texttt{data.frame} with the corresponding vectors. These vectors should
+be of same length, otherwise R recycles values. The data frame requires
+a name for each vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{let=}\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\DecValTok{7}\NormalTok{],}
+                 \DataTypeTok{num1=}\DecValTok{10}\OperatorTok{:}\DecValTok{16}\NormalTok{, }
+                 \DataTypeTok{num2=}\KeywordTok{floor}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{7}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{10}\NormalTok{)))}
+\NormalTok{df}
+\CommentTok{#R>   let num1 num2}
+\CommentTok{#R> 1   A   10  113}
+\CommentTok{#R> 2   B   11   94}
+\CommentTok{#R> 3   C   12   96}
+\CommentTok{#R> 4   D   13   99}
+\CommentTok{#R> 5   E   14  109}
+\CommentTok{#R> 6   F   15   88}
+\CommentTok{#R> 7   G   16  119}
+\KeywordTok{names}\NormalTok{(df)}
+\CommentTok{#R> [1] "let"  "num1" "num2"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{students <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{name=} \KeywordTok{c}\NormalTok{(}\StringTok{"tr"}\NormalTok{, }\StringTok{"ga"}\NormalTok{, }\StringTok{"mi"}\NormalTok{, }\StringTok{"st"}\NormalTok{, }\StringTok{"eb"}\NormalTok{, }\StringTok{"ha"}\NormalTok{, }\StringTok{"fo"}\NormalTok{, }\StringTok{"fi"}\NormalTok{),}
+                       \DataTypeTok{age=}\KeywordTok{c}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{23}\NormalTok{, }\DecValTok{24}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{28}\NormalTok{, }\DecValTok{24}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{41}\NormalTok{),}
+                       \DataTypeTok{like=} \KeywordTok{c}\NormalTok{(T, T, T, T, F, F, T, T)) }
+\NormalTok{students}
+\CommentTok{#R>   name age  like}
+\CommentTok{#R> 1   tr  23  TRUE}
+\CommentTok{#R> 2   ga  23  TRUE}
+\CommentTok{#R> 3   mi  24  TRUE}
+\CommentTok{#R> 4   st  33  TRUE}
+\CommentTok{#R> 5   eb  28 FALSE}
+\CommentTok{#R> 6   ha  24 FALSE}
+\CommentTok{#R> 7   fo  33  TRUE}
+\CommentTok{#R> 8   fi  41  TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-word-about-attributes}{%
+\section{A word about attributes}\label{a-word-about-attributes}}
+
+Attributes are important characteristics of vectors (and other data
+structures).\\
+They can be seen as some meta data that defines the nature of the
+object. This is to say that a given attribute can determine how a
+function applies to an object. Here are three important attributes:
+
+\begin{itemize}
+\tightlist
+\item
+  the names, \texttt{names()},
+\item
+  the dimensions, \texttt{dim()},
+\item
+  the class, \texttt{class}.
+\end{itemize}
+
+To illustrate the use of attributes, recall the case of a factor vector.
+The fact that the vector on which it builds is given the attribute of a
+class (factor) turns that vector into a special one.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{1.7}\NormalTok{, }\FloatTok{1.3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\FloatTok{3.3}\NormalTok{, }\FloatTok{3.3}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{2.3}\NormalTok{, }\FloatTok{2.3}\NormalTok{)}
+\NormalTok{vec}
+\CommentTok{#R> [1] 1.7 1.3 4.0 3.3 3.3 2.0 2.3 2.3}
+\KeywordTok{table}\NormalTok{(vec)}
+\CommentTok{#R> vec}
+\CommentTok{#R> 1.3 1.7   2 2.3 3.3   4 }
+\CommentTok{#R>   1   1   1   2   2   1}
+
+\NormalTok{vec.f <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(vec,}
+                \DataTypeTok{levels=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{1.3}\NormalTok{, }\FloatTok{1.7}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{2.3}\NormalTok{, }\FloatTok{2.7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{3.3}\NormalTok{, }\FloatTok{3.7}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{),}
+                \DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{vec.f}
+\CommentTok{#R> [1] 1.7 1.3 4   3.3 3.3 2   2.3 2.3}
+\CommentTok{#R> Levels: 1 < 1.3 < 1.7 < 2 < 2.3 < 2.7 < 3 < 3.3 < 3.7 < 4 < 5}
+\KeywordTok{table}\NormalTok{(vec.f)}
+\CommentTok{#R> vec.f}
+\CommentTok{#R>   1 1.3 1.7   2 2.3 2.7   3 3.3 3.7   4   5 }
+\CommentTok{#R>   0   1   1   1   2   0   0   2   0   1   0}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{environments}{%
+\section{Environments}\label{environments}}
+
+An environment is similar to a bag/list of names. It can be seen as the
+space were these names ``live''.\\
+Environments can include environments. In that case, the enclosing
+environment is called the parent environment.\\
+The most common environment is the \texttt{globalenv()} also called the
+\texttt{workspace}.
+
+\hypertarget{simple-functions-on-vectors}{%
+\chapter{Simple functions on
+vectors}\label{simple-functions-on-vectors}}
+
+In this section, we illustrate calculations with a single vector.
+
+\hypertarget{element-by-element-evaluation}{%
+\section{Element by element
+evaluation}\label{element-by-element-evaluation}}
+
+The main point to notice is how these functions are carried
+\textbf{element by element}. This means that the function is typically
+applied for each element individually and in sequence.
+
+The following simple example illustrates this procedure and emphasizes
+the effect on the length of the vectors.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create two numeric vector of same length}
+\NormalTok{visits1 <-}\StringTok{  }\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{65}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{visits2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{78}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{200}\NormalTok{)}
+\KeywordTok{length}\NormalTok{(visits1)}
+\CommentTok{#R> [1] 7}
+\KeywordTok{length}\NormalTok{(visits1) }\OperatorTok{==}\StringTok{ }\KeywordTok{length}\NormalTok{(visits2)}
+\CommentTok{#R> [1] TRUE}
+
+\NormalTok{total <-}\StringTok{ }\NormalTok{visits1 }\OperatorTok{+}\StringTok{ }\NormalTok{visits2}
+\CommentTok{# their sum is the vector of same length, with the element by element sums}
+
+\KeywordTok{length}\NormalTok{(total)}
+\CommentTok{#R> [1] 7}
+\NormalTok{total}
+\CommentTok{#R> [1]  35   6  50 153  77  11 203}
+\end{Highlighting}
+\end{Shaded}
+
+Another clear example with the function \texttt{\^{}2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{total.p2 <-}\StringTok{ }\NormalTok{total}\OperatorTok{^}\DecValTok{2}
+\NormalTok{total.p2}
+\CommentTok{#R> [1]  1225    36  2500 23409  5929   121 41209}
+
+\NormalTok{(trop <-}\StringTok{ }\NormalTok{total }\OperatorTok{-}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\CommentTok{#R> [1]  33   4  48 151  75   9 201}
+\KeywordTok{length}\NormalTok{(trop)}
+\CommentTok{#R> [1] 7}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{recycling-rule}{%
+\section{Recycling rule}\label{recycling-rule}}
+
+With the emphasis on the length of the vectors above, one could wonder
+what happens when vectors' length differ. This is an important point to
+remember: the shortest vector has its elements \textbf{recycled} as much
+as it is necessary.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l3 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\DecValTok{34}\NormalTok{, }\DecValTok{50}\NormalTok{)}
+\NormalTok{l2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{tt <-}\StringTok{ }\NormalTok{l3 }\OperatorTok{+}\StringTok{ }\DecValTok{5}
+\NormalTok{tt}
+\CommentTok{#R> [1] 17 39 55}
+
+\NormalTok{ltotal <-}\StringTok{ }\NormalTok{l3}\OperatorTok{+}\NormalTok{l2 }\CommentTok{# recycling!!!}
+\CommentTok{#R> Warning in l3 + l2: longer object length is not a multiple of shorter}
+\CommentTok{#R> object length}
+\NormalTok{ltotal}
+\CommentTok{#R> [1] 22 37 60}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{functions-for-the-whole-vector}{%
+\section{Functions for the whole
+vector}\label{functions-for-the-whole-vector}}
+
+Some functions are meant to be applied to whole vector and do not
+necessarily return a vector of the same length of the vector to which it
+is applied.\\
+Here is an illustration of some of these functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{28}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{39}\NormalTok{, }\DecValTok{56}\NormalTok{, }\DecValTok{34}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{27}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\NormalTok{ages}
+\CommentTok{#R> [1] 28 33 39 56 34 45 27 40}
+\KeywordTok{max}\NormalTok{(ages)}
+\CommentTok{#R> [1] 56}
+\KeywordTok{sum}\NormalTok{(ages)}
+\CommentTok{#R> [1] 302}
+\KeywordTok{length}\NormalTok{(ages)}
+\CommentTok{#R> [1] 8}
+
+\NormalTok{ages <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{28}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{39}\NormalTok{, }\DecValTok{56}\NormalTok{, }\DecValTok{34}\NormalTok{, }\DecValTok{45}\NormalTok{, }\DecValTok{27}\NormalTok{, }\DecValTok{40}\NormalTok{, }\OtherTok{NA}\NormalTok{)}
+\KeywordTok{mean}\NormalTok{(ages)}
+\CommentTok{#R> [1] NA}
+
+\CommentTok{# for help on a command, simply type ? in front of it}
+\NormalTok{?mean}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{subset}{%
+\chapter{Subsetting}\label{subset}}
+
+\hypertarget{generalities-about-subsetting}{%
+\section{Generalities about
+subsetting}\label{generalities-about-subsetting}}
+
+There are three subsetting operators: \texttt{\$}, \texttt{{[}{]}} and
+\texttt{{[}{[}{]}{]}}.\\
+Some functions also allow to create subsets. We can combine subsetting
+and assignment to change some parts of an object.\\
+Sub-setting is better used in complement with \texttt{str()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{va <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{13.1}\NormalTok{, }\FloatTok{-15.2}\NormalTok{, }\FloatTok{0.3}\NormalTok{, }\FloatTok{2.4}\NormalTok{, }\FloatTok{10.5}\NormalTok{, }\FloatTok{-3.6}\NormalTok{, }\FloatTok{9.7}\NormalTok{) }\CommentTok{# create the vector va}
+\KeywordTok{str}\NormalTok{(va)}
+\CommentTok{#R>  num [1:7] 13.1 -15.2 0.3 2.4 10.5 -3.6 9.7}
+\KeywordTok{str}\NormalTok{(mtcars)}
+\CommentTok{#R> 'data.frame':   32 obs. of  11 variables:}
+\CommentTok{#R>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...}
+\CommentTok{#R>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...}
+\CommentTok{#R>  $ disp: num  160 160 108 258 360 ...}
+\CommentTok{#R>  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...}
+\CommentTok{#R>  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...}
+\CommentTok{#R>  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...}
+\CommentTok{#R>  $ qsec: num  16.5 17 18.6 19.4 17 ...}
+\CommentTok{#R>  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...}
+\CommentTok{#R>  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...}
+\CommentTok{#R>  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...}
+\CommentTok{#R>  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...}
+\end{Highlighting}
+\end{Shaded}
+
+One can see from this call, that \texttt{va} is a simple vector with 7
+elements. Subsetting means choosing among these.
+
+\hypertarget{section}{%
+\section{\texorpdfstring{\texttt{{[}{]}}}{{[}{]}}}\label{section}}
+
+Applies to vectors, matrices, lists and data frames.\\
+Can be used with:
+
+\begin{verbatim}
+- positive or negative values,
+- many values in a vector,
+- logical, `NA`,
+- character vectors when names exist.
+\end{verbatim}
+
+\hypertarget{on-a-vector}{%
+\subsection{On a vector}\label{on-a-vector}}
+
+Here are a few examples of that object used on a vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{va <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{13.1}\NormalTok{, }\FloatTok{-15.2}\NormalTok{, }\FloatTok{0.3}\NormalTok{, }\FloatTok{2.4}\NormalTok{, }\FloatTok{10.5}\NormalTok{, }\FloatTok{-3.6}\NormalTok{, }\FloatTok{9.7}\NormalTok{)}
+\NormalTok{va[}\DecValTok{1}\NormalTok{] }\CommentTok{# element 1}
+\CommentTok{#R> [1] 13.1}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\OperatorTok{:}\DecValTok{5}\NormalTok{)] }\CommentTok{# elements 3 to 5}
+\CommentTok{#R> [1]  0.3  2.4 10.5}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{7}\NormalTok{)]}
+\CommentTok{#R> [1] -15.2   9.7}
+\NormalTok{va[}\OperatorTok{-}\DecValTok{1}\NormalTok{] }\CommentTok{# all elements minus the element 1}
+\CommentTok{#R> [1] -15.2   0.3   2.4  10.5  -3.6   9.7}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{,}\OperatorTok{-}\DecValTok{7}\NormalTok{)]}
+\CommentTok{#R> [1] 13.1  0.3  2.4 10.5 -3.6}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\NormalTok{,}\OperatorTok{-}\DecValTok{7}\NormalTok{)]}
+\CommentTok{#R> [1] 13.1  0.3  2.4 10.5 -3.6}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{,}\OtherTok{TRUE}\NormalTok{,}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{,}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{)] }
+\CommentTok{#R> [1]  13.1 -15.2   0.3  -3.6}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{,}\OtherTok{FALSE}\NormalTok{)] }\CommentTok{# notice the recycling at play here}
+\CommentTok{#R> [1] 13.1  0.3 10.5  9.7}
+\NormalTok{va[}\OtherTok{NA}\NormalTok{] }
+\CommentTok{#R> [1] NA NA NA NA NA NA NA}
+\NormalTok{va[] }\CommentTok{# nothing selected gives the full vector}
+\CommentTok{#R> [1]  13.1 -15.2   0.3   2.4  10.5  -3.6   9.7}
+\KeywordTok{names}\NormalTok{(va)<-letters[}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(va)] }\CommentTok{# give names to va}
+\CommentTok{# notice that we subset the vector letters (given by R) and that we don't}
+\CommentTok{# specify the length but give a general value}
+\CommentTok{# now we can subset using names}
+\NormalTok{va}
+\CommentTok{#R>     a     b     c     d     e     f     g }
+\CommentTok{#R>  13.1 -15.2   0.3   2.4  10.5  -3.6   9.7}
+\NormalTok{va[}\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{,}\StringTok{"e"}\NormalTok{,}\StringTok{"b"}\NormalTok{)]}
+\CommentTok{#R>     a     e     b }
+\CommentTok{#R>  13.1  10.5 -15.2}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{on-a-list}{%
+\subsection{On a list}\label{on-a-list}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mylist<-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{numbers=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{), }
+              \DataTypeTok{ournames=}\KeywordTok{c}\NormalTok{(}\StringTok{"Jim"}\NormalTok{,}\StringTok{"Jules"}\NormalTok{), }
+              \DataTypeTok{results=} \KeywordTok{c}\NormalTok{(T,F,F,T), }
+              \DataTypeTok{school=}\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Primary"}\NormalTok{, }\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{), }\DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{))}
+\KeywordTok{str}\NormalTok{(mylist)}
+\CommentTok{#R> List of 4}
+\CommentTok{#R>  $ numbers : int [1:20] 1 2 3 4 5 6 7 8 9 10 ...}
+\CommentTok{#R>  $ ournames: chr [1:2] "Jim" "Jules"}
+\CommentTok{#R>  $ results : logi [1:4] TRUE FALSE FALSE TRUE}
+\CommentTok{#R>  $ school  : Ord.factor w/ 3 levels "Primary"<"Secondary"<..: 1 2 3}
+
+\NormalTok{mylist[}\DecValTok{1}\NormalTok{] }\CommentTok{# first element of the list}
+\CommentTok{#R> $numbers}
+\CommentTok{#R>  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20}
+\KeywordTok{class}\NormalTok{(mylist[}\DecValTok{1}\NormalTok{])}
+\CommentTok{#R> [1] "list"}
+\NormalTok{mylist[[}\DecValTok{3}\NormalTok{]][}\DecValTok{3}\NormalTok{]}
+\CommentTok{#R> [1] FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that the result of this subsetting is a list!
+
+\hypertarget{on-a-matrix}{%
+\subsection{On a matrix}\label{on-a-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{my.mat <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\KeywordTok{floor}\NormalTok{(}\KeywordTok{runif}\NormalTok{(}\DecValTok{30}\NormalTok{)}\OperatorTok{*}\DecValTok{10}\NormalTok{), }\DataTypeTok{nrow=}\DecValTok{5}\NormalTok{)}
+\NormalTok{my.mat}
+\CommentTok{#R>      [,1] [,2] [,3] [,4] [,5] [,6]}
+\CommentTok{#R> [1,]    9    5    4    9    9    5}
+\CommentTok{#R> [2,]    9    7    7    9    1    3}
+\CommentTok{#R> [3,]    2    1    9    1    9    9}
+\CommentTok{#R> [4,]    8    6    2    4    9    4}
+\CommentTok{#R> [5,]    6    7    4    5    0    8}
+\KeywordTok{str}\NormalTok{(my.mat)}
+\CommentTok{#R>  num [1:5, 1:6] 9 9 2 8 6 5 7 1 6 7 ...}
+\KeywordTok{length}\NormalTok{(my.mat)}
+\CommentTok{#R> [1] 30}
+\end{Highlighting}
+\end{Shaded}
+
+The structure shows that there are r length(dim(my.mat)) dimensions. For
+subsetting, we must give r length(dim(my.mat)) dimensions! Same rules as
+for the vectors apply.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my.mat[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{] }\CommentTok{# 2nd row, 3rd row}
+\CommentTok{#R> [1] 7}
+\NormalTok{my.mat[}\OperatorTok{-}\DecValTok{1}\NormalTok{,]}
+\CommentTok{#R>      [,1] [,2] [,3] [,4] [,5] [,6]}
+\CommentTok{#R> [1,]    9    7    7    9    1    3}
+\CommentTok{#R> [2,]    2    1    9    1    9    9}
+\CommentTok{#R> [3,]    8    6    2    4    9    4}
+\CommentTok{#R> [4,]    6    7    4    5    0    8}
+\KeywordTok{colnames}\NormalTok{(my.mat) <-}\StringTok{ }\NormalTok{letters[}\DecValTok{1}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(my.mat)] }\CommentTok{# give names to the columns}
+\KeywordTok{rownames}\NormalTok{(my.mat) <-}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(my.mat)] }\CommentTok{# give names to the rows}
+\NormalTok{my.mat}
+\CommentTok{#R>   a b c d e f}
+\CommentTok{#R> A 9 5 4 9 9 5}
+\CommentTok{#R> B 9 7 7 9 1 3}
+\CommentTok{#R> C 2 1 9 1 9 9}
+\CommentTok{#R> D 8 6 2 4 9 4}
+\CommentTok{#R> E 6 7 4 5 0 8}
+\NormalTok{my.mat[}\StringTok{"C"}\NormalTok{,}\KeywordTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{,}\StringTok{"c"}\NormalTok{,}\StringTok{"e"}\NormalTok{)]}
+\CommentTok{#R> a c e }
+\CommentTok{#R> 2 9 9}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{section-1}{%
+\section{\texorpdfstring{\texttt{{[}{[}{]}{]}}}{{[}{[}{]}{]}}}\label{section-1}}
+
+This object is used mainly for lists.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mylist<-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{numbers=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{), }
+              \DataTypeTok{ournames=}\KeywordTok{c}\NormalTok{(}\StringTok{"Jim"}\NormalTok{,}\StringTok{"Jules"}\NormalTok{), }
+              \DataTypeTok{results=} \KeywordTok{c}\NormalTok{(T,F,F,T), }
+              \DataTypeTok{school=}\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Primary"}\NormalTok{, }\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{), }\DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{))}
+\KeywordTok{str}\NormalTok{(mylist)}
+\CommentTok{#R> List of 4}
+\CommentTok{#R>  $ numbers : int [1:20] 1 2 3 4 5 6 7 8 9 10 ...}
+\CommentTok{#R>  $ ournames: chr [1:2] "Jim" "Jules"}
+\CommentTok{#R>  $ results : logi [1:4] TRUE FALSE FALSE TRUE}
+\CommentTok{#R>  $ school  : Ord.factor w/ 3 levels "Primary"<"Secondary"<..: 1 2 3}
+\NormalTok{mylist[[}\DecValTok{1}\NormalTok{]]}
+\CommentTok{#R>  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{section-2}{%
+\section{\texorpdfstring{\texttt{\$}}{\$}}\label{section-2}}
+
+This object is usually for data frames, where it gives the variable.\\
+It allows partial matching (e.g., \texttt{mtcars\$gear} is the same as
+\texttt{mtcars\$gea})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(mtcars)}
+\KeywordTok{names}\NormalTok{(mtcars)}
+\CommentTok{#R>  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"}
+\CommentTok{#R> [11] "carb"}
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{mpg}
+\CommentTok{#R>  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2}
+\CommentTok{#R> [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4}
+\CommentTok{#R> [29] 15.8 19.7 15.0 21.4}
+\NormalTok{mtcars[[}\StringTok{"mpg"}\NormalTok{]] }\CommentTok{# just exactly the same, but R users prefer the $}
+\CommentTok{#R>  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2}
+\CommentTok{#R> [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4}
+\CommentTok{#R> [29] 15.8 19.7 15.0 21.4}
+\NormalTok{mtcars[}\StringTok{"mpg"}\NormalTok{] }\CommentTok{# NOT the same at all! [] preserves the class}
+\CommentTok{#R>                      mpg}
+\CommentTok{#R> Mazda RX4           21.0}
+\CommentTok{#R> Mazda RX4 Wag       21.0}
+\CommentTok{#R> Datsun 710          22.8}
+\CommentTok{#R> Hornet 4 Drive      21.4}
+\CommentTok{#R> Hornet Sportabout   18.7}
+\CommentTok{#R> Valiant             18.1}
+\CommentTok{#R> Duster 360          14.3}
+\CommentTok{#R> Merc 240D           24.4}
+\CommentTok{#R> Merc 230            22.8}
+\CommentTok{#R> Merc 280            19.2}
+\CommentTok{#R> Merc 280C           17.8}
+\CommentTok{#R> Merc 450SE          16.4}
+\CommentTok{#R> Merc 450SL          17.3}
+\CommentTok{#R> Merc 450SLC         15.2}
+\CommentTok{#R> Cadillac Fleetwood  10.4}
+\CommentTok{#R> Lincoln Continental 10.4}
+\CommentTok{#R> Chrysler Imperial   14.7}
+\CommentTok{#R> Fiat 128            32.4}
+\CommentTok{#R> Honda Civic         30.4}
+\CommentTok{#R> Toyota Corolla      33.9}
+\CommentTok{#R> Toyota Corona       21.5}
+\CommentTok{#R> Dodge Challenger    15.5}
+\CommentTok{#R> AMC Javelin         15.2}
+\CommentTok{#R> Camaro Z28          13.3}
+\CommentTok{#R> Pontiac Firebird    19.2}
+\CommentTok{#R> Fiat X1-9           27.3}
+\CommentTok{#R> Porsche 914-2       26.0}
+\CommentTok{#R> Lotus Europa        30.4}
+\CommentTok{#R> Ford Pantera L      15.8}
+\CommentTok{#R> Ferrari Dino        19.7}
+\CommentTok{#R> Maserati Bora       15.0}
+\CommentTok{#R> Volvo 142E          21.4}
+\KeywordTok{class}\NormalTok{(mtcars[}\StringTok{"mpg"}\NormalTok{])}
+\CommentTok{#R> [1] "data.frame"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{combining-subsetting}{%
+\section{Combining subsetting}\label{combining-subsetting}}
+
+Notice that we can often subset further until having the desired subset.
+Here are a few examples.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{mpg[}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{]}
+\CommentTok{#R> [1] 21.0 21.0 22.8 21.4}
+\NormalTok{mylist[[}\StringTok{"ournames"}\NormalTok{]][}\DecValTok{1}\NormalTok{]}
+\CommentTok{#R> [1] "Jim"}
+\NormalTok{mylist}\OperatorTok{$}\NormalTok{ournames[}\DecValTok{1}\NormalTok{]}
+\CommentTok{#R> [1] "Jim"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{subsetting-with-one-condition}{%
+\section{Subsetting with one
+condition}\label{subsetting-with-one-condition}}
+
+We can use conditions for subsetting
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars[mtcars}\OperatorTok{$}\NormalTok{cyl}\OperatorTok{==}\DecValTok{8}\NormalTok{,]}
+\CommentTok{#R>                      mpg cyl  disp  hp drat    wt  qsec vs am gear carb}
+\CommentTok{#R> Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2}
+\CommentTok{#R> Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4}
+\CommentTok{#R> Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3}
+\CommentTok{#R> Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3}
+\CommentTok{#R> Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3}
+\CommentTok{#R> Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4}
+\CommentTok{#R> Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4}
+\CommentTok{#R> Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4}
+\CommentTok{#R> Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2}
+\CommentTok{#R> AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2}
+\CommentTok{#R> Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4}
+\CommentTok{#R> Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2}
+\CommentTok{#R> Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4}
+\CommentTok{#R> Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8}
+\NormalTok{mtcars[mtcars}\OperatorTok{$}\NormalTok{cyl}\OperatorTok{==}\DecValTok{8} \OperatorTok{&}\StringTok{ }\NormalTok{mtcars}\OperatorTok{$}\NormalTok{carb}\OperatorTok{==}\DecValTok{4}\NormalTok{,]}
+\CommentTok{#R>                      mpg cyl disp  hp drat    wt  qsec vs am gear carb}
+\CommentTok{#R> Duster 360          14.3   8  360 245 3.21 3.570 15.84  0  0    3    4}
+\CommentTok{#R> Cadillac Fleetwood  10.4   8  472 205 2.93 5.250 17.98  0  0    3    4}
+\CommentTok{#R> Lincoln Continental 10.4   8  460 215 3.00 5.424 17.82  0  0    3    4}
+\CommentTok{#R> Chrysler Imperial   14.7   8  440 230 3.23 5.345 17.42  0  0    3    4}
+\CommentTok{#R> Camaro Z28          13.3   8  350 245 3.73 3.840 15.41  0  0    3    4}
+\CommentTok{#R> Ford Pantera L      15.8   8  351 264 4.22 3.170 14.50  0  1    5    4}
+\NormalTok{mtcars[mtcars}\OperatorTok{$}\NormalTok{cyl}\OperatorTok{==}\DecValTok{8}\NormalTok{, }\KeywordTok{c}\NormalTok{(}\StringTok{"cyl"}\NormalTok{, }\StringTok{"mpg"}\NormalTok{, }\StringTok{"wt"}\NormalTok{)]}
+\CommentTok{#R>                     cyl  mpg    wt}
+\CommentTok{#R> Hornet Sportabout     8 18.7 3.440}
+\CommentTok{#R> Duster 360            8 14.3 3.570}
+\CommentTok{#R> Merc 450SE            8 16.4 4.070}
+\CommentTok{#R> Merc 450SL            8 17.3 3.730}
+\CommentTok{#R> Merc 450SLC           8 15.2 3.780}
+\CommentTok{#R> Cadillac Fleetwood    8 10.4 5.250}
+\CommentTok{#R> Lincoln Continental   8 10.4 5.424}
+\CommentTok{#R> Chrysler Imperial     8 14.7 5.345}
+\CommentTok{#R> Dodge Challenger      8 15.5 3.520}
+\CommentTok{#R> AMC Javelin           8 15.2 3.435}
+\CommentTok{#R> Camaro Z28            8 13.3 3.840}
+\CommentTok{#R> Pontiac Firebird      8 19.2 3.845}
+\CommentTok{#R> Ford Pantera L        8 15.8 3.170}
+\CommentTok{#R> Maserati Bora         8 15.0 3.570}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{subsetting-and-assignment}{%
+\section{Subsetting and assignment}\label{subsetting-and-assignment}}
+
+Subsetting can be used to change a part of an object through assignment.
+Assign \texttt{NULL} to delete subset
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my.mat}
+\CommentTok{#R>   a b c d e f}
+\CommentTok{#R> A 9 5 4 9 9 5}
+\CommentTok{#R> B 9 7 7 9 1 3}
+\CommentTok{#R> C 2 1 9 1 9 9}
+\CommentTok{#R> D 8 6 2 4 9 4}
+\CommentTok{#R> E 6 7 4 5 0 8}
+\NormalTok{my.mat[,}\DecValTok{1}\NormalTok{]<-}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(my.mat)}
+\NormalTok{my.mat}
+\CommentTok{#R>   a b c d e f}
+\CommentTok{#R> A 1 5 4 9 9 5}
+\CommentTok{#R> B 2 7 7 9 1 3}
+\CommentTok{#R> C 3 1 9 1 9 9}
+\CommentTok{#R> D 4 6 2 4 9 4}
+\CommentTok{#R> E 5 7 4 5 0 8}
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{mpg[}\DecValTok{1}\NormalTok{]<-}\DecValTok{1234}
+\KeywordTok{names}\NormalTok{(mtcars)}
+\CommentTok{#R>  [1] "mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear"}
+\CommentTok{#R> [11] "carb"}
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{drat<-}\OtherTok{NULL} \CommentTok{# delete variable drat in data frame mtcars}
+\CommentTok{# does not delete in matrix}
+\KeywordTok{names}\NormalTok{(mtcars)}
+\CommentTok{#R>  [1] "mpg"  "cyl"  "disp" "hp"   "wt"   "qsec" "vs"   "am"   "gear" "carb"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{using-which}{%
+\section{\texorpdfstring{Using
+\texttt{which()}}{Using which()}}\label{using-which}}
+
+\texttt{which()} gives the integers that correspond to the boolean
+(logical) \texttt{TRUE}.\\
+This can help subsetting
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vb<-}\DecValTok{1500}\OperatorTok{:}\DecValTok{1530}
+\NormalTok{vb}
+\CommentTok{#R>  [1] 1500 1501 1502 1503 1504 1505 1506 1507 1508 1509 1510 1511 1512 1513}
+\CommentTok{#R> [15] 1514 1515 1516 1517 1518 1519 1520 1521 1522 1523 1524 1525 1526 1527}
+\CommentTok{#R> [29] 1528 1529 1530}
+\KeywordTok{which}\NormalTok{(vb}\OperatorTok{%%}\DecValTok{5}\OperatorTok{==}\DecValTok{0}\NormalTok{) }\CommentTok{# which is divisible by 5 (modulo is 0) ?}
+\CommentTok{#R> [1]  1  6 11 16 21 26 31}
+\CommentTok{# notice that this is asking each element of vb, }
+\CommentTok{# which() reports the positions for which the answer is TRUE }
+\NormalTok{vb[}\KeywordTok{which}\NormalTok{(vb}\OperatorTok{%%}\DecValTok{5}\OperatorTok{==}\DecValTok{0}\NormalTok{)] }
+\CommentTok{#R> [1] 1500 1505 1510 1515 1520 1525 1530}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{more-advanced-stuff}{%
+\section{More advanced stuff}\label{more-advanced-stuff}}
+
+\hypertarget{difference-between-simplifying-and-preserving}{%
+\subsection{Difference between simplifying and
+preserving}\label{difference-between-simplifying-and-preserving}}
+
+We say `preserve' to say the same structure is maintained when
+subsetting (e.g., a subset of a data frame remains a data frame).\\
+Simplifying does not keep the structure but gives the simplest output
+possible.\\
+\texttt{drop} argument allows to preserve (\texttt{drop=FALSE}) or not
+(\texttt{drop=\ TRUE}).\\
+\texttt{{[}{]}} usually preserves, \texttt{{[}{[}{]}{]}} usually
+simplifies.\\
+To better understand, check the classes:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{all.equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(mylist[}\DecValTok{1}\NormalTok{]), }\KeywordTok{class}\NormalTok{(mylist[[}\DecValTok{1}\NormalTok{]]))}
+\CommentTok{#R> [1] "1 string mismatch"}
+\KeywordTok{class}\NormalTok{(mylist[}\DecValTok{1}\NormalTok{])}
+\CommentTok{#R> [1] "list"}
+\KeywordTok{class}\NormalTok{(mylist[[}\DecValTok{1}\NormalTok{]])}
+\CommentTok{#R> [1] "integer"}
+\KeywordTok{all.equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(mylist), }\KeywordTok{class}\NormalTok{(mylist[}\DecValTok{1}\NormalTok{]))}
+\CommentTok{#R> [1] TRUE}
+\KeywordTok{all.equal}\NormalTok{(}\KeywordTok{class}\NormalTok{(mylist), }\KeywordTok{class}\NormalTok{(mylist[[}\DecValTok{1}\NormalTok{]]))}
+\CommentTok{#R> [1] "1 string mismatch"}
+\end{Highlighting}
+\end{Shaded}
+
+We see that \texttt{{[}{]}} has preserved the class of \texttt{mylist}
+(r class(mylist)), while \texttt{{[}{[}{]}{]}} has not! Another striking
+example is the following.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ma2 <-}\StringTok{ }\NormalTok{my.mat[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]}
+\KeywordTok{class}\NormalTok{(ma2)}
+\CommentTok{#R> [1] "matrix"}
+\NormalTok{ma3 <-}\StringTok{ }\NormalTok{my.mat[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]}
+\KeywordTok{class}\NormalTok{(ma3)}
+\CommentTok{#R> [1] "numeric"}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{ma3} is NOT a matrix anymore!!! This is because one of its
+dimensions is 1. Losing track of the class when subsetting can generate
+lots of problems in the middle of a large code. And it is a common
+source of error! To be sure of keeping the class, we can use
+\texttt{drop=FALSE} (the class will not be dropped to, usually, a
+vector).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ma4 <-}\StringTok{ }\NormalTok{my.mat[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, drop=}\OtherTok{FALSE}\NormalTok{]}
+\NormalTok{ma4}
+\CommentTok{#R>   a b c}
+\CommentTok{#R> A 1 5 4}
+\KeywordTok{class}\NormalTok{(ma4)}
+\CommentTok{#R> [1] "matrix"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{conditions}{%
+\chapter{Conditions}\label{conditions}}
+
+The general purpose of conditions is to control the flow of our code
+when executed by R.\\
+In R, it builds on statements such as \texttt{if} and \texttt{else}.
+
+\hypertarget{if-statement}{%
+\section{\texorpdfstring{\texttt{if}
+statement}{if statement}}\label{if-statement}}
+
+The simplest form for a condition uses a \texttt{if} statement.\\
+The form is then:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (condition) \{}
+\CommentTok{# code to be executed if the condition is met}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+The key point is that R will run the code until it finds a condition
+that is met. If it doesn't find any, it continues to the next lines of
+code.\\
+Here is an example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{4}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\KeywordTok{sum}\NormalTok{(gains)}
+\CommentTok{#R> [1] 20}
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{sum}\NormalTok{(gains) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"Congratulations, you are winning!"}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{#R> [1] "Congratulations, you are winning!"}
+
+\NormalTok{gains[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{-10} \CommentTok{# change the first element of gains}
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{sum}\NormalTok{(gains) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"Congratulations, you are winning!"}\NormalTok{)}
+\NormalTok{\} }\CommentTok{# notice that there is no output, because the condition was not met}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{else-statement}{%
+\section{\texorpdfstring{\texttt{else}
+statement}{else statement}}\label{else-statement}}
+
+What happens when the condition is not met? It's on the user to decide.
+It can be nothing or\ldots{} something else!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (condition) \{ }
+\CommentTok{# code to be executed if the condition is met}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+\CommentTok{# code to be executed if the condition is NOT met}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Here is an example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains<-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{4}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{gains[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{-10} \CommentTok{# change the first element of gains}
+\KeywordTok{sum}\NormalTok{(gains)}
+\CommentTok{#R> [1] 0}
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{sum}\NormalTok{(gains) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"Congratulations, you are winning!"}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"You are not winning!"}\NormalTok{)}
+\NormalTok{\} }\CommentTok{# notice that now there is an output!}
+\CommentTok{#R> [1] "You are not winning!"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{else-if-statement}{%
+\section{\texorpdfstring{\texttt{else\ if}
+statement}{else if statement}}\label{else-if-statement}}
+
+\texttt{else\ if} allows us to introduce another condition to our flow
+of code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (condition_}\DecValTok{1}\NormalTok{) \{ }
+\CommentTok{# code to be executed if the condition_1 is met}
+\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (condition_}\DecValTok{2}\NormalTok{) \{}
+\CommentTok{# code to be executed if the condition_2 is met}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+\CommentTok{# code to be executed if NEITHER condition_1 NOR condition_2 is met}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We can use as many \texttt{else\ if} statements as we want.\\
+Here is an example with only one \texttt{else\ if}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{4}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{gains[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{-10} \CommentTok{# change the first element of gains}
+\KeywordTok{sum}\NormalTok{(gains)}
+\CommentTok{#R> [1] 0}
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{sum}\NormalTok{(gains) }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"Congratulations, you are winning!"}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{sum}\NormalTok{(gains)}\OperatorTok{==}\DecValTok{0}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"You just break even!"}\NormalTok{)}
+\NormalTok{\} }\ControlFlowTok{else}\NormalTok{ \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"You are losing!"}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{#R> [1] "You just break even!"}
+\end{Highlighting}
+\end{Shaded}
+
+Notice the potential problem of not putting a \texttt{else} statement at
+the end of the conditions system.
+
+\hypertarget{ifelse-statement}{%
+\section{\texorpdfstring{\texttt{ifelse}
+statement}{ifelse statement}}\label{ifelse-statement}}
+
+For \textbf{short} conditions, we can use \texttt{ifelse}.\\
+The form is
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ifelse}\NormalTok{(condition, value }\ControlFlowTok{if}\NormalTok{ condition met, value }\ControlFlowTok{if}\NormalTok{ value not met)}
+\end{Highlighting}
+\end{Shaded}
+
+Here is an example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{4}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{sign <-}\StringTok{ }\KeywordTok{ifelse}\NormalTok{(}\KeywordTok{sum}\NormalTok{(gains)}\OperatorTok{>=}\DecValTok{0}\NormalTok{,}\StringTok{"+"}\NormalTok{,}\StringTok{"-"}\NormalTok{)}
+\NormalTok{sign}
+\CommentTok{#R> [1] "+"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{logical-operators-and}{%
+\section{\texorpdfstring{Logical operators: \texttt{\&},
+\texttt{\textbar{}} and
+\texttt{!}}{Logical operators: \&, \textbar{} and !}}\label{logical-operators-and}}
+
+Logical operators are used to combine, mix or negate several conditions:
+- \texttt{\&} means AND - \texttt{\textbar{}} means OR - \texttt{!}
+means NOT
+
+De Morgan's laws may help here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DecValTok{10}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0} \OperatorTok{&}\StringTok{ }\DecValTok{27}\OperatorTok{%%}\DecValTok{3}\OperatorTok{==}\DecValTok{0}\NormalTok{) }\CommentTok{# equivalent to (TRUE and TRUE), hence TRUE}
+\CommentTok{#R> [1] TRUE}
+\OtherTok{TRUE} \OperatorTok{&}\StringTok{ }\OtherTok{FALSE}
+\CommentTok{#R> [1] FALSE}
+\OperatorTok{!}\OtherTok{TRUE} 
+\CommentTok{#R> [1] FALSE}
+\OperatorTok{!}\NormalTok{(}\OtherTok{TRUE} \OperatorTok{&}\StringTok{ }\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{#R> [1] FALSE}
+\OperatorTok{!}\NormalTok{(}\OtherTok{TRUE} \OperatorTok{&}\StringTok{ }\OperatorTok{!}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{#R> [1] TRUE}
+\NormalTok{((}\DecValTok{10}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0} \OperatorTok{&}\StringTok{ }\DecValTok{27}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0}\NormalTok{)) }\CommentTok{# equivalent to (TRUE and FALSE), hence FALSE}
+\CommentTok{#R> [1] FALSE}
+\NormalTok{((}\DecValTok{10}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0} \OperatorTok{|}\StringTok{ }\DecValTok{27}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0}\NormalTok{)) }\CommentTok{# equivalent to (TRUE or FALSE), hence TRUE}
+\CommentTok{#R> [1] TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{writing-and-interpreting-a-condition}{%
+\section{Writing and interpreting a
+condition}\label{writing-and-interpreting-a-condition}}
+
+Notice that what R looks for in a condition is a either a TRUE or a
+FALSE.\\
+If it encounters a TRUE, it executes the commands, otherwise, it
+doesn't.\\
+Remember there are many ways to obtain one of these two logicals. Any of
+these ways will work as a condition.\\
+Here are examples of less trivial ways of writing a condition
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains<-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{4}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+
+\ControlFlowTok{if}\NormalTok{ (}\KeywordTok{is.numeric}\NormalTok{(gains)) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"Seems like it is a numeric vector..."}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{#R> [1] "Seems like it is a numeric vector..."}
+\CommentTok{# here, is.numeric(gains) evaluates to TRUE, hence, the code is executed!}
+\CommentTok{# the beginner's way would be to replace the condition by}
+\CommentTok{# if (class(gains)=="numeric")}
+
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{is.factor}\NormalTok{(gains)) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"Yeah! We avoided the factor..."}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{#R> [1] "Yeah! We avoided the factor..."}
+\CommentTok{# the beginner would write if (class(gains)!="factor")}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{functions}{%
+\chapter{Functions}\label{functions}}
+
+Everything that happens in R is a function call. If we want R to do
+something, we must use a function, may it be as simple as a parentheses
+\texttt{(}. If the function is not built-in or coming in a package, one
+must write it. A function is itself an object. When applied to another
+object, the function ``makes something'' to that object and returns an
+object.
+
+\hypertarget{structure-of-a-simple-function}{%
+\section{Structure of a simple
+function}\label{structure-of-a-simple-function}}
+
+Here is a simple example of a function that returns the square of the
+object provided.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pow_two <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a)\{}
+\NormalTok{  a}\OperatorTok{^}\DecValTok{2}
+\NormalTok{\}}
+\KeywordTok{pow_two}\NormalTok{(}\DecValTok{12}\NormalTok{)}
+\CommentTok{#R> [1] 144}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{name-of-the-function}{%
+\subsection{Name of the function}\label{name-of-the-function}}
+
+In our example above, the name was \texttt{pow\_two}. To call, i.e., to
+use the function later in the code, type \texttt{pow\_two()}.
+
+\hypertarget{arguments}{%
+\subsection{Arguments}\label{arguments}}
+
+The arguments are given in the parentheses right after
+\texttt{function}.\\
+Here, we use an argument \texttt{a}, which can be any object, e.g., a
+vector
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pow_two}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\CommentTok{#R>  [1]   1   4   9  16  25  36  49  64  81 100}
+\end{Highlighting}
+\end{Shaded}
+
+When using this function, we can see that one argument only must be
+passed.\\
+A value for the argument is then given in the parentheses when calling
+the function, e.g., \texttt{pow\_two(12)}.\\
+A function can have several arguments
+
+\hypertarget{commands}{%
+\subsection{Commands}\label{commands}}
+
+The commands will be executed, if possible.\\
+One command source of error is when the class of the argument provided
+is NOT compatible with the commands in the function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pow_two}\NormalTok{(}\StringTok{"hello"}\NormalTok{) }\CommentTok{# this can't work}
+\CommentTok{#R> Error in a^2: non-numeric argument to binary operator}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{return-of-a-function}{%
+\subsection{Return of a function}\label{return-of-a-function}}
+
+The return of a function is given by the last expression executed inside
+the function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a)\{}
+\NormalTok{  a}\OperatorTok{^}\DecValTok{2}
+\NormalTok{  a}\OperatorTok{^}\DecValTok{3} \CommentTok{# THIS is the last expression executed}
+\NormalTok{\}}
+\KeywordTok{my_f}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\CommentTok{#R> [1] 125}
+\end{Highlighting}
+\end{Shaded}
+
+We can use \texttt{return()} in the function in order to chose what it
+returns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_f2 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a)\{}
+  \KeywordTok{return}\NormalTok{(a}\OperatorTok{^}\DecValTok{2}\NormalTok{)}
+\NormalTok{  a}\OperatorTok{^}\DecValTok{3}
+\NormalTok{\}}
+\KeywordTok{my_f2}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\CommentTok{#R> [1] 25}
+\end{Highlighting}
+\end{Shaded}
+
+A function can return only one object; this is not really a problem as
+we can always stack everything in a \texttt{list()} and have the
+function return the list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_f3 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a)\{}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{ptwo=}\NormalTok{a}\OperatorTok{^}\DecValTok{2}\NormalTok{, }\DataTypeTok{pthree=}\NormalTok{a}\OperatorTok{^}\DecValTok{3}\NormalTok{, }\DataTypeTok{pfour=}\NormalTok{a}\OperatorTok{^}\DecValTok{4}\NormalTok{) }
+\NormalTok{\}}
+\KeywordTok{my_f3}\NormalTok{(}\DecValTok{5}\OperatorTok{:}\DecValTok{20}\NormalTok{)}
+\CommentTok{#R> $ptwo}
+\CommentTok{#R>  [1]  25  36  49  64  81 100 121 144 169 196 225 256 289 324 361 400}
+\CommentTok{#R> }
+\CommentTok{#R> $pthree}
+\CommentTok{#R>  [1]  125  216  343  512  729 1000 1331 1728 2197 2744 3375 4096 4913 5832}
+\CommentTok{#R> [15] 6859 8000}
+\CommentTok{#R> }
+\CommentTok{#R> $pfour}
+\CommentTok{#R>  [1]    625   1296   2401   4096   6561  10000  14641  20736  28561  38416}
+\CommentTok{#R> [11]  50625  65536  83521 104976 130321 160000}
+\end{Highlighting}
+\end{Shaded}
+
+If we want to use the return of our function, we must assign it to an
+object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{my_f3}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{) }\CommentTok{# evaluates the function above on the vector 1:5}
+\NormalTok{x}\OperatorTok{$}\NormalTok{pthree }\CommentTok{# shows the element pthree of the saved list x}
+\CommentTok{#R> [1]   1   8  27  64 125}
+\end{Highlighting}
+\end{Shaded}
+
+An example where we better use \texttt{return} is the following
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pow_three <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a)\{}
+  \ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{is.numeric}\NormalTok{(a)) \{}
+    \KeywordTok{return}\NormalTok{(}\KeywordTok{print}\NormalTok{(}\StringTok{"You must give a numeric vector!"}\NormalTok{))}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \KeywordTok{return}\NormalTok{(a}\OperatorTok{^}\DecValTok{3}\NormalTok{)}
+\NormalTok{  \}}
+  
+\NormalTok{\}}
+\KeywordTok{pow_three}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{)}
+\CommentTok{#R> [1]  1  8 27 64}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multiple-arguments-and-their-identification}{%
+\section{Multiple arguments and their
+identification}\label{multiple-arguments-and-their-identification}}
+
+As mentioned above, a function can have several arguments.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_f4 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(abc, xyz)\{}
+  \KeywordTok{c}\NormalTok{(abc}\OperatorTok{^}\DecValTok{2}\NormalTok{, xyz}\OperatorTok{^}\DecValTok{3}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{my_f4}\NormalTok{(}\DecValTok{5}\NormalTok{) }\CommentTok{# this won't work because xyz is missing}
+\CommentTok{#R> Error in my_f4(5): argument "xyz" is missing, with no default}
+\KeywordTok{my_f4}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\CommentTok{#R> [1]   25 1000}
+\end{Highlighting}
+\end{Shaded}
+
+R has at least two ways of identifying arguments, by position and by
+name.\\
+If no name is specified, R uses the arguments according to their
+positions in the definition of the function.\\
+In the example above, R understands that \texttt{abc=5} and
+\texttt{xyz=10} because of the way they are given in the call
+\texttt{my\_f4(5,\ 10)}.\\
+Identification by names would be
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{my_f4}\NormalTok{(}\DataTypeTok{abc=}\DecValTok{5}\NormalTok{, }\DataTypeTok{xyz=}\DecValTok{10}\NormalTok{) }\CommentTok{# same as before}
+\CommentTok{#R> [1]   25 1000}
+\KeywordTok{my_f4}\NormalTok{(}\DataTypeTok{xyz=}\DecValTok{5}\NormalTok{, }\DataTypeTok{abc=}\DecValTok{10}\NormalTok{) }
+\CommentTok{#R> [1] 100 125}
+\CommentTok{# different from before because the names are more important than the position}
+\KeywordTok{my_f4}\NormalTok{(}\DataTypeTok{xyz=}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{) }\CommentTok{# a mix between name and position }
+\CommentTok{#R> [1] 100 125}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{default-values}{%
+\subsection{Default values}\label{default-values}}
+
+A function can be defined with default values for their arguments.\\
+R will use the values provided in the call; if one is missing, R will
+use the default value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{my_f4 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(abc, }\DataTypeTok{xyz=}\DecValTok{2}\NormalTok{)\{}
+  \KeywordTok{c}\NormalTok{(abc}\OperatorTok{^}\DecValTok{2}\NormalTok{, xyz}\OperatorTok{^}\DecValTok{3}\NormalTok{)}
+\NormalTok{\}}
+\KeywordTok{my_f4}\NormalTok{(}\DecValTok{5}\NormalTok{) }\CommentTok{# no second argument? doesn't matter, the function has a }
+\CommentTok{#R> [1] 25  8}
+\CommentTok{# default value for it, i.e., 2}
+
+\NormalTok{my_f5 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a, tada)\{}
+  \ControlFlowTok{if}\NormalTok{ (tada}\OperatorTok{==}\OtherTok{TRUE}\NormalTok{)\{}
+    \KeywordTok{plot}\NormalTok{(a)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \KeywordTok{sum}\NormalTok{(a)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+
+\KeywordTok{my_f5}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{, }\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-56-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{my_f6 <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a, }\DataTypeTok{tada=}\OtherTok{TRUE}\NormalTok{)\{}
+  \ControlFlowTok{if}\NormalTok{ (tada}\OperatorTok{==}\OtherTok{TRUE}\NormalTok{)\{}
+    \KeywordTok{plot}\NormalTok{(a)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \KeywordTok{sum}\NormalTok{(a)}
+\NormalTok{  \}}
+\NormalTok{\}}
+\KeywordTok{my_f6}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-56-2.pdf}
+
+\hypertarget{scoping}{%
+\section{Scoping}\label{scoping}}
+
+A function creates its own environment. In turn, this environment of the
+function is a child of the environment where the function was created.\\
+Scoping refers to the set of rules on what environment R looks for the
+value of a name. For instance, if the code contains
+\texttt{myv\ \textless{}-\ 12}, then later typing \texttt{myv} forces R
+to retrieve 12 from an environment.\\
+R uses lexical scoping and, under some circumstances, dynamic scoping.
+We're interested in lexical scoping.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mean <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) \{}
+\NormalTok{  x}\OperatorTok{+}\DecValTok{1}
+\NormalTok{\}}
+\KeywordTok{mean}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\CommentTok{#R>  [1]  2  3  4  5  6  7  8  9 10 11}
+
+\KeywordTok{rm}\NormalTok{(mean)}
+
+\KeywordTok{mean}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{)}
+\CommentTok{#R> [1] 5.5}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{rule-1-name-masking}{%
+\subsection{Rule 1: name masking}\label{rule-1-name-masking}}
+
+If a name is not defined in a function, R looks one level up, i.e., in
+the parent:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\DecValTok{10}
+
+\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{()\{}
+\NormalTok{  b <-}\StringTok{ }\DecValTok{2}
+\NormalTok{  a }\OperatorTok{+}\StringTok{ }\NormalTok{b }\CommentTok{# same as return(a + b)}
+\NormalTok{\}}
+
+\KeywordTok{f}\NormalTok{()}
+\CommentTok{#R> [1] 12}
+
+\NormalTok{c <-}\StringTok{ }\DecValTok{11}
+\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  d <-}\StringTok{ }\DecValTok{4}
+\NormalTok{  h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{    e <-}\StringTok{ }\DecValTok{5}
+\NormalTok{    c }\OperatorTok{+}\StringTok{ }\DecValTok{2}\OperatorTok{*}\NormalTok{d }\OperatorTok{+}\StringTok{ }\NormalTok{e}
+\NormalTok{  \}}
+  \KeywordTok{h}\NormalTok{()}
+\NormalTok{\}}
+
+\KeywordTok{g}\NormalTok{()}
+\CommentTok{#R> [1] 24}
+
+
+
+\NormalTok{c <-}\StringTok{ }\DecValTok{11}
+\NormalTok{d <-}\StringTok{ }\DecValTok{100}
+\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  d <-}\StringTok{ }\DecValTok{4}
+\NormalTok{  h <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{    e <-}\StringTok{ }\DecValTok{5}
+\NormalTok{    c }\OperatorTok{+}\StringTok{ }\DecValTok{2}\OperatorTok{*}\NormalTok{d }\OperatorTok{+}\StringTok{ }\NormalTok{e}
+\NormalTok{  \}}
+  \KeywordTok{h}\NormalTok{()}
+\NormalTok{\}}
+ \KeywordTok{g}\NormalTok{()}
+\CommentTok{#R> [1] 24}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{rule-2-fresh-start}{%
+\subsection{Rule 2: fresh start}\label{rule-2-fresh-start}}
+
+Every time a function is called, a new environment is created. In other
+words, the function does not know that it has been called before.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }
+\CommentTok{#R> [1] 10}
+\NormalTok{t <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{exists}\NormalTok{(}\StringTok{"a"}\NormalTok{)) \{ }
+\NormalTok{    a <-}\StringTok{ }\NormalTok{a }\OperatorTok{+}\StringTok{ }\DecValTok{2}
+\NormalTok{    a}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    a <-}\StringTok{ }\DecValTok{20} 
+\NormalTok{    a}
+\NormalTok{  \} }
+\NormalTok{\}}
+\KeywordTok{t}\NormalTok{()}
+\CommentTok{#R> [1] 12}
+
+\KeywordTok{t}\NormalTok{()}
+\CommentTok{#R> [1] 12}
+\KeywordTok{t}\NormalTok{()}
+\CommentTok{#R> [1] 12}
+
+\NormalTok{a <-}\StringTok{ }\DecValTok{4}
+\CommentTok{# gives 6 because when the function t looks for 'a', NOW, it finds it in the parent }
+\KeywordTok{t}\NormalTok{() }
+\CommentTok{#R> [1] 6}
+
+
+\NormalTok{l <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() \{}
+\NormalTok{  a <-}\StringTok{ }\DecValTok{5} 
+  \CommentTok{# 'a' is defined in the environment, so there is no need to look into the parent }
+  \ControlFlowTok{if}\NormalTok{ (}\KeywordTok{exists}\NormalTok{(}\StringTok{"a"}\NormalTok{)) \{ }
+\NormalTok{    a <-}\StringTok{ }\NormalTok{a }\OperatorTok{+}\StringTok{ }\DecValTok{2}
+\NormalTok{    a}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    a <-}\StringTok{ }\DecValTok{10} 
+\NormalTok{    a}
+\NormalTok{  \} }
+\NormalTok{\}}
+\KeywordTok{l}\NormalTok{()}
+\CommentTok{#R> [1] 7}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{rule-3-dynamic-lookup}{%
+\subsection{Rule 3: dynamic lookup}\label{rule-3-dynamic-lookup}}
+
+R looks for values when the function is called. If the environment where
+R will look for values has changed in between calls, the result of the
+function may be different. This is a source of error that should
+avoided.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{u <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() a}\OperatorTok{^}\DecValTok{2}
+\NormalTok{a <-}\StringTok{ }\DecValTok{2}
+\KeywordTok{u}\NormalTok{() }
+\CommentTok{#R> [1] 4}
+\CommentTok{# needs a value for 'a' because it does not define one within its environment; }
+\CommentTok{# therefore, u() looks up to, in this case, the global environment}
+\NormalTok{a <-}\StringTok{ }\DecValTok{3}
+\KeywordTok{u}\NormalTok{()}
+\CommentTok{#R> [1] 9}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{functions-inside-functions}{%
+\subsection{Functions inside
+functions}\label{functions-inside-functions}}
+
+Consider the following example of a function, it returns a function!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m.power <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(pow)\{}
+\NormalTok{  m.exp <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(b)\{ b}\OperatorTok{^}\NormalTok{pow \}}
+\NormalTok{  m.exp }\CommentTok{# return the m.exp function}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+We can create many functions with that function. Importantly, notice
+that functions preserve the environment in which they were created.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{mycube <-}\StringTok{ }\KeywordTok{m.power}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\KeywordTok{mycube}\NormalTok{(}\DecValTok{4}\NormalTok{)}
+\CommentTok{#R> [1] 64}
+
+\NormalTok{mysquare <-}\StringTok{ }\KeywordTok{m.power}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\KeywordTok{mysquare}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\CommentTok{#R> [1] 25}
+
+\CommentTok{# ls(environment(m.power)) gives the global environment}
+\KeywordTok{ls}\NormalTok{(}\KeywordTok{environment}\NormalTok{(mycube)) }
+\CommentTok{#R> [1] "m.exp" "pow"}
+
+\NormalTok{w <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(k)\{}
+\NormalTok{  q <-}\StringTok{ }\DecValTok{10}
+\NormalTok{  k}\OperatorTok{*}\NormalTok{q}
+\NormalTok{\}}
+
+\NormalTok{z <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{() }\KeywordTok{w}\NormalTok{(}\DecValTok{2}\NormalTok{) }\CommentTok{# z is itself a function that inherits the environment of w}
+\CommentTok{# but z, here, is forced to use 2 as an argument }
+
+\KeywordTok{z}\NormalTok{()}
+\CommentTok{#R> [1] 20}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{examples}{%
+\subsection{Examples}\label{examples}}
+
+The following example illustrates lexical scoping.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{yy <-}\StringTok{ }\DecValTok{10}
+
+\NormalTok{ff <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(xx)\{}
+\NormalTok{  yy <-}\StringTok{ }\DecValTok{2}
+\NormalTok{  yy}\OperatorTok{^}\DecValTok{2} \OperatorTok{+}\StringTok{ }\KeywordTok{gg}\NormalTok{(xx)}
+\NormalTok{\}}
+
+\NormalTok{gg <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(xx)\{}
+\NormalTok{  xx}\OperatorTok{*}\NormalTok{yy}
+\NormalTok{\}}
+
+\KeywordTok{ff}\NormalTok{(}\DecValTok{3}\NormalTok{) }
+\CommentTok{#R> [1] 34}
+\end{Highlighting}
+\end{Shaded}
+
+As another illustration, we could try to guess what \texttt{g(2)}
+produces after the following commands. Hint: remember the in which
+environment the functions were created because it tells you what are the
+correct bindings (parent).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\DecValTok{1}
+\NormalTok{b <-}\StringTok{ }\DecValTok{2}
+\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+\NormalTok{  a}\OperatorTok{*}\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{b}
+\NormalTok{\}}
+\NormalTok{g <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x)\{}
+\NormalTok{  a <-}\StringTok{ }\DecValTok{2}
+\NormalTok{  b <-}\StringTok{ }\DecValTok{1}
+  \KeywordTok{f}\NormalTok{(x)}
+\NormalTok{\}}
+
+\KeywordTok{g}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\CommentTok{#R> [1] 4}
+\end{Highlighting}
+\end{Shaded}
+
+Compare to \texttt{g(2)} here.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a <-}\StringTok{ }\DecValTok{1}
+\NormalTok{b <-}\StringTok{ }\DecValTok{2}
+\NormalTok{f <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(a,b)\{}
+  \KeywordTok{return}\NormalTok{( }\ControlFlowTok{function}\NormalTok{(x) \{a}\OperatorTok{*}\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{b\})}
+\NormalTok{\}}
+\NormalTok{g <-}\StringTok{ }\KeywordTok{f}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\KeywordTok{g}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\CommentTok{#R> [1] 5}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{loops}{%
+\chapter{Loops (avoid them)}\label{loops}}
+
+\hypertarget{generalities-about-loops}{%
+\section{Generalities about loops}\label{generalities-about-loops}}
+
+Loops allow to iterate a set of functions / lines of code over a
+predefined list of elements.\\
+They are common in many languages but are not highly regarded in R
+because:
+
+\begin{itemize}
+\tightlist
+\item
+  they do not represent an efficient way of producing a result,
+\item
+  functionals, functions that return a vector such as the \texttt{apply}
+  family, are preferred.
+\end{itemize}
+
+This section serves as an introduction to the functionals because it
+helps understand the structure of the problem.
+
+\hypertarget{introducing-loops-with-a-silly-example-bad-r-coding}{%
+\section{Introducing loops with a silly example (bad R
+coding)}\label{introducing-loops-with-a-silly-example-bad-r-coding}}
+
+Suppose our gains at a game over the week are, in euros,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{,}\OperatorTok{-}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{,}\OperatorTok{-}\DecValTok{4}\NormalTok{,}\DecValTok{12}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{gains}
+\CommentTok{#R> [1] 10  3 -5  0 -4 12  4}
+\end{Highlighting}
+\end{Shaded}
+
+Now, suppose we want to transform each gain into dollars, i.e., we must
+multiply each gain by 1.30. An intuitive way would be to take each gain
+\emph{separately} and multiply it 1.12. Let's do it by hand:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gains_d <-}\KeywordTok{numeric}\NormalTok{(}\KeywordTok{length}\NormalTok{(gains)) }\CommentTok{# create a numeric vector of same length as gains}
+\NormalTok{gains_d[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{1}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12} 
+\NormalTok{gains_d[}\DecValTok{2}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12}
+\NormalTok{gains_d[}\DecValTok{3}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{3}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12}
+\NormalTok{gains_d[}\DecValTok{4}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{4}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12}
+\NormalTok{gains_d[}\DecValTok{5}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{5}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12}
+\NormalTok{gains_d[}\DecValTok{6}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{6}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12}
+\NormalTok{gains_d[}\DecValTok{7}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{7}\NormalTok{]}\OperatorTok{*}\FloatTok{1.12}
+\NormalTok{gains_d}
+\CommentTok{#R> [1] 11.20  3.36 -5.60  0.00 -4.48 13.44  4.48}
+\end{Highlighting}
+\end{Shaded}
+
+We recognize that the structure of each line of code: the first line is
+for the element 1 of the vectors, the second line for the second element
+of the vectors, etc.\\
+Doing a loop builds on that observation. But it asks the program to make
+the change between each line automatically.\\
+In this silly case, we want the program to evaluate a line with the
+value 1 and then, when it has finished, do the same line but with a 2
+instead of a 1. And we want it to do it \textbf{for} the elements 1, 2,
+3, 4, \ldots, 7.\\
+This is what a loop does!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create an empty numeric vector of same length as gains}
+\NormalTok{gains_d2 <-}\KeywordTok{numeric}\NormalTok{(}\KeywordTok{length}\NormalTok{(gains)) }
+
+\CommentTok{# now the loop}
+\CommentTok{# first for i=1, then i=2, then i=3, etc... until i=length(gains)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(gains)) \{  }
+\NormalTok{  gains_d2[i] <-}\StringTok{ }\NormalTok{gains[i]}\OperatorTok{*}\FloatTok{1.12} 
+\NormalTok{\}}
+\NormalTok{gains_d2}
+\CommentTok{#R> [1] 11.20  3.36 -5.60  0.00 -4.48 13.44  4.48}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{general-form-of-a-for-loop}{%
+\section{\texorpdfstring{General form of a \texttt{for}
+loop}{General form of a for loop}}\label{general-form-of-a-for-loop}}
+
+The general form of a loop is the following
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ list}\OperatorTok{-}\NormalTok{of}\OperatorTok{-}\NormalTok{elements) \{}
+\CommentTok{# code invoking i identifier}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+A few words about this simple form are the following.
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{i} is the identifier to be used in the code; we can use
+  anything (e.g., \texttt{x}, \texttt{kk}, \texttt{element}, \ldots); we
+  only need to be consistent and, if any, use that identifier in the
+  code inside the loop.
+\item
+  The \texttt{in} is self-describing.
+\item
+  The list of elements is generally a vector, but it can also be a list.
+\item
+  The loop executes some code but does not need to return an object.
+\end{itemize}
+
+\hypertarget{no-identifier-in-the-code}{%
+\section{No identifier in the code?}\label{no-identifier-in-the-code}}
+
+The program will run the code in the loop until it finds the identifier,
+replaces it with the current value of the loop and executes all the
+commands.\\
+If it doesn't find it, then the program executes everything till the end
+of the loop and then starts again with the next value of the loop.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (kk }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\StringTok{"I'm working on it..."}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{#R> [1] "I'm working on it..."}
+\CommentTok{#R> [1] "I'm working on it..."}
+\CommentTok{#R> [1] "I'm working on it..."}
+\CommentTok{#R> [1] "I'm working on it..."}
+
+\ControlFlowTok{for}\NormalTok{ (kk }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"This is loop number"}\NormalTok{, kk))}
+\NormalTok{\}}
+\CommentTok{#R> [1] "This is loop number 1"}
+\CommentTok{#R> [1] "This is loop number 2"}
+\CommentTok{#R> [1] "This is loop number 3"}
+\CommentTok{#R> [1] "This is loop number 4"}
+\CommentTok{#R> [1] "This is loop number 5"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-good-example-of-a-loop}{%
+\section{A good example of a loop}\label{a-good-example-of-a-loop}}
+
+Suppose we want to know, every day, what is our cumulative gain until
+and including that day. This implies that we must to create another
+\texttt{cumulative\_gains} with the same length as \texttt{gains}.
+
+Then, we could run the following loop.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create an empty vector}
+\NormalTok{cumulative_gains <-}\KeywordTok{numeric}\NormalTok{(}\KeywordTok{length}\NormalTok{(gains)) }
+
+\NormalTok{cumulative_gains[}\DecValTok{1}\NormalTok{] <-}\StringTok{ }\NormalTok{gains[}\DecValTok{1}\NormalTok{]  }
+ 
+\ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \DecValTok{2}\OperatorTok{:}\KeywordTok{length}\NormalTok{(gains))\{}
+\NormalTok{  cumulative_gains[k]<-cumulative_gains[k}\DecValTok{-1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{gains[k]}
+\NormalTok{\}}
+\NormalTok{gains}
+\CommentTok{#R> [1] 10  3 -5  0 -4 12  4}
+\NormalTok{cumulative_gains}
+\CommentTok{#R> [1] 10 13  8  8  4 16 20}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{elements-may-not-need-to-be-numeric}{%
+\section{Elements may not need to be
+numeric}\label{elements-may-not-need-to-be-numeric}}
+
+The examples above could give the impression that we must loop over
+numeric values. But it is not so!\\
+The identifiers above simply took the values, one after the other, of
+the vector provided. Since we always gave a numeric vector, the
+identifier was always numeric.\\
+Here, we show that we can also loop over other types of vectors, for
+instance a character vector.\\
+The example is simple: we want to count the number of letters in each
+element of the character vector and print the result in the console. You
+can use the built-in function \texttt{nchar()};
+\texttt{nchar("Cologne")=}7.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cities <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Lisbon"}\NormalTok{, }\StringTok{"Paris"}\NormalTok{, }\StringTok{"Washington"}\NormalTok{, }\StringTok{"Antananarivo"}\NormalTok{)}
+\NormalTok{cities}
+\CommentTok{#R> [1] "Lisbon"       "Paris"        "Washington"   "Antananarivo"}
+
+\ControlFlowTok{for}\NormalTok{ (cit }\ControlFlowTok{in}\NormalTok{ cities) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(cit, }\StringTok{"has"}\NormalTok{, }\KeywordTok{nchar}\NormalTok{(cit), }\StringTok{"letters."}\NormalTok{))}
+\NormalTok{\}}
+\CommentTok{#R> [1] "Lisbon has 6 letters."}
+\CommentTok{#R> [1] "Paris has 5 letters."}
+\CommentTok{#R> [1] "Washington has 10 letters."}
+\CommentTok{#R> [1] "Antananarivo has 12 letters."}
+\end{Highlighting}
+\end{Shaded}
+
+To store these values in a vector \texttt{number\_letters}, we could
+write
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{number_letters <-}\StringTok{ }\OtherTok{NULL}
+
+\ControlFlowTok{for}\NormalTok{ (cit }\ControlFlowTok{in}\NormalTok{ cities) \{}
+\NormalTok{  number_letters <-}\StringTok{ }\KeywordTok{c}\NormalTok{(number_letters, }\KeywordTok{nchar}\NormalTok{(cit)) }
+\NormalTok{\}}
+
+\KeywordTok{names}\NormalTok{(number_letters) <-}\StringTok{ }\NormalTok{cities}
+\NormalTok{number_letters}
+\CommentTok{#R>       Lisbon        Paris   Washington Antananarivo }
+\CommentTok{#R>            6            5           10           12}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{more-advanced-stuff-1}{%
+\section{More advanced stuff}\label{more-advanced-stuff-1}}
+
+\hypertarget{loop-over-a-list}{%
+\subsection{\texorpdfstring{Loop over a
+\texttt{list}}{Loop over a list}}\label{loop-over-a-list}}
+
+We can loop over the elements of a \texttt{list}. Remember, however,
+that the elements of a \texttt{list} can be of any type. Therefore, we
+must make sure that the code inside the loop can be applied to each
+element of the \texttt{list}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mylist<-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{numbers=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{), }
+              \DataTypeTok{cities=}\KeywordTok{c}\NormalTok{(}\StringTok{"Cologne"}\NormalTok{,}\StringTok{"Lisbon"}\NormalTok{), }
+              \DataTypeTok{results=} \KeywordTok{c}\NormalTok{(T,F,F,T), }
+              \DataTypeTok{school=}\KeywordTok{factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"Primary"}\NormalTok{, }\StringTok{"Secondary"}\NormalTok{, }\StringTok{"Tertiary"}\NormalTok{), }\DataTypeTok{ordered=}\OtherTok{TRUE}\NormalTok{))}
+
+\ControlFlowTok{for}\NormalTok{ (kk }\ControlFlowTok{in}\NormalTok{ mylist) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{length}\NormalTok{(kk))}
+\NormalTok{\}}
+\CommentTok{#R> [1] 20}
+\CommentTok{#R> [1] 2}
+\CommentTok{#R> [1] 4}
+\CommentTok{#R> [1] 3}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that the previous call could be done with a loop over a numeric
+vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# (kk in 1:4)}
+\ControlFlowTok{for}\NormalTok{ (kk }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(mylist)) \{ }
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{length}\NormalTok{(mylist[[kk]]))}
+\NormalTok{\}}
+\CommentTok{#R> [1] 20}
+\CommentTok{#R> [1] 2}
+\CommentTok{#R> [1] 4}
+\CommentTok{#R> [1] 3}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{while-loop}{%
+\subsection{\texorpdfstring{\texttt{while}
+loop}{while loop}}\label{while-loop}}
+
+The command \texttt{while} introduces a loop that is run while a certain
+condition is satisfied. Here is an example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kk <-}\StringTok{ }\DecValTok{6}
+\ControlFlowTok{while}\NormalTok{ (kk }\OperatorTok{<}\StringTok{ }\DecValTok{10}\NormalTok{) \{}
+  \KeywordTok{print}\NormalTok{(kk)}
+\NormalTok{  kk <-}\StringTok{ }\NormalTok{kk }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{\}}
+\CommentTok{#R> [1] 6}
+\CommentTok{#R> [1] 7}
+\CommentTok{#R> [1] 8}
+\CommentTok{#R> [1] 9}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that the most important line is the last in the loop
+\texttt{kk\ \textless{}-\ kk\ +\ 1}. This makes the identifier change
+value, in this case, it increases of 1.
+
+If the identifier does not change, the program keeps running as long as
+the condition \texttt{(kk\ \textless{}\ 10)} is satisfied\ldots{} i.e.,
+forever! Make sure that the condition is not satisfied at some point
+after some loops!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{repetition <-}\StringTok{ }\DecValTok{0}
+\ControlFlowTok{while}\NormalTok{ (repetition }\OperatorTok{<=}\StringTok{ }\DecValTok{9}\NormalTok{ ) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"That's "}\NormalTok{ , repetition, }\StringTok{"! One more! Come on!"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{""}\NormalTok{)) }
+\NormalTok{  repetition<-}\StringTok{ }\NormalTok{repetition }\OperatorTok{+}\DecValTok{1}
+\NormalTok{\}}
+\CommentTok{#R> [1] "That's 0! One more! Come on!"}
+\CommentTok{#R> [1] "That's 1! One more! Come on!"}
+\CommentTok{#R> [1] "That's 2! One more! Come on!"}
+\CommentTok{#R> [1] "That's 3! One more! Come on!"}
+\CommentTok{#R> [1] "That's 4! One more! Come on!"}
+\CommentTok{#R> [1] "That's 5! One more! Come on!"}
+\CommentTok{#R> [1] "That's 6! One more! Come on!"}
+\CommentTok{#R> [1] "That's 7! One more! Come on!"}
+\CommentTok{#R> [1] "That's 8! One more! Come on!"}
+\CommentTok{#R> [1] "That's 9! One more! Come on!"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{break-next}{%
+\subsection{\texorpdfstring{\texttt{break} \&
+\texttt{next}}{break \& next}}\label{break-next}}
+
+If we insert \texttt{break} in a loop, the program stops everything,
+i.e., the remaining code in the loop is skipped and the loop is not
+iterated over anymore.
+
+You may want to use it in combination of a condition
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{ (condition}\OperatorTok{==}\OtherTok{TRUE}\NormalTok{) \{}
+  \ControlFlowTok{break}
+\NormalTok{\} }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{repetition <-}\StringTok{ }\DecValTok{0}
+\ControlFlowTok{while}\NormalTok{ (repetition }\OperatorTok{<=}\StringTok{ }\DecValTok{9}\NormalTok{ ) \{}
+  \ControlFlowTok{if}\NormalTok{ (repetition}\OperatorTok{==}\DecValTok{5}\NormalTok{)\{}
+    \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"That's "}\NormalTok{ , repetition,}
+                \StringTok{"! Well done! I know we said 10, but that's enough for today!"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{""}\NormalTok{))}
+    \ControlFlowTok{break}
+\NormalTok{  \}}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\StringTok{"That's "}\NormalTok{ , repetition, }\StringTok{"! One more! Come on!"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{""}\NormalTok{)) }
+\NormalTok{  repetition<-}\StringTok{ }\NormalTok{repetition }\OperatorTok{+}\DecValTok{1}
+\NormalTok{\}}
+\CommentTok{#R> [1] "That's 0! One more! Come on!"}
+\CommentTok{#R> [1] "That's 1! One more! Come on!"}
+\CommentTok{#R> [1] "That's 2! One more! Come on!"}
+\CommentTok{#R> [1] "That's 3! One more! Come on!"}
+\CommentTok{#R> [1] "That's 4! One more! Come on!"}
+\CommentTok{#R> [1] "That's 5! Well done! I know we said 10, but that's enough for today!"}
+\end{Highlighting}
+\end{Shaded}
+
+If we insert \texttt{next} in a loop, the program skips the remainder of
+the code in the loop and starts with the next value in the loop. Again,
+it's usually combined with a condition.
+
+\hypertarget{import}{%
+\chapter{Importa data to R}\label{import}}
+
+\hypertarget{general-idea}{%
+\section{General idea}\label{general-idea}}
+
+The first step in order to analyze data with R is to get the data in
+R.\\
+Data out there exists in many formats and it is not always consistently
+recorded. In R speaking, we will need to \texttt{read} the data from a
+file and put it in an object, often a data frame.\\
+Base R has has base functions to read some types of files. For special
+types of files, special packages are needed.
+
+\textbf{Important note:} these base functions are introduced here for
+documentation purpose only. Indeed, their task is usually better
+achieved by the functions developed in the \texttt{tidyverse} (see
+Chapter \ref{tidyverse} and following).
+
+\hypertarget{reading-rectangular-data}{%
+\section{Reading rectangular data}\label{reading-rectangular-data}}
+
+Rectangular data is intended here as a data set with values of variables
+in columns and each row representing a case. Arguably, this is the
+simplest and probably most common way to store data sets.\\
+The ad hoc function in R is \texttt{read.table}. Other similar functions
+exist, e.g., \texttt{read.csv}, but they are essentially a wrapper of
+\texttt{read.table}.\\
+This function reads rectangular data and assigns it to an object, in
+almost all cases a data frame. The arguments of the function are
+numerous are, depending on the case, potentially very useful (check
+\texttt{?read.table}). We mention here a few of them in the typical
+call:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my.data <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(...)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{file} is the name of the file to be read. It requires a valid
+path. It can also be an \texttt{url}, with some adaptations.\\
+\texttt{header} is a logical indicating whether the data's first line
+gives the names of the variables.\\
+\texttt{sep} indicates the character that separates the values between
+columns.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# assuming we have the file AH001.txt in the same folder}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\DataTypeTok{file=}\StringTok{"AH001.txt"}\NormalTok{,}
+                \DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{,}
+                \DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+\KeywordTok{head}\NormalTok{(df)}
+\CommentTok{#R>   Area AreaCode AreaCode2 Grain Year Month LPrice HPrice}
+\CommentTok{#R> 1   AH        1        NA    BO 1738     9     98    120}
+\CommentTok{#R> 2   AH        1        NA    BO 1738    10     99    120}
+\CommentTok{#R> 3   AH        1        NA    BO 1738    11    100    120}
+\CommentTok{#R> 4   AH        1        NA    BO 1738    12     93    120}
+\CommentTok{#R> 5   AH        1        NA    BO 1739     1     90    120}
+\CommentTok{#R> 6   AH        1        NA    BO 1739     2     98    120}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{read-other-data-types}{%
+\section{Read other data types}\label{read-other-data-types}}
+
+R can import virtually all types of data. For special types, a ad hoc
+package will be necessary. \texttt{foreign} is one of them and it allows
+to import data from other applications. Its functions are of the form
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{read.XXX}
+\end{Highlighting}
+\end{Shaded}
+
+where the \texttt{XXX} is an extension specific to the external
+software. Examples include ``read.dta'' for Stata data files,
+\texttt{read.spss} for SPSS files or \texttt{read.dbf} for dBASE files.
+
+A very important data source type is Excel. Functions for this type of
+data are covered in Chapter \ref{readr} from the part on
+\texttt{tidyverse}.
+
+\hypertarget{scanning-a-file}{%
+\section{Scanning a file}\label{scanning-a-file}}
+
+The base function \texttt{scan} can sometimes be useful, though it is
+not used to import data. \texttt{scan()} imports to a vector (or a
+list), which can then be used.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{what} gives the type of vector to be imported.\\
+\item
+  \texttt{skip} is the number of lines to be skipped in the file.\\
+\item
+  \texttt{nlines} determines the number of lines to be read and
+  imported.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{what=}\KeywordTok{character}\NormalTok{())}
+\CommentTok{#df}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{what=}\KeywordTok{character}\NormalTok{(), }\DataTypeTok{skip=}\DecValTok{1}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+\CommentTok{#df}
+\NormalTok{given.line <-}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{what=}\KeywordTok{character}\NormalTok{(), }\DataTypeTok{nlines=}\DecValTok{1}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+\NormalTok{given.line}
+\CommentTok{#R> [1] "Area"      "AreaCode"  "AreaCode2" "Grain"     "Year"      "Month"    }
+\CommentTok{#R> [7] "LPrice"    "HPrice"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{splots}{%
+\chapter{Simple plots}\label{splots}}
+
+This short chapter has also only an information purpose. The package
+\texttt{ggplot2} described in Chapter \ref{ggplot2} allows to make much
+richer and elegant plots.
+
+\hypertarget{line-plots}{%
+\section{Line plots}\label{line-plots}}
+
+The simplest plot is a scatter plot of one variable plotted against an
+index (1, 2, 3, \ldots) on the horizontal axis.\\
+In order to (scatter) plot one vector against the other, it is
+compulsory that they are both numeric and have the same length.\\
+The following plots illustrate the creation of a line plot in
+incremental steps. In the steps, the following functions and arguments
+are introduced:
+
+\begin{itemize}
+\item
+  \texttt{plot} is the main function for the plot.
+\item
+  \texttt{type} argument type gives how the vector should be rendered in
+  the plot; the \texttt{type} of the plot is any of Table
+  \ref{tab:table-p-types}.
+\end{itemize}
+
+\begin{table}[t]
+
+\caption{\label{tab:table-p-types}Plot types.}
+\centering
+\begin{tabular}{l|l}
+\hline
+Symbol & Description\\
+\hline
+p & Points\\
+\hline
+l & Lines\\
+\hline
+b & Both\\
+\hline
+c & The lines part alone of b\\
+\hline
+o & Both overplotted\\
+\hline
+s & Steps\\
+\hline
+h & Histogram like (vertical lines)\\
+\hline
+n & No plotting\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sales <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{18}\NormalTok{, }\DecValTok{24}\NormalTok{, }\DecValTok{36}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\NormalTok{date <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{15}\NormalTok{, }\DecValTok{16}\NormalTok{, }\DecValTok{17}\NormalTok{, }\DecValTok{18}\NormalTok{, }\DecValTok{19}\NormalTok{)}
+\CommentTok{# left}
+\KeywordTok{plot}\NormalTok{(sales)}
+\CommentTok{# middle}
+\KeywordTok{plot}\NormalTok{(date, sales)}
+\CommentTok{# right}
+\KeywordTok{plot}\NormalTok{(date, sales, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/simple-plots-1-1} \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/simple-plots-1-2} \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/simple-plots-1-3} 
+
+}
+
+\caption{Creating a simple line plot.}\label{fig:simple-plots-1}
+\end{figure}
+
+We now add further customization with new functions and arguments.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{col} determines the color; see this
+  \href{http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf}{Rcolor.pdf
+  online} for details.
+\item
+  The \texttt{lty} argument refers to the type of line, to be chosen
+  from the values shown in Figure \ref{fig:line-types},
+\item
+  \texttt{lines} adds the plot of a vector to a previously opened plot.
+\item
+  \texttt{axis} is a function that changes the axis given in its first
+  argument with 1, 2, 3, 4 referring to the bottom, left, top, and right
+  axis, respectively.
+\item
+  \texttt{at} simply states for what values of the axis the labels
+  should correspond.
+\item
+  \texttt{las} gives the orientation of the labels (e.g.,
+  \texttt{1=horizontal}).
+\item
+  \texttt{xlab} and \texttt{ylab} are the x and y axes labels,
+  respectively.
+\item
+  \texttt{xlim} and \texttt{ylim} set a numerical limit for the x and y
+  axes labels, respectively, notice that a vector of length 2 is
+  necessary for each.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{MyR_files/figure-latex/line-types-1} 
+
+}
+
+\caption{Line types.}\label{fig:line-types}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sales2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{22}\NormalTok{, }\DecValTok{28}\NormalTok{, }\DecValTok{32}\NormalTok{) }
+\CommentTok{# left}
+\KeywordTok{plot}\NormalTok{(date, sales, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(date, sales2, }\DataTypeTok{type=}\StringTok{"b"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{)}
+\CommentTok{# middle}
+\NormalTok{s.range <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{min}\NormalTok{(sales,sales2),}\KeywordTok{max}\NormalTok{(sales,sales2))}
+\KeywordTok{plot}\NormalTok{(date, sales, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{ylim=}\NormalTok{s.range)}
+\KeywordTok{lines}\NormalTok{(date, sales2, }\DataTypeTok{type=}\StringTok{"b"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{)}
+\CommentTok{# right}
+\KeywordTok{plot}\NormalTok{(date, sales, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{,}
+     \DataTypeTok{ylim=}\NormalTok{s.range,}
+     \DataTypeTok{axes=} \OtherTok{FALSE}\NormalTok{, }
+     \DataTypeTok{xlab =} \StringTok{"Day"}\NormalTok{,}
+     \DataTypeTok{ylab=} \StringTok{"Sales"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(date, sales2, }\DataTypeTok{type=}\StringTok{"b"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{)}
+\KeywordTok{axis}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{at=}\NormalTok{date, }\DataTypeTok{lab=}\KeywordTok{c}\NormalTok{(}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tue"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thu"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{))}
+\KeywordTok{axis}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DataTypeTok{las=}\DecValTok{1}\NormalTok{, }\DataTypeTok{at=}\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(s.range),}\KeywordTok{max}\NormalTok{(s.range),}\DecValTok{5}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/simple-plots-2-1} \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/simple-plots-2-2} \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/simple-plots-2-3} 
+
+}
+
+\caption{Custom a simple line plot.}\label{fig:simple-plots-2}
+\end{figure}
+
+We now add further elements such as a legend or a title.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{legend} gives and places a legend; its first arguments are the
+  location on the x and y axis respectively (this can be replaced by
+  expressions such as \texttt{topleft}); the third is the legend itself,
+  completed with colors and other formatting; notice that since the
+  legend specifies two series, the formatting must also be given for
+  each of them in vectors of length 2.
+\item
+  \texttt{pch} determines the shape of the point in the plot, to be
+  chosen from Figure \ref{fig:point-types}.
+\item
+  \texttt{cex} gives the expanding factor of the text.
+\item
+  \texttt{bty} specifies whether of not the legend should be in a box
+  (default, ``o'') or not ``n''.
+\item
+  \texttt{title} gives the title to the plot.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{MyR_files/figure-latex/point-types-1} 
+
+}
+
+\caption{Point types.}\label{fig:point-types}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(date, sales, }\DataTypeTok{type=}\StringTok{"l"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{ylim=}\NormalTok{s.range,}
+      \DataTypeTok{axes=} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{"Day"}\NormalTok{, }\DataTypeTok{ylab=} \StringTok{"Sales"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(date, sales2, }\DataTypeTok{type=}\StringTok{"b"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{)}
+\KeywordTok{axis}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{at=}\NormalTok{date, }\DataTypeTok{lab=}\KeywordTok{c}\NormalTok{(}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tue"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thu"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{))}
+\KeywordTok{axis}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DataTypeTok{las=}\DecValTok{1}\NormalTok{, }\DataTypeTok{at=}\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(s.range),}\KeywordTok{max}\NormalTok{(s.range),}\DecValTok{5}\NormalTok{)) }
+\KeywordTok{legend}\NormalTok{(date[}\DecValTok{1}\NormalTok{], s.range[}\DecValTok{2}\NormalTok{], }\KeywordTok{c}\NormalTok{(}\StringTok{"Tom"}\NormalTok{,}\StringTok{"Mark"}\NormalTok{), }\DataTypeTok{cex=}\DecValTok{1}\NormalTok{, }
+   \DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{,}\StringTok{"red"}\NormalTok{), }\DataTypeTok{pch=}\KeywordTok{c}\NormalTok{(}\OtherTok{NA}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{lty=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{), }\DataTypeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\KeywordTok{title}\NormalTok{(}\DataTypeTok{main=}\StringTok{"Week Sales"}\NormalTok{, }\DataTypeTok{col.main=}\StringTok{"black"}\NormalTok{, }\DataTypeTok{font.main=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.5\linewidth]{MyR_files/figure-latex/simple-plots-3-1} 
+
+}
+
+\caption{Further customization of a simple line plot.}\label{fig:simple-plots-3}
+\end{figure}
+
+One can help but notice how cumbersome the coding of the graph is, in
+particular when one needs to retype the whole code for the same graph.
+
+\hypertarget{bar-graphs-and-histograms}{%
+\section{Bar graphs and histograms}\label{bar-graphs-and-histograms}}
+
+This subsection illustrates the creation of these graphs with a few
+commented examples.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{barplot} takes a vector or a matrix as first argument. It is
+  therefore important to double check how this latter is created.
+\item
+  \texttt{density} applies to the colors and a single value would be
+  recycled.
+\item
+  \texttt{horiz} defaults to \texttt{FALSE} and gives the direction of
+  the plot.
+\item
+  \texttt{border} applies to the borders of the bars.
+\item
+  \texttt{beside} forces side-by-side bars instead of stacking bars.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{barplot}\NormalTok{(sales,}
+        \DataTypeTok{main=}\StringTok{"Week Sales - Tom"}\NormalTok{,}
+        \DataTypeTok{names.arg=}\KeywordTok{c}\NormalTok{(}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tue"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thu"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{),}
+        \DataTypeTok{border=}\StringTok{"lightblue"}\NormalTok{,}
+        \DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{barplot}\NormalTok{(sales,}
+        \DataTypeTok{main=}\StringTok{"Week Sales - Mark"}\NormalTok{,}
+        \DataTypeTok{names.arg=}\KeywordTok{c}\NormalTok{(}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tue"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thu"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{),}
+        \DataTypeTok{border=}\StringTok{"red"}\NormalTok{,}
+        \DataTypeTok{col =} \StringTok{"red"}\NormalTok{,}
+        \DataTypeTok{horiz =} \OtherTok{TRUE}\NormalTok{)}
+
+\KeywordTok{barplot}\NormalTok{(}\KeywordTok{matrix}\NormalTok{(}\KeywordTok{c}\NormalTok{(sales, sales2), }\DataTypeTok{ncol=}\DecValTok{5}\NormalTok{, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{),}
+        \DataTypeTok{beside =} \OtherTok{TRUE}\NormalTok{,}
+        \DataTypeTok{names.arg=}\KeywordTok{c}\NormalTok{(}\StringTok{"Mon"}\NormalTok{,}\StringTok{"Tue"}\NormalTok{,}\StringTok{"Wed"}\NormalTok{,}\StringTok{"Thu"}\NormalTok{,}\StringTok{"Fri"}\NormalTok{),}
+        \DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{),}
+        \DataTypeTok{density =} \DecValTok{30}\NormalTok{, }
+        \DataTypeTok{main=}\StringTok{"Week Sales"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/bar-plots-1} \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/bar-plots-2} \includegraphics[width=0.25\linewidth]{MyR_files/figure-latex/bar-plots-3} 
+
+}
+
+\caption{Simple bar plots.}\label{fig:bar-plots}
+\end{figure}
+
+Turning to histogram, the function and some arguments are the following.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{hist} is the function to create an histogram from the values
+  of a vector.
+\item
+  \texttt{breaks} is the important argument as it controls the width of
+  the bars.
+\item
+  \texttt{freq} determines whether the frequency (default) of the
+  density should be plotted.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{hist}\NormalTok{(}\KeywordTok{c}\NormalTok{(sales, sales2))}
+
+\NormalTok{brks <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\KeywordTok{min}\NormalTok{(s.range), }\KeywordTok{max}\NormalTok{(s.range)}\OperatorTok{+}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(}\KeywordTok{c}\NormalTok{(sales, sales2),}
+    \DataTypeTok{col=}\KeywordTok{rev}\NormalTok{(}\KeywordTok{heat.colors}\NormalTok{(}\KeywordTok{length}\NormalTok{(brks))),}
+    \DataTypeTok{breaks=}\NormalTok{brks,}
+    \DataTypeTok{main=}\StringTok{"Histogram of Week Sales"}\NormalTok{,}
+    \DataTypeTok{las=}\DecValTok{1}\NormalTok{, }\DataTypeTok{cex.axis=}\FloatTok{0.8}\NormalTok{,}
+    \DataTypeTok{freq=}\OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{xlab=}\StringTok{"Sales"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.35\linewidth]{MyR_files/figure-latex/hist-plots-1} \includegraphics[width=0.35\linewidth]{MyR_files/figure-latex/hist-plots-2} 
+
+}
+
+\caption{Simple histograms.}\label{fig:hist-plots}
+\end{figure}
+
+\hypertarget{other-plots}{%
+\subsection{Other plots}\label{other-plots}}
+
+Other types of plots are called by the following functions.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{pie} for the pie (round) charts.
+\item
+  \texttt{boxplot} for the box-and-whisker plot.
+\item
+  \texttt{dotchart} for the Cleveland dot plot.
+\item
+  \ldots{}
+\end{itemize}
+
+\hypertarget{part-tidyverse}{%
+\part{Tidyverse}\label{part-tidyverse}}
+
+\hypertarget{tidyverse}{%
+\chapter{\texorpdfstring{What is
+\texttt{tidyverse}}{What is tidyverse}}\label{tidyverse}}
+
+\texttt{tidyverse} is a bundle of packages due mainly by Hadley Wickham.
+Essentially, it is a redesign of the core functions of R with a coherent
+philosophy. It comes close to become a complete and self-contained
+system on its own thanks to all its packages.\\
+Arguably, it is also an improvement over the standard R packages:
+faster, more consistent and more beautiful. The huge benefits of
+embracing the \texttt{tidyverse} come at the cost needing to learn a
+sub-dialect of R. This can be daunting for a beginner in R programming
+that put lots of effort into learning basic R functions.\\
+I understand, however, that these initial efforts will still pay off
+with this new system. And the advantages will become overwhelming.\\
+The next chapters all develop a relevant package, selected from the
+\texttt{tidyverse}. The list of all packages along with a fuller
+description of the system can be found on
+\href{https://www.tidyverse.org/}{tidyverse.org}.
+
+To begin,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{readr}{%
+\chapter{\texorpdfstring{Read: \texttt{readr} and
+\texttt{readxl}}{Read: readr and readxl}}\label{readr}}
+
+\#\#~\texttt{readr}
+
+As shown in Chapter @ref(\#import), base R has many functions to read
+some types of files.\\
+\texttt{readr} improves on them because it:
+
+\begin{itemize}
+\tightlist
+\item
+  is much faster,
+\item
+  has mainly functionalities,
+\item
+  converts data directly into tibbles,
+\item
+  handles the conversion of the type of data in a better way.
+\end{itemize}
+
+Notice that \texttt{readr} uses names of functions that are very close
+to the base R functions: e.g., \texttt{read\_csv} instead of
+\texttt{read.csv} in base R.\\
+The functions form a \texttt{read\_xxx} family where `xxx' stands for
+the way the data you want read was recorded:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{csv} for comma separated values,
+\item
+  \texttt{tsv} for tab separated values,
+\item
+  \texttt{delim} for any delimiter between values,
+\item
+  other exist as well, for instance for columns separated by a white
+  space.
+\end{itemize}
+
+In my experience, using the right member of the family yields better
+results, for instance in parsing the columns.
+
+\hypertarget{read_delim}{%
+\subsection{\texorpdfstring{\texttt{read\_delim}}{read\_delim}}\label{read_delim}}
+
+We'll describe \texttt{read\_delim} because functions of the family
+behave are special cases of this function. For instance,
+\texttt{read\_csv} is equivalent to \texttt{read\_delim} with a
+\texttt{,} as a character to separate the columns.
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{file} argument gives the name of a file, possibly with the
+  path to it, if it is not in the same folder. Again, the path can also
+  be an url.\\
+\item
+  \texttt{delim} provides the character that separates columns in the
+  data.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# assuming that the AH001.txt is in the folder}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_delim}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{delim =} \StringTok{","}\NormalTok{ , }\DataTypeTok{trim_ws=}\OtherTok{TRUE}\NormalTok{)}
+\CommentTok{#R> Parsed with column specification:}
+\CommentTok{#R> cols(}
+\CommentTok{#R>   Area = col_character(),}
+\CommentTok{#R>   AreaCode = col_character(),}
+\CommentTok{#R>   AreaCode2 = col_character(),}
+\CommentTok{#R>   Grain = col_character(),}
+\CommentTok{#R>   Year = col_integer(),}
+\CommentTok{#R>   Month = col_integer(),}
+\CommentTok{#R>   LPrice = col_integer(),}
+\CommentTok{#R>   HPrice = col_integer()}
+\CommentTok{#R> )}
+\NormalTok{df}
+\CommentTok{#R> # A tibble: 9,765 x 8}
+\CommentTok{#R>    Area  AreaCode AreaCode2 Grain  Year Month LPrice HPrice}
+\CommentTok{#R>    <chr> <chr>    <chr>     <chr> <int> <int>  <int>  <int>}
+\CommentTok{#R>  1 AH    001      <NA>      BO     1738     9     98    120}
+\CommentTok{#R>  2 AH    001      <NA>      BO     1738    10     99    120}
+\CommentTok{#R>  3 AH    001      <NA>      BO     1738    11    100    120}
+\CommentTok{#R>  4 AH    001      <NA>      BO     1738    12     93    120}
+\CommentTok{#R>  5 AH    001      <NA>      BO     1739     1     90    120}
+\CommentTok{#R>  6 AH    001      <NA>      BO     1739     2     98    120}
+\CommentTok{#R>  7 AH    001      <NA>      BO     1739     3    100    124}
+\CommentTok{#R>  8 AH    001      <NA>      BO     1739     4    100    121}
+\CommentTok{#R>  9 AH    001      <NA>      BO     1739     9     90    125}
+\CommentTok{#R> 10 AH    001      <NA>      BO     1740     6     75    130}
+\CommentTok{#R> # ... with 9,755 more rows}
+\KeywordTok{class}\NormalTok{(df)}
+\CommentTok{#R> [1] "tbl_df"     "tbl"        "data.frame"}
+\end{Highlighting}
+\end{Shaded}
+
+Notice an important message, the types of the columns were guessed by
+the function. For instance, the column ``Area'' was guessed to be of
+type ``character''. With that respect, the next arguments are
+particularly useful.\\
+- First, \texttt{trim\_ws} is a logical for whether the leading white
+space in each recording should be erased before parsing. With a white
+space, columns of numeric values with different number of digits could
+be guessed as character vectors.\\
+Second, we can override the guess of \texttt{read\_delim} by specifying
+the types: this is called ``to parse'' a file.\\
+We can parse into many types and use abbreviations to set them: c =
+character, i = integer, n = number, d = double, l = logical, D = date, T
+= date time, t = time, ? = guess.
+
+All of these parsing calls can cause unexpected problems. For instance,
+one may need to change the symbol for decimal with the extra argument
+for the column type \texttt{locale=locale(decimal\_mark=",")}. Notice
+the behavior when an observation is not of the same type as expected: it
+is changed to \texttt{NA}.\\
+The function \texttt{problems} lists the rows with problems.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_delim}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{delim=}\StringTok{","}\NormalTok{, }\DataTypeTok{trim_ws=}\OtherTok{TRUE}\NormalTok{,}
+                \DataTypeTok{col_types =} \KeywordTok{cols}\NormalTok{(}\DataTypeTok{LPrice=}\StringTok{"d"}\NormalTok{, }\DataTypeTok{HPrice =}\StringTok{"d"}\NormalTok{) )}
+\NormalTok{df}
+\CommentTok{#R> # A tibble: 9,765 x 8}
+\CommentTok{#R>    Area  AreaCode AreaCode2 Grain  Year Month LPrice HPrice}
+\CommentTok{#R>    <chr> <chr>    <chr>     <chr> <int> <int>  <dbl>  <dbl>}
+\CommentTok{#R>  1 AH    001      <NA>      BO     1738     9     98    120}
+\CommentTok{#R>  2 AH    001      <NA>      BO     1738    10     99    120}
+\CommentTok{#R>  3 AH    001      <NA>      BO     1738    11    100    120}
+\CommentTok{#R>  4 AH    001      <NA>      BO     1738    12     93    120}
+\CommentTok{#R>  5 AH    001      <NA>      BO     1739     1     90    120}
+\CommentTok{#R>  6 AH    001      <NA>      BO     1739     2     98    120}
+\CommentTok{#R>  7 AH    001      <NA>      BO     1739     3    100    124}
+\CommentTok{#R>  8 AH    001      <NA>      BO     1739     4    100    121}
+\CommentTok{#R>  9 AH    001      <NA>      BO     1739     9     90    125}
+\CommentTok{#R> 10 AH    001      <NA>      BO     1740     6     75    130}
+\CommentTok{#R> # ... with 9,755 more rows}
+\KeywordTok{problems}\NormalTok{(df)}
+\CommentTok{#R> # tibble [0 x 4]}
+\CommentTok{#R> # ... with 4 variables: row <int>, col <int>, expected <chr>, actual <chr>}
+\end{Highlighting}
+\end{Shaded}
+
+Notice that the names of the variables are not within \texttt{"\ "}.
+This is a general feature of the \texttt{tidyverse}.\\
+By default, the first line of the data file is used for naming the
+columns. This can be changed.\\
+- \texttt{col\_names} is the vector of names set for the variables. -
+\texttt{skip} determines how many lines to be skipped in the file. This
+is useful when the file does contain names that one does not want to
+keep.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_delim}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{delim =} \StringTok{","}\NormalTok{ , }\DataTypeTok{trim_ws=}\OtherTok{TRUE}\NormalTok{,}
+                \DataTypeTok{skip =} \DecValTok{1}\NormalTok{, }\DataTypeTok{col_names =} \OtherTok{FALSE}\NormalTok{)}
+\CommentTok{#R> Parsed with column specification:}
+\CommentTok{#R> cols(}
+\CommentTok{#R>   X1 = col_character(),}
+\CommentTok{#R>   X2 = col_character(),}
+\CommentTok{#R>   X3 = col_character(),}
+\CommentTok{#R>   X4 = col_character(),}
+\CommentTok{#R>   X5 = col_integer(),}
+\CommentTok{#R>   X6 = col_integer(),}
+\CommentTok{#R>   X7 = col_integer(),}
+\CommentTok{#R>   X8 = col_integer()}
+\CommentTok{#R> )}
+\NormalTok{df}
+\CommentTok{#R> # A tibble: 9,765 x 8}
+\CommentTok{#R>    X1    X2    X3    X4       X5    X6    X7    X8}
+\CommentTok{#R>    <chr> <chr> <chr> <chr> <int> <int> <int> <int>}
+\CommentTok{#R>  1 AH    001   <NA>  BO     1738     9    98   120}
+\CommentTok{#R>  2 AH    001   <NA>  BO     1738    10    99   120}
+\CommentTok{#R>  3 AH    001   <NA>  BO     1738    11   100   120}
+\CommentTok{#R>  4 AH    001   <NA>  BO     1738    12    93   120}
+\CommentTok{#R>  5 AH    001   <NA>  BO     1739     1    90   120}
+\CommentTok{#R>  6 AH    001   <NA>  BO     1739     2    98   120}
+\CommentTok{#R>  7 AH    001   <NA>  BO     1739     3   100   124}
+\CommentTok{#R>  8 AH    001   <NA>  BO     1739     4   100   121}
+\CommentTok{#R>  9 AH    001   <NA>  BO     1739     9    90   125}
+\CommentTok{#R> 10 AH    001   <NA>  BO     1740     6    75   130}
+\CommentTok{#R> # ... with 9,755 more rows}
+\KeywordTok{colnames}\NormalTok{(df) <-}\StringTok{ }\NormalTok{LETTERS[}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(df)]}
+\NormalTok{df}
+\CommentTok{#R> # A tibble: 9,765 x 8}
+\CommentTok{#R>    A     B     C     D         E     F     G     H}
+\CommentTok{#R>    <chr> <chr> <chr> <chr> <int> <int> <int> <int>}
+\CommentTok{#R>  1 AH    001   <NA>  BO     1738     9    98   120}
+\CommentTok{#R>  2 AH    001   <NA>  BO     1738    10    99   120}
+\CommentTok{#R>  3 AH    001   <NA>  BO     1738    11   100   120}
+\CommentTok{#R>  4 AH    001   <NA>  BO     1738    12    93   120}
+\CommentTok{#R>  5 AH    001   <NA>  BO     1739     1    90   120}
+\CommentTok{#R>  6 AH    001   <NA>  BO     1739     2    98   120}
+\CommentTok{#R>  7 AH    001   <NA>  BO     1739     3   100   124}
+\CommentTok{#R>  8 AH    001   <NA>  BO     1739     4   100   121}
+\CommentTok{#R>  9 AH    001   <NA>  BO     1739     9    90   125}
+\CommentTok{#R> 10 AH    001   <NA>  BO     1740     6    75   130}
+\CommentTok{#R> # ... with 9,755 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+Data often contain specific special character, in particular for
+comments and NA's.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{comment} takes the character that signals comments.
+\item
+  \texttt{na} signals what values should be consider as NA's.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_delim}\NormalTok{(}\StringTok{"AH001.txt"}\NormalTok{, }\DataTypeTok{delim =} \StringTok{","}\NormalTok{ , }\DataTypeTok{trim_ws=}\OtherTok{TRUE}\NormalTok{,}
+                \DataTypeTok{skip =} \DecValTok{1}\NormalTok{, }\DataTypeTok{col_names =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{comment =} \StringTok{"%"}\NormalTok{, }\DataTypeTok{na =} \StringTok{"9999"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{readxl}{%
+\section{\texorpdfstring{\texttt{readxl}}{readxl}}\label{readxl}}
+
+Lots of rectangular data out there is in Excel files. One way is to
+handle it could be to first transform the data into a \texttt{.csv} file
+and then import it as described above.\\
+Thanks to the \texttt{readxl} package, one can also read it
+directly.{[}\^{}Notice that R can also write to an Excel file. Why would
+one do that? Maybe because collaborators only work with Excel. This is
+achieved with the package \texttt{XLConnect} but we won't dig into these
+details here.{]} As part of the \texttt{tidyverse} bundle,
+\texttt{readxl} shares features and rules with \texttt{readr}.\\
+Below are some of the specific features.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{read\_excel} is the function that reads the data in the file
+  and assigns it to an object, as illustrated in the following chunk.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}\StringTok{"data_china.xlsx"}\NormalTok{)}
+\NormalTok{df }
+\CommentTok{#R> # A tibble: 19 x 8}
+\CommentTok{#R>    Area  AreaCode AreaCode2 Grain  Year Month LPrice HPrice}
+\CommentTok{#R>    <chr>    <dbl> <lgl>     <chr> <dbl> <dbl>  <dbl>  <dbl>}
+\CommentTok{#R>  1 AH           1 NA        BO     1738     9     98    120}
+\CommentTok{#R>  2 AH           1 NA        BO     1738    10     99    120}
+\CommentTok{#R>  3 AH           1 NA        BO     1738    11    100    120}
+\CommentTok{#R>  4 AH           1 NA        BO     1738    12     93    120}
+\CommentTok{#R>  5 AH           1 NA        BO     1739     1     90    120}
+\CommentTok{#R>  6 AH           1 NA        BO     1739     2     98    120}
+\CommentTok{#R>  7 AH           1 NA        BO     1739     3    100    124}
+\CommentTok{#R>  8 AH           1 NA        BO     1739     4    100    121}
+\CommentTok{#R>  9 AH           1 NA        BO     1739     9     90    125}
+\CommentTok{#R> 10 AH           1 NA        BO     1740     6     75    130}
+\CommentTok{#R> 11 AH           1 NA        BO     1740     7     75    130}
+\CommentTok{#R> 12 AH           1 NA        BO     1740     8     75    150}
+\CommentTok{#R> 13 AH           1 NA        BO     1740     9     75    150}
+\CommentTok{#R> 14 AH           1 NA        BO     1740    10     75    150}
+\CommentTok{#R> 15 AH           1 NA        BO     1740    11     75    150}
+\CommentTok{#R> 16 AH           1 NA        BO     1740    12     75    150}
+\CommentTok{#R> 17 AH           1 NA        BO     1741     1     75    150}
+\CommentTok{#R> 18 AH           1 NA        BO     1741     2     75    138}
+\CommentTok{#R> 19 AH           1 NA        BO     1741     3     90    125}
+\end{Highlighting}
+\end{Shaded}
+
+Importantly, notice that the exact extension does not matter as
+\texttt{readxl} recognizes both \texttt{.xls} and \texttt{.xlsx}.\\
+Notice that if the file contains multiple sheets, these can all be
+accessed.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{excel\_sheets} is a function that yields the names of the
+  different sheets in a file.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{excel_sheets}\NormalTok{(}\StringTok{"data_china.xlsx"}\NormalTok{)}
+\CommentTok{#R> [1] "AH" "FJ"}
+\end{Highlighting}
+\end{Shaded}
+
+To know the specific sheets allows to call them directly by name.
+Alternatively, this can also be done by a number.
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{sheet} argument specifies the required sheet either by a
+  name or by a number.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_excel}\NormalTok{(}\StringTok{"data_china.xlsx"}\NormalTok{, }\DataTypeTok{sheet=}\StringTok{"FJ"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+A specific range for the data to be read can also be specified. Here are
+arguments that allow that.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{n\_max} for the maximum number of line to be read.
+\item
+  \texttt{range} for a specific range, describe in one of the possible
+  ways:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    extreme cells of rectangular data: \texttt{range="B1:D10"},
+  \item
+    with \texttt{cell\_rows} for the required rows:
+    \texttt{range=cell\_rows(1:10)},
+  \item
+    with \texttt{cell\_cols} for the required columns:
+    \texttt{range=cell\_cols("B:E")}.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{ggplot2}{%
+\chapter{\texorpdfstring{\texttt{ggplot2}}{ggplot2}}\label{ggplot2}}
+
+\hypertarget{general-purpose}{%
+\section{General purpose}\label{general-purpose}}
+
+Data visualization is part of the skill set of a data scientist Made to,
+either - explore (confirm, analyse) - explain (inform, convince) Depends
+who you communicate to (can be you)
+
+\hypertarget{comparison-with-base-plot}{%
+\section{\texorpdfstring{Comparison with base
+\texttt{plot}}{Comparison with base plot}}\label{comparison-with-base-plot}}
+
+Limitations of base plot - plot does not redraw, i.e., the range will
+not adapt to new data - plot is drawn as an image, i.e., it's not an
+object - manual legend - no unified framework for plotting, i.e., need
+to master other commands for other types of graphs
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{rm}\NormalTok{(mtcarts)}
+\CommentTok{#R> Warning in rm(mtcarts): object 'mtcarts' not found}
+\KeywordTok{data}\NormalTok{(}\StringTok{"mtcars"}\NormalTok{)}
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{cyl <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{cyl) }\CommentTok{# treat 'cyl' as a factor}
+
+\KeywordTok{plot}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{wt, mtcars}\OperatorTok{$}\NormalTok{mpg, }\DataTypeTok{col =}\NormalTok{ mtcars}\OperatorTok{$}\NormalTok{cyl)}
+\KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ mtcars), }\DataTypeTok{lty =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{lapply}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{cyl, }\ControlFlowTok{function}\NormalTok{(x) \{}
+  \KeywordTok{abline}\NormalTok{(}\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, mtcars, }\DataTypeTok{subset =}\NormalTok{ (cyl }\OperatorTok{==}\StringTok{ }\NormalTok{x)), }\DataTypeTok{col =}\NormalTok{ x)}
+\NormalTok{  \})}
+\KeywordTok{legend}\NormalTok{(}\DataTypeTok{x =} \DecValTok{5}\NormalTok{, }\DataTypeTok{y =} \DecValTok{33}\NormalTok{, }\DataTypeTok{legend =} \KeywordTok{levels}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{cyl),}\DataTypeTok{col =} \DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{1}\NormalTok{, }\DataTypeTok{bty =} \StringTok{"n"}\NormalTok{)}
+       
+\NormalTok{plot1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg, }\DataTypeTok{col =} \KeywordTok{factor}\NormalTok{(cyl))) }\OperatorTok{+}
+\StringTok{         }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{         }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{lm , }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{col=}\NormalTok{cyl)) }\OperatorTok{+}
+\StringTok{         }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{lm , }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{linetype=}\DecValTok{2}\NormalTok{, }\DataTypeTok{col=}\StringTok{"grey"}\NormalTok{, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group=}\DecValTok{1}\NormalTok{))       }
+\NormalTok{plot1 }\CommentTok{# print the object 'plot1'}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-86-2.pdf}
+
+\hypertarget{grammar-of-graphics---leland-wilkinson}{%
+\section{Grammar of graphics - Leland
+Wilkinson}\label{grammar-of-graphics---leland-wilkinson}}
+
+\hypertarget{a-graphic-layers-of-grammatical-elements}{%
+\subsection{A graphic = layers of grammatical
+elements}\label{a-graphic-layers-of-grammatical-elements}}
+
+The layers are the adjectives and the nouns Seven grammatical elements,
+three are essential
+
+\hypertarget{meaningful-plots-are-built-around-appropriate-aesthetic-mappings}{%
+\subsection{Meaningful plots are built around appropriate aesthetic
+mappings}\label{meaningful-plots-are-built-around-appropriate-aesthetic-mappings}}
+
+The mappings are the rules to assemble the nouns and adjectives
+
+\hypertarget{understanding-the-grammar}{%
+\section{Understanding the grammar}\label{understanding-the-grammar}}
+
+Building an example
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{diamonds, }\DataTypeTok{mapping=} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{carat, }\DataTypeTok{y=}\NormalTok{ price)) }\CommentTok{# data and mappings}
+
+\CommentTok{#p2 <- p1 + geom_point()  # + the general form}
+
+\NormalTok{p2 <-}\StringTok{ }\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{()  }\CommentTok{# + the general form}
+
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{carat, }\DataTypeTok{y=}\NormalTok{ price, }\DataTypeTok{col=}\NormalTok{clarity)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{() }\CommentTok{# adding a mapping / variable}
+
+\NormalTok{p3b <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{carat, }\DataTypeTok{y=}\NormalTok{ price)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col=}\StringTok{"red"}\NormalTok{) }\CommentTok{# adding a attribute}
+
+
+\NormalTok{p4 <-}\StringTok{ }\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{col=}\NormalTok{clarity)) }\CommentTok{# or changing some attributes}
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, p3, p4, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-87-1.pdf}
+
+\hypertarget{data-and-proper-data-format}{%
+\subsection{Data and proper data
+format}\label{data-and-proper-data-format}}
+
+The data being plotted Includes: variables of interest Tidy data helps
+make good \texttt{ggplot()}s
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{iris.tidy <-}\StringTok{ }\NormalTok{iris }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{gather}\NormalTok{(key, Value, }\OperatorTok{-}\NormalTok{Species) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{separate}\NormalTok{(key, }\KeywordTok{c}\NormalTok{(}\StringTok{"Part"}\NormalTok{, }\StringTok{"Measure"}\NormalTok{), }\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{)}
+
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris.tidy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Species, }\DataTypeTok{y =}\NormalTok{ Value, }\DataTypeTok{col =}\NormalTok{ Part)) }\OperatorTok{+}
+\KeywordTok{geom_jitter}\NormalTok{() }\OperatorTok{+}
+\KeywordTok{facet_grid}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{Measure)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris.tidy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Measure, }\DataTypeTok{y =}\NormalTok{ Value, }\DataTypeTok{col =}\NormalTok{ Part)) }\OperatorTok{+}
+\KeywordTok{geom_jitter}\NormalTok{() }\OperatorTok{+}
+\KeywordTok{facet_grid}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{Species)}
+
+
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris.tidy, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ Species, }\DataTypeTok{y =}\NormalTok{ Value, }\DataTypeTok{col =}\NormalTok{ Part)) }\OperatorTok{+}
+\KeywordTok{geom_point}\NormalTok{()}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, p3, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-88-1.pdf}
+
+\hypertarget{aesthetics}{%
+\subsection{Aesthetics}\label{aesthetics}}
+
+The scales onto which we map our data Includes: x-axis, y-axis, colour,
+fill, size, labels, line width, line type,\ldots{}
+
+\hypertarget{geometries}{%
+\subsection{Geometries}\label{geometries}}
+
+The visual elements (shape) used for our data in the plot Includes:
+point, line, histogram, bar, boxplot,\ldots{}
+
+\hypertarget{other-grammatical-elements}{%
+\subsection{Other grammatical
+elements}\label{other-grammatical-elements}}
+
+These are - facets - statistics - coordinates - themes
+
+\hypertarget{juggling-with-aes}{%
+\subsection{\texorpdfstring{Juggling with
+\texttt{aes}}{Juggling with aes}}\label{juggling-with-aes}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"mtcars"}\NormalTok{)}
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()}
+
+\CommentTok{# color dependent on 'disp',}
+\CommentTok{# 'disp' is continuous, hence the shades of same colour}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg, }\DataTypeTok{col =}\NormalTok{ disp)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()  }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{)}
+
+\CommentTok{# changing the colour depending on the variable 'clarity', }
+\CommentTok{# 'clarity' is a factor, hence the different colours}
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price, }\DataTypeTok{col=}\NormalTok{clarity)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_smooth}\NormalTok{()}
+
+\CommentTok{# size dependent on 'disp'}
+\NormalTok{p4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg, }\DataTypeTok{size =}\NormalTok{ disp)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, p3, p4, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\CommentTok{#R> `geom_smooth()` using method = 'loess' and formula 'y ~ x'}
+\CommentTok{#R> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-89-1.pdf}
+
+\hypertarget{juggling-with-geom}{%
+\subsection{\texorpdfstring{Juggling with
+\texttt{geom}}{Juggling with geom}}\label{juggling-with-geom}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# points and smoother layer}
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se=}\OtherTok{TRUE}\NormalTok{) }\CommentTok{# se = T by default}
+
+\CommentTok{# only the smoother layer}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_smooth}\NormalTok{()}
+
+\CommentTok{# changing the parameters of the point geometry, much more transparent, here}
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{04}\NormalTok{)}
+
+\CommentTok{# only the smoother layer and different aesthetics,}
+\CommentTok{# aes recognizes the groups and therefore separates for them}
+\NormalTok{p4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(diamonds, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ carat, }\DataTypeTok{y =}\NormalTok{ price, }\DataTypeTok{col=}\NormalTok{clarity)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_smooth}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{04}\NormalTok{)}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, p3,p4,  }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\CommentTok{#R> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'}
+\CommentTok{#R> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'}
+\CommentTok{#R> `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-90-1.pdf}
+
+\hypertarget{aesthetics-1}{%
+\section{Aesthetics}\label{aesthetics-1}}
+
+\hypertarget{understanding-aesthetics}{%
+\subsection{Understanding aesthetics}\label{understanding-aesthetics}}
+
+Usually considered as how something looks, as attributes: that's
+\emph{notcorrect in \texttt{ggplot()} Aesthetics refers to what a
+variable is }mappedonto it \emph{Aesthetics is mapping} We want to map
+as many variables as possible in a plot, that's visible aesthetics
+Aesthetics/mappings are called in \texttt{aes()} while attributes are
+called in \texttt{geom\_()}
+
+For instance: - \texttt{aes(x\ =\ variable1,\ ...)} means `variable1' is
+mapped onto the x-axis - \texttt{aes(...,\ col\ =\ variable2)} means
+that `variable2' is mapped onto a colour
+
+Simply changing the colour of the dots, is NOT aesthetics -
+\texttt{ggplot(mtcars,\ aes(x\ =\ wt,\ y\ =\ mpg))\ +\ geom\_point(col="red")}
+because there is no mapping \texttt{aes()} includes: x-axis, y-axis,
+colour, fill, size, alpha, labels, line width, line type,\ldots{} Some
+aesthetics are only applicable to categorical variables: e.g., label and
+shape
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg, }\DataTypeTok{col =}\NormalTok{ cyl)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{4}\NormalTok{)}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{mpg, }\DataTypeTok{y=}\NormalTok{qsec,}\DataTypeTok{size=}\NormalTok{(hp}\OperatorTok{/}\NormalTok{wt), }\DataTypeTok{shape=}\KeywordTok{factor}\NormalTok{(am), }\DataTypeTok{col=}\KeywordTok{factor}\NormalTok{(cyl))) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2,  }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-91-1.pdf}
+
+Attributes go to \texttt{geom\_}
+
+\hypertarget{modifying-aesthetics}{%
+\subsection{Modifying aesthetics}\label{modifying-aesthetics}}
+
+Modifying aesthetics is modifying the mapping
+
+\texttt{position} defaults to \texttt{identity}, \texttt{jitter} adds
+some random noise to the observations so that they do not overlap
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sepal.Length, }\DataTypeTok{y=}\NormalTok{Sepal.Width, }\DataTypeTok{col=}\NormalTok{Species)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sepal.Length, }\DataTypeTok{y=}\NormalTok{Sepal.Width, }\DataTypeTok{col=}\NormalTok{Species)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{position=}\StringTok{"jitter"}\NormalTok{)}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2,  }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-92-1.pdf}
+
+\texttt{scale\_...\_...(variable1,\ args)} modifies the scale of the
+mapping of `variable1' with several arguments such as \texttt{limits},
+\texttt{breaks}, etc\ldots{} Sometimes, you need to assign a dummy to
+the aesthetics, e.g., when you want to plot only one variable
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{mydummy <-}\StringTok{ }\DecValTok{1}
+ 
+\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ mpg, }\DataTypeTok{y=}\NormalTok{mydummy, }\DataTypeTok{col=}\KeywordTok{factor}\NormalTok{(cyl))) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{geom_jitter}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\OperatorTok{-}\DecValTok{0}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{"My nice graph"}\NormalTok{, }\DataTypeTok{x=}\StringTok{"Miles per gallon"}\NormalTok{, }\DataTypeTok{y=}\StringTok{""}\NormalTok{, }\DataTypeTok{col=}\StringTok{"Cylindres"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-93-1.pdf}
+
+\hypertarget{geometries-1}{%
+\section{Geometries}\label{geometries-1}}
+
+Geometries control how your plot is going to look like: currently, there
+are more than 37 gemoetries available Common plots are: scatter, bar,
+line plots Geometries required some aesthetics and can take other
+aesthetics as optional Geometries can take their own aesthetics (useful
+to control mappings of each layer) Geometries can take their own data,
+too!
+
+\hypertarget{scatter-plots}{%
+\subsection{Scatter plots}\label{scatter-plots}}
+
+We've seen a lot, already: recall \texttt{geom\_point()}
+
+\hypertarget{bar-plots}{%
+\subsection{Bar plots}\label{bar-plots}}
+
+The simplest is a histogram
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sepal.Length)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{()}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sepal.Length)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \DecValTok{1}\NormalTok{)}
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sepal.Length, }\DataTypeTok{fill=}\NormalTok{Species)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_histogram}\NormalTok{()}
+\NormalTok{p4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(iris, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{Sepal.Length, }\DataTypeTok{fill=}\NormalTok{Species)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{) }\CommentTok{# or "stack", or "fill"}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, p3, p4,  }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\CommentTok{#R> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
+\CommentTok{#R> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
+\CommentTok{#R> `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-94-1.pdf}
+
+A more general bar plot can be obtained with \texttt{geom\_bar()}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"mtcars"}\NormalTok{)}
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{cyl <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{cyl) }\CommentTok{# changing 'cyl' to factor, which is actually is }
+\NormalTok{mtcars}\OperatorTok{$}\NormalTok{am <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{am)}
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{cyl, }\DataTypeTok{fill=}\NormalTok{am)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"stack"}\NormalTok{)}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{cyl, }\DataTypeTok{fill=}\NormalTok{am)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"dodge"}\NormalTok{) }\CommentTok{# or "stack", or "fill"}
+
+\NormalTok{posn_d <-}\StringTok{ }\KeywordTok{position_dodge}\NormalTok{(}\DataTypeTok{width=}\NormalTok{.}\DecValTok{2}\NormalTok{) }\CommentTok{# like for jitter}
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{cyl, }\DataTypeTok{fill=}\NormalTok{am)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\NormalTok{posn_d, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{)}
+
+\NormalTok{p4 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(mpg, }\DataTypeTok{fill=}\NormalTok{cyl)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =} \DecValTok{1}\NormalTok{, }\DataTypeTok{position=}\StringTok{"identity"}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{4}\NormalTok{)}
+
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, p3, p4,  }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-95-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{a=}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }\DataTypeTok{b=}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{6}\NormalTok{,}\DecValTok{6}\NormalTok{))}
+
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{a, }\DataTypeTok{y=}\NormalTok{b)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{position=}\StringTok{"stack"}\NormalTok{, }\DataTypeTok{alpha =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Probability distribution of die roll"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Value on the die (x)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"P(x)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_x_discrete}\NormalTok{(}\DataTypeTok{limits=}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{, }\DataTypeTok{labels=}\KeywordTok{c}\NormalTok{(}\StringTok{"1"}\NormalTok{, }\StringTok{"2"}\NormalTok{, }\StringTok{"3"}\NormalTok{, }\StringTok{"4"}\NormalTok{, }\StringTok{"5"}\NormalTok{, }\StringTok{"6"}\NormalTok{))}
+      
+\NormalTok{p1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-96-1.pdf}
+
+\hypertarget{line-plots-1}{%
+\subsection{Line plots}\label{line-plots-1}}
+
+Particularly suited for line plots over time
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(economics, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ date, }\DataTypeTok{y =}\NormalTok{ unemploy)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{geom_line}\NormalTok{()}
+
+\KeywordTok{data}\NormalTok{(}\StringTok{"beavers"}\NormalTok{)}
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(beaver1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ time, }\DataTypeTok{y =}\NormalTok{ temp, }\DataTypeTok{col=}\KeywordTok{factor}\NormalTok{(activ))) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{group=}\DecValTok{1}\NormalTok{)) }\CommentTok{# group = 1 indicates you want a single line connecting all the points, you can set group=variable}
+
+\KeywordTok{grid.arrange}\NormalTok{(p1, p2, }\DataTypeTok{ncol=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{MyR_files/figure-latex/unnamed-chunk-97-1.pdf}
+
+\hypertarget{part-conclusion}{%
+\part{Conclusion}\label{part-conclusion}}
+
+\hypertarget{conclusion}{%
+\chapter{Conclusion}\label{conclusion}}
+
+We did a great book!
+
+\bibliography{book.bib,packages.bib,online.bib}
+
+
+\end{document}

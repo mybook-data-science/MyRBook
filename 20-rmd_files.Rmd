@@ -1,0 +1,270 @@
+# (PART) Source and output files {-}
+
+# `.Rmd` source files {#rmd}
+
+This chapter gathers general comments about `.Rmd` files.
+
+## Options for all chunks
+
+It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks.   
+A natural place to set these options is in a first R chunk.
+
+
+```{r, eval=FALSE}
+knitr::opts_chunk$set(OPTION1 = TRUE/FALSE,
+                      OPTION2 = TRUE/FALSE,
+                      ...)
+```
+
+
+Importantly, these options are overridden by the particular chunk options.
+
+````markdown
+`r ''````{r, OPTION2=FALSE}
+````
+
+
+
+
+Options actually take R code. So, the following are examples that could be used to define the option.
+
+
+````markdown
+`r ''````{r, eval=4>3, echo=format(Sys.Date(), '%Y-%B-%d') > '2019-March-10'}
+# eval is always TRUE
+# echo = TRUE if current date is after March 10, 2019
+```
+````
+
+The list of options can be found here [https://yihui.name/knitr/options/](https://yihui.name/knitr/options/). Below are some comments on some of these options (the least trivial for the author).
+
+- `collapse` determines whether the source code and the output should be merged into a single block.
+Here is the same chunk with different values of the option:
+
+`collapse=TRUE`
+
+```{r, collapse=TRUE}
+2+ 2
+3* 5
+```
+
+`collapse=FALSE`
+    
+```{r, collapse=FALSE}
+2+ 2
+3* 5
+```
+
+- `comment` gives the string to be printed before the output.
+
+`comment='##'`
+
+```{r, comment='##'}
+2+ 2
+```
+
+`comment='R>'`
+    
+```{r, comment='R>'}
+2+ 2
+```
+
+Worth noting: a `#` as a first character of the comment string (with `collpase=TRUE`) turns the output font into a comment-like text.
+
+- `child` allows a document to call and use another file as input in the document.
+
+````markdown
+`r ''````{r, child='PATH/TO/OTHER/file.Rmd'}
+````
+
+The path can be either absolute or relative.  
+For relative paths, the following applies:  
+
+  - `~/` starts a path a the root,
+  - `../` indicates the parent directory,
+  - `../../` for parent of the parent directory,
+  - to move forward, start with the name of the included folder in the current directory.
+
+
+
+## Latex code {#latex}
+
+The overwhelming reason to introduce Latex code in a `.Rmd` file is for typesetting mathematical expressions.  
+There are two main ways to type math in Latex:   
+
+  - in the text, surrounded by special delimiters, `\( math \)` (alternatively, one can use the deprecated `$ math $`),
+  - in an equation, surrounded by special delimiters, `\[ math equation \]`, or in a dedicated environment such as `\begin{equation} math equation \end{equation}` (also deprecated, `$$ math equation $$`).
+
+Math format is usually distinct from the text format. For instance, compare a^2^ + b^2^ = c^2^ (simple markdown) to \(a^2 + b^2 = c^2\) (Latex). Notice, however, that most mathematical symbols are not supported by markdown. This why basic knowledge of Latex is essential for producing documents with math formula.   
+The first part of that knowledge consists in the list of Latex symbols. These are typed into a document starting with a slash `\`. For instance, the Latex symbol \(\alpha\) is produced by the code `\alpha` while \(\sum\) is given by `\sum`.   
+Superscripts and subscripts are produced with the characters `^` and `_`, respectively, and the content of the super- and subscripts enclosed within `{ }`. For instance, \(x_{2}^{3}\) is produced by the code `x_{2}^{3}` (or `x^{3}_{2}`) and \(\sum_{i=1}^{4}\) is given by `\sum_{i=1}^{4}`.  
+A comprehensive list of symbols (some of them requiring special Latex packages) can be found in @latexlist. Shorter lists can be found online, including on [wiki](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols).  
+A web-based application helps beginners by offering suggestions to a hand-drawn symbol, [detexify](http://detexify.kirelabs.org/classify.html).    
+A second bulk in the knowledge of Latex is the understanding of special environments. But then, if a document requires lots of special Latex environments, then `.Rmd` files are not the most appropriate type of files to use.  
+Some of these environments, however, have a perfect integration in `.Rmd` files, such as the most common, the equation. Here is an example, given by the code
+
+```markdown
+\[
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+\]
+```
+\[
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+\]
+
+
+## Figures
+
+
+Figures usually appear after the chunk that calls them, except on `.pdf` format because Latex makes them float and they may appear in the next page.  
+Beyond the actual R calls that produces the figure, the figure's appearance will be tweaked by the options specified in the R chunk. The following options are worth noticing:  
+
+  - `fig.width` and `fig.height` set in inches the graphical device size of the R plots.
+  - `out.width` and `out.height` set the size of the R plots, including possibly rescaled images. Easier use with percentages as `out-width = "50%"` means that the figure stretches over 50% of the page's width.
+  - `fig.align` takes the value `left`, `right` or `center` and is self-explained.
+  - `fig.cap` sets the caption of the figure.
+  - `fig.show` takes the default value `asis` to produce the command as it is read by R. Contrast this with the value `hold` which forces R to wait until the end of the chunk to produce the plots. It may be useful to hold if one wants to put multiple plots on the same line (side-by-side).
+
+As an example, the figure below was created with the chunk options
+````markdown
+`r ''````{r plot-one, echo=FALSE, out.width="60%",
+fig.align="center", fig.cap="Including a plot."}
+````
+
+```{r plot-one, echo=FALSE, out.width="60%", fig.align="center", fig.cap="Including a plot."}
+data(mtcars)
+p <- ggplot(mtcars, aes(wt, mpg)) + 
+      geom_point(aes(colour=factor(cyl), size = qsec))
+p
+```
+
+For two plots next to each other, the chunk options could be
+````markdown
+`r ''````{r plot-two, echo=FALSE, out.width="30%", fig.align="center",  
+fig.cap="Including two plots.", fig.show="hold"}
+````
+
+```{r plot-two, echo=FALSE, out.width="30%", fig.align="center", fig.cap="Including two plots.", fig.show="hold"}
+p
+p
+```
+
+
+## Cross-references {#cr}
+
+Cross-references are references to different elements somewhere in the content such as a specific chapter, figure, equation, etc.  
+These work under a simple rule: the element to be referenced takes a **label**, e.g., 'foo', and this label is called from anywhere in the text with the command `\@ref(foo)`.  
+Slightly different rules apply depending on which element is to be referenced. Below is a selected list.  
+Notice that all labels in `bookdown` can only contain alphanumeric characters, or the special characters `:`, `-`, and `/`.
+
+### Chapters, sections, ... {#cr-chapters}
+
+Headers (chapters, sections, ...) have an ID that serves as a label. By default, it is formed by the words of the header in small letters separated by dashes (e.g., `my-great-chapter`). It is better practice, however, to assign a label to useful headers by appending to them the code `{#foo}` where `foo` is the chosen label for the header.
+This subsection, for instance, has the header
+
+```markdown
+### Chapters, sections, ... {#cr-chapters}
+```
+
+The cross-reference is then achieved with `\@ref(foo)`.  
+As an example, notice that this line belongs to Subsection \@ref(cr-chapters), included in Section \@ref(cr) of Chapter \@ref(rmd).  
+These cross-references were obtained by the text/code: 
+
+```markdown
+As an example, notice that this line belongs to Subsection \@ref(cr-chapters), 
+included in Section \@ref(cr) of Chapter \@ref(rmd).
+```
+
+
+
+For `.html` formats, one may use a direct link to the header by using the format for regular links but with  `#label` as the destination. For instance, since the label of this section is `cr`, the code `[Cross-references](#cr)` produces this link: [Cross-references](#cr).
+
+### Figures
+
+The label of a figure is given by the name of the chunk where it was created preceded by `fig:`.   
+The chunk that created Figure \@ref(fig:plot-one) had the name `plot-one`. Therefore, the cross-reference is achieved through `\@ref(fig:plot-one)`.
+
+### Tables
+
+The label of a table is given by the name of the chunk where it was created preceded by `tab:`.   
+If the chunk that created a Table had the name `table-one`, then cross-reference is achieved through `\@ref(tab:table-one)`.
+
+
+### Equations
+
+As explained in Section \@ref(latex), good rendering of equations requires coding in a Latex environment. For numbering of equations, various environments can be used, such as `equation`, `eqnarray`, etc.  
+The label is then included in this environment within parentheses and by adding the prefix `\#eq:`, e.g., `\#eq:foo`.  
+As for the cross-reference, one uses `\@ref(eq:foo)`.   
+Below is a modified version of the equation in Section \@ref(latex) to include a number and a label.  
+This is Equation \@ref(eq:series).
+
+\begin{equation} 
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+  (\#eq:series)
+\end{equation}
+
+
+The previous lines were obtained with the code:
+```markdown
+This is Equation \@ref(eq:series).
+
+\begin{equation} 
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+  (\#eq:series)
+\end{equation}
+
+```
+
+
+
+## Citations
+
+It is of utmost importance to give credit to sources. This subsection illustrates a simple way to make citations in `bookdown`. For further details, including for changing references styles, see this [RStudio page](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).   
+The general idea is similar to the cross-references. The source has a label `foo` and the citation is made with `@foo`.  
+There are numerous ways to tweak the format of the citation, but default format is often good enough.  
+The citation procedure in `bookdown` is borrowed from the Latex constellation.  
+Sources are listed in a separated bibliography file, `.bib`.  
+For use in `bookdown`, this file must be given in the `YAML` (along with its path if it is not in the same folder) under the entry `bibliography`:
+
+```yaml
+---
+title: "Great title"
+output: pdf_document
+bibliography: BIBLIOGRAPHY_FILE.bib
+---
+```
+
+The `BIBLIOGRAPHY_FILE.bib` is a simple text file that has one entry for each source.  
+The format of this entry depends on the type of source (article, book, blogpost, etc). Its construction, however, is quite similar and simply requires some fields (some compulsory, other optional) such as in the following example for a book.
+
+```markdown
+@book{wickham2014,
+  title={Advanced {R}},
+  author={Wickham, Hadley},
+  year={2014},
+  publisher={Chapman and Hall/CRC}
+}
+```
+
+All the fields shown (`title`, `author`, `year` and `publisher`) are required for a book. Further fields such as `volume` or `edition` would be optional.  
+Importantly, notice the very first element in the curly brackets: that is the label of the source, freely chosen by the author.  
+The citation of this particular book would then be made thanks to the label, with the code `@wickham2014`.  
+A few comments are the following:  
+
+  - a reference inside square brackets with or without a prefix and a suffix puts the citation inside parentheses: `[see the reference (prefix) @wickham2014 for further details (suffix)]` produces [see the reference (prefix) @wickham2014 for further details (suffix)],
+  - without square brackets, no parentheses in the output,
+  - multiple references are separated by a semi-column `;`: `[@wickham2014; @xie2015]`produces [@wickham2014; @xie2015],
+  - a minus sign `-` in front of the `@` suppresses the name of the author in the text:  `-@wickham2014` produces -@wickham2014,
+  - the references are **automatically** put at the end of the book; the last level-one header should therefore be 'Bibliography' or 'References'.
+
+### Writing `.bib` entries
+
+One advantage of using `.bib` files is that the fields for each entry, i.e., all the information about the source, are usually available online in the easiest of forms.  
+The site Google Scholar, for instance, provides these entries in `.bib` form.  
+As an example, search there the book mentioned above, e.g., "wickham advanced r".  Under each hit, there is an icon of inverted commas. By clicking it, the reference is given in different formats but also with a link to the BibTeX code (along with others). One can then simply copy this BibTex code and paste it anywhere in the bibliography file. For easier use, the label could be changed. 
+
+
+
+
+
+

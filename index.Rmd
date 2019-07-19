@@ -1,0 +1,67 @@
+--- 
+title: "Learning R for Data Science"
+author: "Antonio Fidalgo"
+date: "Last update: `r format(Sys.Date(),'%B %d, %Y')`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib, online.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "These are notes gathering my experience in R for data science."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      cache = TRUE,
+                      collapse= TRUE,
+                      comment = "#R>")
+
+library(tufte)
+library(tidyverse)
+library(magrittr)
+library(gridExtra)
+library(readxl)
+library(parallel)
+library(hflights)
+```
+
+
+
+```{r include=FALSE, eval=FALSE}
+# this generates an error message in my machine, hence the eval=FALSE
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse', 'tufte', 'gridExtra', 'magrittr', 'readxl', 'parallel'
+), 'packages.bib')
+
+```
+
+
+# Foreword {-}
+
+
+
+> "Data science is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so everyone claims they are doing it..."   
+>
+> --- paraphrase of Dan Ariely's quote on big data 
+
+
+
+There is already a large number of excellent and free references for learning data science in R. The list would be too vast, but two names stand out: [Hadley Wickham](http://hadley.nz/) and [Yihui Xie](https://yihui.name/en/about/).    
+Work of the first includes the books @wickham2016 and @wickham2014 (freely available, including source code, on [github.com/hadley](https://github.com/hadley)) as well as some of the most popular packages in R such as  `ggplot2` [@R-ggplot2] and `tidyverse`[@R-tidyverse].  
+Work of the second is used precisely in the current file thanks to the `rmarkdown` package [@R-rmarkdown], `knitr` [@R-knitr] and `bookdown` [@R-bookdown]. His source code is also on [github.com/yihui/](https://github.com/yihui/).  
+
+So, the question arises of why one should even bother to write on the topic. The present "book" is justified on the following grounds.  
+
+1. There is no better way of learning data science and R than **doing oneself** the pages of code.  
+2. The material gathered here is a **personal selection** made on what I judge most relevant for my work, the most important techniques in general or, sometimes, the least obvious for the regular practitioner.  
+3. These notes serve as an **archive** of what I did in the domain so that I can easily access it in the future.
+
+
+
+
+
+
+

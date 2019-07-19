@@ -1,0 +1,54 @@
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+
+
+%%% BEGIN custom section titles
+
+
+%%% END custom section titles
+
+
+
+
+%%% BEGIN book headers 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\thesection~ ~#1~}}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter~ ~#1~}{}}
+
+% Fancyhdr setup
+\fancypagestyle{main}{
+\fancyhf{} % clear all header fields
+\fancyhead[LE]{\footnotesize\scshape\thepage}
+\fancyhead[RE]{\footnotesize\scshape\leftmark}
+\fancyhead[LO]{\footnotesize\scshape\rightmark}
+\fancyhead[RO]{\footnotesize\scshape\thepage}
+%\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\headrulewidth}{0 pt}
+\renewcommand{\footrulewidth}{0 pt}
+}
+
+\pagestyle{main}
+
+%%% END book headers
+
+
+
+%%% BEGIN hyperlinks
+% https://tex.stackexchange.com/questions/26071/how-can-i-have-colored-and-underlined-links-with-hyperref
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=false,% hyperlinks will be black
+  linkbordercolor=black,% hyperlink borders will be red
+  pdfborderstyle={/S/U/W 1}% border style will be underline of width 1pt
+}
+
+%%% END hyperlinks
+

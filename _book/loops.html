@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 10 Loops (avoid them) | Learning R for Data Science</title>
+  <meta name="description" content="These are notes gathering my experience in R for data science.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 10 Loops (avoid them) | Learning R for Data Science" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are notes gathering my experience in R for data science." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Loops (avoid them) | Learning R for Data Science" />
+  
+  <meta name="twitter:description" content="These are notes gathering my experience in R for data science." />
+  
+
+<meta name="author" content="Antonio Fidalgo">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="functions.html">
+<link rel="next" href="import.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Learning R for Data Science</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a></li>
+<li class="chapter" data-level="1" data-path="getsarted.html"><a href="getsarted.html"><i class="fa fa-check"></i><b>1</b> Getting started</a><ul>
+<li class="chapter" data-level="1.1" data-path="getsarted.html"><a href="getsarted.html#install-applications"><i class="fa fa-check"></i><b>1.1</b> Install applications</a></li>
+<li class="chapter" data-level="1.2" data-path="getsarted.html"><a href="getsarted.html#sign-for-github"><i class="fa fa-check"></i><b>1.2</b> Sign for GitHub</a></li>
+<li class="chapter" data-level="1.3" data-path="getsarted.html"><a href="getsarted.html#create-your-project"><i class="fa fa-check"></i><b>1.3</b> Create your project</a></li>
+<li class="chapter" data-level="1.4" data-path="getsarted.html"><a href="getsarted.html#create-github-repo-and-link-your-machine-to-it"><i class="fa fa-check"></i><b>1.4</b> Create GitHub repo and link your machine to it</a></li>
+<li class="chapter" data-level="1.5" data-path="getsarted.html"><a href="getsarted.html#collaboration-on-github"><i class="fa fa-check"></i><b>1.5</b> Collaboration on GitHub</a></li>
+</ul></li>
+<li class="part"><span><b>I Source and output files</b></span></li>
+<li class="chapter" data-level="2" data-path="rmd.html"><a href="rmd.html"><i class="fa fa-check"></i><b>2</b> <code>.Rmd</code> source files</a><ul>
+<li class="chapter" data-level="2.1" data-path="rmd.html"><a href="rmd.html#options-for-all-chunks"><i class="fa fa-check"></i><b>2.1</b> Options for all chunks</a></li>
+<li class="chapter" data-level="2.2" data-path="rmd.html"><a href="rmd.html#latex"><i class="fa fa-check"></i><b>2.2</b> Latex code</a></li>
+<li class="chapter" data-level="2.3" data-path="rmd.html"><a href="rmd.html#figures"><i class="fa fa-check"></i><b>2.3</b> Figures</a></li>
+<li class="chapter" data-level="2.4" data-path="rmd.html"><a href="rmd.html#cr"><i class="fa fa-check"></i><b>2.4</b> Cross-references</a></li>
+<li class="chapter" data-level="2.5" data-path="rmd.html"><a href="rmd.html#citations"><i class="fa fa-check"></i><b>2.5</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="custom-ouptut.html"><a href="custom-ouptut.html"><i class="fa fa-check"></i><b>3</b> Customize output</a><ul>
+<li class="chapter" data-level="3.1" data-path="custom-ouptut.html"><a href="custom-ouptut.html#multiple-built-in-output-types"><i class="fa fa-check"></i><b>3.1</b> Multiple built-in output types</a></li>
+<li class="chapter" data-level="3.2" data-path="custom-ouptut.html"><a href="custom-ouptut.html#new-types-provided-by-packages"><i class="fa fa-check"></i><b>3.2</b> New types provided by packages</a></li>
+<li class="chapter" data-level="3.3" data-path="custom-ouptut.html"><a href="custom-ouptut.html#css-custom-html"><i class="fa fa-check"></i><b>3.3</b> CSS: custom html</a></li>
+<li class="chapter" data-level="3.4" data-path="custom-ouptut.html"><a href="custom-ouptut.html#latex-preamble"><i class="fa fa-check"></i><b>3.4</b> Latex preamble</a></li>
+</ul></li>
+<li class="part"><span><b>II R Basics</b></span></li>
+<li class="chapter" data-level="4" data-path="rcalc.html"><a href="rcalc.html"><i class="fa fa-check"></i><b>4</b> R as a calculator</a><ul>
+<li class="chapter" data-level="4.1" data-path="rcalc.html"><a href="rcalc.html#usual-operators"><i class="fa fa-check"></i><b>4.1</b> Usual operators</a></li>
+<li class="chapter" data-level="4.2" data-path="rcalc.html"><a href="rcalc.html#unusual-operators"><i class="fa fa-check"></i><b>4.2</b> Unusual operators</a></li>
+<li class="chapter" data-level="4.3" data-path="rcalc.html"><a href="rcalc.html#usual-functions"><i class="fa fa-check"></i><b>4.3</b> Usual functions</a></li>
+<li class="chapter" data-level="4.4" data-path="rcalc.html"><a href="rcalc.html#unusual-functions"><i class="fa fa-check"></i><b>4.4</b> Unusual functions</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="datastructures.html"><a href="datastructures.html"><i class="fa fa-check"></i><b>5</b> Data stuctures</a><ul>
+<li class="chapter" data-level="5.1" data-path="datastructures.html"><a href="datastructures.html#atomic-vectors"><i class="fa fa-check"></i><b>5.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="5.2" data-path="datastructures.html"><a href="datastructures.html#matrices-and-arrays"><i class="fa fa-check"></i><b>5.2</b> Matrices and arrays</a></li>
+<li class="chapter" data-level="5.3" data-path="datastructures.html"><a href="datastructures.html#lists"><i class="fa fa-check"></i><b>5.3</b> Lists</a></li>
+<li class="chapter" data-level="5.4" data-path="datastructures.html"><a href="datastructures.html#data-frames"><i class="fa fa-check"></i><b>5.4</b> Data frames</a></li>
+<li class="chapter" data-level="5.5" data-path="datastructures.html"><a href="datastructures.html#a-word-about-attributes"><i class="fa fa-check"></i><b>5.5</b> A word about attributes</a></li>
+<li class="chapter" data-level="5.6" data-path="datastructures.html"><a href="datastructures.html#environments"><i class="fa fa-check"></i><b>5.6</b> Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html"><i class="fa fa-check"></i><b>6</b> Simple functions on vectors</a><ul>
+<li class="chapter" data-level="6.1" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#element-by-element-evaluation"><i class="fa fa-check"></i><b>6.1</b> Element by element evaluation</a></li>
+<li class="chapter" data-level="6.2" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#recycling-rule"><i class="fa fa-check"></i><b>6.2</b> Recycling rule</a></li>
+<li class="chapter" data-level="6.3" data-path="simple-functions-on-vectors.html"><a href="simple-functions-on-vectors.html#functions-for-the-whole-vector"><i class="fa fa-check"></i><b>6.3</b> Functions for the whole vector</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="subset.html"><a href="subset.html"><i class="fa fa-check"></i><b>7</b> Subsetting</a><ul>
+<li class="chapter" data-level="7.1" data-path="subset.html"><a href="subset.html#section"><i class="fa fa-check"></i><b>7.1</b> <code>[]</code></a></li>
+<li class="chapter" data-level="7.2" data-path="subset.html"><a href="subset.html#section-1"><i class="fa fa-check"></i><b>7.2</b> <code>[[]]</code></a></li>
+<li class="chapter" data-level="7.3" data-path="subset.html"><a href="subset.html#section-2"><i class="fa fa-check"></i><b>7.3</b> <code>$</code></a></li>
+<li class="chapter" data-level="7.4" data-path="subset.html"><a href="subset.html#combining-subsetting"><i class="fa fa-check"></i><b>7.4</b> Combining subsetting</a></li>
+<li class="chapter" data-level="7.5" data-path="subset.html"><a href="subset.html#subsetting-with-one-condition"><i class="fa fa-check"></i><b>7.5</b> Subsetting with one condition</a></li>
+<li class="chapter" data-level="7.6" data-path="subset.html"><a href="subset.html#subsetting-and-assignment"><i class="fa fa-check"></i><b>7.6</b> Subsetting and assignment</a></li>
+<li class="chapter" data-level="7.7" data-path="subset.html"><a href="subset.html#using-which"><i class="fa fa-check"></i><b>7.7</b> Using <code>which()</code></a></li>
+<li class="chapter" data-level="7.8" data-path="subset.html"><a href="subset.html#more-advanced-stuff"><i class="fa fa-check"></i><b>7.8</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conditions.html"><a href="conditions.html"><i class="fa fa-check"></i><b>8</b> Conditions</a><ul>
+<li class="chapter" data-level="8.1" data-path="conditions.html"><a href="conditions.html#if-statement"><i class="fa fa-check"></i><b>8.1</b> <code>if</code> statement</a></li>
+<li class="chapter" data-level="8.2" data-path="conditions.html"><a href="conditions.html#else-statement"><i class="fa fa-check"></i><b>8.2</b> <code>else</code> statement</a></li>
+<li class="chapter" data-level="8.3" data-path="conditions.html"><a href="conditions.html#else-if-statement"><i class="fa fa-check"></i><b>8.3</b> <code>else if</code> statement</a></li>
+<li class="chapter" data-level="8.4" data-path="conditions.html"><a href="conditions.html#ifelse-statement"><i class="fa fa-check"></i><b>8.4</b> <code>ifelse</code> statement</a></li>
+<li class="chapter" data-level="8.5" data-path="conditions.html"><a href="conditions.html#logical-operators-and"><i class="fa fa-check"></i><b>8.5</b> Logical operators: <code>&amp;</code>, <code>|</code> and <code>!</code></a></li>
+<li class="chapter" data-level="8.6" data-path="conditions.html"><a href="conditions.html#writing-and-interpreting-a-condition"><i class="fa fa-check"></i><b>8.6</b> Writing and interpreting a condition</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>9</b> Functions</a><ul>
+<li class="chapter" data-level="9.1" data-path="functions.html"><a href="functions.html#structure-of-a-simple-function"><i class="fa fa-check"></i><b>9.1</b> Structure of a simple function</a></li>
+<li class="chapter" data-level="9.2" data-path="functions.html"><a href="functions.html#multiple-arguments-and-their-identification"><i class="fa fa-check"></i><b>9.2</b> Multiple arguments and their identification</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>10</b> Loops (avoid them)</a><ul>
+<li class="chapter" data-level="10.1" data-path="loops.html"><a href="loops.html#introduction-to-loops-with-a-silly-example-bad-r-coding"><i class="fa fa-check"></i><b>10.1</b> Introduction to loops with a silly example (bad R coding)</a></li>
+<li class="chapter" data-level="10.2" data-path="loops.html"><a href="loops.html#general-form-of-a-for-loop"><i class="fa fa-check"></i><b>10.2</b> General form of a <code>for</code> loop</a></li>
+<li class="chapter" data-level="10.3" data-path="loops.html"><a href="loops.html#a-good-example-of-a-loop"><i class="fa fa-check"></i><b>10.3</b> A good example of a loop</a></li>
+<li class="chapter" data-level="10.4" data-path="loops.html"><a href="loops.html#looping-over-non-numeric-elements"><i class="fa fa-check"></i><b>10.4</b> Looping over non-numeric elements</a></li>
+<li class="chapter" data-level="10.5" data-path="loops.html"><a href="loops.html#more-advanced-stuff-1"><i class="fa fa-check"></i><b>10.5</b> More advanced stuff</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="import.html"><a href="import.html"><i class="fa fa-check"></i><b>11</b> Import data to R</a><ul>
+<li class="chapter" data-level="11.1" data-path="import.html"><a href="import.html#reading-rectangular-data"><i class="fa fa-check"></i><b>11.1</b> Reading rectangular data</a></li>
+<li class="chapter" data-level="11.2" data-path="import.html"><a href="import.html#read-other-data-types"><i class="fa fa-check"></i><b>11.2</b> Read other data types</a></li>
+<li class="chapter" data-level="11.3" data-path="import.html"><a href="import.html#scanning-a-file"><i class="fa fa-check"></i><b>11.3</b> Scanning a file</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="splots.html"><a href="splots.html"><i class="fa fa-check"></i><b>12</b> Simple plots</a><ul>
+<li class="chapter" data-level="12.1" data-path="splots.html"><a href="splots.html#line-plots"><i class="fa fa-check"></i><b>12.1</b> Line plots</a></li>
+<li class="chapter" data-level="12.2" data-path="splots.html"><a href="splots.html#bar-graphs-and-histograms"><i class="fa fa-check"></i><b>12.2</b> Bar graphs and histograms</a></li>
+</ul></li>
+<li class="part"><span><b>III Tidyverse</b></span></li>
+<li class="chapter" data-level="13" data-path="tidyverse.html"><a href="tidyverse.html"><i class="fa fa-check"></i><b>13</b> What is <code>tidyverse</code></a></li>
+<li class="chapter" data-level="14" data-path="tibble.html"><a href="tibble.html"><i class="fa fa-check"></i><b>14</b> <code>tibble</code></a><ul>
+<li class="chapter" data-level="14.1" data-path="tibble.html"><a href="tibble.html#creating-a-tibble"><i class="fa fa-check"></i><b>14.1</b> Creating a tibble</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="readr.html"><a href="readr.html"><i class="fa fa-check"></i><b>15</b> <code>readr</code> and <code>readxl</code></a><ul>
+<li class="chapter" data-level="15.1" data-path="readr.html"><a href="readr.html#readr-1"><i class="fa fa-check"></i><b>15.1</b> <code>readr</code></a></li>
+<li class="chapter" data-level="15.2" data-path="readr.html"><a href="readr.html#readxl"><i class="fa fa-check"></i><b>15.2</b> <code>readxl</code></a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="magrittr.html"><a href="magrittr.html"><i class="fa fa-check"></i><b>16</b> <code>magrittr</code></a><ul>
+<li class="chapter" data-level="16.1" data-path="magrittr.html"><a href="magrittr.html#how-to-pipe"><i class="fa fa-check"></i><b>16.1</b> How to pipe</a></li>
+<li class="chapter" data-level="16.2" data-path="magrittr.html"><a href="magrittr.html#using-a-placeholder"><i class="fa fa-check"></i><b>16.2</b> Using a placeholder</a></li>
+<li class="chapter" data-level="16.3" data-path="magrittr.html"><a href="magrittr.html#multiple-placeholders"><i class="fa fa-check"></i><b>16.3</b> Multiple placeholders</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="tidyr.html"><a href="tidyr.html"><i class="fa fa-check"></i><b>17</b> <code>tidyr</code></a><ul>
+<li class="chapter" data-level="17.1" data-path="tidyr.html"><a href="tidyr.html#gather"><i class="fa fa-check"></i><b>17.1</b> <code>gather</code></a></li>
+<li class="chapter" data-level="17.2" data-path="tidyr.html"><a href="tidyr.html#spread"><i class="fa fa-check"></i><b>17.2</b> <code>spread</code></a></li>
+<li class="chapter" data-level="17.3" data-path="tidyr.html"><a href="tidyr.html#separate"><i class="fa fa-check"></i><b>17.3</b> <code>separate</code></a></li>
+<li class="chapter" data-level="17.4" data-path="tidyr.html"><a href="tidyr.html#unite"><i class="fa fa-check"></i><b>17.4</b> <code>unite</code></a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="dplyr.html"><a href="dplyr.html"><i class="fa fa-check"></i><b>18</b> <code>dplyr</code></a><ul>
+<li class="chapter" data-level="18.1" data-path="dplyr.html"><a href="dplyr.html#grammar-of-data-manipulation"><i class="fa fa-check"></i><b>18.1</b> Grammar of data manipulation</a></li>
+<li class="chapter" data-level="18.2" data-path="dplyr.html"><a href="dplyr.html#select"><i class="fa fa-check"></i><b>18.2</b> <code>select</code></a></li>
+<li class="chapter" data-level="18.3" data-path="dplyr.html"><a href="dplyr.html#mutate"><i class="fa fa-check"></i><b>18.3</b> <code>mutate</code></a></li>
+<li class="chapter" data-level="18.4" data-path="dplyr.html"><a href="dplyr.html#filter"><i class="fa fa-check"></i><b>18.4</b> <code>filter</code></a></li>
+<li class="chapter" data-level="18.5" data-path="dplyr.html"><a href="dplyr.html#arrange"><i class="fa fa-check"></i><b>18.5</b> <code>arrange</code></a></li>
+<li class="chapter" data-level="18.6" data-path="dplyr.html"><a href="dplyr.html#summarise"><i class="fa fa-check"></i><b>18.6</b> <code>summarise</code></a></li>
+<li class="chapter" data-level="18.7" data-path="dplyr.html"><a href="dplyr.html#piping-verbs"><i class="fa fa-check"></i><b>18.7</b> Piping verbs</a></li>
+<li class="chapter" data-level="18.8" data-path="dplyr.html"><a href="dplyr.html#group_by"><i class="fa fa-check"></i><b>18.8</b> <code>group_by</code></a></li>
+<li class="chapter" data-level="18.9" data-path="dplyr.html"><a href="dplyr.html#keys-for-joins"><i class="fa fa-check"></i><b>18.9</b> Keys for joins</a></li>
+<li class="chapter" data-level="18.10" data-path="dplyr.html"><a href="dplyr.html#joins"><i class="fa fa-check"></i><b>18.10</b> Joins</a></li>
+<li class="chapter" data-level="18.11" data-path="dplyr.html"><a href="dplyr.html#operations-on-data-sets"><i class="fa fa-check"></i><b>18.11</b> Operations on data sets</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="ggplot2.html"><a href="ggplot2.html"><i class="fa fa-check"></i><b>19</b> <code>ggplot2</code></a><ul>
+<li class="chapter" data-level="19.1" data-path="ggplot2.html"><a href="ggplot2.html#comparison-with-base-plot"><i class="fa fa-check"></i><b>19.1</b> Comparison with base <code>plot</code></a></li>
+<li class="chapter" data-level="19.2" data-path="ggplot2.html"><a href="ggplot2.html#grammar-of-graphics---leland-wilkinson"><i class="fa fa-check"></i><b>19.2</b> Grammar of graphics - Leland Wilkinson</a></li>
+<li class="chapter" data-level="19.3" data-path="ggplot2.html"><a href="ggplot2.html#understanding-the-grammar"><i class="fa fa-check"></i><b>19.3</b> Understanding the grammar</a></li>
+<li class="chapter" data-level="19.4" data-path="ggplot2.html"><a href="ggplot2.html#aesthetics-1"><i class="fa fa-check"></i><b>19.4</b> Aesthetics</a></li>
+<li class="chapter" data-level="19.5" data-path="ggplot2.html"><a href="ggplot2.html#geometries-1"><i class="fa fa-check"></i><b>19.5</b> Geometries</a></li>
+</ul></li>
+<li class="part"><span><b>IV Intermediate R</b></span></li>
+<li class="chapter" data-level="20" data-path="functionals.html"><a href="functionals.html"><i class="fa fa-check"></i><b>20</b> Functionals</a><ul>
+<li class="chapter" data-level="20.1" data-path="functionals.html"><a href="functionals.html#the-apply-family"><i class="fa fa-check"></i><b>20.1</b> The <code>apply</code> family</a></li>
+<li class="chapter" data-level="20.2" data-path="functionals.html"><a href="functionals.html#apply"><i class="fa fa-check"></i><b>20.2</b> <code>apply</code></a></li>
+<li class="chapter" data-level="20.3" data-path="functionals.html"><a href="functionals.html#lapply"><i class="fa fa-check"></i><b>20.3</b> <code>lapply</code></a></li>
+<li class="chapter" data-level="20.4" data-path="functionals.html"><a href="functionals.html#sapply"><i class="fa fa-check"></i><b>20.4</b> <code>sapply</code></a></li>
+<li class="chapter" data-level="20.5" data-path="functionals.html"><a href="functionals.html#multicore-implementation"><i class="fa fa-check"></i><b>20.5</b> Multicore implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="scoping.html"><a href="scoping.html"><i class="fa fa-check"></i><b>21</b> Scoping</a><ul>
+<li class="chapter" data-level="21.1" data-path="scoping.html"><a href="scoping.html#introduction"><i class="fa fa-check"></i><b>21.1</b> Introduction</a></li>
+<li class="chapter" data-level="21.2" data-path="scoping.html"><a href="scoping.html#rule-1-name-masking"><i class="fa fa-check"></i><b>21.2</b> Rule 1: name masking</a></li>
+<li class="chapter" data-level="21.3" data-path="scoping.html"><a href="scoping.html#rule-2-fresh-start"><i class="fa fa-check"></i><b>21.3</b> Rule 2: fresh start</a></li>
+<li class="chapter" data-level="21.4" data-path="scoping.html"><a href="scoping.html#rule-3-dynamic-lookup"><i class="fa fa-check"></i><b>21.4</b> Rule 3: dynamic lookup</a></li>
+<li class="chapter" data-level="21.5" data-path="scoping.html"><a href="scoping.html#functions-inside-functions"><i class="fa fa-check"></i><b>21.5</b> Functions inside functions</a></li>
+<li class="chapter" data-level="21.6" data-path="scoping.html"><a href="scoping.html#examples"><i class="fa fa-check"></i><b>21.6</b> Examples</a></li>
+</ul></li>
+<li class="part"><span><b>V Conclusion</b></span></li>
+<li class="chapter" data-level="22" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>22</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning R for Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="loops" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Loops (avoid them)</h1>
+<div id="introduction-to-loops-with-a-silly-example-bad-r-coding" class="section level2">
+<h2><span class="header-section-number">10.1</span> Introduction to loops with a silly example (bad R coding)</h2>
+<p>Loops allow to iterate a set of functions / lines of code over a predefined list of elements.<br />
+They are common in many languages but are not highly regarded in R because:</p>
+<ul>
+<li>they do not represent an efficient way of producing a result,</li>
+<li>functionals, functions that return a vector such as the <code>apply</code> family, are preferred.</li>
+</ul>
+<p>This section serves as an introduction to the functionals because it helps understand the structure of the problem.</p>
+<p>Now the silly example. Suppose our gains at a game over the week are, in euros,</p>
+<pre class="sourceCode r"><code class="sourceCode r">gains &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">3</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">0</span>,<span class="op">-</span><span class="dv">4</span>,<span class="dv">12</span>,<span class="dv">4</span>)
+gains
+<span class="co">#R&gt; [1] 10  3 -5  0 -4 12  4</span></code></pre>
+<p>Now, suppose we want to transform each gain into dollars, i.e., we must multiply each gain by 1.30. An intuitive way would be to take each gain <em>separately</em> and multiply it 1.12. Let’s do it by hand:</p>
+<pre class="sourceCode r"><code class="sourceCode r">gains_d &lt;-<span class="kw">numeric</span>(<span class="kw">length</span>(gains)) <span class="co"># create a numeric vector of same length as gains</span>
+gains_d[<span class="dv">1</span>] &lt;-<span class="st"> </span>gains[<span class="dv">1</span>]<span class="op">*</span><span class="fl">1.12</span> 
+gains_d[<span class="dv">2</span>] &lt;-<span class="st"> </span>gains[<span class="dv">2</span>]<span class="op">*</span><span class="fl">1.12</span>
+gains_d[<span class="dv">3</span>] &lt;-<span class="st"> </span>gains[<span class="dv">3</span>]<span class="op">*</span><span class="fl">1.12</span>
+gains_d[<span class="dv">4</span>] &lt;-<span class="st"> </span>gains[<span class="dv">4</span>]<span class="op">*</span><span class="fl">1.12</span>
+gains_d[<span class="dv">5</span>] &lt;-<span class="st"> </span>gains[<span class="dv">5</span>]<span class="op">*</span><span class="fl">1.12</span>
+gains_d[<span class="dv">6</span>] &lt;-<span class="st"> </span>gains[<span class="dv">6</span>]<span class="op">*</span><span class="fl">1.12</span>
+gains_d[<span class="dv">7</span>] &lt;-<span class="st"> </span>gains[<span class="dv">7</span>]<span class="op">*</span><span class="fl">1.12</span>
+gains_d
+<span class="co">#R&gt; [1] 11.20  3.36 -5.60  0.00 -4.48 13.44  4.48</span></code></pre>
+<p>We recognize that the structure of each line of code: the first line is for the element 1 of the vectors, the second line for the second element of the vectors, etc.<br />
+Doing a loop builds on that observation. But it asks the program to make the change between each line automatically.<br />
+In this silly case, we want the program to evaluate a line with the value 1 and then, when it has finished, do the same line but with a 2 instead of a 1. And we want it to do it <strong>for</strong> the elements 1, 2, 3, 4, …, 7.<br />
+This is what a loop does!</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create an empty numeric vector of same length as gains</span>
+gains_d2 &lt;-<span class="kw">numeric</span>(<span class="kw">length</span>(gains)) 
+
+<span class="co"># now the loop</span>
+<span class="co"># first for i=1, then i=2, then i=3, etc... until i=length(gains)</span>
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(gains)) {  
+  gains_d2[i] &lt;-<span class="st"> </span>gains[i]<span class="op">*</span><span class="fl">1.12</span> 
+}
+gains_d2
+<span class="co">#R&gt; [1] 11.20  3.36 -5.60  0.00 -4.48 13.44  4.48</span></code></pre>
+</div>
+<div id="general-form-of-a-for-loop" class="section level2">
+<h2><span class="header-section-number">10.2</span> General form of a <code>for</code> loop</h2>
+<p>The general form of a loop is the following</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (i <span class="cf">in</span> list<span class="op">-</span>of<span class="op">-</span>elements) {
+<span class="co"># code invoking i identifier</span>
+}</code></pre>
+<p>A few words about this simple form are the following.</p>
+<ul>
+<li>The <code>i</code> is the identifier to be used in the code; we can use anything (e.g., <code>x</code>, <code>kk</code>, <code>element</code>, …); we only need to be consistent and, if any, use that identifier in the code inside the loop.</li>
+<li>The <code>in</code> is self-describing.</li>
+<li>The list of elements is generally a vector, but it can also be a list.</li>
+<li>The loop executes some code but does not need to return an object.</li>
+</ul>
+<div id="no-identifier-in-the-code" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> No identifier in the code?</h3>
+<p>The program will run the code in the loop until it finds the identifier, replaces it with the current value of the loop and executes all the commands.<br />
+If it doesn’t find it, then the program executes everything till the end of the loop and then starts again with the next value of the loop.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span> (kk <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {
+  <span class="kw">print</span>(<span class="st">&quot;I&#39;m working on it...&quot;</span>)
+}
+<span class="co">#R&gt; [1] &quot;I&#39;m working on it...&quot;</span>
+<span class="co">#R&gt; [1] &quot;I&#39;m working on it...&quot;</span>
+<span class="co">#R&gt; [1] &quot;I&#39;m working on it...&quot;</span>
+<span class="co">#R&gt; [1] &quot;I&#39;m working on it...&quot;</span>
+
+<span class="cf">for</span> (kk <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;This is loop number&quot;</span>, kk))
+}
+<span class="co">#R&gt; [1] &quot;This is loop number 1&quot;</span>
+<span class="co">#R&gt; [1] &quot;This is loop number 2&quot;</span>
+<span class="co">#R&gt; [1] &quot;This is loop number 3&quot;</span>
+<span class="co">#R&gt; [1] &quot;This is loop number 4&quot;</span>
+<span class="co">#R&gt; [1] &quot;This is loop number 5&quot;</span></code></pre>
+</div>
+</div>
+<div id="a-good-example-of-a-loop" class="section level2">
+<h2><span class="header-section-number">10.3</span> A good example of a loop</h2>
+<p>Suppose we want to know, every day, what is our cumulative gain until and including that day. This implies that we must to create another <code>cumulative_gains</code> with the same length as <code>gains</code>.</p>
+<p>Then, we could run the following loop.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create an empty vector</span>
+cumulative_gains &lt;-<span class="kw">numeric</span>(<span class="kw">length</span>(gains)) 
+
+cumulative_gains[<span class="dv">1</span>] &lt;-<span class="st"> </span>gains[<span class="dv">1</span>]  
+ 
+<span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(gains)){
+  cumulative_gains[k]&lt;-cumulative_gains[k<span class="dv">-1</span>] <span class="op">+</span><span class="st"> </span>gains[k]
+}
+gains
+<span class="co">#R&gt; [1] 10  3 -5  0 -4 12  4</span>
+cumulative_gains
+<span class="co">#R&gt; [1] 10 13  8  8  4 16 20</span></code></pre>
+</div>
+<div id="looping-over-non-numeric-elements" class="section level2">
+<h2><span class="header-section-number">10.4</span> Looping over non-numeric elements</h2>
+<p>The examples above could give the impression that we must loop over numeric values. But it is not so!<br />
+The identifiers above simply took the values, one after the other, of the vector provided. Since we always gave a numeric vector, the identifier was always numeric.<br />
+Here, we show that we can also loop over other types of vectors, for instance a character vector.<br />
+The example is simple: we want to count the number of letters in each element of the character vector and print the result in the console. You can use the built-in function <code>nchar()</code>; <code>nchar("Cologne")=</code>7.</p>
+<pre class="sourceCode r"><code class="sourceCode r">cities &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lisbon&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Washington&quot;</span>, <span class="st">&quot;Antananarivo&quot;</span>)
+cities
+<span class="co">#R&gt; [1] &quot;Lisbon&quot;       &quot;Paris&quot;        &quot;Washington&quot;   &quot;Antananarivo&quot;</span>
+
+<span class="cf">for</span> (cit <span class="cf">in</span> cities) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(cit, <span class="st">&quot;has&quot;</span>, <span class="kw">nchar</span>(cit), <span class="st">&quot;letters.&quot;</span>))
+}
+<span class="co">#R&gt; [1] &quot;Lisbon has 6 letters.&quot;</span>
+<span class="co">#R&gt; [1] &quot;Paris has 5 letters.&quot;</span>
+<span class="co">#R&gt; [1] &quot;Washington has 10 letters.&quot;</span>
+<span class="co">#R&gt; [1] &quot;Antananarivo has 12 letters.&quot;</span></code></pre>
+<p>To store these values in a vector <code>number_letters</code>, we could write</p>
+<pre class="sourceCode r"><code class="sourceCode r">number_letters &lt;-<span class="st"> </span><span class="ot">NULL</span>
+
+<span class="cf">for</span> (cit <span class="cf">in</span> cities) {
+  number_letters &lt;-<span class="st"> </span><span class="kw">c</span>(number_letters, <span class="kw">nchar</span>(cit)) 
+}
+
+<span class="kw">names</span>(number_letters) &lt;-<span class="st"> </span>cities
+number_letters
+<span class="co">#R&gt;       Lisbon        Paris   Washington Antananarivo </span>
+<span class="co">#R&gt;            6            5           10           12</span></code></pre>
+</div>
+<div id="more-advanced-stuff-1" class="section level2">
+<h2><span class="header-section-number">10.5</span> More advanced stuff</h2>
+<div id="loop-over-a-list" class="section level3">
+<h3><span class="header-section-number">10.5.1</span> Loop over a <code>list</code></h3>
+<p>We can loop over the elements of a <code>list</code>. Remember, however, that the elements of a <code>list</code> can be of any type. Therefore, we must make sure that the code inside the loop can be applied to each element of the <code>list</code>.</p>
+<pre class="sourceCode r"><code class="sourceCode r">mylist&lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">numbers=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>), 
+              <span class="dt">cities=</span><span class="kw">c</span>(<span class="st">&quot;Cologne&quot;</span>,<span class="st">&quot;Lisbon&quot;</span>), 
+              <span class="dt">results=</span> <span class="kw">c</span>(T,F,F,T), 
+              <span class="dt">school=</span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;Primary&quot;</span>, <span class="st">&quot;Secondary&quot;</span>, <span class="st">&quot;Tertiary&quot;</span>), <span class="dt">ordered=</span><span class="ot">TRUE</span>))
+
+<span class="cf">for</span> (kk <span class="cf">in</span> mylist) {
+  <span class="kw">print</span>(<span class="kw">length</span>(kk))
+}
+<span class="co">#R&gt; [1] 20</span>
+<span class="co">#R&gt; [1] 2</span>
+<span class="co">#R&gt; [1] 4</span>
+<span class="co">#R&gt; [1] 3</span></code></pre>
+<p>Notice that the previous call could be done with a loop over a numeric vector.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># (kk in 1:4)</span>
+<span class="cf">for</span> (kk <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mylist)) { 
+  <span class="kw">print</span>(<span class="kw">length</span>(mylist[[kk]]))
+}
+<span class="co">#R&gt; [1] 20</span>
+<span class="co">#R&gt; [1] 2</span>
+<span class="co">#R&gt; [1] 4</span>
+<span class="co">#R&gt; [1] 3</span></code></pre>
+</div>
+<div id="while-loop" class="section level3">
+<h3><span class="header-section-number">10.5.2</span> <code>while</code> loop</h3>
+<p>The command <code>while</code> introduces a loop that is run while a certain condition is satisfied. Here is an example.</p>
+<pre class="sourceCode r"><code class="sourceCode r">kk &lt;-<span class="st"> </span><span class="dv">6</span>
+<span class="cf">while</span> (kk <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span>) {
+  <span class="kw">print</span>(kk)
+  kk &lt;-<span class="st"> </span>kk <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+}
+<span class="co">#R&gt; [1] 6</span>
+<span class="co">#R&gt; [1] 7</span>
+<span class="co">#R&gt; [1] 8</span>
+<span class="co">#R&gt; [1] 9</span></code></pre>
+<p>Notice that the most important line is the last in the loop <code>kk &lt;- kk + 1</code>. This makes the identifier change value, in this case, it increases of 1.</p>
+<p>If the identifier does not change, the program keeps running as long as the condition <code>(kk &lt; 10)</code> is satisfied… i.e., forever! Make sure that the condition is not satisfied at some point after some loops!</p>
+<pre class="sourceCode r"><code class="sourceCode r">repetition &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="cf">while</span> (repetition <span class="op">&lt;=</span><span class="st"> </span><span class="dv">9</span> ) {
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;That&#39;s &quot;</span> , repetition, <span class="st">&quot;! One more! Come on!&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)) 
+  repetition&lt;-<span class="st"> </span>repetition <span class="op">+</span><span class="dv">1</span>
+}
+<span class="co">#R&gt; [1] &quot;That&#39;s 0! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 1! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 2! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 3! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 4! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 5! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 6! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 7! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 8! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 9! One more! Come on!&quot;</span></code></pre>
+</div>
+<div id="break-next" class="section level3">
+<h3><span class="header-section-number">10.5.3</span> <code>break</code> &amp; <code>next</code></h3>
+<p>If we insert <code>break</code> in a loop, the program stops everything, i.e., the remaining code in the loop is skipped and the loop is not iterated over anymore.</p>
+<p>You may want to use it in combination of a condition</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (condition<span class="op">==</span><span class="ot">TRUE</span>) {
+  <span class="cf">break</span>
+} </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">repetition &lt;-<span class="st"> </span><span class="dv">0</span>
+<span class="cf">while</span> (repetition <span class="op">&lt;=</span><span class="st"> </span><span class="dv">9</span> ) {
+  <span class="cf">if</span> (repetition<span class="op">==</span><span class="dv">5</span>){
+    <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;That&#39;s &quot;</span> , repetition,
+                <span class="st">&quot;! Well done! I know we said 10, but that&#39;s enough for today!&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))
+    <span class="cf">break</span>
+  }
+  <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;That&#39;s &quot;</span> , repetition, <span class="st">&quot;! One more! Come on!&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)) 
+  repetition&lt;-<span class="st"> </span>repetition <span class="op">+</span><span class="dv">1</span>
+}
+<span class="co">#R&gt; [1] &quot;That&#39;s 0! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 1! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 2! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 3! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 4! One more! Come on!&quot;</span>
+<span class="co">#R&gt; [1] &quot;That&#39;s 5! Well done! I know we said 10, but that&#39;s enough for today!&quot;</span></code></pre>
+<p>If we insert <code>next</code> in a loop, the program skips the remainder of the code in the loop and starts with the next value in the loop. Again, it’s usually combined with a condition.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="import.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["MyR.pdf", "MyR.epub"],
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

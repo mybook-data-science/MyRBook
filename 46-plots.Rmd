@@ -1,0 +1,208 @@
+# Simple plots {#splots}
+
+This short chapter has also only an information purpose. The package `ggplot2` described in Chapter \@ref(ggplot2) allows to make much richer and elegant plots.  
+
+## Line plots
+
+The simplest plot is a scatter plot of one variable plotted against an index (1, 2, 3, ...) on the horizontal axis.  
+In order to (scatter) plot one vector against the other, it is compulsory that they are both numeric and have the same length.  
+The following plots illustrate the creation of a line plot in incremental steps. In the steps, the following functions and arguments are introduced:  
+
+- `plot` is the main function for the plot.
+
+```{r, echo=FALSE, include=FALSE, eval=FALSE}
+
+d.plot <- data.frame(a = c("type", "col"),
+                    d = c("p, l, c, o, s, h, n", "character"),
+                    w = c("How the vector should be rendered in the plot in the plot",
+                    "Determines the color; see this [Rcolor.pdf online](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf) for details.") )
+names(d.plot) <- c("Argument", "Value", "Description")
+knitr::kable(d.plot, caption = '`plot` arguments.')                    
+```
+
+- `type` argument type gives how the vector should be rendered in the plot; the `type` of the plot is any of Table \@ref(tab:table-p-types). 
+
+
+```{r table-p-types, echo=FALSE, align="c"}
+p.types <- data.frame(Symbol = c("p", "l", "b", "c", "o", "s", "h", "n"),
+                      Description=c("Points", "Lines", "Both", "The lines part alone of b", 
+                      "Both overplotted", "Steps", "Histogram like (vertical lines)", "No plotting"))
+
+knitr::kable(p.types, caption = 'Plot types.')
+```
+  
+
+```{r simple-plots-1, out.width="25%", fig.align="center", fig.height=7, fig.cap="Creating a simple line plot.", fig.show="hold"}
+sales <- c(20, 18, 24, 36, 30)
+date <- c(15, 16, 17, 18, 19)
+# left
+plot(sales)
+# middle
+plot(date, sales)
+# right
+plot(date, sales, type="l")
+```
+
+
+
+We now add further customization with new functions and arguments.  
+
+- `col` determines the color; see this [Rcolor.pdf online](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf) for details.
+- The `lty` argument refers to the type of line, to be chosen from the values shown in Figure \@ref(fig:line-types),
+- `lines` adds the plot of a vector to a previously opened plot.
+- `axis` is a function that changes the axis given in its first argument with 1, 2, 3, 4 referring to the bottom, left, top, and right axis, respectively.
+- `at` simply states for what values of the axis the labels should correspond.
+- `las` gives the orientation of the labels (e.g., `1=horizontal`).
+- `xlab` and `ylab` are the x and y axes labels, respectively.
+- `xlim` and `ylim` set a numerical limit for the x and y axes labels, respectively, notice that a vector of length 2 is necessary for each.
+
+
+```{r line-types, echo=FALSE, out.width="50%", fig.height=3, fig.align="center", fig.cap="Line types."}
+# adapted form http://www.sthda.com/english/wiki/line-types-in-r-lty
+generateRLineTypes<-function(){
+  oldPar<-par()
+  par(font=2, mar=c(0,0,0,0))
+  plot(1, pch="", ylim=c(0,3), xlim=c(0,0.5),  axes=FALSE,xlab="", ylab="")
+  for(i in 0:6) lines(c(0.2,0.5), c(i/2,i/2), lty=i, lwd=3)
+  text(rep(0.1,6), (0:6)/2, labels=c("0.'blank'", "1.'solid'", "2.'dashed'", "3.'dotted'",
+                                 "4.'dotdash'", "5.'longdash'", "6.'twodash'"))
+  par(mar=oldPar$mar,font=oldPar$font )
+}
+generateRLineTypes()
+```
+
+
+
+```{r simple-plots-2, out.width="25%", fig.align="center", fig.height=7, fig.cap="Custom a simple line plot.", fig.show="hold"}
+sales2 <- c(12, 19, 22, 28, 32) 
+# left
+plot(date, sales, type="l", col="blue")
+lines(date, sales2, type="b", col="red", lty=3)
+# middle
+s.range <- c(min(sales,sales2),max(sales,sales2))
+plot(date, sales, type="l", col="blue", ylim=s.range)
+lines(date, sales2, type="b", col="red", lty=3)
+# right
+plot(date, sales, type="l", col="blue",
+     ylim=s.range,
+     axes= FALSE, 
+     xlab = "Day",
+     ylab= "Sales")
+lines(date, sales2, type="b", col="red", lty=3)
+axis(1, at=date, lab=c("Mon","Tue","Wed","Thu","Fri"))
+axis(2, las=1, at=seq(min(s.range),max(s.range),5)) 
+```
+
+
+
+We now add further elements such as a legend or a title.
+
+- `legend` gives and places a legend; its first arguments are the location on the x and y axis respectively (this can be replaced by expressions such as `topleft`); the third is the legend itself, completed with colors and other formatting; notice that since the legend specifies two series, the formatting must also be given for each of them in vectors of length 2.
+- `pch` determines the shape of the point in the plot, to be chosen from Figure \@ref(fig:point-types).
+- `cex` gives the expanding factor of the text.
+- `bty` specifies whether of not the legend should be in a box (default, "o") or not "n".
+- `title` gives the title to the plot.
+
+
+```{r point-types, echo=FALSE, out.width="50%", fig.height=3, fig.align="center", fig.cap="Point types."}
+# adapted from http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r
+generateRPointShapes<-function(){
+  oldPar<-par()
+  par(font=2, mar=c(0.5,0,0,0))
+  y=rev(c(rep(1,6),rep(2,5), rep(3,5), rep(4,5), rep(5,5)))
+  x=c(rep(1:5,5),6)/2
+  plot(x, y, pch = 0:25, cex=1.5, ylim=c(1,5.5), xlim=c(1,3), 
+       axes=FALSE, xlab="", ylab="", bg="blue")
+  text(x, y, labels=0:25, pos=3)
+  par(mar=oldPar$mar,font=oldPar$font )
+}
+generateRPointShapes()
+```
+
+
+
+```{r simple-plots-3, out.width="50%", fig.align="center", fig.height=7, fig.cap="Further customization of a simple line plot.", fig.show="hold"}
+plot(date, sales, type="l", col="blue", ylim=s.range,
+      axes= FALSE, xlab = "Day", ylab= "Sales")
+lines(date, sales2, type="b", col="red", lty=3)
+axis(1, at=date, lab=c("Mon","Tue","Wed","Thu","Fri"))
+axis(2, las=1, at=seq(min(s.range),max(s.range),5)) 
+legend(date[1], s.range[2], c("Tom","Mark"), cex=1, 
+   col=c("blue","red"), pch=c(NA,1), lty=c(1,3), bty="n")
+title(main="Week Sales", col.main="black", font.main=2)
+```
+
+
+One can help but notice how cumbersome the coding of the graph is, in particular when one needs to retype the whole code for the same graph.
+
+
+
+## Bar graphs and histograms
+
+
+This subsection illustrates the creation of these graphs with a few commented examples.
+
+- `barplot` takes a vector or a matrix as first argument. It is therefore important to double check how this latter is created.
+- `density` applies to the colors and a single value would be recycled.
+- `horiz` defaults to `FALSE` and gives the direction of the plot.
+- `border` applies to the borders of the bars.
+- `beside` forces side-by-side bars instead of stacking bars.
+
+```{r bar-plots, out.width="25%", fig.align="center", fig.height=7, fig.cap="Simple bar plots.", fig.show="hold"}
+barplot(sales,
+        main="Week Sales - Tom",
+        names.arg=c("Mon","Tue","Wed","Thu","Fri"),
+        border="lightblue",
+        col = "blue")
+barplot(sales,
+        main="Week Sales - Mark",
+        names.arg=c("Mon","Tue","Wed","Thu","Fri"),
+        border="red",
+        col = "red",
+        horiz = TRUE)
+
+barplot(matrix(c(sales, sales2), ncol=5, byrow = TRUE),
+        beside = TRUE,
+        names.arg=c("Mon","Tue","Wed","Thu","Fri"),
+        col=c("blue", "red"),
+        density = 30, 
+        main="Week Sales")
+
+
+```
+
+Turning to histogram, the function and some arguments are the following.
+
+- `hist` is the function to create an histogram from the values of a vector.
+- `breaks` is the important argument as it controls the width of the bars.
+- `freq` determines whether the frequency (default) of the density should be plotted.
+
+
+```{r hist-plots, out.width="35%", fig.align="center", fig.height=7, fig.cap="Simple histograms.", fig.show="hold"}
+hist(c(sales, sales2))
+
+brks <- seq(min(s.range), max(s.range)+3, 5)
+hist(c(sales, sales2),
+    col=rev(heat.colors(length(brks))),
+    breaks=brks,
+    main="Histogram of Week Sales",
+    las=1, cex.axis=0.8,
+    freq=TRUE,
+    xlab="Sales")
+
+```
+
+
+### Other plots
+
+Other types of plots are called by the following functions.
+
+- `pie` for the pie (round) charts.
+- `boxplot` for the box-and-whisker plot.
+- `dotchart` for the Cleveland dot plot.
+- ...
+
+
+
+
+

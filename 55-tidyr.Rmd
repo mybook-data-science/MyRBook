@@ -1,0 +1,188 @@
+# `tidyr` {#tidyr}
+
+
+Among the many ways of organizing a dataset, the `tidyr` way is a convenient, thought-through and consistent way of thinking of a dataset.  
+There are many types of messy data. We introduce here the tools to bring each to a tidy version.  
+The general principle for creating tidy data is expressed in these three rules:
+
+- every column is a variable,
+- every row is an observation,
+- every type of observation in a different table.
+
+The tidying of a data set is mainly obtained with two functions/verbs: `gather` and `spread`.  
+Further tidying is obtained with the functions/verbs `separate` and `unite`.
+
+## `gather`
+
+`gather` takes multiple columns, and gathers them into key-value pairs. From a wide data set, we obtain a (vertically) longer data set.  
+Let's illustrate this verb with an example.
+
+Consider the following data set that gives the gains of each person in a lottery between Monday and Thursday.
+
+```{r}
+lottery <- tibble(person= c("Andre","Beth","Charles"),
+                  mon= c(2, 5, 1),
+                  tue= c(3, 7, 4),
+                  wed= c(10,3,4),
+                  thu= c(1,2,7)
+                  )
+lottery
+```
+
+This data set has 5 columns. Clearly, this does not correspond to 5 variables. Instead, a tidy data set should only include 3 columns for the variables 'name', 'day' and 'gains'. Each row would then be an observation with one value for each of these variables: e.g., Beth won 7 on Tuesday.  
+For the tidying, observe that the appropriate variable 'day' is spread across four columns 'mon', 'tue', 'wed' and 'thu'. These must `gather`ed into one column/variable.
+
+- `tidyr` calls `key` the tidy variable whose values are the names of the messy columns
+('day' in the example above),   
+- `tidyr` calls `value` the tidy variable whose values are spread over the messy cells
+('gains' in the example above).
+
+The call of the function is then:
+
+```r
+gather(df, key, value, messy_col1, ..., messy_coln)
+```
+
+In the example above, we would obtain the tidy data set in the following way.
+```{r}
+
+tidy_lottery <- gather(lottery,
+                        key= "day",
+                        value= "gains",
+                        mon:thu
+                        ) 
+tidy_lottery
+```
+Notice how `tidyr` understands the name of the columns when separated by `:`. It simply uses all the columns in the positions from (including) the first column given to the last (including) column given.   
+Alternatively, one can obtain the same result by excluding variables to be gathered using the minus symbol `-`.
+
+```r
+tidy_lottery <- gather(lottery, key="day", value="gains", -person)
+```
+
+
+```{r}
+bisou <- tribble(
+  ~name, ~`2016`, ~`2017`, ~`2018`,
+  "gau", 23, 45, 12,
+  "tri", 8, 14, 30,
+  "han", 12, 43, 8
+)
+
+bisou
+
+tidy_bisou <- gather(bisou, key=year, value=kisses, `2016`, `2017`, `2018`)
+  
+tidy_bisou
+```
+
+
+## `spread`
+
+`spread` does the opposite of `gather`. It takes two columns (key & value), and spreads into multiple columns: From a (vertically) long data set, we obtain a wider data set.  
+Let's illustrate this verb with an example.
+
+
+```{r}
+people <- tibble(name= rep(c("Andre","Beth","Charles"),2),
+                  info= rep(c("eyes","age"),3),
+                  measure= c("blue", 23, "brown", 31, "brown", 19)
+                  )
+people
+
+people3 <- rbind(people, c("David", "height", 175))
+people3
+
+people2 <- tibble(
+name= c(rep(c("Andre","Beth","Charles"),2),   "David"),
+info= c(rep(c("eyes","age"),3),    "height"),
+measure= c("blue", 23, "brown", 31, "brown", 19,   175)
+                  )
+people2
+
+tidy_people2 <- spread(people2, key=info, value=measure)
+tidy_people2
+```
+
+Clearly, here, each single observation (of one person) has information over different rows. These must be `spread` into appropriate variables.  
+Recall that the `key` refers to the tidy variable _vs_ messy columns.  
+Also, recall that `value` refers to the tidy variable _vs_ messy cells.
+
+```{r}
+tidy_people <- spread(people, key=info, value=measure)
+tidy_people
+
+
+```
+
+
+
+## `separate` 
+
+`separate` is used on a column to separate its content into various columns.  
+The simplest call is generally the following:
+
+```r
+separate(df, messy_var, into=c(tidy_var1, tidy_var2))
+```  
+
+We now illustrate the use of this verb.
+
+```{r}
+clients <- tibble(info=c("Andre, Boston","Beth, Tokyo","Charles, Porto"))
+clients
+
+tidy_clients <- separate(clients,
+                          info,
+                          into= c("name", "city")
+                          )
+tidy_clients
+```
+
+By default, the separation is made on a character that is neither a number nor a letter. But we can also define the separation character.
+```{r}
+separate(clients,
+          info,
+          into= c("name", "city"),
+          sep= "t"
+          )
+```
+
+Furthermore, we can also `separate` based on the number of characters in the values of the variable. Positive integers are used to start from the left while negative integers start from the right.
+
+```{r}
+separate(clients,
+          info,
+          into=c("name", "city"),
+          sep=4
+          )
+
+separate(clients,
+          info,
+          into= c("name", "city"),
+          sep= -3
+          )
+```
+
+## `unite`
+
+`unite` is used on columns to gather their content into one variable.  
+The simplest call is generally the following:
+
+```r
+unite(df, tidy_var, messy_var1, messy_var2, sep="")
+```
+
+A main use of this verb is to paste characters from various columns.  
+By default, these character values are united with a `_` in between, but the separator can be chosen.
+
+
+```{r}
+mail <- unite(tidy_clients, mail, name, city, sep="@")
+mail
+```
+
+
+
+
+

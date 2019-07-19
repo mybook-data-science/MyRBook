@@ -1,0 +1,174 @@
+# Functions {#functions}
+
+Everything that happens in R is a function call. If we want R to do something, we must use a function, may it be as simple as a parentheses `(`. 
+If the function is not built-in or coming in a package, one must write it.
+A function is itself an object. When applied to another object, the function "makes something" to that object and returns an object.
+
+## Structure of a simple function
+
+Here is a simple example of a function that returns the square of the object provided.
+
+```{r}
+pow_two <- function(a){
+  a^2
+}
+pow_two(12)
+
+```
+
+
+
+### Name of the function
+In our example above, the name was `pow_two`. To call, i.e., to use the function later in the code, type `pow_two()`.
+
+### Arguments
+
+The arguments are given in the parentheses right after `function`.  
+Here, we use an argument `a`, which can be any object, e.g., a vector
+```{r}
+pow_two(1:10)
+```
+When using this function, we can see that one argument only must be passed.  
+A value for the argument is then given in the parentheses when calling the function, e.g., `pow_two(12)`.  
+A function can have several arguments
+
+### Commands
+The commands will be executed, if possible.  
+One command source of error is when the class of the argument provided is NOT compatible with the commands in the function
+
+```{r , error=TRUE}
+pow_two("hello") # this can't work
+```
+
+
+### Return of a function
+
+The return of a function is given by the last expression executed inside the function.
+
+```{r }
+my_f <- function(a){
+  a^2
+  a^3 # THIS is the last expression executed
+}
+my_f(5)
+```
+
+We can use `return()` in the function in order to chose what it  returns.
+
+```{r }
+my_f2 <- function(a){
+  return(a^2)
+  a^3
+}
+my_f2(5)
+```
+
+A function can return only one object; this is not really a  problem as we  can always stack everything in a `list()` and have the function return the list.
+
+```{r }
+my_f3 <- function(a){
+  list(ptwo=a^2, pthree=a^3, pfour=a^4) 
+}
+my_f3(5:20)
+```
+
+If we want to use the return of our function, we must assign it to an object.
+
+```{r }
+x <- my_f3(1:5) # evaluates the function above on the vector 1:5
+x$pthree # shows the element pthree of the saved list x
+```
+
+An example where we better use `return` is the following
+
+```{r}
+pow_three <- function(a){
+  if (!is.numeric(a)) {
+    return(print("You must give a numeric vector!"))
+  } else {
+    return(a^3)
+  }
+  
+}
+pow_three(1:4)
+```
+
+
+
+## Multiple arguments and their identification
+
+```{r}
+pow <- function(a, p){
+  a^p
+}
+pow(12, 0.5)
+```
+
+
+As mentioned above, a function can have several arguments.
+
+```{r , error= TRUE}
+my_f4 <- function(abc, xyz){
+  c(abc^2, xyz^3)
+}
+my_f4(5) # this won't work because xyz is missing
+my_f4(5, 10)
+```
+
+R has at least two ways of identifying arguments, by position and by name.  
+If no name is specified, R uses the arguments according to their positions in the definition of the function.  
+In the example above, R understands that `abc=5` and `xyz=10` because of the way they are given in the call `my_f4(5, 10)`.  
+Identification by names would be
+```{r , error= TRUE}
+my_f4(5, 10)
+my_f4(abc=5, xyz=10) # same as before
+my_f4(xyz=5, abc=10) 
+# different from before because the names are more important than the position
+my_f4(xyz=5, 10) # a mix between name and position 
+```
+
+### Default values
+
+A function can be defined with default values for their arguments.  
+R will use the values provided in the call; if one is missing, R will use the default value.
+
+```{r , error= TRUE}
+
+my_f4 <- function(abc, xyz=2){
+  c(abc^2, xyz^3)
+}
+my_f4(5) 
+
+my_f5 <- function(a, tada){
+  if (tada==TRUE){
+    plot(a)
+  } else {
+    sum(a)
+  }
+}
+
+
+my_f5(1:20, tada=FALSE)
+
+my_f6 <- function(a, tada=TRUE){
+  if (tada==TRUE){
+    plot(a)
+  } else {
+    sum(a)
+  }
+}
+
+my_f6(1:30, tada=FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
