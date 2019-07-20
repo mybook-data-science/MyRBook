@@ -1,6 +1,6 @@
 --- 
-title: "Learning R for Data Science"
-author: "Antonio Fidalgo"
+title: "An Introduction to R for the Field of Data Science"
+author: "Moritz Ebach (400104774), Niklas Strolz (400098595), Frederik Miebach (KOWH116385)"
 date: "Last update: `r format(Sys.Date(),'%B %d, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -9,7 +9,7 @@ bibliography: [book.bib, packages.bib, online.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-description: "These are notes gathering my experience in R for data science."
+description: "These are notes gathering our experience to set up R-Studio and use R for data science."
 ---
 
 ```{r setup, include=FALSE}
@@ -43,21 +43,20 @@ knitr::write_bib(c(
 
 
 
-> "Data science is like teenage sex: everyone talks about it, nobody really knows how to do it, everyone thinks everyone else is doing it, so everyone claims they are doing it..."   
+> "The statistic is the rhetoric of the empirical sciences."   
 >
-> --- paraphrase of Dan Ariely's quote on big data 
+> --- paraphrase of Alexander Eiler's quote on statistics 
 
 
 
-There is already a large number of excellent and free references for learning data science in R. The list would be too vast, but two names stand out: [Hadley Wickham](http://hadley.nz/) and [Yihui Xie](https://yihui.name/en/about/).    
-Work of the first includes the books @wickham2016 and @wickham2014 (freely available, including source code, on [github.com/hadley](https://github.com/hadley)) as well as some of the most popular packages in R such as  `ggplot2` [@R-ggplot2] and `tidyverse`[@R-tidyverse].  
-Work of the second is used precisely in the current file thanks to the `rmarkdown` package [@R-rmarkdown], `knitr` [@R-knitr] and `bookdown` [@R-bookdown]. His source code is also on [github.com/yihui/](https://github.com/yihui/).  
+Students with a focus on economics and science have to work a lot with statistical data sets and calculations in order to be able to carry out evaluations. Traditionally, educational institutions work with formula collections and calculators, which has several disadvantages. On the one hand, solutions have to be documented in a laborious way, on the other hand, statistical calculations with formula collections are very time-consuming. The programming language R in combination with R Studio enables students like us to analyze and visualize complex data sets and to adapt them according to our own criteria with less effort compared to the traditional methods. With this book we want to give a practical guide on how to apply these benefits of R to beginners.
 
-So, the question arises of why one should even bother to write on the topic. The present "book" is justified on the following grounds.  
+So we focus on three questions.
 
-1. There is no better way of learning data science and R than **doing oneself** the pages of code.  
-2. The material gathered here is a **personal selection** made on what I judge most relevant for my work, the most important techniques in general or, sometimes, the least obvious for the regular practitioner.  
-3. These notes serve as an **archive** of what I did in the domain so that I can easily access it in the future.
+1. What steps must be undertaken to be able to work productively with R and R studio?
+2. How can R be used for data science using practical examples?
+3. What does a complex project look like in R and what steps must be taken to solve it?
+
 
 
 
