@@ -1,6 +1,8 @@
 ---
 title: "Explaining R"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 # Explaining R - What is it?
