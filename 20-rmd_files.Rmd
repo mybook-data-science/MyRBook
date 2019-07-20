@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # (PART) Source and output files {-}
 
 # `.Rmd` source files {#rmd}
@@ -48,11 +53,9 @@ Text = Narration formatted with markdown, mixed with "Code Chunks":
 
 A code chunk always begins with ```{r} and ends with ``` e.g.
 
-```{r}
+```{r} <- Starting point of the chunk.
 
-"Example for a Code Chunk"
-
-```
+``` <- Ending point of the chunk.
 
 R Markdown will run the code and append the results to the document. It will use the location of the .Rmd file as the working directory.
 
@@ -205,29 +208,8 @@ Beyond the actual R calls that produces the figure, the figure's appearance will
   - `fig.show` takes the default value `asis` to produce the command as it is read by R. Contrast this with the value `hold` which forces R to wait until the end of the chunk to produce the plots. It may be useful to hold if one wants to put multiple plots on the same line (side-by-side).
 
 As an example, the figure below was created with the chunk options
-````markdown
-`r ''````{r plot-one, echo=FALSE, out.width="60%",
-fig.align="center", fig.cap="Including a plot."}
-````
 
-```{r plot-one, echo=FALSE, out.width="60%", fig.align="center", fig.cap="Including a plot."}
-data(mtcars)
-p <- ggplot(mtcars, aes(wt, mpg)) + 
-      geom_point(aes(colour=factor(cyl), size = qsec))
-p
-```
-
-For two plots next to each other, the chunk options could be
-````markdown
-`r ''````{r plot-two, echo=FALSE, out.width="30%", fig.align="center",  
-fig.cap="Including two plots.", fig.show="hold"}
-````
-
-```{r plot-two, echo=FALSE, out.width="30%", fig.align="center", fig.cap="Including two plots.", fig.show="hold"}
-p
-p
-```
-
+Own Example for figure required
 
 ## Cross-references {#cr}
 
