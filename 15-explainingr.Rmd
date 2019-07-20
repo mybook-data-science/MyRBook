@@ -1,0 +1,87 @@
+---
+title: "Explaining R"
+output: html_document
+---
+
+# Explaining R - What is it?
+
+The first chapter of the book starts with the explanation of what R is and how R can be used.
+
+## What is R?
+
+R is a programming language developed by Ross Ihaka and Robert Gentleman in 1993. R possesses an extensive catalog of statistical and graphical methods. It includes machine learning algorithm, linear regression, time series, statistical inference to name a few. Most of the R libraries are written in R, but for heavy computational task, C, C++ and Fortran codes are preferred.
+
+R is not only entrusted by academic, but many large companies also use R programming language, including Uber, Google, Airbnb, Facebook and so on.
+
+Data analysis with R is done in a series of steps; programming, transforming, discovering, modeling and communicate the results
+
+Program: R is a clear and accessible programming tool
+Transform: R is made up of a collection of libraries designed specifically for data science
+Discover: Investigate the data, refine your hypothesis and analyze them
+Model: R provides a wide array of tools to capture the right model for your data
+Communicate: Integrate codes, graphs, and outputs to a report with R Markdown or build Shiny apps to share with the world
+
+## What is R used for?
+
+1. Statistical inference
+2. Data analysis
+3. Machine learning algorithm
+
+## R by Industry
+
+If we break down the use of R by industry, we see that academics come first. R is a language to do statistic. R is the first choice in the healthcare industry, followed by government and consulting.
+
+## R package
+
+The primary uses of R is and will always be, statistic, visualization, and machine learning. The picture below shows which R package got the most questions in Stack Overflow. In the top 10, most of them are related to the workflow of a data scientist: data preparation and communicate the results.
+
+1. dplyr
+2. ggplot2
+3. data.table
+4. shiny
+5. plyr
+
+## Communicate with R
+
+R has multiple ways to present and share work, either through a markdown document or a shiny app. Everything can be hosted in Rpub, GitHub or the business's website.
+
+Rstudio accepts markdown to write a document. You can export the documents in different formats:
+
+Document:
+HTML
+PDF/Latex
+Word
+
+Presentation:
+HTML
+PDF beamer
+
+## Why use R?
+
+R is not just a statistics package, it’s a language.
+R is designed to operate the way that problems are thought about.
+R is both flexible and powerful.
+
+R is not the only language that can be used for data analysis.  Why R rather than another?  Here is a list:
+
+- interactive language
+- data structures
+- graphics
+- missing values
+- functions as first class objects
+- packages
+- community
+
+Data analysis is inherently an interactive process — what you see at one stage determines what you want to do next.  Interactivity is important.  Language is important.  The two together — an interactive language — is even more than their sum.  But there is a down-side: compromises between interactive use and programming use are the cause of some user trauma.
+
+R has a fantastic mechanism for creating data structures.  Obviously if you are doing data analysis, you want to be able to put your data into a natural form.  You don’t have to warp your data into a particular structure because that is all that is available.
+
+Graphics should be central to data analysis.  Humans are predominantly visual, we don’t intuitively grasp numbers like we do pictures.  It is easy to produce graphs for exploring data.  The default graphs can be tweaked to get publication-quality graphs.
+
+Real data have missing values.  Missing values are an integral part of the R language.  Many functions have arguments that control how missing values are to be handled.
+
+Functions, like mean and median, are objects that you can use like data.  You can easily change your analysis to use the median (or some strange estimate you make up on the spot) rather than the mean.
+
+R has a package system that makes it extremely easy for people to add their own functionality so it is indistinguishable from the central part of R.  And people have.  There are thousands of packages that do all sorts of extraordinary things.
+
+The R community is very strong, and quite committed to improving data analysis.
