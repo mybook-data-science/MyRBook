@@ -1,5 +1,3 @@
-# (PART) R Basics {-}
-
 # R as a calculator {#rcalc}
 
 R can be used as a simple calculator. For instance, 45+17=`r 45+17` .   

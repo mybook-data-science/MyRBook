@@ -1,0 +1,16 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# (PART) Preface {-}
+
+# About the Authors
+
+Frederik Miebach (LinkedIn: Frederik Miebach) is a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Administration at Hochschule Fresenius in Cologne and is currently working in the field of human resources at the Bayer AG in Leverkusen.
+
+Moritz Ebach (LinkedIn: Moritz Ebach) is also a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Management at Hochschule Fresenius in Cologne and (...)
+
+Niklas Strolz (LinkedIn: Niklas Strolz) is also a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Management at Hochschule Fresenius in Cologne and (...)
+
+After working with R for the first time for a period of in total four months, the group of students is now working on a student project, which focuses on the design of a book about "R in Data Science". 

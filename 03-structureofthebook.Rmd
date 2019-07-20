@@ -1,0 +1,10 @@
+---
+title: "Struture of the Book"
+output: html_document
+---
+
+# Structure of the book
+
+Chapters 1 and 2 introduce the basic usage and syntax, which should be sufficient to get most readers started in writing a book. Chapters 3 and 4 are for those who want to fine-tune the appearance of their books. They may look very technical if you are not familiar with HTML/CSS and LaTeX. You do not need to read these two chapters very carefully for the first time. You can learn what can be possibly changed, and come back later to know how. For Chapter 5, the technical details are not important unless you do not use the RStudio IDE (Section 5.4). Similarly, you may feel overwhelmed by the commands presented in Chapter 6 to publish your book, but again, we have tried to make it easy to publish your book online via the RStudio IDE. The custom commands and functions are only for those who choose not to use RStudio’s service or want to understand the technical details.
+
+To sum it up, this book is a comprehensive reference of the bookdown package. You can follow the 80/20 rule when reading it. Some sections are there for the sake of completeness, and not all sections are equally useful to the particular book(s) that you intend to write.
