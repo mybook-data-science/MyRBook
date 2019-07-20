@@ -1,6 +1,6 @@
 --- 
-title: "An Introduction to R for the Field of Data Science"
-author: "Moritz Ebach (400104774), Niklas Strolz (400098595), Frederik Miebach (KOWH116385)"
+title: "Learning R for Data Science"
+author: "Antonio Fidalgo"
 date: "Last update: `r format(Sys.Date(),'%B %d, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
