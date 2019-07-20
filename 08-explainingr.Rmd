@@ -11,17 +11,19 @@ The first chapter of the book starts with the explanation of what R is and how R
 
 ## What is R?
 
-R is a programming language developed by Ross Ihaka and Robert Gentleman in 1993. R possesses an extensive catalog of statistical and graphical methods. It includes machine learning algorithm, linear regression, time series, statistical inference to name a few. Most of the R libraries are written in R, but for heavy computational task, C, C++ and Fortran codes are preferred.
+Let's start with a short definition of R: "R is a programming language developed by Ross Ihaka and Robert Gentleman in 1993, which possesses an extensive catalog of statistical and graphical methods." 
 
-R is not only entrusted by academic, but many large companies also use R programming language, including Uber, Google, Airbnb, Facebook and so on.
+R includes machine learning algorithm, linear regression, time series, statistical inference and many other features.
 
-Data analysis with R is done in a series of steps; programming, transforming, discovering, modeling and communicate the results
+Not only academic companies trust in R, but many large companies also use the R programming language, including Google, Airbnb, Facebook, Uber and many others.
 
-Program: R is a clear and accessible programming tool
-Transform: R is made up of a collection of libraries designed specifically for data science
-Discover: Investigate the data, refine your hypothesis and analyze them
-Model: R provides a wide array of tools to capture the right model for your data
-Communicate: Integrate codes, graphs, and outputs to a report with R Markdown or build Shiny apps to share with the world
+Focusing on data science or analysis with R, it is important to understand that this is done in a series of steps; programming, transforming, discovering, modeling and communicate the results.
+
+1. Program: R is a programming tool.
+2. Transform: R is consists of a collection of libraries designed for data science.
+3. Discover: Import the data, optimize them, rethink them and analyze them.
+4. Model: R offers a wide ranges of tools to capture an appropriate model for your data.
+5. Communicate: Integrate codes, graphs, and outputs to a report with R Markdown and share it with the world via different platforms.
 
 ## What is R used for?
 
