@@ -2,9 +2,88 @@
 
 # `.Rmd` source files {#rmd}
 
-This chapter gathers general comments about `.Rmd` files.
+This chapter gathers general comments and information about `.Rmd` files.
 
-## Options for all chunks
+## General description of R Markdown files
+
+What is R Markdown?
+
+An R Markdown file is a record of your research, or in other words, a format for making dynamic documents with R. In general, an R Markdwon file is written in "markdown", which is an easy-to-write plain text format. This particular text format contains chunks of embedded R codes. 
+
+Requirement for R Markdown files:
+
+R Markdown files are designed to be used with the "rmarkdown" package. "rmarkdown" comes installed with RStudio, yet you can install an own copy of rmarkdown by clicking on _Tools> Install packages_ and search for "rmarkdown".  You can also install the above mentioned package with the following command:
+
+```{r, eval=FALSE}
+install.packages("rmarkdown")
+
+```
+
+R Markdown files can be transformed in two ways: 1. Knit the file and 2. Convert the file.
+
+1. Knit - The rmarkdown package includes or calls the knitr package. knitr runs each chunk of R codes in the document and append the results of the codes to the document next to the code chunk. This workflow saves time and facilitates reproducible reports.
+
+In R Markdown, every single report contains codes or a code it needs to make own graphs, tables, numbers, etc. The report can therefore be automatically updated by the author via the process of re-knitting.
+
+2. Convert - The rmarkdown package will use the pandoc program to transform the R Markdown file into a new format. For example, .Rmd file can be converted into a PDF, HTML, or Microsoft Word file. 
+
+## Getting started with R Markdown files
+
+1. Open a new .Rmd file: _File> New File> R Markdown_ and choose a name for the file.
+2. Write the document by editing the template.
+3. Knit the document to create a report and preview the output in a PDF, HTML or another output.
+4. Save the .Rmd file and (optional) publish the file to a web server (e.g. GitHub) by commiting and pushing it.
+
+This is the general process of creating or opening an R Markdwon file. 
+
+## Options for R Markdown files
+
+The options of R Markdown files focus on the .rmd structure and render options with YAML, which will be explained in the following section. 
+
+### .rmd structure
+
+YAML Header = Optional section of render (e.g. pandoc)
+
+Text = Narration formatted with markdown, mixed with "Code Chunks":
+
+A code chunk always begins with ```{r} and ends with ``` e.g.
+
+```{r}
+
+"Example for a Code Chunk"
+
+```
+
+R Markdown will run the code and append the results to the document. It will use the location of the .Rmd file as the working directory.
+
+### Render options with YAML
+
+When you render, R Markdown: 
+
+1. runs the R code, embeds results and text ino .md file with knitr
+2. then converts the .md file into the finished format with pandoc 
+
+Rmd -> knitr -> md -> pandoc -> Defined output value. 
+
+The defined output value can be defined as one of the following options: 
+
+html_document -> html
+pdf_document -> pdf
+word_document -> Microsoft Word
+md_document -> Markdown 
+etc.
+
+As a next step, the output can also be customized with sub-options: 
+
+Examples of sub-options:
+
+toc = Add a table of contents at start of document 
+highlight = Syntax highlighting "tango", "pygments", "kate" etc.
+css = CSS file to use to style document
+
+Please keep in mind that not every sub-option is applicable for all output values, which means that the "toc" for example is applicable for most of the outputs, yet not for all of them.
+
+## Improtant options for all chunks
 
 It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks.   
 A natural place to set these options is in a first R chunk.
