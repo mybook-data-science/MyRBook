@@ -31,61 +31,60 @@ Focusing on data science or analysis with R, it is important to understand that 
 2. Data analysis
 3. Machine learning algorithm
 
-## R by Industry
-
-If we break down the use of R by industry, we see that academics come first. R is a language to do statistic. R is the first choice in the healthcare industry, followed by government and consulting.
-
 ## R package
 
-The primary uses of R is and will always be, statistic, visualization, and machine learning. The picture below shows which R package got the most questions in Stack Overflow. In the top 10, most of them are related to the workflow of a data scientist: data preparation and communicate the results.
+Many of the functions available in R come in packages. To install an R package, open an R session and type the following command into the command line:
 
-1. dplyr
-2. ggplot2
-3. data.table
-4. shiny
-5. plyr
+```{r
+install.packages("<the package's name>")
+```
 
-## Communicate with R
+Once the package is installed, the content will be available for usasge.
 
-R has multiple ways to present and share work, either through a markdown document or a shiny app. Everything can be hosted in Rpub, GitHub or the business's website.
+The fundamental or primary functions of R are statitical interference, visualization, and machine learning.
 
-Rstudio accepts markdown to write a document. You can export the documents in different formats:
+The most important R packages are listed below, which are mainly uses for the workflow of data science (Data preparation and communication of the results):
+
+```{r
+1. dplyr (Command line: install.packages("dplyr"))
+2. ggplot2 (Command line: install.packages("ggplot2"))
+3. data.table (Command line: install.packages("data.table"))
+4. shiny (Command line: install.packages("shiny"))
+5. plyr (Command line: install.packages("plyr"))
+```
+
+## Communication with R
+
+R offers a variety of ways to present and share work. As explained in previous chapters of the book, this mainly happens through an R Markdown file or document. The results of the work in R can then be published or shared on GitHub, on business websites or other platforms available for R.
+
+Rstudio therefore offers you via R Markdown files to write a document. You can then export the documents in many different formats:
 
 Document:
-HTML
-PDF/Latex
-Word
+- HTML
+- PDF/Latex
+- Word
 
 Presentation:
-HTML
-PDF beamer
+- HTML
+- PDF beamer
 
-## Why use R?
+## Why use R as a language for programming?
 
-R is not just a statistics package, it’s a language.
-R is designed to operate the way that problems are thought about.
-R is both flexible and powerful.
+1. R is not just a mix of statistical packages, it’s an own language.
+2. R is designed to operate the way that problems are thought about.
+3. R is both flexible and powerful.
 
-R is not the only language that can be used for data analysis.  Why R rather than another?  Here is a list:
+R is not the only language that can be used for data analysis.  Why R rather than another?  
 
-- interactive language
-- data structures
-- graphics
-- missing values
-- functions as first class objects
-- packages
-- community
+1. Data analysis can be described as an interactive process, which generally means that you can determine what to do next with what you see at one stage. Therefore, interactivity is very important for programming languages.  Language is very important.  And together, it is an interactive language, which can be used perfectly for programming and data analysis. 
 
-Data analysis is inherently an interactive process — what you see at one stage determines what you want to do next.  Interactivity is important.  Language is important.  The two together — an interactive language — is even more than their sum.  But there is a down-side: compromises between interactive use and programming use are the cause of some user trauma.
+2. The mechanism that R offeres is fantastic for creating a variety of data structures. If you are working on data analysis, you of course want to be able to put data into natural form, which is a key function of R. 
 
-R has a fantastic mechanism for creating data structures.  Obviously if you are doing data analysis, you want to be able to put your data into a natural form.  You don’t have to warp your data into a particular structure because that is all that is available.
+3. Producing graphs for data analysis is a fairly easy process when using R and offers a variety of different options for producing high quality graphs.
 
-Graphics should be central to data analysis.  Humans are predominantly visual, we don’t intuitively grasp numbers like we do pictures.  It is easy to produce graphs for exploring data.  The default graphs can be tweaked to get publication-quality graphs.
+4. As mentioned in this chapter R has a package system, which will also be explained in detail in the chapter of "Tidyverse". The packages offered in R give people the opportunity to add own functionalities, which distinguishes it from the central part of R.
 
-Real data have missing values.  Missing values are an integral part of the R language.  Many functions have arguments that control how missing values are to be handled.
+5. Important: Real data have missing values, which are a fundamental part of the R language. Functions in R therefore give you the opportunity to control how missing values should be handled. 
 
-Functions, like mean and median, are objects that you can use like data.  You can easily change your analysis to use the median (or some strange estimate you make up on the spot) rather than the mean.
+6. The R community is very strong. Everyone is committed to the prcoess of improving the language of R and therefore also the process of data analysis. Questions and answers about problems with R are offered online and help optimize the working process with R.
 
-R has a package system that makes it extremely easy for people to add their own functionality so it is indistinguishable from the central part of R.  And people have.  There are thousands of packages that do all sorts of extraordinary things.
-
-The R community is very strong, and quite committed to improving data analysis.
