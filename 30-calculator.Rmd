@@ -1,0 +1,142 @@
+# (PART) R Basics {-}
+
+# R as a calculator {#rcalc}
+ 
+R can also be used as a simple calculator. For instance, 25+12=`r 25+12`.
+ 
+Here are a few more examples of how R can be used as a calculator with different commands:
+
+## Usual operators
+
+### Simple operations
+
+The usual symbols `+, -, *, /` apply .
+```{r}
+2 + 6
+56 / 6
+```
+
+## Order of operations
+
+The order of arithmetic operations is determined by the PEMDAS (Parenthesis, exponents, multiplication, division, addition, subtraction) convention, which implies that parentheses get highest priority, followed by exponentiation, followed by multiplication and division, followed by addition and subtraction. The second example of using R in the calculator mode is listed below:
+
+```{r
+4 + 9 * 6 # PEMDAS (Multiplication before addition)
+```
+[1] 58
+ 
+For R operations, it is not necessary to use an equal sign is. The return key serves that role and gives you the result of the operation As you can see above, the response from R is [1] 58, which shows you that R made use of the PEMDAS convention (Multiplication before addition). The [1] that appears before the 38 indicates that the result is a vector of length one. More details on vectors will be given in the final chapter of the book.
+ 
+Operation without making use of spaces: 
+
+```{r
+5+9*6 # no spaces
+```
+[1] 58
+ 
+This still works, yet you could imagine how difficult this would be to read if it was 40 or 50 characters long.
+
+## Number of digits displayed
+ 
+The default number of digits displayed in R is seven digits. Yet, R must make the decision on how many digits to display. Therefore, the number of digits shown can be altered, as shown below (Important: R does not include commas to separate groups of three digits when displaying the result): 
+ 
+```{r
+10 * 10 ˆ 3 # exponentiation first
+```
+[1] 10000
+
+Now consider a calculation of larger numbers.
+ 
+```{r
+55555555 * 55555555 # result in scientific notation
+```
+[1] 3.08642e+15
+
+The result of this calculation is expressed in scientific notation: 3.08642 · 1015. With only seven digits displayed, it is not possible to know the exact value of the product.
+ 
+By default, R displays seven digits, but more digits are stored. As an illustration, the built-in constant π is designated with pi.
+
+```{r
+pi # built in constant
+```
+[1] 3.141593
+
+### Parentheses 
+
+The parentheses work as expected. But they are also a common source of error when they are not matched.
+Parentheses are or can be used to alter the order of operations. But they are also a common source of error when they are not matched.
+
+```{r}
+(4+3)*((7-3)/(1+.05))
+```
+
+The next expression will generate an error and prevent the compilation of the whole book.
+
+```{r
+(4+3)*((7-3/(1+.05))
+```
+
+Other examples of different orders through adding parantheses:
+ 
+```{r
+5 + (6 / 7) ˆ 2 # division first, then exponentiation, then addition
+```
+[1] 5.73
+ 
+```{r
+(2 + 1) / 5 ˆ 2 # addition first, then exponentiation, then division
+```
+[1] 0.12
+
+```{r
+(9 + 3 / 4) ˆ 2 # division first, then addition, then exponentiation
+```
+[1] 95.06
+
+```{r
+((4 + 7) / 10) ˆ 2 # addition first, then division, then exponentiation
+```
+[1] 1.21
+ 
+### Exponents 
+
+There are two ways of expressing the power of a number: `^` and `**`.
+ 
+```{r}
+3^4
+3**4
+```
+
+## Unusual operators
+
+### Special operations
+
+The symbols `%/%` and `%%` return the entire part of the result of the division and the rest of the division, respectively.
+
+```{r}
+56/6
+56%/%6
+56%%6
+```
+
+## Usual functions
+
+The common functions found in any calculator also have an equivalent on R. The following examples need no further comment.
+ 
+```{r}
+log(100)
+sqrt(100)
+```
+
+## Unusual functions
+
+There are several other functions applied to numbers that one does not usually find in a calculator.  
+
+A few examples below:
+
+```{r}
+# floor / ceiling for the closest integer
+floor(13.47)
+ceiling(13.47)
+```
+
