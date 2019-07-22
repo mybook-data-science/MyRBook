@@ -1,0 +1,182 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Data stuctures {#datastructures}
+
+This chapter lists the most common objects to store data.
+
+
+## Atomic vectors
+The basic data structure in R is the vector. Vectors have three characteristics:
+
+  - a type, `typeof()`,
+  - a length, `length()`,
+  - some attributes, `attributes()`. 
+
+### Types of data 
+
+There are four common types of atomic vectors:
+
+  - logical,
+  - integer,
+  - double (often called numeric),
+  - character.
+
+Note that if vector elements not all of the same type, R makes coercion.  In that case, the order becomes:
+"logical < numeric < character".
+
+Here are a few illustrations.
+
+
+```{r}
+# logical vector
+log_vector <- c(TRUE, FALSE, FALSE)
+log_vector
+
+# numeric vector
+num_vector <- c(12, 10, 3)
+typeof(num_vector)
+
+# integer vector
+int_vector <- c(12L, 10L, 3L)
+typeof(int_vector)
+
+
+# character vector
+chr_vector <- c("a", "b", "c")
+typeof(chr_vector)
+
+# mixed types vector
+mix_vector <- c(2, "a")
+is.numeric(mix_vector)
+typeof(mix_vector)
+```
+
+Numeric vectors can be created with the shortcut `:`, which is used to imply all the integers from the number on the left of `:` to the number on its right. Even if it is not good practice, these do not require the `c()` call. 
+
+```{r vectors}
+vector_A <- 1:5
+vector_A
+length(vector_A)
+```
+
+### Factor vector
+
+This is a special type of vector. It has a limited number of values, called levels. These levels can be unordered (e.g., gender is either "Female" or "Male") or ordered (e.g. school level is "Primary", "Secondary", "Tertiary")
+```{r factor}
+gender <- factor(c("Male", "Male", "Female", "Male", "Female", "Female", "Male"))
+gender
+levels(gender)
+summary(gender)
+school <- factor(c("Primary", "Secondary", "Tertiary"),
+					ordered=TRUE)
+school
+
+school2 <- factor(c("Primary", "Secondary","Secondary", "Tertiary"),
+					labels=c( "Secondary", "Tertiary","Primary"),
+					ordered=TRUE)
+school2
+
+```
+
+## Matrices and arrays
+
+R is not often used for matrices calculations: it is too slow for that and there are better programs for it out there (e.g. Matlab).
+
+```{r}
+# populate a matrix with the elements in of the vector, and give the dimensions
+M <- matrix(c(4, 1, 0, 3, 6, 8), nrow=3, ncol=2) 
+M
+```
+
+If we think of a matrix as a 2 dimensions vector, then arrays are $n$ dimensions vectors. Is it important? It might be in some very specific cases.
+
+```{r array example}
+mya <- array(data=1:18, dim=c(2,3,3))
+mya
+```
+
+## Lists
+These are the one-size fit all structure... A list is an object composed of any other object, even... another list! Very useful data structure!
+
+```{r list example}
+school<-factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE)
+mylist <- list(numbers=c(1:60),
+				somenames=c("Jim","Jules"),
+				results= c(T,F,F,T),
+				school=school)
+mylist
+
+# change the names of the elements of the list
+names(mylist) <- c("N", "O","R","S")
+```
+
+## Data frames
+
+Data frames are the second most important data structure in R. We can think of it as a better version of a data set in Excel. It stacks together observations over many variables, each of these variables being a vector.
+
+```{r dataframe}
+# mtcars is a built-in data set
+data(mtcars)
+class(mtcars)
+mtcars
+head(mtcars)
+str(mtcars)
+
+# names of the variables in the data frame
+names(mtcars) 
+length(mtcars)
+nrow(mtcars)
+```
+### Data frame creation
+
+A data frame can be created manually by providing the function `data.frame` with the corresponding vectors. These vectors should be of same length, otherwise R recycles values. The data frame requires a name for each vector.
+
+```{r}
+df <- data.frame(let=LETTERS[1:7],
+                 num1=10:16, 
+                 num2=floor(rnorm(7,100,10)))
+df
+names(df)
+```
+
+```{r}
+students <- data.frame(name= c("tr", "ga", "mi", "st", "eb", "ha", "fo", "fi"),
+                       age=c(23, 23, 24, 33, 28, 24, 33, 41),
+                       like= c(T, T, T, T, F, F, T, T)) 
+students
+```
+
+## A word about attributes
+
+Attributes are important characteristics of vectors (and other data structures).   
+They can be seen as some meta data that defines the nature of the object. This is to say that a given attribute can determine how a function applies to an object. Here are three important attributes:
+
+  - the names, `names()`,
+  - the dimensions, `dim()`,
+  - the class, `class`.
+
+To illustrate the use of attributes, recall the case of a factor vector. The fact that the vector on which it builds is given the attribute of a class (factor) turns that vector into a special one.
+
+```{r}
+vec <- c(1.7, 1.3, 4, 3.3, 3.3, 2, 2.3, 2.3)
+vec
+table(vec)
+
+vec.f <- factor(vec,
+                levels=c(1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4, 5),
+                ordered=TRUE)
+vec.f
+table(vec.f)
+```
+
+
+## Environments
+
+An environment is similar to a bag/list of names. It can be seen as the space were these names "live".   
+Environments can include environments. In that case, the enclosing environment is called the parent environment.  
+The most common environment is the `globalenv()` also called the `workspace`. 
+
+
