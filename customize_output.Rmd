@@ -1,0 +1,104 @@
+# Customize output {#custom-ouptut}
+
+This chapter is about choosing and/or modifying the way the output file looks like.
+If you do not select a format, R Markdown renders the file to its default format, which you can set in the output field of a .Rmd file’s header.
+
+The RStudio knit button renders a file to the first format listed in its output field. You can render to additional formats by clicking the dropdown menu beside the knit button.
+
+Set the output_format argument of render to render your .Rmd file into any of R Markdown’s supported formats. For example, the chunk below renders this .Rmd file to a HTML document.
+
+```
+library(rmarkdown)
+render("customize_output.Rmd", output_format = "html_document")
+```
+
+
+## Multiple built-in output types
+
+However, there are a variety of output possibilities and formats that can be individually adapted to the user. In general, different formats offer advantages and disadvantages when compared with each other.
+
+The following output formats are available to use with R Markdown:
+"html_notebook"" - Interactive R Notebooks
+"html_document" - HTML document w/ Bootstrap CSS
+"pdf_document" - PDF document (via LaTeX template)
+"word_document" - Microsoft Word document (docx)
+"odt_document" - OpenDocument Text document
+"rtf_document" - Rich Text Format document
+"md_document" - Markdown document (various flavors)
+
+Each output format is implemented as a function in R. You can customize the output by passing arguments to the function as sub-values of the output field. To learn which arguments a format takes, read the format’s help page in R, e.g. ?pdf_document.
+
+If a certain option has sub-options (which means the value of this option is a list in R), the sub-options need to be further indented, e.g.:
+
+output:
+  html_document:
+    toc: true
+    includes:
+      in_header: header.html
+      before_body: before.html
+      
+
+Furthermore, there are several additional output formats that are suitable for special situations, such as slide presentations, dashboards, websites and interactive documents.
+
+A helpful overview of formats and other useful information can be found in the official cheatsheet, available in RStudio at:
+Go to File > Help > Cheatsheets > R Markdown Cheat Sheet to open the main R Markdown cheatsheet, pictured above
+
+Additionally, general information about the structure of a rmd in RStudio can be accessed via the Quick Reference:
+Go to File > Help > Markdown Quick Reference to open the Markdown Quick Reference in your help pane.
+
+
+## New types provided by packages
+
+Packages are bundles of code which extend the functionality of RStudio and R.
+
+Anyone can make an R package, and anyone can install anyone else’s R package (if they make it available). This is part of the open source world, and using different R packages is essential to modern R workflows.
+
+You can get packages from many different places, but the most common one: CRAN. CRAN is the Comprehensive R Archive Network, a global network of servers which make available for download a set of vetted R packages.
+
+Most packages need to be loaded into the current environment to be accessible. RMarkdown is specially integrated in RStudio in a way that avoids this, but in general you should load packages with the library command:
+
+```
+library(name_of_the_package)
+
+```
+
+## CSS: custom html
+
+Shiny apps use an HTML interface, which means that you can change the visual appearance of your apps quickly and simply with CSS files.
+You can use CSS to customize the typefaces used in dygraph labels. In example CSS is used to make the main label bold and to reduce the size of the typefaces used on the axes:
+
+```
+.dygraph-title {
+  color: navy;
+  font-weight: bold;
+}
+.dygraph-axis-label {
+  font-size: 11px;
+}
+
+dygraph(nhtemp, main = "New Haven Temperatures") %>%
+  dyCSS("dygraph.css")
+``  
+
+
+## Latex preamble
+
+This file is added to the preamble of the Latex file to modify how the `.pdf` output is compiled.   
+Literally, these commands are placed in the Latex file before the self-explaining command: 
+```latex
+\begin{document}
+```  
+The most common commands call the packages to be used in the compilation of the Latex file, e.g.,
+```latex
+\usepackage{multirow}
+```
+Each package, in turn, includes a set of functions that can be used in the file to produce some particular output.  
+The other set of commands are typically definitions of new commands or environments as well as redefinitions of existing commands to produced a special output.  
+
+```latex
+\usepackage{totcount}
+\regtotcounter{section}
+\makeatletter
+    \renewcommand{\thesection}{\number\numexpr\c@section@totc-\c@section+1\relax}
+\makeatother
+```
