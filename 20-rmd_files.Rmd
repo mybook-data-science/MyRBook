@@ -88,8 +88,7 @@ Please keep in mind that not every sub-option is applicable for all output value
 
 ## Improtant options for all chunks
 
-It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks.   
-A natural place to set these options is in a first R chunk.
+It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks. A natural place to set these options is in a first R chunk.
 
 
 ```{r, eval=FALSE}
@@ -99,7 +98,7 @@ knitr::opts_chunk$set(OPTION1 = TRUE/FALSE,
 ```
 
 
-Importantly, these options are overridden by the particular chunk options.
+Important: These options are overridden by the particular chunk options.
 
 ````markdown
 `r ''````{r, OPTION2=FALSE}
@@ -125,19 +124,26 @@ Here is the same chunk with different values of the option:
 
 `collapse=TRUE`
 
+(If TRUE, knitr will collapse all the source and output blocks created by the chunk into a single block.)
+
 ```{r, collapse=TRUE}
 2+ 2
 3* 5
 ```
 
 `collapse=FALSE`
+
+(If FALSE, knitr will not collapse all the source and output blocks created by the chunk into a single block.)
+
     
 ```{r, collapse=FALSE}
 2+ 2
 3* 5
 ```
 
-- `comment` gives the string to be printed before the output.
+Worth noting: a `#` as a first character of the comment string (with `collpase=TRUE`) turns the output font into a comment-like text.
+
+- `comment` is known as a character string. Knitr will append the string to the start of each line of results in the final document
 
 `comment='##'`
 
@@ -151,7 +157,23 @@ Here is the same chunk with different values of the option:
 2+ 2
 ```
 
-Worth noting: a `#` as a first character of the comment string (with `collpase=TRUE`) turns the output font into a comment-like text.
+- `echo` determines whether to display the code in the code chunk above it's results in the final document or not.
+
+`echo=FALSE`
+
+If FALSE, knitr will not display the code in the code chunk above it’s results in the final document.
+
+```{r, echo=FALSE}
+summary(cars)
+```
+
+`echo=TRUE`
+
+If TRUE, knitr will display the code in the code chunk above it’s results in the final document.
+
+```{r, echo=TRUE}
+summary(cars)
+```
 
 - `child` allows a document to call and use another file as input in the document.
 

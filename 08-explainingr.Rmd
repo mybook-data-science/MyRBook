@@ -1,0 +1,90 @@
+---
+title: "Explaining R"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Explaining R - What is it?
+
+The first chapter of the book starts with the explanation of what R is and how R can be used.
+
+## What is R?
+
+Let's start with a short definition of R: "R is a programming language developed by Ross Ihaka and Robert Gentleman in 1993, which possesses an extensive catalog of statistical and graphical methods." 
+
+R includes machine learning algorithm, linear regression, time series, statistical inference and many other features.
+
+Not only academic companies trust in R, but many large companies also use the R programming language, including Google, Airbnb, Facebook, Uber and many others.
+
+Focusing on data science or analysis with R, it is important to understand that this is done in a series of steps; programming, transforming, discovering, modeling and communicate the results.
+
+1. Program: R is a programming tool.
+2. Transform: R is consists of a collection of libraries designed for data science.
+3. Discover: Import the data, optimize them, rethink them and analyze them.
+4. Model: R offers a wide ranges of tools to capture an appropriate model for your data.
+5. Communicate: Integrate codes, graphs, and outputs to a report with R Markdown and share it with the world via different platforms.
+
+## What is R used for?
+
+1. Statistical inference
+2. Data analysis
+3. Machine learning algorithm
+
+## R package
+
+Many of the functions available in R come in packages. To install an R package, open an R session and type the following command into the command line:
+
+```{r
+install.packages("<the package's name>")
+```
+
+Once the package is installed, the content will be available for usasge.
+
+The fundamental or primary functions of R are statitical interference, visualization, and machine learning.
+
+The most important R packages are listed below, which are mainly uses for the workflow of data science (Data preparation and communication of the results):
+
+```{r
+1. dplyr (Command line: install.packages("dplyr"))
+2. ggplot2 (Command line: install.packages("ggplot2"))
+3. data.table (Command line: install.packages("data.table"))
+4. shiny (Command line: install.packages("shiny"))
+5. plyr (Command line: install.packages("plyr"))
+```
+
+## Communication with R
+
+R offers a variety of ways to present and share work. As explained in previous chapters of the book, this mainly happens through an R Markdown file or document. The results of the work in R can then be published or shared on GitHub, on business websites or other platforms available for R.
+
+Rstudio therefore offers you via R Markdown files to write a document. You can then export the documents in many different formats:
+
+Document:
+- HTML
+- PDF/Latex
+- Word
+
+Presentation:
+- HTML
+- PDF beamer
+
+## Why use R as a language for programming?
+
+1. R is not just a mix of statistical packages, it’s an own language.
+2. R is designed to operate the way that problems are thought about.
+3. R is both flexible and powerful.
+
+R is not the only language that can be used for data analysis.  Why R rather than another?  
+
+1. Data analysis can be described as an interactive process, which generally means that you can determine what to do next with what you see at one stage. Therefore, interactivity is very important for programming languages.  Language is very important.  And together, it is an interactive language, which can be used perfectly for programming and data analysis. 
+
+2. The mechanism that R offeres is fantastic for creating a variety of data structures. If you are working on data analysis, you of course want to be able to put data into natural form, which is a key function of R. 
+
+3. Producing graphs for data analysis is a fairly easy process when using R and offers a variety of different options for producing high quality graphs.
+
+4. As mentioned in this chapter R has a package system, which will also be explained in detail in the chapter of "Tidyverse". The packages offered in R give people the opportunity to add own functionalities, which distinguishes it from the central part of R.
+
+5. Important: Real data have missing values, which are a fundamental part of the R language. Functions in R therefore give you the opportunity to control how missing values should be handled. 
+
+6. The R community is very strong. Everyone is committed to the prcoess of improving the language of R and therefore also the process of data analysis. Questions and answers about problems with R are offered online and help optimize the working process with R.
+
