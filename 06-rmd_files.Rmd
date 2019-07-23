@@ -5,9 +5,9 @@ output:
 ---
 # (PART) Source and output files {-}
 
-# `.Rmd` source files {#rmd}
+# R Markdown files
 
-This chapter gathers general comments and information about `.Rmd` files.
+The following chapter gathers general comments and information about `.Rmd` files.
 
 ## General description of R Markdown files
 
