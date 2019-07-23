@@ -344,10 +344,4 @@ A few comments are the following:
 
 One advantage of using `.bib` files is that the fields for each entry, i.e., all the information about the source, are usually available online in the easiest of forms.  
 The site Google Scholar, for instance, provides these entries in `.bib` form.  
-As an example, search there the book mentioned above, e.g., "wickham advanced r".  Under each hit, there is an icon of inverted commas. By clicking it, the reference is given in different formats but also with a link to the BibTeX code (along with others). One can then simply copy this BibTex code and paste it anywhere in the bibliography file. For easier use, the label could be changed. 
-
-
-
-
-
-
+As an example, search there the book mentioned above, e.g., "wickham advanced r".  Under each hit, there is an icon of inverted commas. By clicking it, the reference is given in different formats but also with a link to the BibTeX code (along with others). One can then simply copy this BibTex code and paste it anywhere in the bibliography file. For easier use, the label could be changed.

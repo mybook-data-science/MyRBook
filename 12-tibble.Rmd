@@ -25,7 +25,6 @@ The simplest way is declare a data frame a tibble with the function `as_tibble`.
 data(iris)
 # print the data frame
 iris
-
 t_iris <- as_tibble(iris)
 # print the tibble
 class(t_iris)
@@ -85,19 +84,3 @@ my_tr <- tribble(
 	)
 my_tr
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -34,7 +34,7 @@ Focusing on data science or analysis with R, it is important to understand that 
 Many of the functions available in R come in packages. To install an R package, open an R session and type the following command into the command line:
 
 ```{r
-install.packages("<the package's name>")
+install.packages("the package's name")
 ```
 
 Once the package is installed, the content will be available for usasge.
@@ -85,4 +85,3 @@ R is not the only language that can be used for data analysis.  Why R rather tha
 5. Important: Real data have missing values, which are a fundamental part of the R language. Functions in R therefore give you the opportunity to control how missing values should be handled. 
 
 6. The R community is very strong. Everyone is committed to the prcoess of improving the language of R and therefore also the process of data analysis. Questions and answers about problems with R are offered online and help optimize the working process with R.
-

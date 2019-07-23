@@ -3,19 +3,13 @@ title: "StringR"
 output: html_document
 ---
 
-Strings are not glamorous, high-profile components of R, but they do play a big role in many data cleaning and preparation tasks. The stringr package provide a cohesive set of functions designed to make working with strings as easy as possible. If you’re not familiar with strings, the best place to start is the chapter on strings in R for Data Science.
+The stringr package focuses on and provides you with a set of functions designed to make working with strings as easy as possible. Stringr focusses on the most important and commonly used string manipulation functions.
 
-stringr is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations. stringr focusses on the most important and commonly used string manipulation functions whereas stringi provides a comprehensive set covering almost anything you can imagine. If you find that stringr is missing a function that you need, try looking in stringi. Both packages share similar conventions, so once you’ve mastered stringr, you should find stringi similarly easy to use.
+Let's start with the installation of StringR:
 
-Installation
-# Install the released version from CRAN:
+``{r
 install.packages("stringr")
-
-# Install the cutting edge development version from GitHub:
-# install.packages("devtools")
-devtools::install_github("tidyverse/stringr")
-Cheatsheet
-
+```
 
 Usage
 All functions in stringr start with str_ and take a vector of strings as the first argument.
@@ -78,4 +72,3 @@ str_split(x, pattern) splits up a string into multiple pieces.
 ```{r}
 str_split(c("a,b", "c,d,e"), ",")
 ```
-
