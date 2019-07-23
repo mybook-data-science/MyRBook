@@ -1,10 +1,3 @@
----
-title: "Explaining R"
-output:
-  pdf_document: default
-  html_document: default
----
-
 # Explaining R - What is it?
 
 The first chapter of the book starts with the explanation of what R is and how R can be used.
