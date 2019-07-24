@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Conditions {#conditions}
 
 The general purpose of conditions is to control the flow of our code when executed by R.  

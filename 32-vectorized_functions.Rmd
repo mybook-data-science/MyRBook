@@ -1,3 +1,5 @@
+# (PART) Use R for Data Science {-}
+
 # Simple functions on vectors 
 
 In this section, we illustrate calculations with a single vector.  
