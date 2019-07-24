@@ -1,3 +1,8 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
 # (PART) Use R for Data Science  {-}
 
 # Introduction to Data Science {#introduction}
@@ -62,24 +67,3 @@ This is why we opt to not attempt incursions in the high spheres of inference bu
 - Knowing the context is of utmost importance in any data science project.
 - "No free lunch theorem" (@nfl).
 - "Some of the figures in this notes are taken from "An Introduction to Statistical Learning, with applications in R"  (Springer, 2013) with permission from the authors: G. James, D. Witten,  T. Hastie and R. Tibshirani". 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
