@@ -6,8 +6,6 @@ output:
 ---
 # (PART) R Basics {-}
 
-=======
->>>>>>> 2d3f6bc9e44a4f03330b0c9e43f3e46f775e98a0
 # R as a calculator {#rcalc}
 
 R can also be used as a simple calculator. For instance, 25+12=`r 25+12`.

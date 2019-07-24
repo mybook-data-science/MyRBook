@@ -3,9 +3,7 @@ output:
   pdf_document: default
   html_document: default
 ---
-
-# The first steps {#gettingstarted}
-
+# The first steps
 
 ## Installing the required applications
 
@@ -31,8 +29,6 @@ Also generate a SHH RSA key. Generating an SHH RSA key is required to link RStud
 
 Create an account at GitHub at [https://github.com](https://github.com/join).
 
-
-
 ## Creating a new project
 
 RStudio projects are associated with working directories in R. RStudio projects can be created: 
@@ -47,8 +43,6 @@ _File> New project> Existing Directory_ and chose the suggested book folder. You
 
 Important: Every time you create new content for your book, you must start an Rstudio session _File> Open Project..._  
 All the files of the project are the files of the folder (working directory), and vice versa.
-
-
 
 ## Create a new GitHub repository 
 
@@ -69,13 +63,13 @@ In RStudio go to _Tools> Project Options...> Git/SVN_. Under _Version control sy
 Still in RStudio, go to _Tools> Terminal> New Terminal_. This will open a Terminal where commands can be typed in.
 
 Start by initializing Git on the terminal.
-```{r, eval=FALSE}
+```{r, eval=FALSE
 git init
 ```
 
 Then paste the message shown at the creation of the repo (changing the names, of course):
 
-```{r, eval=FALSE}
+```{r, eval=FALSE
 git remote add origin https://github.com/YOURNAME/YOURREPO.git
 git push -u origin master
 ```
@@ -98,8 +92,6 @@ In the next chapter of the book, R Markdown documents or files are explained. In
 
 Important: Before you push any changes to GitHub, make sure to commit the files you want to add.
 
-
-
 ### Troubleshooting
 
 If this procedure works, great! You're good to go.
@@ -107,7 +99,6 @@ If this procedure works, great! You're good to go.
 Yet: Please be aware that the above described process sometimes hits unexpected problems. These problems are often difficult to understand (especially as a "beginner" of R). If this is the cas, the best sultion is to copy and google the error message. 
 
 The solutions offered on Google will definitely help solve the experienced problem.
-
 
 ## Collaboration on GitHub
 
@@ -141,29 +132,15 @@ After accepting or confirming the participation, navigate to the page of the tea
 A button-menu allows to 'Clone or download the repo'. Click to show the https address of the repo, `https://github.com/ORGANIZATION/repo.git` and copy that link.  
 Open a simple RStudio session (not a project!). Open a new Terminal (_Tools> Terminal> New Terminal_) and type `cd` (change directory) and a path to the folder where you want the repo to be saved. For instance,
 
-```{r, eval=FALSE}
+```{r, eval=FALSE
 cd Desktop/DataScience/OurRProject 
 ```
 
 The terminal is writing into that folder, as indicated by the path before the `$` sign in the command line of the terminal.  
 Recall that you copied the address of the team's repo. Then, in the command line, type the following commands and your copied address:
 
-```{r, eval=FALSE}
+```{r, eval=FALSE
 git clone https://github.com/ORGANIZATION/repo.git 
 ```
 
 The whole repo is now a new folder in your directory. If all went well, you can now pull and push into that repo in GitHub.
-
-
-
-
-
-
-
-
-
-
-
-
-
-

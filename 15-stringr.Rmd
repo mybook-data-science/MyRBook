@@ -1,0 +1,74 @@
+---
+title: "StringR"
+output: html_document
+---
+
+The stringr package focuses on and provides you with a set of functions designed to make working with strings as easy as possible. Stringr focusses on the most important and commonly used string manipulation functions.
+
+Let's start with the installation of StringR:
+
+``{r
+install.packages("stringr")
+```
+
+Usage
+All functions in stringr start with str_ and take a vector of strings as the first argument.
+
+```{r}
+x <- c("stadium", "football", "players", "halftime", "referee", "goalkeeper")
+str_length(x) 
+
+str_c(x, collapse = ", ")
+
+str_sub(x, 1, 3)
+```
+
+There are seven main verbs that work with patterns:
+
+str_detect(x, pattern) tells you if there’s any match to the pattern.
+
+```{r}
+str_detect(x, "[a]")
+```
+
+str_count(x, pattern) counts the number of patterns.
+
+```{r}
+str_count(x, "[a]")
+```
+
+str_subset(x, pattern) extracts the matching components.
+
+```{r}
+str_subset(x, "[r]")
+```
+
+str_locate(x, pattern) gives the position of the match.
+
+```{r}
+str_locate(x, "[a]")
+```
+
+str_extract(x, pattern) extracts the text of the match.
+
+```{r}
+str_extract(x, "[a]")
+```
+
+str_match(x, pattern) extracts parts of the match defined by parentheses.
+
+# extract the characters on either side of the vowel
+```{r}
+str_match(x, "(.)[ae](.)")
+```
+
+str_replace(x, pattern, replacement) replaces the matches with new text.
+
+```{r}
+str_replace(x, "[aei]", "X")
+```
+
+str_split(x, pattern) splits up a string into multiple pieces.
+```{r}
+str_split(c("a,b", "c,d,e"), ",")
+```

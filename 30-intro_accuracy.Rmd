@@ -1,0 +1,208 @@
+# Introduction to accuracy assessment {#intro_accuracy}
+
+
+## (Root) Mean square error {#rmse}
+
+This chapter provides an introduction to the task of assessing the accuracy of a fit when the response variable is numeric.  
+The most common metric used to assess the quality of a fit is the mean square error (MSE) -- or the root thereof, the **root mean square error** (RMSE). We shall use this latter.   
+This metric is simply compiled by taking the root of the average of the squares of the deviations between the predicted values and the observed values.
+\[\text{RMSE}(\hat{f}, data) = \sqrt{\frac{1}{n}\sum_{i=1}^n \big(y_i -\hat{f}(X_i)\big)^2}\]
+
+Obviously, the lower the MSE, the most accurate the fit.  
+Both \(y_i\) and \(\hat{f}(X_i)\) are vectors. We can write a function to calculate the MSE for any given vector of observed values and predicted values.
+
+```{r}
+# a function for calculating the RMSE from two vectors
+c.rmse <- function(observed, predicted){
+	(observed - predicted)^2 %>%
+    mean %>%
+    sqrt %>%
+    round(3)
+}
+
+# c.rmse <- function(observed, predicted){
+# 	round(sqrt(mean((observed - predicted)^2)),3) 
+# }
+
+```
+
+As a illustration, we can calculate the RMSE error of the different fits of Section \@ref(polyn) to which we had an extra one.
+
+```{r}
+require(ISLR)
+data("Auto")
+
+# estimate the models
+model.pd1 <- lm(mpg ~ horsepower, data = Auto)
+model.pd2 <- lm(mpg ~ horsepower + I(horsepower^2), data = Auto)
+model.pd5 <- lm(mpg ~ poly(horsepower, 5), data = Auto)
+model.pd9 <- lm(mpg ~ poly(horsepower, 9), data = Auto)
+
+
+
+
+models.rmse <- tibble(
+            model = paste0("model.pd",c(1,2,5,9)),
+						RMSE= c(
+						  c.rmse(Auto$mpg,predict(model.pd1)),
+							c.rmse(Auto$mpg,predict(model.pd2)),
+							c.rmse(Auto$mpg,predict(model.pd5)),
+							c.rmse(Auto$mpg,predict(model.pd9))
+							)
+					)
+models.rmse
+```
+
+
+
+## Over-fitting
+
+The example above illustrates an important aspect in the context of predictions: the RMSE error calculated on the data that was used to estimate the model decreases with the complexity of the estimated model, for instance as measure by the number of coefficients in the linear model.   
+
+```{r}
+# a function for calculating the number of estimated coefficients in lm
+n.coef <- function(model){
+	model %>%
+    coefficients %>%
+    length %>%
+    {. - 1}
+}
+
+length(model.pd5$coefficients) -1
+
+n.coef(model.pd5)
+
+models.rmse$n.coef <- c(n.coef(model.pd1),
+                        n.coef(model.pd2),
+                        n.coef(model.pd5),
+                        n.coef(model.pd9))
+```
+Let's now plot this case.
+
+```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "RMSE for various numbers of coefficients in the linear model."}
+models.rmse %>%
+  ggplot(aes(x=n.coef, y= RMSE)) +
+  geom_line(color = "dodgerblue") + 
+  geom_point(color = "dodgerblue") +
+  scale_x_continuous(breaks = c(1,2,5,9) )
+
+# alternatively
+# plot(models.rmse$n.coef, models.rmse$RMSE, type="b", col = "dodgerblue")
+```
+
+What should become apparent there is always a way to improve the accuracy of the fit when calculating the RMSE using the data that was used to estimate the model. This is a very general conclusion illustrated above by adding terms of a polynomial in the linear model.  
+
+
+## Train versus test data
+
+In order to avoid over-fitting, one could assess how the model fits the data by calculating the RMSE on data never seen in the estimation of the model. This data is called **test data**.  
+Test data may or may not appear naturally in a given context. If it is not, a common strategy is to randomly select a part of the data that will not be used to estimate the model but simply to assess its accuracy. This division is referred to as the train-test split of the data.  
+This implies that the RMSE must now be calcultated for two set of predictions.  
+\[\text{RMSE}_\text{train}(\hat{f}, \text{train data}) = \sqrt{\frac{1}{n_{\text{train}}}\sum_{i\in \text{train}} \big(y_i -\hat{f}(X_i)\big)^2}\]
+\[\text{RMSE}_\text{test}(\hat{f}, \text{test data}) = \sqrt{\frac{1}{n_{\text{test}}}\sum_{i \in \text{test}} \big(y_i -\hat{f}(X_i)\big)^2}\]
+
+
+We illustrate this idea with the models estimated in Section \@ref(rmse).  
+To simplify matters, we first define functions that involved in the calculations.
+
+
+```{r}
+# a function to calculate the rmse from a model
+m.rmse <- function(model, data, i.response) {
+	data %>%
+	select(i.response) %>%
+  {.[,1]} %>%
+  c.rmse(predict(model, data))
+}
+
+m.rmse(model.pd2, Auto, 1)
+
+Auto %>%
+  select(1)
+
+```
+
+The first step is to split the data. For our illustration, we will take only one train and one test data sets. We chose here a \(1/2\)--\(1/2\) proportions.  
+
+```{r}
+set.seed(42)
+n <- nrow(Auto)
+
+train.index <- sample(1:n, ceiling((1/2)*n))
+
+train.data <- Auto[train.index,]
+test.data <- Auto[-train.index,]
+```
+
+We can now calculate the RMSE in the train and the test data for each of these models.
+
+```{r}
+model.tpd1 <- lm(mpg ~ horsepower, data = train.data)
+model.tpd2 <- lm(mpg ~ horsepower + I(horsepower^2), data = train.data)
+model.tpd5 <- lm(mpg ~ poly(horsepower, 5), data = train.data)
+model.tpd9 <- lm(mpg ~ poly(horsepower, 9), data = train.data)
+
+models.ttrmse <- tibble(
+  model = paste0("model.tpd",c(1,2,5,9)),
+  train.RMSE= c(
+    c.rmse(train.data$mpg,predict(model.tpd1)),
+    c.rmse(train.data$mpg,predict(model.tpd2)),
+    c.rmse(train.data$mpg,predict(model.tpd5)),
+    c.rmse(train.data$mpg,predict(model.tpd9))
+							)
+					)
+models.ttrmse
+
+
+
+models.ttrmse$n.coef <- c(
+  n.coef(model.tpd1),
+  n.coef(model.tpd2),
+  n.coef(model.tpd5),
+  n.coef(model.tpd9)
+  )
+
+models.ttrmse$test.RMSE <- c(
+  m.rmse(model.tpd1, test.data, 1),
+  m.rmse(model.tpd2, test.data, 1),
+  m.rmse(model.tpd5, test.data, 1),
+  m.rmse(model.tpd9, test.data, 1)
+  )
+
+models.ttrmse
+```
+
+We can again plot this sitatuation.
+
+```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "Train vs test RMSE for various numbers of coefficients in the linear model."}
+
+cols <- c("Train" = "dodgerblue", "Test" = "red")
+models.ttrmse %>%
+  ggplot(aes(x=n.coef)) +
+  geom_line(aes(y= train.RMSE, color = "Train")) + 
+  geom_line(aes(y= test.RMSE, color = "Test")) +
+  scale_x_continuous(breaks = c(1,2,5,9) ) +
+  theme(legend.title = element_blank(), 
+		legend.position = "bottom", 
+		legend.direction = "horizontal") +
+  ylab("RMSE") +
+  xlab("Number of coefficients")
+
+# alternatively
+# plot(models.rmse$n.coef, models.rmse$RMSE, type="b", col = "dodgerblue")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

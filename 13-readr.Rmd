@@ -7,7 +7,10 @@
 
 
 
-As shown in Chapter \@ref(import), base R has many functions to read some types of files.  
+As shown in Chapter \@ref(import), base R has many functions to read some types of files. Readr therefore provides a fast and simple way to read rectangular data, such as csv, fwf etc. 
+
+
+
 `readr` improves on them because it:  
 
 - is much faster,
@@ -19,18 +22,44 @@ As shown in Chapter \@ref(import), base R has many functions to read some types 
 Notice that `readr` uses names of functions that are very close to the base R functions: e.g., `read_csv` instead of `read.csv` in base R.    
 The functions form  a `read_xxx` family where 'xxx' stands for the way the data you want read was recorded:
 
-- `csv` for comma separated values,
-- `tsv` for tab separated values,
-- `delim` for any delimiter between values,
-- other exist as well, for instance for columns separated by a white space.
+read_csv(): comma separated (CSV) files
+read_tsv(): tab separated files
+read_delim(): general delimited files
+read_fwf(): fixed width files
+read_table(): tabular files where columns are separated by white-space.
+read_log(): web log files
 
 In my experience, using the right member of the family yields better results, for instance in parsing the columns.
 
+### `read.csv`
 
+read_csv() reads comma delimited files and is one of the most common forms of data storage. Therefore, if you understand how read.csv() works, the other functions of readr are also fairly easy to understand. 
+
+When you run read_csv() it prints out a column specification that gives the name and type of each column. Example:
+
+```{r}
+read_csv
+```
+
+The first step of the process is then the selection of the path to the file to read (As shown in the following example CSV File:
+
+```{r}
+read_csv("Insurance_sample.csv")
+```
+
+The data might not have column names. You can use col_names = FALSE to tell read_csv() not to treat the first row as headings, and instead label them sequentially from X1 to Xn:
+
+```{r
+read_csv("Insurance_sample.csv", col_names = FALSE)
+```
+
+The insurance example above has column names and it is therefore not necessary to tell read_csv() to treat the first row as headings.
+
+At this point in time, this is all you need to now about reading or treating CSV files. There are many other functions with regards to reading and writing CSV files, yet for the sake of this project, it is not necessary to have that level of detail.
 
 ### `read_delim`  
 
-We'll describe `read_delim` because functions of the family behave are special cases of this function. For instance, `read_csv` is equivalent to `read_delim` with a `,` as a character to separate the columns.  
+We'll also describe `read_delim` because functions of the family behave are special cases of this function. For instance, `read_csv` is equivalent to `read_delim` with a `,` as a character to separate the columns.  
 
 - The `file` argument gives the name of a file, possibly with the path to it, if it is not in the same folder. Again, the path can also be an url.  
 - `delim` provides the character that separates columns in the data.
@@ -38,10 +67,9 @@ We'll describe `read_delim` because functions of the family behave are special c
 
 ```{r}
 # assuming that the AH001.txt is in the folder
-df <- read_delim("AH001.txt", delim = "," , trim_ws=TRUE)
+df <- read_delim ("AH001.txt", delim = "," , trim_ws=TRUE)
 df
 class(df)
-
 ```
 
 Notice an important message, the types of the columns were guessed by the function. For instance, the column "`r names(df)[1]`" was guessed to be of type "`r class(names(df)[1])`". With that respect, the next arguments are particularly useful.    
@@ -97,7 +125,7 @@ Below are some of the specific features.
 - `read_excel` is the function that reads the data in the file and assigns it to an object, as illustrated in the following chunk.
 
 ```{r}
-df <- read_excel("data_china.xlsx")
+df <- readxl::read_excel("data_china.xlsx")
 df 
 ```
 Importantly, notice that the exact extension does not matter as `readxl` recognizes both `.xls` and `.xlsx`.  
@@ -106,7 +134,7 @@ Notice that if the file contains multiple sheets, these can all be accessed.
 - `excel_sheets` is a function that yields the names of the different sheets in a file.  
 
 ```{r}
-excel_sheets("data_china.xlsx")
+readxl::excel_sheets("data_china.xlsx")
 ```
 
 To know the specific sheets allows to call them directly by name. Alternatively, this can also be done by a number.
@@ -123,8 +151,6 @@ A specific range for the data to be read can also be specified. Here are argumen
   - extreme cells of rectangular data: `range="B1:D10"`,
   - with `cell_rows` for the required rows: `range=cell_rows(1:10)`,
   - with `cell_cols` for the required columns: `range=cell_cols("B:E")`.
-
-
 
 
 

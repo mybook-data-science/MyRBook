@@ -1,0 +1,6 @@
+# Introduction
+
+"Data science is the field of study that combines domain expertise, programming skills, and knowledge of math and statistics to extract meaningful insights from data" (DataRobot, 2019).
+It is therefore a discipline that allows you to convert raw data into a valuable source of understanding, insight, and knowledge. 
+
+This book is an introduction to R for the field of data science. It was designed in the course of a project study in data science at Hochschule Fresenius in Cologne and is a guide to the language of R with a linkage to the platform GitHub. It is therefore a guide on how to design a book or project with R and afterwards publish it. The goal of the book “An Introduction to R for the Field of Data Science” is therefore designed to help you learn some of the most important tools in R that will enable you to do data science or data analysis. After reading this book, you will have access to a variety of tools to tackle a wide range of data science challenges, using the fundamental parts of R. In order to understand every part of the book, it might be useful to acquire some basic knowledge about R and data science. Therefore, beginners can start with the cheatsheet, which is available at [RStudioCheatsheet](https://www.rstudio.com/resources/cheatsheets/).

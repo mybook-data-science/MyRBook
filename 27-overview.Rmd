@@ -1,0 +1,365 @@
+# Overview {#overview}
+
+
+This chapter aims at providing an overview of the main issues addressed in a data science project. Ideally, the next chapters would then elaborate on each of them. Because time is limited, however, these notes will cover a selected set of topics.  
+Actually, this constraint makes this overview even more important because it builds the framework where to place the future techniques learned in or outside this course.
+
+## Universal scope
+
+Data science addresses a very large set of issues. This latter has been expanding in the last decades thanks to the availability of computing power, data sets, new software and theoretical developments.  
+Here is a very short list of cases handled by data science (sources: @esl, @isl and @isln).
+
+### Wage vs demographic variables
+
+Determining what demographic variables influence the worker's wage.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Wage as function of various variables."}
+include_graphics("figures/islr/1_1.png")
+```
+
+### Probability of heart attack
+
+Predicting the probability of suffering a heart attack on the with demographic, diet and clinical measurements.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Factors influencing the risk of a heart attack."}
+include_graphics("figures/islr/s_1_11.png")
+```
+
+
+### Spam detection
+
+Devising a spam detection system.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Frequencies for main words in email (to George)."}
+include_graphics("figures/islr/s_1_13.png")
+```
+
+
+### Identifying hand-written numbers
+
+Identifying hand-written numbers of zip codes in letters.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Sample of hand-writen numbers."}
+include_graphics("figures/esl/1_2.png")
+```
+
+### Classify LANDSAT image
+
+Classify the pixels in a LANDSAT image, by usage.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="LANDSAT images and classification."}
+include_graphics("figures/islr/s_1_21.png")
+```
+
+
+
+
+## Statistical learning
+
+The original postulate is that there exist a relationship between a _response_ \(Y\) variable and, **jointly** a set \(X\) of variables ( _independent variables_, _predictors_, _explanatory variables_).
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Relationships between individual variables."}
+include_graphics("figures/islr/2_1.png")
+```
+
+
+```{r, out.width = "100%", message = FALSE, warning = FALSE, include=is_latex_output()}
+advertising <- read_csv("data/islr/Advertising.csv") %>%
+	select(-X1) 
+advertising
+
+p1 <- advertising %>% ggplot(
+	mapping= aes(x=TV, y= sales)
+	) +
+	geom_point() +
+	geom_smooth(method='lm', se = FALSE)
+
+p2 <- advertising %>% ggplot(
+	mapping= aes(x=radio, y= sales)
+	) +
+	geom_point() +
+  geom_smooth(method='lm', se = FALSE)
+
+p3 <- advertising %>% ggplot(
+	mapping= aes(x=newspaper, y= sales)
+	) +
+	geom_point() +
+  geom_smooth(method='lm', se = FALSE)
+
+grid.arrange(p1, p2, p3, ncol=3)
+
+# require(GGally)
+# ggpairs(advertising)
+```
+
+
+Then, the general form of the relationship between these variables is as follows.
+\[Y=f(X) + \varepsilon \]
+where \(\varepsilon\) captures various sources of error.  
+We will denote by \(n\) the number of observations, i.e., the number of tuples containing a value of response and a value for each predictor. Also, \(p\) is the number of predictors.   
+It is useful to see the different objects of the equation above.
+\[\left( \begin{array}{l} y_1 \\ y_2 \\ \vdots \\ y_n \end{array}\right) =f\left( \begin{array}{llll} x_{11} & x_{12} & \dots & x_{1p} \\
+x_{21} & x_{22} & \dots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} & \dots & x_{np} \end{array}\right) 
++
+\left( \begin{array}{l} \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \end{array}\right)
+\] 
+
+
+The **goal of statistical learning is to estimate** (learn, determine, guess,...)  \(f()\).  
+Figure \@ref(fig:plot-simf12-book) illustrates the data learning process by plotting \(Y\) for the values of \(X\), a unique vector (left) along with the errors measured as the difference between the observations and the true function (right). Notice that the true function is known in this case because the data is simulated.  
+The different techniques explored here are designed to come as close as possible to the true, blue line.  
+
+
+
+```{r plot-simf12-book, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Instance of simulated Income data along with true $f()$ and errors."}
+include_graphics("figures/islr/2_2.png")
+```
+
+Figure \@ref(fig:plot-simf13-book) illustrates the same idea as Figure \@ref(fig:plot-simf12-book), but with a true function over two variables.
+
+```{r plot-simf13-book, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Instance of simulated Income data along with true $f()$ and errors (two predictors)."}
+include_graphics("figures/islr/2_3.png")
+```
+
+
+```{r plot-simf12, out.width = "100%", message = FALSE, warning = FALSE, include=is_latex_output()}
+set.seed(2)
+income <- read_csv("data/islr/Income1.csv") %>%
+	select(-X1, -Income) %>%
+  mutate(Income = 20 + 600* dnorm(Education, 22, 4) + rnorm(length(Education),0,4),
+         tIncome = 20 + 600* dnorm(Education, 22, 4))
+
+
+
+p1 <- income %>%
+  ggplot(mapping = aes(x=Education, y=Income)) +
+  geom_point() 
+
+p2 <- income %>%
+  ggplot(mapping = aes(x=Education, y=Income)) +
+  geom_point() +
+  stat_function(fun = function(Education) 20 + 600*dnorm(Education, 22, 4)) +
+  geom_segment(aes(x = Education, y = Income, xend = Education, yend = tIncome, colour = "red"),
+  	data = income) +
+  theme(legend.position = "none")
+
+grid.arrange(p1, p2, ncol=2)
+```
+
+```{r message = FALSE, warning = FALSE, include=is_latex_output()}
+income %>%
+  mutate(error = Income - tIncome) 
+
+
+```
+
+
+
+
+## Use of statistical learning
+
+There are two main reasons one would want to estimate \(f()\).  
+
+### Prediction
+
+In many occasions, the independent variables are known but the response is not. Therefore, \(f()\) can be used to _predict_ these values. These predictions are noted by
+\[\hat{Y}=\hat{f}(X)\]
+where \(\hat{f}\) is the estimated function for \(f()\).
+
+### Inference
+
+The estimated \(\hat{f}()\) is also used to answer questions about the relationship between the independent variables and the response variables, such as:
+
+  - which predictors contributes the response,
+  - how much each predictor contributes to the response,
+  - what is the form of the relationship.
+
+This use of statistical learning is not the main interest of these notes (see Section \@ref(aiwhy)).     
+
+
+
+## Ideal $f()$ vs $\hat{f}()$
+
+For a solution to be ideal of optimal, one has to first specify a criterion.  
+If one wants to predict \(Y\) given \(X\), i.e., to get \(\hat{Y}=\hat{f}(X)\),  a common criterion used in statistical learning is the mean-squared error defined thanks to the squared error
+\[\text{squared error }= (Y - \hat{Y})^2\] 
+It can be shown that, using that criterion, the optimal $f()$ that minimizes the expected value of the squared error, 
+\[\min\ E[(Y - \hat{Y})^2\vert X=x]\] is given by
+\[f(x) = E[Y\vert X=x]\]
+This function \(f(x)\) is the called the _regression function_.  
+Of course, the regression function is not known and must be estimated. In other words, we can have \(\hat{f}(x)\) instead of \(f(x)\).  
+A very important feature must then be emphasized.
+\[E[(Y - \hat{Y})^2\vert X=x]=E[\big(f(X) + \varepsilon - \hat{f}(X) \big)^2\vert X=x]\]
+Carrying the conditioning on \(X\), we can write
+ \[E[(Y - \hat{Y})^2]= \underbrace{\big(f(x) -\hat{f}(x)\big)^2}_{\text{Reducible}} + \underbrace{Var(\varepsilon)}_{\text{Irreducible}}\]
+
+
+## Estimating $f()$
+
+Theoretically, it is easy to estimate \(f()\). Since \(f(x) = E[Y\vert X=x]\), we could just take the average of \(Y\) of each value of \(X\), i.e.,
+\[\hat{f}(x)=\text{Ave}(Y\vert X =x)\]
+
+Figure \@ref(fig:plot-eyx01) illustrates that calculation for \(p=1\), where \(X=4\).  
+
+```{r plot-eyx01, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Averaging $Y$ for the value $X=4$."}
+include_graphics("figures/islr/s_2_6.png")
+```
+
+The practical difficulty with this approach is clear: there may have no \(Y\) for some values of \(X\).  
+This hurdle is overtaken by allowing _local averaging_, i.e.,
+
+\[\hat{f}(x)=\text{Ave}(Y\vert X \in N(x) )\]
+where \(N(x)\) is a _neighborhood_ of \(x\).  
+
+However, even this relaxing in the estimation of the regression function hits a major problem, called the _curse of dimensionality_.  
+This happens when the dimension, \(p\),  gets large, i.e., when there are many predictors.  
+There are two equivalent ways of describing the problem.  
+
+  - in high-dimensions, data get sparse, meaning that there are not many data points in some neighborhoods, making the averaging unreliable,
+  - if one insists in having enough data points for the averaging, say \(5\%\) in each neighborhood, then one has to increase the size of the neighborhood up to a level that defeats the idea of neighborhood.
+
+ Feasible approaches to estimation, therefore, require some imposed structure.  
+ **Parametric methods** imposed the functional form and estimate the parameters for such function. The simplest and most common of these is the linear model of the form:
+ \[f(X)=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p\]    
+
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Linear fit."}
+include_graphics("figures/islr/2_4.png")
+```
+
+**Non-parametric methods** do not impose any functional form. But they have tuning parameters, for instance, the level of smoothness.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Smooth non-parametric fit."}
+include_graphics("figures/islr/2_5.png")
+```
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Rough non-parametric fit."}
+include_graphics("figures/islr/2_6.png")
+```
+
+## Trade-offs
+
+The estimation techniques, as hinted in the discussion above, present the researcher with various trade-offs: 
+
+* Accuracy _versus_ interpretability,
+* Good _versus_ over or under-fit,
+* Parsimony _versus_ all-in. 
+
+Depending on the researchers choice in these axes, there are more or less appropriate techniques.
+
+## Types of cases statistical problems
+
+From the examples above, and others, we can distinguish types of statistical learning problems:
+
+  - **Regression** versus **classification** problems.
+  - **Supervised** versus **unsupervised** learning.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Unsupervised learning."}
+include_graphics("figures/islr/2_8.png")
+```
+
+
+## Assessing model accuracy
+
+The most common measure for quality of a fit is the **mean squared error**, _MSE_ (or the square root of that number), given by
+
+\[MSE=\frac{1}{n}\sum_i^n \big(y_i-\hat{f}(x_i)\big)^2\]
+
+At this stage, we must introduce a fundamental feature of the statistical learning philosophy.  
+Any chosen method/technique is given data to learn, the **train data**. However, the crucial attribute of the method should be measure on data not previously seen, the **test data**.  
+In other words, the important measure is the _test MSE_. We compute it as
+\[\text{Ave}\big(y_0-\hat{f}(x_0)\big)^2 \]
+where \((y_0, x_0)\) are the test observations.  
+
+The next examples should nourish our intuition about a fundamental trade-off explained below. 
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="B-V case 1."}
+include_graphics("figures/islr/2_9.png")
+```
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="B-V case 2."}
+include_graphics("figures/islr/2_10.png")
+```
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="B-V case 3."}
+include_graphics("figures/islr/2_11.png")
+```
+
+
+## Bias-Variance trade-off
+
+The U-shape of the test MSE curves is an important result in statistical learning. It derives from the following property.
+If the true model is \(Y = f(X) + \varepsilon\) (with \(f(x) = E[Y\vert X = x]\) ), then we can show
+\[E[\big( y_0-\hat{f}(x_0)\big)^2]= Var\big(\hat{f}(x_0)\big) + \big(Bias(\hat{f}(x_0))\big)^2 + Var(\varepsilon)\]
+
+\(Var\big(\hat{f}(x_0)\big)\) is the how much \(\hat{f}()\) would change if estimated with a different training data.  
+\(Bias(\hat{f}(x_0))\) is the discrepancy between the estimated function and the true function.   
+The trade-off exist because more flexible methods do tend to reduce bias but they increase the volatility of \(\hat{f}()\).
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Bias-Variance trade-off."}
+include_graphics("figures/islr/2_12.png")
+```
+
+## Classification setting
+
+In classification problems, one cannot calculate the MSE. Instead, the common measure to assess accuracy if the **error rate**, the proportion or miss-classified observations, defined in the training set as
+\[\frac{1}{n}\sum_i^n I\big(y_i\neq\hat{y}_i\big)\]
+Similarly, in the test data, we can calculate
+\[\text{Ave}\big(I(y_i\neq\hat{y}_i)\big)\] 
+
+
+### Bayes classifier
+
+It can be shown that the error rate in the test data is minimized by a classifier that assigns the observation to the class  for which it has the highest probability of belonging.  
+This classifier is called _Bayes classifier_ and is based on the conditional probabilities for each \(j\) 
+\[Pr(Y=j \vert X=x_0)\]
+The problem is that, unless the data is simulated (as below), these probabilities are not known.
+Figure \@ref(fig:plot-bayesc01) illustrates a simulated case and draws the contours given by the Bayes classifier. 
+
+
+```{r plot-bayesc01, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Bayes classifier."}
+include_graphics("figures/islr/2_13.png")
+```
+
+### K-nearest neighbors 
+
+As a feasible solution, one could try to estimate the conditional probabilities. Some techniques attempt precisely that.  
+Here, we quickly introduce a very simple non-parametric method, _K-nearest neighbors_. As it names indicates, the probability of a class is estimaded by an averaging of the \(K\) closest observations. Formely
+
+\[Pr(Y=j \vert X=x_0)= \frac{1}{K}\sum_{i \in N(x_0)}I(y_i=j) \]
+
+The following Figures illustrate the method and give an application to the case above along with a comparison with the Bayes classifier.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="K-nearest neighbors approach."}
+include_graphics("figures/islr/2_14.png")
+```
+
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="K-nearest neighbors classification for K=10."}
+include_graphics("figures/islr/2_15.png")
+```
+
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="K-nearest neighbors classification for K=1 and K=100."}
+include_graphics("figures/islr/2_16.png")
+```
+
+Notice that this non-parametric method requires the tuning parameter \(K\). It value give flexibility to the estimation and is subject to the usual bias-variance trade-off.
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Bias-Variance trade-off."}
+include_graphics("figures/islr/2_17.png")
+```
+
+
+
+
+
+
+
+
+
+
+
+

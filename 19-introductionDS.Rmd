@@ -1,0 +1,85 @@
+# (PART) Use R for Data Science  {-}
+
+# Introduction to Data Science {#introduction}
+
+
+
+
+## Ubiquity of predictions and role of  data science
+
+Predictions are an essential part of the human experience as they permeate our day-by-day lives:
+
+> What will come out of that shaking bush?  
+>  
+> --- Anonymous hunter's last thought. 
+
+A few simple examples of actual predictions can emphasize the point:
+
+- will a given drug cure a disease?
+- how long will a trip last?
+- how many units will the firm sell?  
+
+But predictions are more ubiquitous than these direct questions indicate. Indeed, predictions are at the heart of judgment and decision making. Consider the following illustrations: 
+
+- "should parole be granted?": the answer to that question depends on the committee _prediction_ about the future behavior of a inmate. 
+- "is this email a spam?": when services such as Gmail classify email as spam, they make a _prediction_ about the classification that the user would make, had he/she read the email.
+- "what candidate ought to be hired?": the hiring process is based on the _prediction_ about each candidate's future performance.
+
+
+The perspective adopted in these notes is that "data science" is a set of tools using data in order to make more accurate predictions.^[There are many terms forming the seemingly nebulous concept of data science: "data mining", "machine learning", "deep learning", "prediction modeling", "data analytics", among others. Beyond their distinctive specificities, however, these fields are here unified under their core task of making predictions about any relevant, measurable issue.]    
+
+
+
+## Heuristics, algorithms and AI
+
+Seeing predictions as part of the judgment and decision process puts forward the documented human fallibility in that matter.  
+Here, the background reference is the compelling  literature on heuristics and bias to which Kahneman and Tversky are two preeminent contributors (see, for instance, @kahneman2011).  
+In short, humans' mental apparatus is prone to systematic and predictable erroneous judgments and decisions because of its reliance on (time-, energy-) efficient but ultimately potentially misleading mental rules (**heuristics**) and biased reasoning.         
+In that perspective, data science is a tool for _slow thinking_ type of judgment. Because it follows rules (**algorithms**) that are separated from, though not independent of a human judgment, data science is potentially immune to these biases.^[This is not to say, of course, that the data science process does not produce errors or that it is free of prejudice (see below).]   
+We encounter here a common theme: the struggle between humans and machines over intelligence status. As the top contender of the non-human side, **AI** is often depicted as a almighty force. It might be. Our understanding, makes a less grandiose vision of AI. This latter is _simply_ the highest point in the scale starting at heuristics and going over algorithms. In other words, the true power of AI is its ability to make the best predictions (see @pmai for a full argument along these lines).    
+
+
+## AI, not why: predicting vs understanding  {#aiwhy}
+
+By nature, humans crave understanding by drawing causal relationships between the phenomena that they observe. A discussion of this psychological drive goes beyond the scope of these notes. It is mentioned here, however, in order to emphasize a crucial tension arising in the practice of data science, namely the usual trade-off in predictions between their accuracy and their interpretability (i.e., their understanding).  
+The techniques used to treat the data do not always allow for an interpretation of this treatment. Using a common yet appropriate image, the prediction process resembles a black-box.   
+As such, the main deliverable of a prediction process is a statement based on complex and sophisticated correlations, almost never on causation.  
+The balance between the advantages and disadvantages of the approach are context-specific. In some situations, understanding why a consequence followed (i.e., causation) is not necessary, not possible and sometimes not even desirable.^[Add examples.] In other cases, the cause of the effect is required. For instance, applicants would like to know why their loan was refused by the bank ('s algorithm).^[Also, some web services such as Amazon or Netflix post an approximate reason for their suggestions.]   
+In the former cases, data science will be associated with the great benefits of accuracy, and, in the latter, it will  cause frustration to the inquiring mind.   
+Back to AI as the best data scientist as it is able to make the most accurate predictions. It follows from the above remarks that AI, and all the more so for its less intelligent avatars, will always be bounded by the barrier of 'why', i.e., they will generally not be able to make statements about causation (see @pearlwhy for a thorough discussion).   
+Inference is the setting in data science that addresses the causality relationships.^[Add example to emphasize the difficulty.] This is a much more difficult setting as it faces two huge hurdles:
+
+- it requires a previous  theoretical modeling  of a relationship,
+- the functional specification of the relationship must be correctly estimated.
+
+A problem with that approach is that practitioners often aim at collecting its sweet fruits of causal statements without paying the harsh price of the modeling and the specification. As a consequence, the fruits of these empirical investigations, despite their glowing appearance, are actually not edible and sometimes even poisonous.  
+This is why we opt to not attempt incursions in the high spheres of inference but remain on the ground of predictions. 
+
+
+## Plus
+
+- Black-box algorithms can inherit prejudice and other discriminating rules (see @wmd).
+- Knowing the context is of utmost importance in any data science project.
+- "No free lunch theorem" (@nfl).
+- "Some of the figures in this notes are taken from "An Introduction to Statistical Learning, with applications in R"  (Springer, 2013) with permission from the authors: G. James, D. Witten,  T. Hastie and R. Tibshirani". 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
