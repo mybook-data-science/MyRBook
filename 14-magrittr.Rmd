@@ -1,59 +1,66 @@
 # `magrittr` {#magrittr}
 
 
-The package `magrittr` introduces an operator, the pipe `%>%`, that allows a fully new way of coding in R. 
-In a few words, that are not as clear as the examples below, the functions calls are now decomposed into steps and these steps are "_piped_" thanks to the operator `%>%`.    
-The advantages of this way include:  
+The `magrittr` package offers an operator, the pipe `%>%`, which ultimately will improve coding in R by:
 
-- the functions are read in steps from the left to right, as opposed to from the outside to the inside,  
-- extra steps can easily be added at any point in the sequence,
-- nested calls are avoided.
+- Structuring sequences of data operations from left-to-right
+- Minimizing the need for local variables and function definitions
+- Avoiding nested function calls
+- Simplifying the process of adding steps anywhere in the sequence of operations
+
+In a few words, that are not as clear as the examples below, the functions calls are now decomposed into steps and these steps are "_piped_" thanks to the operator `%>%`.    
+
+To install the CRAN version:
+
+```{r
+install.packages("magrittr")
+```
 
 ## How to pipe
 
 A basic pipeline is constructed under the following general idea: the call to the left of the pipe is used as an argument (by default the first argument) in the call to the right of the pipe.  
 Using the mathematical notation for functions, the following statements give a pretty accurate idea of the procedure.  
 
+Basic piping:
+x %>% f is equivalent to f(x)
+x %>% f(y) is equivalent to f(x, y)
+x %>% f %>% g %>% h is equivalent to h(g(f(x)))
 
-- `x %>% f` is equivalent to `f(x)`
-
-This is the most basic rule for piping.
+Example for `x %>% f` (This is the most basic rule for piping):
 
 ```{r}
-my_data <- c(2:10, 20, 42)
-mean(my_data)
-
-my_data %>%
+BasicPipe <- c(1:5, 10, 12)
+mean(BasicPipe)
+BasicPipe %>%
 	mean()
 ```
 
 Notice that it is usual to break lines after the pipe `%>%` as it facilitates reading and addition of new steps. Also, the `()` pasted to `mean` is not necessary, but, again, it makes it clear that we pipe a vector into a function.  
-Generally, the construction of the code must be re-thought as the calls above are read in reverse ways: `mean(my_data)` reads use the function `mean` on the vector `my_data`, while `my_data %>% mean()` reads take the vector `my_data` and apply the function `mean` to it.
+Generally, the construction of the code must be re-thought as the calls above are read in reverse ways: `mean(BasicPipe)` reads use the function `mean` on the vector `BasicPipe`, while `BasicPipe %>% mean()` reads take the vector `BasicPipe` and apply the function `mean` to it.
 
 
-- `x %>% f(y)` is equivalent to `f(x, y)`
 
-This rule shows how the left-to-pipe element is used as first argument in the right-to-pipe call. Recall this property as the _first argument rule_.
+Example for `x %>% f(y)`  (This rule shows how the left-to-pipe element is used as first argument in the right-to-pipe call):
+
+Recall this property as the _first argument rule_.
 
 ```{r}
-library(magrittr)
-my_data <- c(2:10, 20, 42)
-mean(my_data, trim=0.1)
+BasicPipe <- c(1:5, 10, 12)
+mean(BasicPipe, trim=0.1)
 
-my_data %>%
+BasicPipe %>%
 	mean(trim=0.1)
 ```
 
 
-- `x %>% f %>% g %>% h` is equivalent to `h(g(f(x)))`
 
-This rule shows that the pipeline can include many steps.
+Example for `x %>% f %>% g %>% h` (This rule shows that the pipeline can include many steps):
 
 ```{r}
-my_data <- c(2:10, 20, 42)
-round(sqrt(mean(my_data)),2)
+BasicPipe <- c(1:5, 10, 12)
+round(sqrt(mean(BasicPipe)),2)
 
-my_data %>%
+BasicPipe %>%
 	mean() %>%
 	sqrt() %>%
 	round(2)
@@ -95,7 +102,7 @@ The placeholder can be used multiple times. Notice, however, that if the placeho
 
 
 ```{r}
-library(tidyverse)
+require(tidyverse)
 data(iris)
 
 
