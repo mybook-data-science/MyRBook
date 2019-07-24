@@ -4,6 +4,13 @@
 There are essentially two parts in this package, both dealing with manipulating data set.  
 The first gives tools to work on a given data frame, the second to combine data frames. We describe both in turn.  
 
+To install the CRAN version:
+
+```{r
+install.packages("dplyr")
+```
+
+
 ## Grammar of data manipulation  
 
 `dplyr` introduces a easier and faster way to manipulate datasets and extract information from them.   
@@ -69,11 +76,11 @@ Here is an example of a selection of variables.
 
 ```{r}
 starwars %>%
-  select(name, species)
+  select(name, homeworld)
 
 # compare with base R
 
-starwars[,c("name", "species")]
+starwars[,c("name", "homeworld")]
 ```
 
 There are any ways of selecting variables
@@ -109,7 +116,7 @@ starwars %>%
     )
 
 starwars %>%
-  select(name, gender, films)
+  select(name, hair_color, films)
 ```
 
 ## `mutate`
@@ -169,17 +176,17 @@ Here are examples for this function.
 
 ```{r}
 starwars %>%
-  filter(species != "Human")
+  filter(species != "Droid")
 
 starwars %>%
   filter(
-    species != "Human" &
-    eye_color == "red"
+    species != "Droid" &
+    eye_color == "blu"
     )
 
 # in base R
 
-starwars[starwars$species!="Human" & starwars$eye_color=="red" , ]
+starwars[starwars$species!="Droid" & starwars$eye_color=="blue" , ]
 ```
 
 

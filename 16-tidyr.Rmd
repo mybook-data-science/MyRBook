@@ -12,6 +12,12 @@ The general principle for creating tidy data is expressed in these three rules:
 The tidying of a data set is mainly obtained with two functions/verbs: `gather` and `spread`.  
 Further tidying is obtained with the functions/verbs `separate` and `unite`.
 
+To install the CRAN version:
+
+```{r
+install.packages("tidyr")
+```
+
 ## `gather`
 
 `gather` takes multiple columns, and gathers them into key-value pairs. From a wide data set, we obtain a (vertically) longer data set.  
@@ -20,13 +26,13 @@ Let's illustrate this verb with an example.
 Consider the following data set that gives the gains of each person in a lottery between Monday and Thursday.
 
 ```{r}
-lottery <- tibble(person= c("Andre","Beth","Charles"),
-                  mon= c(2, 5, 1),
-                  tue= c(3, 7, 4),
-                  wed= c(10,3,4),
-                  thu= c(1,2,7)
+flights <- tibble(person= c("Philipp","Corinna","Laurin"),
+                  jan= c(2, 5, 1),
+                  feb= c(3, 7, 4),
+                  mar= c(1, 3, 4),
+                  apr= c(1, 2, 5)
                   )
-lottery
+flights
 ```
 
 This data set has 5 columns. Clearly, this does not correspond to 5 variables. Instead, a tidy data set should only include 3 columns for the variables 'name', 'day' and 'gains'. Each row would then be an observation with one value for each of these variables: e.g., Beth won 7 on Tuesday.  
@@ -46,34 +52,34 @@ gather(df, key, value, messy_col1, ..., messy_coln)
 In the example above, we would obtain the tidy data set in the following way.
 ```{r}
 
-tidy_lottery <- gather(lottery,
-                        key= "day",
-                        value= "gains",
-                        mon:thu
+tidy_flights <- gather(flights,
+                        key= "months",
+                        value= "flights",
+                        jan:apr
                         ) 
-tidy_lottery
+tidy_flights
 ```
 Notice how `tidyr` understands the name of the columns when separated by `:`. It simply uses all the columns in the positions from (including) the first column given to the last (including) column given.   
 Alternatively, one can obtain the same result by excluding variables to be gathered using the minus symbol `-`.
 
 ```r
-tidy_lottery <- gather(lottery, key="day", value="gains", -person)
+tidy_lottery <- gather(flights, key="months", value="flights", -person)
 ```
 
 
 ```{r}
-bisou <- tribble(
-  ~name, ~`2016`, ~`2017`, ~`2018`,
-  "gau", 23, 45, 12,
-  "tri", 8, 14, 30,
-  "han", 12, 43, 8
+wine <- tribble(
+  ~name, ~`2018`, ~`2011`, ~`2020`,
+  "mie", 10, 20, 30,
+  "eba", 1, 2, 3,
+  "str", 14, 24, 5
 )
 
-bisou
+wine
 
-tidy_bisou <- gather(bisou, key=year, value=kisses, `2016`, `2017`, `2018`)
+tidy_wine <- gather(wine, key=year, value=glassesofwine, `2018`, `2011`, `2020`)
   
-tidy_bisou
+tidy_wine
 ```
 
 
@@ -84,24 +90,24 @@ Let's illustrate this verb with an example.
 
 
 ```{r}
-people <- tibble(name= rep(c("Andre","Beth","Charles"),2),
-                  info= rep(c("eyes","age"),3),
-                  measure= c("blue", 23, "brown", 31, "brown", 19)
+students <- tibble(student= rep(c("Moritz","Philipp","Niklas"),2),
+                  info= rep(c("hair","age"),3),
+                  measure= c("red", 23, "brown", 23, "blond", 23)
                   )
-people
+students
 
-people3 <- rbind(people, c("David", "height", 175))
-people3
+students3 <- rbind(students, c("Freddy", "height", 185))
+students3
 
-people2 <- tibble(
-name= c(rep(c("Andre","Beth","Charles"),2),   "David"),
-info= c(rep(c("eyes","age"),3),    "height"),
-measure= c("blue", 23, "brown", 31, "brown", 19,   175)
+students2 <- tibble(
+student= c(rep(c("Moritz","Philipp","Niklas"),2),   "Freddy"),
+info= c(rep(c("hair","age"),3),    "height"),
+measure= c("red", 23, "brown", 23, "blond", 23,   185)
                   )
-people2
+students2
 
-tidy_people2 <- spread(people2, key=info, value=measure)
-tidy_people2
+tidy_students2 <- spread(students2, key=info, value=measure)
+tidy_students2
 ```
 
 Clearly, here, each single observation (of one person) has information over different rows. These must be `spread` into appropriate variables.  
@@ -109,8 +115,8 @@ Recall that the `key` refers to the tidy variable _vs_ messy columns.
 Also, recall that `value` refers to the tidy variable _vs_ messy cells.
 
 ```{r}
-tidy_people <- spread(people, key=info, value=measure)
-tidy_people
+tidy_students <- spread(students, key=info, value=measure)
+tidy_students
 
 
 ```
@@ -129,38 +135,38 @@ separate(df, messy_var, into=c(tidy_var1, tidy_var2))
 We now illustrate the use of this verb.
 
 ```{r}
-clients <- tibble(info=c("Andre, Boston","Beth, Tokyo","Charles, Porto"))
-clients
+tennisplayers <- tibble(info=c("Federer, Swiss","Kohlschreiber, German","Kyrgios, Australian"))
+tennisplayers
 
-tidy_clients <- separate(clients,
+tidy_tennisplayers <- separate(tennisplayers,
                           info,
-                          into= c("name", "city")
+                          into= c("name", "nationality")
                           )
-tidy_clients
+tidy_tennisplayers
 ```
 
 By default, the separation is made on a character that is neither a number nor a letter. But we can also define the separation character.
 ```{r}
-separate(clients,
+separate(tennisplayers,
           info,
-          into= c("name", "city"),
-          sep= "t"
+          into= c("name", "nationality"),
+          sep= "r"
           )
 ```
 
 Furthermore, we can also `separate` based on the number of characters in the values of the variable. Positive integers are used to start from the left while negative integers start from the right.
 
 ```{r}
-separate(clients,
+separate(tennisplayers,
           info,
-          into=c("name", "city"),
-          sep=4
+          into=c("name", "nationality"),
+          sep=5
           )
 
-separate(clients,
+separate(tennisplayers,
           info,
-          into= c("name", "city"),
-          sep= -3
+          into= c("name", "nationality"),
+          sep= -4
           )
 ```
 
@@ -178,7 +184,7 @@ By default, these character values are united with a `_` in between, but the sep
 
 
 ```{r}
-mail <- unite(tidy_clients, mail, name, city, sep="@")
+mail <- unite(tidy_tennisplayers, mail, name, nationality, sep="#")
 mail
 ```
 

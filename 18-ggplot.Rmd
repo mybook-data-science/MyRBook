@@ -8,6 +8,11 @@ It is made to, either
     - explain (inform, convince)
 Depends who you communicate to (can be you).
 
+To install the CRAN version:
+
+```{r
+install.packages("ggplot2")
+```
 
 ## Comparison with base `plot`
 
