@@ -31,6 +31,12 @@ read_log(): web log files
 
 In my experience, using the right member of the family yields better results, for instance in parsing the columns.
 
+To install the CRAN version:
+
+```{r
+install.packages("readr")
+```
+
 ### `read.csv`
 
 read_csv() reads comma delimited files and is one of the most common forms of data storage. Therefore, if you understand how read.csv() works, the other functions of readr are also fairly easy to understand. 

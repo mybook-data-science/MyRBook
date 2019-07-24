@@ -12,6 +12,11 @@ The reasons to choose tibbles include:
 - more useful warnings of errors,
 - simpler and more limited functionalities.
 
+To install the CRAN version:
+
+```{r
+install.packages("tibble")
+```
 
 ## Creating a tibble
 
@@ -52,18 +57,22 @@ A tibble can also be created manually. Notice the following two points:
 - vectors that depend on others can be directly created.
   
 ```{r}
-my_tbl <- tibble(
-  x1 = 1:10, 
-  x2 = 5, 
-  x3 = x1^2 * x2
+example_tibble <- tibble(
+  value1 = 1:10, 
+  value2 = 5, 
+  value3 = value1^2 * value2
 )
-my_tbl
+example_tibble 
 ```
 
 Another example for manually creating a tibble:
 
 ```{r}
-tibble(x = 1:10, y = x ^ 3)
+tibble(
+  x = 1:10, 
+  y = x ^ 3, 
+  xy = x+y
+)
 ```
 
 
@@ -76,11 +85,11 @@ A tribble is a tibble created in a transposed way. To be noticed:
 - all values are separated by commas.
 
 ```{r}
-my_tr <- tribble(
-	~x1, ~x2, ~x3,
-	"A", 2, 7,
-	"B", 5, 12,
-	"C", 4, 8 
+example_tribble <- tribble(
+	~Data1, ~Data2, ~Data3,
+	"X", 2, 7,
+	"Y", 5, 12,
+	"Z", 4, 8 
 	)
-my_tr
+example_tribble
 ```

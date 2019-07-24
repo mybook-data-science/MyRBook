@@ -4,10 +4,8 @@ bookdown::gitbook:
     toc:
       collapse: section
       scroll_highlight: yes
-      before: |
-        <li><a href="./">Learning R for Data Science</a></li>
-    download: ["pdf", "epub"]
-  highlight: "tango"
+    download: ["pdf"]
+  highlight: "kate"
   toc_depth: 2
 bookdown::pdf_book:
   includes:
@@ -15,9 +13,8 @@ bookdown::pdf_book:
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
-  highlight: "tango"
+  highlight: "kate"
 bookdown::epub_book: default
 bookdown::tufte_html_book:
   toc: yes
   css: toc.css
-
