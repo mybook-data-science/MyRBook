@@ -1,6 +1,11 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Simple plots {#splots}
 
-This short chapter has also only an information purpose. The package `ggplot2` described in Chapter \@ref(ggplot2) allows to make much richer and elegant plots.  
+The following chapter is an introduction for producing simple graphs with the R Programming Language. The package `ggplot2` described in Chapter \@ref(ggplot2) allows to make much richer and elegant plots. For every plot explained, an example will be given. In this chapter, we will only focus on line plots, bar graphs, and histograms (other examples such as boxplots, pie charts or dotcharts are only mentioned and not explained with own examples).
 
 ## Line plots
 
@@ -9,6 +14,7 @@ In order to (scatter) plot one vector against the other, it is compulsory that t
 The following plots illustrate the creation of a line plot in incremental steps. In the steps, the following functions and arguments are introduced:  
 
 - `plot` is the main function for the plot.
+
 
 ```{r, echo=FALSE, include=FALSE, eval=FALSE}
 
@@ -31,6 +37,7 @@ p.types <- data.frame(Symbol = c("p", "l", "b", "c", "o", "s", "h", "n"),
 knitr::kable(p.types, caption = 'Plot types.')
 ```
   
+Example 1:
 
 ```{r simple-plots-1, out.width="25%", fig.align="center", fig.height=7, fig.cap="Creating a simple line plot.", fig.show="hold"}
 sales <- c(20, 18, 24, 36, 30)
@@ -43,7 +50,17 @@ plot(date, sales)
 plot(date, sales, type="l")
 ```
 
+Example 2:
 
+```{r}
+tarsus <- readxl::read_excel("tarsus.xlsx")
+# left
+plot(tarsus$Weight)
+# middle
+plot(tarsus$TarsusLength, tarsus$Weight)
+# right
+plot(tarsus$TarsusLength, tarsus$Weight, type="l")
+```
 
 We now add further customization with new functions and arguments.  
 
@@ -148,6 +165,8 @@ This subsection illustrates the creation of these graphs with a few commented ex
 - `border` applies to the borders of the bars.
 - `beside` forces side-by-side bars instead of stacking bars.
 
+Advanced example of a bar plot with additional functions:
+
 ```{r bar-plots, out.width="25%", fig.align="center", fig.height=7, fig.cap="Simple bar plots.", fig.show="hold"}
 barplot(sales,
         main="Week Sales - Tom",
@@ -167,8 +186,25 @@ barplot(matrix(c(sales, sales2), ncol=5, byrow = TRUE),
         col=c("blue", "red"),
         density = 30, 
         main="Week Sales")
+```
 
+Simple example of a bar plot without additional functions:
 
+```{r}
+max.temp.germany <- c(20, 28, 36, 30, 39)
+
+barplot(max.temp.germany)
+```
+
+```{r}
+# barchart with added parameters
+barplot(max.temp.germany,
+main = "Maximum Temperatures in Germany (July 2019)",
+xlab = "Degree Celsius",
+ylab = "Day",
+names.arg = c("01.07.", "05.07.", "13.07", "18.07.", "20.07."),
+col = "blue",
+horiz = FALSE)
 ```
 
 Turning to histogram, the function and some arguments are the following.
@@ -177,6 +213,7 @@ Turning to histogram, the function and some arguments are the following.
 - `breaks` is the important argument as it controls the width of the bars.
 - `freq` determines whether the frequency (default) of the density should be plotted.
 
+Example histogram:
 
 ```{r hist-plots, out.width="35%", fig.align="center", fig.height=7, fig.cap="Simple histograms.", fig.show="hold"}
 hist(c(sales, sales2))
@@ -192,6 +229,15 @@ hist(c(sales, sales2),
 
 ```
 
+Basic histogram example including colors and labels:
+
+```{r}
+hist(iris$Sepal.Length, 
+     breaks=30, 
+     col="red", 
+     xlab="Sepal Length", 
+     main="Histogram Example with Colors and Labels")
+```
 
 ### Other plots
 
@@ -201,8 +247,3 @@ Other types of plots are called by the following functions.
 - `boxplot` for the box-and-whisker plot.
 - `dotchart` for the Cleveland dot plot.
 - ...
-
-
-
-
-
