@@ -4,6 +4,10 @@
 There are essentially two parts in this package, both dealing with manipulating data set.  
 The first gives tools to work on a given data frame, the second to combine data frames. We describe both in turn.  
 
+dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
+
+
+
 To install the CRAN version:
 
 ```{r
@@ -13,12 +17,11 @@ install.packages("dplyr")
 
 ## Grammar of data manipulation  
 
-`dplyr` introduces a easier and faster way to manipulate datasets and extract information from them.   
+`dplyr` introduces a easier and faster way to manipulate datasets and extract information from them.
 Hence, all the functions introduced here are redundant with other functions in base R. As for the rest of the `tidyverse`, they just happen to do the job in a clearer way (among other advantages).  
 The approach builds on "verbs" (functions) applied successively thanks to the pipe operator `%>%`.
 
-The five main verbs are the following:
-
+`dplyr` is therefore a grammar of data manipulation, providing a set of verbs that help you solve the most common data minioulation challenges:
 
 
 - `select`
@@ -109,10 +112,11 @@ These are arguments to help `select` the variables/columns. Here are a few of th
 Notice the use of the quotes `" "` for the strings because they are not variables names.   
 For instance, here, we select all the variables that have `color` in their name.
 ```{r}
+require(tidyverse)
 starwars %>%
   select(
     name,
-    matches("color")
+    contains("color")
     )
 
 starwars %>%
@@ -379,6 +383,18 @@ capitals <- tribble(
 
 Some joins are called mutate because they create a new data set: left_, right_, inner_ or full_ joins are of this type. Filter joins include semi_ and anti_join and they filter one data set.
 
+inner_join():
+Returning all rows from x where there are matching values in y, and all columns from x and y. Important: In the case of multiple matches between x and y, all combinations of the matches are returned.
+
+left_join():
+Returning all rows from x, and all columns from x and y. Rows in x with no match in y will have NA values in the new columns. Important: In the case of multiple matches between x and y, all combinations of the matches are returned.
+
+right_join():
+Returning all rows from y, and all columns from x and y. Rows in y with no match in x will have NA values in the new columns. Important: In the case of multiple matches between x and y, all combinations of the matches are returned.
+
+full_join():
+Returning all rows and all columns from both x and y. Important: In the case of no matching values, NA is returned for the one missing.
+
 - `left_join` and `right_join`
 
 The usage is, for instance,
@@ -458,16 +474,28 @@ capitals %>%
 
 A few other functions allow to compare data sets. These include  the self-explanatory `union`, `intersect` and `setdiff`
 
+`setdiff`:
+
 ```{r}
-population2 <- add_row(population, country="CH", year=2010, population=8)
+population2 <- add_row(population, country="GER", year=2015, population=10)
 
 setdiff(population, population2)
 setdiff(population2, population)
 ```
 
+`intersect`:
+
+```{r}
+population2 <- add_row(population, country="GER", year=2015, population=10)
+
+intersect(population, population2)
+intersect(population2, population)
+```
+
 Other useful functions are `setequal` and `identical`.
 Use `setequal(df1, df2)` which will be `TRUE` if the datasets have the same data even if the rows are not in the same order, opposed to `identical(df1, df2)`
 
+`identical`:
 
 ```{r}
 capitals <- tribble(
@@ -487,6 +515,28 @@ capitals2 <- tribble(
 )
 
 identical(capitals, capitals2)
+```
+
+`sequetal`
+
+```{r}
+capitals <- tribble(
+  ~country, ~capital, 
+  "RSA", "Pretoria",
+  "FR", "Paris",
+  "UK", "London",
+  "SP", "Madrid"
+)
+
+capitals2 <- tribble(
+  ~country, ~capital, 
+  "RSA", "Pretoria",
+  "UK", "London",
+  "FR", "Paris",
+  "SP", "Madrid"
+)
+
 setequal(capitals,capitals2)
 ```
+
 
