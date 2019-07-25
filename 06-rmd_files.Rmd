@@ -86,9 +86,23 @@ css = CSS file to use to style document
 
 Please keep in mind that not every sub-option is applicable for all output values, which means that the "toc" for example is applicable for most of the outputs, yet not for all of them.
 
+## What is a Chunk?
+
+Generally: Code chunks in an R Markdown document contain your R code. All code chunks start and end with ``` – three backticks or graves. Important note: Graves are not the same as an apostrophe!
+
+A code chunk looks like this:
+
+```{r chunk-name-without-any-spaces}
+# code entered here
+```
+
+1. The first line: ```{r chunk-name-without-any-spaces} contains the language that you are using (r), and the name of the chunk. Note: It is mandatory to specify the language.
+
+2. Next to the {r}, there is a chunk name. The chunk name is not necessarily required however, it is good practice to give your .Rmd file a strucutre by naming each chunk. But: This is completely up to you.
+
 ## Improtant options for all chunks
 
-It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks. A natural place to set these options is in a first R chunk.
+You can also add options to each code chunk. It is very convenient to set options for all the R chunks of the document, due to the fact that this saves time when writing these chunks. A natural place to set these options is in a first R chunk.
 
 
 ```{r, eval=FALSE}

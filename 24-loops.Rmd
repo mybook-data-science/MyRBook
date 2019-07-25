@@ -1,8 +1,26 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Loops (avoid them) {#loops}
 
 
 
-## Introduction to loops with a silly example (bad R coding)
+## Introduction to loops with two examples
+
+Whenever you learn about R (e.g in a book or tutorial), the advice given on loops is always:
+
+1. Learn about and try to get a clear understanding of loops, due to the fact that they provide you with an understanding of the data that you’re manipulating.
+
+2. After you have managed to get a clear understanding of loops, get rid of them or try to avoid them whilst using R for data science.
+
+According to the R base manual, among the control flow commands, the loop constructs are:
+- for
+- while
+- repeat
+- break (additional clause)
+- next (additional clause)
 
 Loops allow to iterate a set of functions / lines of code over a predefined list of elements.  
 They are common in many languages but are not highly regarded in R because:
@@ -10,14 +28,16 @@ They are common in many languages but are not highly regarded in R because:
   - they do not represent an efficient way of producing a result,
   - functionals, functions that return a vector such as the `apply` family, are preferred.
     
-This section serves as an introduction to the functionals because it helps understand the structure of the problem.  
+This section serves as a short introduction to the functionals because it helps understand the structure of the problem (Given by two examples):  
 
-Now the silly example. Suppose our gains at a game over the week are, in euros,
+## A silly example of loops (Bad R Coding)
 
+Suppose our gains at a game over the week are, in euros:
 ```{r}
-gains <- c(10, 3,-5,0,-4,12,4)
+gains <- c(5, 2,-10,0,-2,15,1)
 gains
 ```
+
 Now, suppose we want to transform each gain into dollars, i.e., we must multiply each gain by 1.30. An intuitive way would be to take each gain _separately_ and multiply it 1.12. Let's do it by hand:
 
 ```{r}
@@ -34,7 +54,7 @@ gains_d
 
 We recognize that the structure of each line of code: the first line is for the element 1 of the vectors, the second line for the second element of the vectors, etc.  
 Doing a loop builds on that observation. But it asks the program to make the change between each line automatically.  
-In this silly case, we want the program to evaluate a line with the value 1 and then, when it has finished, do the same line but with a 2 instead of a 1. And we want it to do it **for** the elements 1, 2, 3, 4, ..., `r length(gains)`.  
+In the silly example, we want the program to evaluate a line with the value 1 and then, when it has finished, do the same line but with a 2 instead of a 1. And we want it to do it **for** the elements 1, 2, 3, 4, ..., `r length(gains)`.  
 This is what a loop does!
 
 
@@ -50,38 +70,6 @@ for (i in 1:length(gains)) {
 gains_d2
 ```
 
-
-
-## General form of a `for` loop
-
-The general form of a loop is the following
-
-```r
-for (i in list-of-elements) {
-# code invoking i identifier
-}
-```
-A few words about this simple form are the following.  
-
-  - The `i` is the identifier to be used in the code; we can use anything (e.g., `x`, `kk`, `element`, ...); we only need to be consistent and, if any, use that identifier in the code inside the loop.
-  - The `in` is self-describing.
-  - The list of elements is generally a vector, but it can also be a list.
-  - The loop executes some code but does not need to return an object.
-
-### No identifier in the code?
-
-The program will run the code in the loop until it finds the identifier, replaces it with the current value of the loop and executes all the commands.  
-If it doesn't find it, then the program executes everything till the end of the loop and then starts again with the next value of the loop. 
-```{r}
-for (kk in 1:4) {
-  print("I'm working on it...")
-}
-
-for (kk in 1:5) {
-  print(paste("This is loop number", kk))
-}
-
-```
 
 ## A good example of a loop
 
@@ -100,110 +88,4 @@ for (k in 2:length(gains)){
 gains
 cumulative_gains
 ```
-
-
-## Looping over non-numeric elements 
-
-The examples above could give the impression that we must loop over numeric values. But it is not so!  
-The identifiers above simply took the values, one after the other, of the vector provided. Since we always gave a numeric vector, the identifier was always numeric.  
-Here, we show that we can also loop over other types of vectors, for instance a character vector.  
-The example is simple: we want to count the number of letters in each element of the character vector and print the result in the console. You can use the built-in function `nchar()`; `nchar("Cologne")=``r nchar("Cologne")`. 
-
-```{r}
-cities <- c("Lisbon", "Paris", "Washington", "Antananarivo")
-cities
-
-for (cit in cities) {
-  print(paste(cit, "has", nchar(cit), "letters."))
-}
-```
-To store these values in a vector `number_letters`, we could write
-```{r}
-number_letters <- NULL
-
-for (cit in cities) {
-  number_letters <- c(number_letters, nchar(cit)) 
-}
-
-names(number_letters) <- cities
-number_letters
-```
-
-
-
-## More advanced stuff
-
-### Loop over a `list`
-
-We can loop over the elements of a `list`. Remember, however, that the elements of a `list` can be of any type. Therefore, we must make sure that the code inside the loop can be applied to each element of the `list`.
-
-```{r}
-mylist<- list(numbers=c(1:20), 
-              cities=c("Cologne","Lisbon"), 
-              results= c(T,F,F,T), 
-              school=factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE))
-
-for (kk in mylist) {
-  print(length(kk))
-}
-```
-Notice that the previous call could be done with a loop over a numeric vector.
-
-```{r}
-# (kk in 1:4)
-for (kk in 1:length(mylist)) { 
-  print(length(mylist[[kk]]))
-}
-```
-
-### `while` loop
-
-The command `while` introduces a loop that is run while a certain condition is satisfied. Here is an example.
-
-```{r}
-kk <- 6
-while (kk < 10) {
-  print(kk)
-  kk <- kk + 1
-}
-```
-Notice that the most important line is the last in the loop `kk <- kk + 1`. This makes the identifier change value, in this case, it increases of 1. 
-
-If the identifier does not change, the program keeps running as long as the condition `(kk < 10)` is satisfied... i.e., forever! Make sure that the condition is not satisfied at some point after some loops!
-
-```{r}
-repetition <- 0
-while (repetition <= 9 ) {
-  print(paste("That's " , repetition, "! One more! Come on!", sep="")) 
-  repetition<- repetition +1
-}
-```
-
-### `break` & `next`
-
-If we insert `break` in a loop, the program stops everything, i.e., the remaining code in the loop is skipped and the loop is not iterated over anymore.
-
-You may want to use it in combination of a condition 
-```r
-if (condition==TRUE) {
-  break
-} 
-```
-
-
-```{r}
-repetition <- 0
-while (repetition <= 9 ) {
-  if (repetition==5){
-    print(paste("That's " , repetition,
-                "! Well done! I know we said 10, but that's enough for today!", sep=""))
-    break
-  }
-  print(paste("That's " , repetition, "! One more! Come on!", sep="")) 
-  repetition<- repetition +1
-}
-```
-
-If we insert `next` in a loop, the program skips the remainder of the code in the loop and starts with the next value in the loop. Again, it's usually combined with a condition.
-
 
