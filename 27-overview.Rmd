@@ -12,8 +12,9 @@ Here is a very short list of cases handled by data science (sources: @esl, @isl 
 
 The original postulate is that there exist a relationship between a _response_ \(Y\) variable and, **jointly** a set \(X\) of variables ( _independent variables_, _predictors_, _explanatory variables_).
 
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=is_latex_output()}
+```{r, out.width = "100%", message = FALSE, warning = FALSE}
 require(gridExtra)
+require(tidyverse)
 advertising <- read_csv("Advertising.csv") %>%
 	select(-X1) 
 advertising
