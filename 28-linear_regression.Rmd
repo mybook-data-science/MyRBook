@@ -24,10 +24,10 @@ To fix ideas, the linear model estimated here is
 We start by loading the **data** and manipulate it to make it usable.
 
 ```{r, warning = FALSE, message = FALSE}
-advertising <- read_csv("data/islr/Advertising.csv")
+advertising <- read_csv("Advertising.csv")
 advertising
 
-advertising <- read_csv("data/islr/Advertising.csv") %>%
+advertising <- read_csv("Advertising.csv") %>%
 	select(-X1) 
 advertising
 ```
