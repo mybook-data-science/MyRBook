@@ -5,46 +5,45 @@ output:
 ---
 # Conditions {#conditions}
 
-The general purpose of conditions is to control the flow of our code when executed by R.  
-In R, it builds on statements such as `if` and `else`.
+The general intention and reason for conditions is to control the flow of the calculation and output when executed by R.  
+With R language you can choose between a variety of conditions, but most common are `if` and `else`.
 
 ## `if` statement
-The simplest form for a condition uses a `if` statement.  
+The most simple conditions uses a `if` statement.  
 The form is then:
 
 ```r 
-if (condition) {
+if (the definded condition) {
 # code to be executed if the condition is TRUE
 }
 ```
 
-The key point is that R will run the code until it finds a condition that is met. If it doesn't find any, it continues to the next lines of code.  
-Here is an example.
+It is important to point out here that R executes the code until a condition is identified, otherwise R runs through the next line in the chunk.
 
-
-
+Here is a simple example uses this condition:
 ```{r}
-gains <- c(10, 3, -5, 0, -4, 12, 4)
-gains
-sum(gains)
+losses <- c(13, 5, -60, 0, -7, 24, 8)
+losses
+sum(losses)
 
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
+if (sum(losses) < 0) {
+  print("Biggest looser in town")
 }
 
-# change the -4 in 'gains' to -40
+# change the -60 in 'losses' to -6
 
-gains[gains==-4] <- -40
-gains
+losses[losses==-60] <- -6
+losses
 
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
-} # notice that there is no output, because the condition was not met
+if (sum(losses) < 0) {
+  print("Biggest looser in town")
+} # remember that there is no print or output, because the defined condition was not met
 ```
 
 ## `else` statement
 
-What happens when the condition is not met? It's on the user to decide. It can be nothing or... something else!
+What can be the case if the condition was not met? It can be no output or... something else!
+It is up to you to decide what you want to do in this situation if the first condition is not met!
 
 ```r
 if (condition) { 
@@ -54,23 +53,24 @@ if (condition) {
 }
 ```
 
-Here is an example.
+To illustrate:
 
 ```{r}
-gains<- c(10, 3, -5, 0, -4, 12, 4)
-gains[1] <- -10 # change the first element of gains
-sum(gains)
+#we take the same example as above
+losses<- c(13, 5, -60, 0, -7, 24, 8)
+losses[4] <- 50 # change the fourth element of losses
+sum(losses)
 
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
+if (sum(losses) < 0) {
+  print("Biggest looser in town")
 } else {
-  print("You are not winning!")
+  print("Lucky Cowboy")
 } # notice that now there is an output!
 ```
 
 ## `else if` statement
 
-`else if` allows us to introduce another condition to our flow of code
+`else if` allows to work with another condition additional to the current flow of code above
 
 ```r
 if (condition_1) { 
@@ -82,36 +82,44 @@ if (condition_1) {
 }
 ```
 
-We can use as many `else if` statements as we want.  
+There is no limitation in `else if` statements. Many multiple conditions are possible  
 Here is an example with only one `else if`
 ```{r}
-gains <- c(10, 3, -5, 0, -4, 12, 4)
-gains[1] <- -20 # change the first element of 'gains'
-sum(gains)
+losses <- c(13, 5, -60, 0, -7, 24, 8)
+losses[3] <- 25 # change the third element of 'losses'
+sum(losses)
 
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
-} else if (sum(gains)==0) {
-  print("You just break even!")
+losses <- c(13, 5, -60, 0, -7, 24, 8)
+losses[6] <- 41 # another one
+sum(losses)
+
+if (sum(losses) < 0) {
+  print("Biggest looser in town")
+} else if (sum(losses)==0) {
+  print("No looser, but no champion at all")
 } else {
-  print("You are losing!")
+  print("Lucky Cowboy")
 }
 ```
 
-Notice the potential problem of not putting a  `else` statement at the end of the conditions system.
+Pay attention the potential problem of not putting an  `else` statement at the end of the conditions system.
 
 ## `ifelse` statement
 
-For **short** conditions, we can use `ifelse`.  
-The form is
+When using **shorter** conditions, we can use `ifelse` statements.  
+Here is how the code looks like:
+
 ```r
 ifelse(condition, value if condition met, value if value not met)
 ```
-Here is an example.
+Now back to our real example:
+
 ```{r}
-gains <- c(10, 3, -5, 0, -4, 12, 4)
-sign <- ifelse(sum(gains)>=0,"+","-")
+losses <- c(13, 5, -60, 0, -7, 24, 8)
+sign <- ifelse(sum(losses)>=0,"+","-")
 sign
+
+?sign #sign returns a vector with the signs of the corresponding elements of x (the sign of a real number is 1, 0, or -1 if the number is positive, zero, or negative, respectively)
 ```
 
 ## Logical operators: `&`, `|` and `!`
@@ -120,37 +128,44 @@ Logical operators are used to combine, mix or negate several conditions:
 - `|` means OR
 - `!` means NOT
 
+In Boolean algebra, there are two transformation rules named after the British mathematician Augustus De Morgan. These rules state that:
+
+1. The complement of the union of two sets is the intersection of their complements.
+2. The complement of the intersection of two sets is the union of their complements.
+
 De Morgan's laws may help here.
 
 ```{r}
-(10%%2==0 & 27%%3==0) # equivalent to (TRUE and TRUE), hence TRUE
+(27%%2==0 & 27%%3==0) # equivalent to (TRUE and TRUE), hence TRUE
 TRUE & FALSE
 !TRUE 
 !(TRUE & TRUE)
 !(TRUE & !TRUE)
-((10%%2==0 & 27%%2==0)) # equivalent to (TRUE and FALSE), hence FALSE
-((10%%2==0 | 27%%2==0)) # equivalent to (TRUE or FALSE), hence TRUE
+((27%%2==0 & 27%%2==0)) # equivalent to (TRUE and FALSE), hence FALSE
+((27%%2==0 | 27%%2==0)) # equivalent to (TRUE or FALSE), hence TRUE
 ```
+
 
 ## Writing and interpreting a condition
 
-Notice that what R looks for in a condition is a either a TRUE or a FALSE.  
-If it encounters a TRUE, it executes the commands, otherwise, it doesn't.  
-Remember there are many ways to obtain one of these two logicals. Any of these ways will work as a condition.  
-Here are examples of less trivial ways of writing a condition 
+It must be considered that R searches either a TRUE or a FALSE in a condition.  
+When R encounters a TRUE, it executes the desired command, otherwise it does not.  
+There are many ways to get one of these two logics, since each of these ways will work as a condition.
+
+Here are examples of less common ways to write a condition:
 ```{r}
-gains<- c(10, 3,-5,0,-4,12,4)
+losses<- c(13, 5, -60, 0, -7, 24, 8)
 
-if (is.numeric(gains)) {
-  print("Seems like it is a numeric vector...")
+if (is.numeric(losses)) {
+  print("Wow a wild numeric vector...")
 }
-# here, is.numeric(gains) evaluates to TRUE, hence, the code is executed!
+# here, is.numeric(losses) evaluates to TRUE, hence, the code is executed!
 # the beginner's way would be to replace the condition by
-# if (class(gains)=="numeric")
+# if (class(losses)=="numeric")
 
-if (!is.factor(gains)) {
-  print("Yeah! We avoided the factor...")
+if (!is.factor(losses)) {
+  print("No factor no portuguese friday...")
 }
-# the beginner would write if (class(gains)!="factor")
+# the amateur would write if (class(losses)!="factor")
 ```
 

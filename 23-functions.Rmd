@@ -1,8 +1,15 @@
 # Functions {#functions}
 
-Everything that happens in R is a function call. If we want R to do something, we must use a function, may it be as simple as a parentheses `(`. 
-If the function is not built-in or coming in a package, one must write it.
-A function is itself an object. When applied to another object, the function "makes something" to that object and returns an object.
+Every operation in R language is a function call.
+To understand computations in R, two slogans are helpful:
+
+Everything that exists is an object.
+Everything that happens is a function call.
+— John Chambers
+
+Functions are the necessary prerequisite for R to be able to execute certain commands or calculations. There are predefined functions in certain packages, but this chapter focuses on functions that have to be created itself in code form, because most new users of R have problems with this.
+
+A function is itself an object. When applied to another object, the function "makes something" to that object and returns an object. The notion of a function is easily understood using the metaphor of a ***function machine*** that takes in an object for its input and, based on that input, spits out another object as its output.
 
 ## Structure of a simple function
 
@@ -19,25 +26,26 @@ pow_two(12)
 
 
 ### Name of the function
-In our example above, the name was `pow_two`. To call, i.e., to use the function later in the code, type `pow_two()`.
+In the example above, the name of the function was `pow_two`. If you want to use the function later in the code, type `pow_two()`. Than you are possible to apply the function to specific inputs to create the desired output.
 
 ### Arguments
 
 The arguments are given in the parentheses right after `function`.  
-Here, we use an argument `a`, which can be any object, e.g., a vector
+Arguments in the parentheses can be any object, e.g., a vector as in the example below:
 ```{r}
-pow_two(1:10)
+pow_two(1:25)
+#every value of the vector in the parentheses is squared through function `pow_two`
 ```
 When using this function, we can see that one argument only must be passed.  
 A value for the argument is then given in the parentheses when calling the function, e.g., `pow_two(12)`.  
 A function can have several arguments
 
 ### Commands
-The commands will be executed, if possible.  
+The commands will only be run by R, if possible.  
 One command source of error is when the class of the argument provided is NOT compatible with the commands in the function
 
 ```{r , error=TRUE}
-pow_two("hello") # this can't work
+pow_two("Debiasing") # this can't work, because the argument is not compatible
 ```
 
 
@@ -46,51 +54,53 @@ pow_two("hello") # this can't work
 The return of a function is given by the last expression executed inside the function.
 
 ```{r }
-my_f <- function(a){
+best_f <- function(a){
   a^2
-  a^3 # THIS is the last expression executed
-}
-my_f(5)
+  a^4 # this is the last expression, so R calculated the return as 6^4
+  }
+best_f(6)
 ```
 
 We can use `return()` in the function in order to chose what it  returns.
 
 ```{r }
-my_f2 <- function(a){
-  return(a^2)
-  a^3
+best_f2 <- function(a){
+  return(a^2) #here you show R that you want to define the return with the first expression
+  a^4
 }
-my_f2(5)
+best_f2(6) #in contrast to best_f R calculated the outcome with 6^2
 ```
 
-A function can return only one object; this is not really a  problem as we  can always stack everything in a `list()` and have the function return the list.
+A function can return only one object, but you can always use a `list()` where you include your expressions and have the function return the list.
 
-```{r }
-my_f3 <- function(a){
+A simple example to illustrate:
+```{r}
+best_f3 <- function(a){
   list(ptwo=a^2, pthree=a^3, pfour=a^4) 
 }
-my_f3(5:20)
+best_f3(1:30)
 ```
 
-If we want to use the return of our function, we must assign it to an object.
+If you want to use a specific return of the function you have to assign it to an object.
 
+In this example a vector is used to show five values of the return, because a vector of lenght six is used:
 ```{r }
-x <- my_f3(1:5) # evaluates the function above on the vector 1:5
+x <- my_f3(1:6) # evaluates the function above on the vector 1:6
 x$pthree # shows the element pthree of the saved list x
 ```
 
-An example where we better use `return` is the following
+An example with return and conditions respective `else` statement:
 
 ```{r}
 pow_three <- function(a){
   if (!is.numeric(a)) {
-    return(print("You must give a numeric vector!"))
+    return(print("Numeric Vectors rules!"))
   } else {
-    return(a^3)
+    return(a^4)
   }
   
 }
-pow_three(1:4)
+pow_three(1:5)
 ```
 
 
@@ -98,33 +108,33 @@ pow_three(1:4)
 ## Multiple arguments and their identification
 
 ```{r}
-pow <- function(a, p){
+m_pow <- function(a, p){
   a^p
 }
-pow(12, 0.5)
+m_pow(8, 0.5)
 ```
 
 
-As mentioned above, a function can have several arguments.
+As mentioned above, a function can have several arguments, but you have to be careful, you need the enough arguments in this case below:
 
 ```{r , error= TRUE}
-my_f4 <- function(abc, xyz){
-  c(abc^2, xyz^3)
+best_f4 <- function(abc, xyz){
+  c(abc^4, xyz^2)
 }
-my_f4(5) # this won't work because xyz is missing
-my_f4(5, 10)
+best_f4(3) # this won't work because xyz is missing (missing argument)
+best_f4(5, 10)
 ```
 
 R has at least two ways of identifying arguments, by position and by name.  
 If no name is specified, R uses the arguments according to their positions in the definition of the function.  
-In the example above, R understands that `abc=5` and `xyz=10` because of the way they are given in the call `my_f4(5, 10)`.  
+In the example above, R understands that `abc=5` and `xyz=10` because of the way they are given in the call `best_f4(5, 10)`.  
 Identification by names would be
 ```{r , error= TRUE}
-my_f4(5, 10)
-my_f4(abc=5, xyz=10) # same as before
-my_f4(xyz=5, abc=10) 
+best_f4(5, 10)
+best_f4(abc=5, xyz=10) # same as before
+best_f4(xyz=5, abc=10) 
 # different from before because the names are more important than the position
-my_f4(xyz=5, 10) # a mix between name and position 
+best_f4(xyz=5, 10) # a mix between name and position 
 ```
 
 ### Default values
@@ -134,12 +144,12 @@ R will use the values provided in the call; if one is missing, R will use the de
 
 ```{r , error= TRUE}
 
-my_f4 <- function(abc, xyz=2){
-  c(abc^2, xyz^3)
+best_f4 <- function(abc, xyz=2){
+  c(abc^3, xyz^4)
 }
-my_f4(5) 
+best_f4(5) 
 
-my_f5 <- function(a, tada){
+best_f5 <- function(a, tada){
   if (tada==TRUE){
     plot(a)
   } else {
@@ -148,9 +158,9 @@ my_f5 <- function(a, tada){
 }
 
 
-my_f5(1:20, tada=FALSE)
+best_f5(5:28, tada=FALSE)
 
-my_f6 <- function(a, tada=TRUE){
+best_f6 <- function(a, tada=TRUE){
   if (tada==TRUE){
     plot(a)
   } else {
@@ -158,7 +168,7 @@ my_f6 <- function(a, tada=TRUE){
   }
 }
 
-my_f6(1:30, tada=FALSE)
+best_f6(1:3, tada=FALSE)
 ```
 
 

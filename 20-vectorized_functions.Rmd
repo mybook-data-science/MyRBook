@@ -1,31 +1,31 @@
 # (PART) Use R for Data Science {-}
 
-# Simple functions on vectors 
+# Simple functions and operations on vectors 
 
-In this section, we illustrate calculations with a single vector.  
+This section gives simple calculations and examples for using vectors and their syntax in R language. The practical examples should help to achieve a general understanding.  
 
 
 ## Element by element evaluation
 
-The main point to notice is how these functions are carried **element by element**. This means that the function is typically applied for each element individually and in sequence. 
+An important characteristic in relation to vectors is the use of functions. Each element of the vector is considered separately, evaluated and viewed in the sequence defined, also called **element by element**. 
 
-The following simple example illustrates this procedure and emphasizes the effect on the length of the vectors.
+The following example illustrates this evaluation and emphasizes the effect on the length of the vectors.
 ```{r}
-# create two numeric vector of same length
-visits1 <-  c(12, 2, 45, 75, 65, 11, 3)
-visits2 <- c(23, 4, 5, 78, 12, 0, 200)
-length(visits1)
-length(visits1) == length(visits2)
+# Creation of two numeric vector of same length (you can choose a random name)
+shares1 <-  c(16, 23, 34, 32, 96, 22, 6)
+shares2 <- c(11, 33, 2, 8, 36, 4, 69)
+length(shares1)
+length(shares1) == length(shares2)
 
-total <- visits1 + visits2
-# their sum is the vector of same length, with the element by element sums
+total <- shares1 + shares1
+# the sum of the vectors of the same length, with the element by element sums
 
 length(total)
 total
 
 ```
 
-Another clear example with the function `^2`.
+Another simple calculation with the function `^2`.
 
 
 ```{r}
@@ -36,41 +36,51 @@ total.p2
 length(trop)
 ```
 
+You also can run this with other functions respective exponents.
 
+
+```{r}
+total.p2 <- total^3
+total.p2
+
+(trop <- total - 3)
+length(trop)
+```
 
 ## Recycling rule
 
 
-With the emphasis on the length of the vectors above, one could wonder what happens when vectors' length differ. This is an important point to remember: the shortest vector has its elements **recycled** as much as it is necessary.
+Now that we have examined functions in interaction with vectors of the same length, the question arises what happens if the selected vectors have a different length. What's important: the shortest vector has its elements **recycled** as much as it is necessary.
 
 ```{r}
-l3 <- c(12, 34, 50)
-l2 <- c(10, 3)
-tt <- l3 + 5
+l6 <- c(12, 34, 50, 8, 16, 15)
+l4 <- c(10, 3, 13, 9)
+tt <- l6 + 7
 tt
 
-ltotal <- l3+l2 # recycling!!!
+ltotal <- l6+l4 # recycling takes place!
 ltotal
 ```
 
 
 ## Functions for the whole vector
 
-Some functions are meant to be applied to whole vector and do not necessarily return a vector of the same length of the vector to which it is applied.   
-Here is an illustration of some of these functions.
+Functions do not necessarily have to refer to vectors of different or equal length. With R various operations on vectors can be made.
+Here are a few simple examples to illustrate this:
 
 ```{r}
-ages <- c(28, 33, 39, 56, 34, 45, 27, 40)
-ages
-max(ages)
-sum(ages)
-length(ages)
+coins <- c(36, 73, 16, 98, 22, 23, 87, 19, 12)
+coins
+max(coins)
+length(coins)
+sum(coins)
+var(coins)
 
-ages <- c(28, 33, 39, 56, 34, 45, 27, 40, NA)
-mean(ages)
+coins <- c(36, 73, 16, 98, 22, 23, 87, 19, 12)
+mean(coins)
 
-# for help on a command, simply type ? in front of it
-?mean
+# for help on a command, simply type ? in front of unknown command to search for explanation
+?var
 
 ```
 
