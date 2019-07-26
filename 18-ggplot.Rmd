@@ -1,11 +1,12 @@
 # `ggplot2` {#ggplot2}
 
+ggplot2 is a system for creating graphics and therefore a system for data visualization. You provide the data to R, tell ggplot2 how to map variables and what graphical primitives to use, and it takes care of the details for you.
 
-
-Data visualization is part of the skill set of a data scientist.  
+Data visualization in general is part of the skill set of a data scientist.  
 It is made to, either
     - explore (confirm, analyse)
     - explain (inform, convince)
+
 Depends who you communicate to (can be you).
 
 To install the CRAN version:
@@ -16,12 +17,13 @@ install.packages("ggplot2")
 
 ## Comparison with base `plot`
 
-Limitations of base plot
+Limitations of base plot:
     - plot does not redraw, i.e., the range will not adapt to new data 
     - plot is drawn as an image, i.e., it's not an object
     - manual legend
     - no unified framework for plotting, i.e., need to master other commands for other types of graphs
 
+Example:
 
 ```{r, fig.show='hold', results='hide', tidy=FALSE}
 library(ggplot2)
@@ -43,8 +45,6 @@ plot1 <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
 plot1 # print the object 'plot1'
 ```
 
-
-
 ## Grammar of graphics - Leland Wilkinson
 
 ### A graphic = layers of grammatical elements
@@ -57,8 +57,8 @@ The mappings are the rules to assemble the nouns and adjectives
 
 ## Understanding the grammar
 
+Building an example:
 
-Building an example
 ```{r}
 
 p1 <- ggplot(data=diamonds, mapping= aes(x=carat, y= price)) # data and mappings
@@ -82,6 +82,7 @@ grid.arrange(p1, p2, p3, p4, ncol=2)
 The data being plotted
 Includes: variables of interest
 Tidy data helps make good `ggplot()`s
+
 ```{r, fig.show='hold', tidy=FALSE}
 iris.tidy <- iris %>%
   gather(key, Value, -Species) %>%
@@ -103,7 +104,6 @@ grid.arrange(p1, p2, p3, ncol=2)
 
 ```
 
-
 ### Aesthetics
 The scales onto which we map our data
 Includes: x-axis, y-axis, colour, fill, size, labels, line width, line type,...
@@ -118,10 +118,6 @@ These are
     - statistics
     - coordinates
     - themes
-
-
-
-
 
 ### Juggling with `aes`
 ```{r}
@@ -146,7 +142,6 @@ p4 <- ggplot(mtcars, aes(x = wt, y = mpg, size = disp)) +
 grid.arrange(p1, p2, p3, p4, ncol=2)
 ```
 
-
 ### Juggling with `geom`
 
 ```{r,  fig.show='hold'}
@@ -170,10 +165,6 @@ p4 <- ggplot(diamonds, aes(x = carat, y = price, col=clarity)) +
 
 grid.arrange(p1, p2, p3,p4,  ncol=2)
 ```
-
-
-
-
 
 ## Aesthetics
 
@@ -205,7 +196,6 @@ grid.arrange(p1, p2,  ncol=2)
 
 Attributes go to `geom_`
 
-
 ### Modifying aesthetics
 
 Modifying aesthetics is modifying the mapping
@@ -233,9 +223,6 @@ scale_y_continuous(limits=c(-0,2)) +
 labs(title="My nice graph", x="Miles per gallon", y="", col="Cylindres")
 ```
 
-
-
-
 ## Geometries
 
 Geometries control how your plot is going to look like: currently, there are more than 37 gemoetries available
@@ -261,8 +248,8 @@ p4 <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
 grid.arrange(p1, p2, p3, p4,  ncol=2)
 ```
 
+A more general bar plot can be obtained with `geom_bar()`:
 
-A more general bar plot can be obtained with `geom_bar()`
 ```{r}
 data("mtcars")
 mtcars$cyl <- as.factor(mtcars$cyl) # changing 'cyl' to factor, which is actually is 
@@ -308,5 +295,3 @@ geom_line(aes(group=1)) # group = 1 indicates you want a single line connecting 
 
 grid.arrange(p1, p2, ncol=2)
 ```
-
-

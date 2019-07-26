@@ -4,16 +4,11 @@
 There are essentially two parts in this package, both dealing with manipulating data set.  
 The first gives tools to work on a given data frame, the second to combine data frames. We describe both in turn.  
 
-dplyr is a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges:
-
-
-
 To install the CRAN version:
 
 ```{r
 install.packages("dplyr")
 ```
-
 
 ## Grammar of data manipulation  
 
@@ -21,8 +16,7 @@ install.packages("dplyr")
 Hence, all the functions introduced here are redundant with other functions in base R. As for the rest of the `tidyverse`, they just happen to do the job in a clearer way (among other advantages).  
 The approach builds on "verbs" (functions) applied successively thanks to the pipe operator `%>%`.
 
-`dplyr` is therefore a grammar of data manipulation, providing a set of verbs that help you solve the most common data minioulation challenges:
-
+`dplyr` is therefore a system or grammar of data manipulation, providing a set of verbs that help you solve the most common data manipulation challenges:
 
 - `select`
 - `mutate`
