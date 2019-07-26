@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Data stuctures {#datastructures}
 
 This chapter lists the most common objects to store data. To make the best of the R language, you need a strong understanding of the basic data types and data structures and how to operate on those.
@@ -25,7 +30,7 @@ attributes()  # does it have any metadata?
 
 e.g.:
 
-```
+```{r}
 x <- "dataset"
 typeof(x)
 attributes(x)
@@ -37,7 +42,6 @@ attributes(y)
 
 z <- c(1L, 2L, 3L)
 typeof(z)
-
 ```
 
 ### Types of data 
@@ -169,6 +173,7 @@ names(mtcars)
 length(mtcars)
 nrow(mtcars)
 ```
+
 ### Data frame creation
 
 A data frame can be created manually by providing the function `data.frame` with the corresponding vectors or with the use of one method above. The vectors should be of same length, otherwise R recycles values. The data frame requires a name for each vector.
@@ -203,40 +208,15 @@ names() - will list the names attribute for a data frame (or any object really),
 
 Example for data set combination:
 
-```
+```{r}
 df <- data.frame(id = letters[1:10], x = 1:10, y = rnorm(10))
 df
 ```
      id x       y
- 1   a  1 -1.37593
- 2   b  2  0.47094
- 3   c  3 -0.16046
- 4   d  4 -1.36914
- 5   e  5  0.39763
- 6   f  6 -1.92516
- 7   g  7  0.04107
- 8   h  8 -1.04832
- 9   i  9 -0.16875
- 10  j 10  0.82251
 
-```
+```{r}
 cbind(df, data.frame(z = 4))
-``
-
- 
-     id x    y    z
- 1   a  1 -1.37593 4
- 2   b  2  0.47094 4
- 3   c  3 -0.16046 4
- 4   d  4 -1.36914 4
- 5   e  5  0.39763 4
- 6   f  6 -1.92516 4
- 7   g  7  0.04107 4
- 8   h  8 -1.04832 4
- 9   i  9 -0.16875 4
- 10  j 10  0.82251 4
-
-
+```
 
 ## A word about attributes
 
@@ -267,5 +247,3 @@ table(vec.f)
 An environment is similar to a bag/list of names. It can be seen as the space were these names "live".   
 Environments can include environments. In that case, the enclosing environment is called the parent environment.  
 The most common environment is the `globalenv()` also called the `workspace`. 
-
-

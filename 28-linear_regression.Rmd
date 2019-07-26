@@ -104,7 +104,7 @@ The content of this linear regression object is better described with the functi
 summary(estimation.mod)
 names(estimation.mod)
 
-model.slr$fitted.values
+estimation.mod$fitted.values
 
 names(summary(estimation.mod))
 summary(estimation.mod)$r.squared
@@ -211,7 +211,7 @@ tibble(advertising$TV, advertising$sales, estimation.mod$fitted.values)
 Digging into the details, these fitted values  are simply obtained thanks to the estimated parameters using the \(X\) values (_TV_, in this case). 
 
 ```{r}
-manually.fitted <- model.slr$coefficients[1] + estimation.mod$coefficients[2] * advertising$TV
+manually.fitted <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2] * advertising$TV
 all.equal(as.vector(estimation.mod$fitted.values), manually.fitted)
 ```
 
@@ -428,7 +428,7 @@ p1 <- Credit %>%
   theme(legend.position = "none")
 
 p2 <- Credit %>%
-	mutate(fit.student = predict(model.interaction3), newdata = s.data),
+	mutate(fit.student = predict(model.interaction3, newdata = s.data),
 	       fit.not.student = predict(model.interaction3, newdata = ns.data)) %>%
   ggplot(aes(x=Income, y=Balance)) +
   geom_point(aes(x=Income, y=Balance, color=Student)) +
