@@ -1,7 +1,7 @@
 # Scoping {#scoping}
 
 
-## Introduction
+## Introduction Part 
 
 A function creates its own environment. In turn, this environment of the function is a child of the environment where the function was created.  
 Scoping refers to the set of rules on what environment R looks for the value of a name. For instance, if the code contains `myv <- 12`, then later typing `myv` forces R to retrieve 12 from an environment.  
