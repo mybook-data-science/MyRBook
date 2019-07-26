@@ -1,29 +1,34 @@
-# Linear regression {#linreg}
+---
+title: "Linear Regression"
+output: html_document
+---
 
-The linear regression approach is the workhorse of many empirical investigations. It is also the _classical method_ because of its simplicity and its easiness of computation (an important argument in times of little or cumbersome computing capabilities).  
-Various important reasons explain why it is often the first tool in any analyst's toolbox.
+# Linear Regression
 
-* It can straightforwardly be extended and produce reasonably good estimates in many applications. 
-* Despite its simplicity, it allows to clearly illustrate advanced concepts. In particular, it lays the ground for the need of more complicated techniques.
+Let's start with a general defintion of what linear regression is and what it is used for:
 
-As a reference, recall that the basis of the linear model is a fit of the data with the following assume functional form.
+In general, linear regression is a linear approach to modeling the relationship between a scalar response and one or more explanatory variables. In other words, linear regression is a useful tool to predict the value of an outcome variable Y based on one or more input predictor variables X. 
+
+Objective: The objective is therefore to establish a linear relationship (mathematical formula) between the predictor variable(s) and the response variable, in order to be able to use this formula to estimate the value of the response variable Y, when only the predictor (Xs) variables or values are known.
+
+The above mentioned mathematical equation can be generalized as follows:
 
 \[Y=\beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \varepsilon\]
 
-This form assumes **linearity in the coefficients**, \(\beta\)'s, with \(p\) predictors, \(X\)'s,  for \(n\) observations. The response \(Y\) is also assumed to be influenced by shocks/errors capture by \(\varepsilon\). The standard deviation of these errors is assumed to be \(\sigma\). In other words, even if the estimated model would correctly fit the data, the predictions would still be off because of this irreducible error.  
-Notice that the linear function is almost never believed to fit the true data generating process but, instead, to more or less appropriately approximate it.       
+β1 is the intercept
+β2 is the slope
 
-The notes below first follow the exposition of @isln (Chap. 3) and focus on its R implementation. They then introduced simulations based on the linear model.
+Collectively, they are called regression coefficients. 
 
-## Simple linear regression
+ϵ is the error term (also descriped as the part of Y the regression model is unable to explain)
 
-This section builds around the example of the simple linear regression of _sales_ on the amount of _TV_ advertising in the _Advertising_ data set.  
-To fix ideas, the linear model estimated here is
-\[\text{sales} = \beta_0 + \beta_1\times \text{TV}  + \varepsilon\]
+Example Problem:
 
-We start by loading the **data** and manipulate it to make it usable.
+For this analysis, we will use the cars dataset that comes with R by default. cars is a standard built-in dataset, that makes it convenient to demonstrate linear regression in a simple and easy to understand fashion. You can access this dataset simply by typing in cars in your R console. You will find that it consists of 50 observations(rows) and 2 variables (columns) – dist and speed. Lets print out the first six observations here..
+
 
 ```{r, warning = FALSE, message = FALSE}
+require(tidyverse)
 advertising <- read_csv("Advertising.csv")
 advertising
 
@@ -32,24 +37,74 @@ advertising <- read_csv("Advertising.csv") %>%
 advertising
 ```
 
+Before we begin building the regression model, it is a good practice to analyze and understand the variables. The graphical analysis and correlation study below will help with this.
+
+## Graphical Analysis
+
+The aim of this exercise is to build a simple regression model that we can use to predict Distance (dist) by establishing a statistically significant linear relationship with Speed (speed). But before jumping in to the syntax, lets try to understand these variables graphically. Typically, for each of the independent variables (predictors), the following plots are drawn to visualize the following behavior:
+
+Scatter plot: Visualize the linear relationship between the predictor and response.
+
+```{r}
+scatter.smooth(x=advertising$sales, y=advertising$TV, main="Sales ~ TV")  # scatterplot
+```
+
+Box plot: To spot any outlier observations in the variable. 
+
+Generally, any datapoint that lies outside the 1.5 * interquartile-range (1.5 * IQR) is considered an outlier, where, IQR is calculated as the distance between the 25th percentile and 75th percentile values for that variable.
+
+```{r}
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+boxplot(advertising$sales, main="Sales", sub=paste("Outlier rows: ", boxplot.stats(advertising$sales)$out))  # box plot for 'Sales'
+boxplot(advertising$TV, main="TV", sub=paste("Outlier rows: ", boxplot.stats(advertising$TV)$out))  # box plot for 'TV'
+```
+
+Density plot: To see the distribution of the predictor variable. 
+
+```{r}
+library(e1071)
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+plot(density(advertising$sales), main="Density Plot: Sales", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(advertising$sales), 2)))  # density plot for 'Sales'
+polygon(density(advertising$sales), col="red")
+plot(density(advertising$TV), main="Density Plot: TV", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(advertising$TV), 2)))  # density plot for 'TV'
+polygon(density(advertising$TV), col="blue")
+```
+
+Correlation:
+
+Correlation is a statistical measure that suggests the level of linear dependence between two variables, that occur in pair – just like what we have here in speed and dist. Correlation can take values between -1 to +1. If we observe for every instance where speed increases, the distance also increases along with it, then there is a high positive correlation between them and therefore the correlation between them will be closer to 1. The opposite is true for an inverse relationship, in which case, the correlation between the variables will be close to -1.
+
+A value closer to 0 suggests a weak relationship between the variables. A low correlation (-0.2 < x < 0.2) probably suggests that much of variation of the response variable (Y) is unexplained by the predictor (X), in which case, we should probably look for better explanatory variables.
+
+```{r}
+cor(advertising$sales, advertising$TV)  # calculate correlation between sales and TV 
+```
+
+## Simple linear regression
+
+After applying a graphical analysis, we will now move over to a simple linear regression and apply the data from above.
+
+This section therefore builds around the example of the simple linear regression of _sales_ on the amount of _TV_ advertising in the _Advertising_ data set.  
+To fix ideas, the linear model estimated here is
+\[\text{sales} = \beta_0 + \beta_1\times \text{TV}  + \varepsilon\]
 
 The **estimation** of the model is carried with the function `lm` from the built-in `stats` package. The result of the estimation is an object to assigned to a name.
 
 ```{r}
-model.slr <- lm(sales ~ TV, data = advertising)
+estimation.mod <- lm(sales ~ TV, data = advertising)
 ```
 
 The content of this linear regression object is better described with the function `summary`.
 
 ```{r}
-summary(model.slr)
-names(model.slr)
+summary(estimation.mod)
+names(estimation.mod)
 
 model.slr$fitted.values
 
-names(summary(model.slr))
-summary(model.slr)$r.squared
-summary(model.slr)$df
+names(summary(estimation.mod))
+summary(estimation.mod)$r.squared
+summary(estimation.mod)$df
 
 
 
@@ -58,15 +113,15 @@ summary(model.slr)$df
 ```{r}
 # tidyverse alternative
 advertising %>%
-  mutate(y.hat1 = model.slr$fitted.values,
-         y.hat2 <- predict(model.slr),
-         y.hat3 <- model.slr$coefficients[1] + model.slr$coefficients[2]*TV)
+  mutate(y.hat1 = estimation.mod$fitted.values,
+         y.hat2 <- predict(estimation.mod),
+         y.hat3 <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2]*TV)
 
 advertising
 advertising$TV
-advertising$y.hat1 <- model.slr$fitted.values
-advertising$y.hat2 <- predict(model.slr)
-advertising$y.hat3 <- model.slr$coefficients[1] + model.slr$coefficients[2]*advertising$TV
+advertising$y.hat1 <- estimation.mod$fitted.values
+advertising$y.hat2 <- predict(estimation.mod)
+advertising$y.hat3 <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2]*advertising$TV
 
 
 advertising
@@ -76,20 +131,20 @@ lines(advertising$TV, advertising$y.hat2, col="blue")
 lines(advertising$TV, advertising$y.hat1, col="red")
 ```
 
-Let's see the **errors/ residuals** of our prediction.
+Let's now have a look at the **errors/ residuals** of our prediction.
 ```{r}
 advertising$residuals <- advertising$sales - advertising$y.hat2
 
 sum(advertising$residuals)
 ```
 
-We can use the model to predict for data not in the training data.
+Prediction of sales: We can now use the model to predict for data that not in the training data.
 
 ```{r}
 # predict sales for TV=400, 500, 600...
 
 # brute force way, very tedious in general
-sales_tv_400 <- model.slr$coefficients[1] + model.slr$coefficients[2]*400
+sales_tv_400 <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2]*400
 sales_tv_400
 
 # 'predict' way
@@ -99,42 +154,44 @@ sales_tv_400
 my.boss.question <- data.frame(TV=c(400, 500, 600))
 my.boss.question
 
-sales_tv_boss <- predict(model.slr, newdata = my.boss.question ) 
+sales_tv_boss <- predict(estimation.mod, newdata = my.boss.question ) 
 sales_tv_boss
 
 ```
 
 
-This last call alone provides most of the statistics explained in @isln (Chapter 3).  
+This last call alone provides a variety of statistics given in the package of `isln`.
 Notice that parts of this regression object can be accessed through sub-setting of the object and used, once we know under what name they are stored, which we obtain by the next call (see `?lm` for the value of the function, i.e., what the function returns).
 
 ```{r}
-names(model.slr)
-# model.slr %>% names
+names(estimation.mod)
+# estimation.mod %>% names
 ```
-Alternatively, and somehow more surprising, all the numbers given by the `summary` function can also be accessed in the same fashion.
+
+Alternatively, and somehow more surprising, all the numbers given by the `summary` function can also be accessed in the same fashion:
 
 ```{r}
-model.slr %>% summary %>% names
+estimation.mod %>% summary %>% names
 ```
-As an example, the following table can be built by inline R-code (@isln, Chap. 3, slide 13), with calls such as `summary(model.slr)$fstatistic[1]`, possibly with rounding as well.
+
+As an example, the following table can be built by inline R-code (`isln`), with calls such as `summary(estimation.mod)$fstatistic[1]`, possibly with rounding as well.
 
 | Quantity | Value |
 |:--|:--|
-| Residual Standard Error | `r summary(model.slr)$sigma %>% round(2)` |
-| \(R^2\) | `r summary(model.slr)$r.squared %>% round(3)` |
-| \(F\)-statistic | `r summary(model.slr)$fstatistic[1] %>% round(1)` |
+| Residual Standard Error | `r summary(estimation.mod)$sigma %>% round(2)` |
+| \(R^2\) | `r summary(estimation.mod)$r.squared %>% round(3)` |
+| \(F\)-statistic | `r summary(estimation.mod)$fstatistic[1] %>% round(1)` |
 
 Table: Results for simple linear regression (Advertising)
 
 
-As for the **confidence interval** of \(\beta_1\) (@isln, Chap. 3, slide 13), i.e., the random interval in which, under repeated sampling, the true parameter would fall \(95\%\) of the time, we type the code below.
+As for the **confidence interval** of \(\beta_1\) (`isln`), i.e., the random interval in which, under repeated sampling, the true parameter would fall \(95\%\) of the time, we type the code below.
 
 ```{r}
-c.i.beta1 <- c(summary(model.slr)$coefficients[2,1] -
-                 2 * summary(model.slr)$coefficients[2,2],
-               summary(model.slr)$coefficients[2,1] +
-                 2 * summary(model.slr)$coefficients[2,2])
+c.i.beta1 <- c(summary(estimation.mod)$coefficients[2,1] -
+                 2 * summary(estimation.mod)$coefficients[2,2],
+               summary(estimation.mod)$coefficients[2,1] +
+                 2 * summary(estimation.mod)$coefficients[2,2])
 c.i.beta1 %>% round(3)
 ```
 
@@ -144,21 +201,21 @@ This visualization builds on the regression fit which we obtain first below in t
 1. The **fitted line** can be obtained with the fitted values of the model given by the `lm` function, i.e., `.$fitted.values`.
 
 ```{r}
-tibble(advertising$TV, advertising$sales, model.slr$fitted.values)
+tibble(advertising$TV, advertising$sales, estimation.mod$fitted.values)
 ```
 
 Digging into the details, these fitted values  are simply obtained thanks to the estimated parameters using the \(X\) values (_TV_, in this case). 
-```{r}
-manually.fitted <- model.slr$coefficients[1] + model.slr$coefficients[2] * advertising$TV
-all.equal(as.vector(model.slr$fitted.values), manually.fitted)
-```
 
+```{r}
+manually.fitted <- model.slr$coefficients[1] + estimation.mod$coefficients[2] * advertising$TV
+all.equal(as.vector(estimation.mod$fitted.values), manually.fitted)
+```
 
 2. The second approach uses the function `predict` from the built-in `stats` package. The function is a bit versatile as its behavior depends on which type of objects it is fed with.  
 Applied to a `lm` object, it will, by default, return **predictions** for each of the \(X\) values  used to fit the model. 
 
 ```{r}
-all.equal(as.vector(model.slr$fitted.values), manually.fitted, predict(model.slr))
+all.equal(as.vector(estimation.mod$fitted.values), manually.fitted, predict(estimation.mod))
 ```
 
 Thanks to the fitted/predicted value, we can calculate the values above about the quality of the fit. Here are a few lines of code to manually calculate these statistics.
@@ -168,7 +225,7 @@ Thanks to the fitted/predicted value, we can calculate the values above about th
 TSS <- sum((advertising$sales - mean(advertising$sales))^2)
 TSS
 
-RSS <- sum((advertising$sales -  predict(model.slr))^2)
+RSS <- sum((advertising$sales -  predict(estimation.mod))^2)
 RSS
 
 R2 <- 1 - RSS/TSS
@@ -176,28 +233,25 @@ R2 %>% round(3)
 
 ## RSE
 n <- length(advertising$sales)
-p <- length(model.slr$coefficients) - 1
+p <- length(estimation.mod$coefficients) - 1
 RSE <- sqrt(RSS /(n - p - 1))
 RSE %>% round(2)
 # notice that this is more or less the sd of the errors
-sd(advertising$sales -  predict(model.slr)) %>% round(2)
+sd(advertising$sales -  predict(estimation.mod)) %>% round(2)
 
 ## F-statistic
 F <- (TSS - RSS)/p * (RSS/(n-p-1))^(-1)
 F %>% round(1)
 ```
 
-
-
 We can now turn to the **graph** of the fit.  
 As much as possible, we want to use `ggplot` for our graphs. In this case, we must first add the predicted/fitted values to the data frame. There are various, though similar ways to achieve that first step, including one with `geom_smooth`.
-
 
 ```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE}
 
 advertising <- advertising %>%
-	mutate(fit_TV= model.slr$fitted.values)
-	# mutate(fit_TV= predict(model.slr))
+	mutate(fit_TV= estimation.mod$fitted.values)
+	# mutate(fit_TV= predict(estimation.mod))
 	# mutate(fit_TV = predict(lm(sales ~ TV), interval = "confidence")[,"fit"])
          
 
@@ -211,8 +265,6 @@ p1 <- advertising %>% ggplot(
 	theme(legend.position = "none")
 p1
 ```
-
-
 
 ## Multiple linear regression
 
@@ -228,13 +280,15 @@ We proceed by estimating
 
 
 ```{r}
-model.mlr <- lm(sales ~ TV + radio + newspaper, data = advertising)
+estimation.mod2 <- lm(sales ~ TV + radio + newspaper, data = advertising)
 ```
 
-Importantly, the `+` sign does not mean that the regression is on the sum of the variables. Instead, the expression should be read "regression of sales on TV _plus on_ radio _plus on_ newspaper".
+Importantly, the `+` sign does not mean that the regression is on the sum of the variables. 
+
+Instead, the expression should be read "regression of sales on TV _plus on_ radio _plus on_ newspaper".
 
 ```{r}
-summary(model.mlr)
+summary(estimation.mod2)
 ```
 
 For the interpretation of the coefficients, the correlations between the predictors is often useful.
@@ -247,7 +301,7 @@ advertising %>% {cor(.[,c("TV", "radio", "newspaper")])} %>% round(4)
 
 The predictors of the model need not be numeric variables. They can also be factors.
 
-In order to closely follow @isln (Chap. 3), we now load another data set, `Credit` from the package `ISLR`.
+In order to closely follow `isln`, we now load another data set, `Credit` from the package `ISLR`.
 
 ```{r}
 require(ISLR)
@@ -269,8 +323,8 @@ In the `Credit` data set, variables such `gender` or `student` are factors.
 We illustrate here how these variables can be used in a linear regression.
 
 ```{r}
-model.cr1 <- lm(Balance ~ Gender, data = Credit)
-summary(model.cr1)
+model.credit <- lm(Balance ~ Gender, data = Credit)
+summary(model.credit)
 ```
 
 This seems to work seemlessly. There is a detail, however that must be brought into the light.  
@@ -290,8 +344,8 @@ contrasts(Credit$Ethnicity)
 These values are used in the next model.
 
 ```{r}
-model.cr2 <- lm(Balance ~ Ethnicity, data = Credit)
-summary(model.cr2)
+model.credit2 <- lm(Balance ~ Ethnicity, data = Credit)
+summary(model.credit2)
 ```
 
 Notice that these dummy values are created in alphabetical order. Hence, the first will always server as reference.  
@@ -311,8 +365,8 @@ Interactions terms constitute a variation of the linear regression whose aim is 
 The interaction between variables are built with the `:` symbol. For instance, the result in @isln, Chap. 3, slide 37 is obtained through the following call.
 
 ```{r}
-model.it1 <- lm(sales ~ TV + radio + TV:radio, data = advertising)
-summary(model.it1) 
+model.interaction1 <- lm(sales ~ TV + radio + TV:radio, data = advertising)
+summary(model.interaction1) 
 
 ## alternatively, use the cross *
 lm(sales ~ TV*radio, data = advertising)
@@ -322,13 +376,13 @@ Interactions can be done between quantitative and categorical variables. This ca
 
 
 ```{r}
-model.it2 <- lm(Balance ~  Income + Student, data = Credit)
-summary(model.it2) 
-model.it3 <- lm(Balance ~  Income + Student + Income:Student, data = Credit)
-summary(model.it3) 
+model.interaction2 <- lm(Balance ~  Income + Student, data = Credit)
+summary(model.interaction2) 
+model.interaction3 <- lm(Balance ~  Income + Student + Income:Student, data = Credit)
+summary(model.interaction3) 
 
 
-y.hat4 <- predict(model.it2)
+y.hat4 <- predict(model.interaction2)
 
 plot(Credit$Income, Credit$Balance)
 lines(Credit$Income, y.hat4, col="red")
@@ -339,9 +393,9 @@ s.data$Student <- "Yes"
 n.data <- Credit
 n.data$Student <- "No"
 
-y.hat5 <- predict(model.it2, newdata = s.data)
+y.hat5 <- predict(model.interaction2, newdata = s.data)
 
-y.hat6 <- predict(model.it2, newdata = n.data)
+y.hat6 <- predict(model.interaction2, newdata = n.data)
 
 plot(Credit$Income, Credit$Balance)
 lines(Credit$Income, y.hat5, col="red")
@@ -360,8 +414,8 @@ ns.data$Student <- "No"
 
 cols <- c("Student"="red", "Yes" ="red", "Not student"="black", "No"="black")
 p1 <- Credit %>%
-	mutate(fit.student = predict(model.it2, newdata = s.data),
-		fit.not.student = predict(model.it2, newdata = ns.data)) %>%
+	mutate(fit.student = predict(model.interaction2, newdata = s.data),
+		fit.not.student = predict(model.interaction2, newdata = ns.data)) %>%
 	ggplot(aes(x=Income, y=Balance)) +
   geom_point(aes(x=Income, y=Balance, color=Student)) +
   geom_line(aes(y=fit.student, color="Student")) +
@@ -370,8 +424,8 @@ p1 <- Credit %>%
   theme(legend.position = "none")
 
 p2 <- Credit %>%
-	mutate(fit.student = predict(model.it3, newdata = s.data),
-	       fit.not.student = predict(model.it3, newdata = ns.data)) %>%
+	mutate(fit.student = predict(model.interaction3), newdata = s.data),
+	       fit.not.student = predict(model.interaction3, newdata = ns.data)) %>%
   ggplot(aes(x=Income, y=Balance)) +
   geom_point(aes(x=Income, y=Balance, color=Student)) +
   geom_line(aes(y=fit.student, color="Student")) +
@@ -379,19 +433,9 @@ p2 <- Credit %>%
   scale_colour_manual(values=cols) +
   theme(legend.position = c(50, 1000),
           legend.direction = "horizontal")
-
+require(gridExtra)
 grid.arrange(p1, p2, ncol=2)
 ```
-
-
-
-
-
-
-
-
-
-
 
 ## Polynomials of degree n {#polyn}
 
@@ -447,8 +491,6 @@ Auto %>%
 ```
 
 
-
-
 ```{r}
 fita1 <- lm(sales ~ TV + radio + newspaper, data=advertising )
 summary(fita1)
@@ -470,14 +512,5 @@ summary(fita6)
 
 length(fita6$coefficients)
 ```
-
-
-
-
-
-
-
-
-
 
 
