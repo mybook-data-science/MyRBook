@@ -85,7 +85,7 @@ If you want to use a specific return of the function you have to assign it to an
 
 In this example a vector is used to show five values of the return, because a vector of lenght six is used:
 ```{r }
-x <- my_f3(1:6) # evaluates the function above on the vector 1:6
+x <- best_f3(1:6) # evaluates the function above on the vector 1:6
 x$pthree # shows the element pthree of the saved list x
 ```
 
