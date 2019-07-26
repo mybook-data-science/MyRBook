@@ -72,9 +72,13 @@ polygon(density(advertising$TV), col="blue")
 
 Correlation:
 
-Correlation is a statistical measure that suggests the level of linear dependence between two variables, that occur in pair – just like what we have here in speed and dist. Correlation can take values between -1 to +1. If we observe for every instance where speed increases, the distance also increases along with it, then there is a high positive correlation between them and therefore the correlation between them will be closer to 1. The opposite is true for an inverse relationship, in which case, the correlation between the variables will be close to -1.
+Correlation is a statistical measure that suggests the level of linear dependence between two variables, that occur in pair – just like what we have here in sales and TV. 
 
-A value closer to 0 suggests a weak relationship between the variables. A low correlation (-0.2 < x < 0.2) probably suggests that much of variation of the response variable (Y) is unexplained by the predictor (X), in which case, we should probably look for better explanatory variables.
+High correlation = Correlation close to 1
+
+Inverse relationship = Correlation close to -1
+
+Weak correlation = Correlation close to 0
 
 ```{r}
 cor(advertising$sales, advertising$TV)  # calculate correlation between sales and TV 
