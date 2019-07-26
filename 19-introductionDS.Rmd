@@ -21,4 +21,4 @@ Additionally, R offers the opportunity to train the algorithm and therefore offe
 
 ## R for Data Data Science
 
-In this chapter of the book, we will discuss data science in the form of conditions, subsets, vectorized functions, plots, loops, functions and scopes. 
+In this chapter of the book, we will discuss data science in the form of conditions, subsets, vectorized functions, plots, loops, functions and many other forms. 
