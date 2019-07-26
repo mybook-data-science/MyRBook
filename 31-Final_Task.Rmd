@@ -52,16 +52,16 @@ In this particular case, it is acceptable to delete train observations that seem
 
 train.data %>% is.na %>% rowSums %>% table
 
-## .
-## 0 1 2 6
-## 184 7 7 2
+>> .
+>> 0 1 2 6
+>> 184 7 7 2
 
 As for the missing values in some variables, you can fill them with an appropriate choice. Here, you have many options. These range from the simplest (and least accurate) such as replacing with the mean of the variable, to the most sophisticated such as replacing each missing value with the prediction of a complex model. Intermediate solutions include exploiting correlations between variables. No matter what option you take, you must be clear about your choice.
 
 test.data %>% complete.cases %>% table
 
-## .
-## FALSE TRUE
-## 18 122
+>> .
+>> FALSE TRUE
+>> 18 122
 
 Recall that the test data also contains missing values. Hence, your predictions will start by filling them by using the same approach that you used with the train data.

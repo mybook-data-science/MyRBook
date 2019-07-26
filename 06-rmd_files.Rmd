@@ -203,8 +203,6 @@ For relative paths, the following applies:
   - `../../` for parent of the parent directory,
   - to move forward, start with the name of the included folder in the current directory.
 
-
-
 ## Latex code {#latex}
 
 The overwhelming reason to introduce Latex code in a `.Rmd` file is for typesetting mathematical expressions.  
@@ -232,7 +230,6 @@ Some of these environments, however, have a perfect integration in `.Rmd` files,
 
 
 ## Figures
-
 
 Figures usually appear after the chunk that calls them, except on `.pdf` format because Latex makes them float and they may appear in the next page.  
 Beyond the actual R calls that produces the figure, the figure's appearance will be tweaked by the options specified in the R chunk. The following options are worth noticing:  
@@ -272,8 +269,6 @@ As an example, notice that this line belongs to Subsection \@ref(cr-chapters),
 included in Section \@ref(cr) of Chapter \@ref(rmd).
 ```
 
-
-
 For `.html` formats, one may use a direct link to the header by using the format for regular links but with  `#label` as the destination. For instance, since the label of this section is `cr`, the code `[Cross-references](#cr)` produces this link: [Cross-references](#cr).
 
 ### Figures
@@ -311,8 +306,6 @@ This is Equation \@ref(eq:series).
 \end{equation}
 
 ```
-
-
 
 ## Citations
 
