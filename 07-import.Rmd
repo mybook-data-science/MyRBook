@@ -1,7 +1,5 @@
 # Import data to R {#import}
 
-
-
 Analyzing data with R is an important part of data science. Therefore, it is vital to understand the procedure of how to import data into R. Generally speaking, the process of importing data into R is very simple. Data out there exists in many formats and there are number of ways in importing data into R. Speakin the language of R, we will need to `read` the data and put or convert it into an object, wich often is a data frame. 
 
 Base R has has base functions to read some types of files. For special types of files, special packages are needed.
@@ -29,7 +27,6 @@ df <- read.table(file="AH001.txt",
 				sep=",")
 head(df)
 ```
-
 
 ## Read other data types
 
@@ -115,8 +112,6 @@ Note that the forward slash should be used as the path separator even on Windows
 setwd("C:/MyDoc")
 ```
 
-
-
 ## Scanning a file
 
 The base function `scan` can sometimes be useful, though it is not used to import data. `scan()` imports to a vector (or a list), which can then be used.   
@@ -133,8 +128,3 @@ df <- scan("AH001.txt", what=character(), skip=1, sep=",")
 given.line <- scan("AH001.txt", what=character(), nlines=1, sep=",")
 given.line
 ```
-
-
-
-
-

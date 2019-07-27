@@ -118,18 +118,13 @@ Important: These options are overridden by the particular chunk options.
 `r ''````{r, OPTION2=FALSE}
 ````
 
-
-
-
 Options actually take R code. So, the following are examples that could be used to define the option.
 
 
-````markdown
-`r ''````{r, eval=4>3, echo=format(Sys.Date(), '%Y-%B-%d') > '2019-March-10'}
+```{r, eval=4>3, echo=format(Sys.Date(), '%Y-%B-%d') > '2019-March-10'
 # eval is always TRUE
 # echo = TRUE if current date is after March 10, 2019
 ```
-````
 
 The list of options can be found here [https://yihui.name/knitr/options/](https://yihui.name/knitr/options/). Below are some comments on some of these options (the least trivial for the author).
 
@@ -228,7 +223,6 @@ Some of these environments, however, have a perfect integration in `.Rmd` files,
 \sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
 \]
 
-
 ## Figures
 
 Figures usually appear after the chunk that calls them, except on `.pdf` format because Latex makes them float and they may appear in the next page.  
@@ -297,6 +291,7 @@ This is Equation \@ref(eq:series).
 
 
 The previous lines were obtained with the code:
+
 ```markdown
 This is Equation \@ref(eq:series).
 
@@ -304,7 +299,6 @@ This is Equation \@ref(eq:series).
 \sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
   (\#eq:series)
 \end{equation}
-
 ```
 
 ## Citations
