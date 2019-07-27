@@ -1,0 +1,159 @@
+# Resampling
+
+
+```{r}
+require(ISLR)
+data("Auto")
+
+```
+
+
+```{r}
+#a function for calculating the RMSE from two vectors
+c.rmse <- function(observed, predicted){(observed - predicted)^2%>%
+    mean %>%
+    sqrt %>%
+    round(3)}
+
+c.rmse2 <- function(observed, predicted){
+  rounbd(sqrt(mean((observed- predicted)^2)),3)
+}
+
+```
+
+
+
+```{r}
+require(ISLR)
+require(magrittr)
+
+
+set.seed(14)
+rnorm(2)
+
+n <- nrow(Auto)
+train <- sample(1:n, ceiling(n/2))
+degrees <- 1:10
+
+v.rmse <- numeric()
+
+for(i in degrees){
+  
+  # the five or i in brackets after is polynom Number
+fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto, subset = train)
+
+v.rmse[i] <- c.rmse(Auto$mpg[-train], predict(fit1, newdata = Auto[-train,]))
+}
+
+
+
+
+plot(degrees, v.rmse, type = "b", col = "red")
+
+#check plot function
+plot(Auto$horsepower, Auto$mpg)
+lines(Auto$horsepower, fit1$fitted.values)
+  
+
+
+
+
+
+```
+
+```{r}
+
+# for multiple 10 splits
+require(ISLR)
+require(magrittr)
+
+
+set.seed(7)
+
+degrees <- 1:10
+n.splits <- 12
+
+m.rmse <- matrix(NA, length(degrees), n.splits)
+
+for (s in 1:n.splits) {
+  
+  train <- sample(1:n, ceiling(n/2))
+  
+for (i in degrees) {
+  fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto, subset = train)
+  
+  m.rmse[i,s] <- c.rmse(Auto$mpg[-train], predict(fit1, newdata = Auto[-train,]))
+  
+  
+}
+  
+}
+
+plot(degrees, m.rmse[,1], type = "l", col = "red", ylim = c(min(m.rmse), max(m.rmse)))
+for (s in 2:n.splits) {
+  lines(degrees, m.rmse[,s], col=s)
+  
+}
+
+```
+
+```{r}
+# another resampling method: creating many data sets
+library(boot)
+
+degrees <- 1:10
+
+loocv <- numeric()
+
+for (i in degrees) {
+  fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto)
+  
+  loocv[i] <- cv.glm(Auto, fit1)$delta[1] %>% sqrt
+  
+}
+
+plot(degrees, loocv, type = "b", col = "red" )
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+```{r}
+library(boot)
+
+degrees <- 1:10
+n.trys <- 12
+
+m.k10 <- matrix(NA, length(degrees), n.trys)
+
+for (s in 1:n.trys) {
+  
+  for (i in degrees) {
+    fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto)
+    m.k10[i,s] <- cv.glm(Auto, fit1, K=10)$delta[1] %>% sqrt
+    
+    
+  }
+    
+  
+}
+ plot(degrees, m.k10[,1], type = "l", col = "red", ylim = c(min(m.k10), max(m.k10)))   
+
+for (s in 2:n.trys) {
+  lines(degrees, m.k10[,s], col=s) 
+  
+}
+
+
+
+
+```
