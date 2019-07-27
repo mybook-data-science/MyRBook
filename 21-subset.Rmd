@@ -1,22 +1,26 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 # Subsetting {#subset}
 
+Subsetting means to create a data set out of the existing data structure.
+In R the command “subset” is used to filter the data in a data frame based on the criteria you set. 
 
-There are three subsetting operators: `$`, `[]` and `[[]]`.  
-Some functions also allow to create subsets. 
-We can combine subsetting and assignment to change some parts of an object.  
+
+There are three operators that can be used to extract subsets of R objects:
+
+The [ operator always returns an object of the same class as the original. It can be used to select multiple elements of an object
+
+The [[ operator is used to extract elements of a list or a data frame. It can only be used to extract a single element and the class of the returned object will not necessarily be a list or data frame.
+
+The $ operator is used to extract elements of a list or data frame by literal name. Its semantics are similar to that of [[.
+ 
+
 Sub-setting is better used in complement with `str()`.
 ```{r}
-va <- c(13.1, -15.2, 0.3, 2.4, 10.5, -3.6, 9.7) # create the vector va
+va <- c(11, -19, 0.8, 0.9, 0.5, -1.3, 11.7) # create the vector va
 str(va)
 str(mtcars)
 ```
 
-One can see from this call, that `va` is a simple vector with `r length(va)` elements. Subsetting means choosing among these.
+You can see from this call, that `va` is a simple vector with `r length(va)` elements. Subsetting means choosing among these.
 
 ## `[]`
 Applies to vectors, matrices, lists and data frames.  
@@ -28,16 +32,18 @@ Can be used with:
     - character vectors when names exist.
 
 ### On a vector
+
+Vectors are basic objects in R and they can be subsetted using the [ operator.
 Here are a few examples of that object used on a vector.
 
 ```{r} 
-va <- c(13.1, -15.2, 0.3, 2.4, 10.5, -3.6, 9.7)
-va[1] # element 1
+va <- c(11, -19, 0.8, 0.9, 0.5, -1.3, 11.7)
+va[1] # extract the first element
 va[c(3:5)] # elements 3 to 5
-va[c(2,7)]
-va[-1] # all elements minus the element 1
-va[c(-2,-7)]
-va[c(-2,-7)]
+va[c(2,7)] #elements 2 and 7 
+va[-3] # extract all elements minus the element 3
+va[c(-5,-4)]
+va[c(-5,-4)]
 va[c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE)] 
 va[c(TRUE,FALSE)] # notice the recycling at play here
 va[NA] 
@@ -50,7 +56,26 @@ va
 va[c("a","e","b")]
 
 ```
+
 ### On a list
+
+Lists in R can be subsetted using all three of the operators mentioned above, and all three are used for different purposes.
+
+```{r}
+x <- list(foo = 1:4, bar = 0.6)
+x$foo[1] #2,3,4
+
+x$bar[1] 
+```
+
+The [[ operator can be used to extract single elements from a list. Here we extract the first element of the list:
+
+```{r}
+x[[1]]
+```
+
+Another list example to illurstrate:
+
 ```{r}
 mylist<- list(numbers=c(1:20), 
               ournames=c("Jim","Jules"), 

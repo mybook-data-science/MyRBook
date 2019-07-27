@@ -1,11 +1,16 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Scoping {#scoping}
 
 
 ## Introduction Part 
 
-A function creates its own environment. In turn, this environment of the function is a child of the environment where the function was created.  
-Scoping refers to the set of rules on what environment R looks for the value of a name. For instance, if the code contains `myv <- 12`, then later typing `myv` forces R to retrieve 12 from an environment.  
-R uses lexical scoping and, under some circumstances, dynamic scoping. We're interested in lexical scoping.
+In general, a function and its sub-functions create their own environment where the function was created. The lexical scoping that is used by R sometimes changes towards dynamic scoping. Nevertheless, in our book we mainly focus on lexical scoping. The set of rules, that describes scoping looks for the value of a name such as a code that contains `myv <- 12` and by writing `myv` which means that R retrieves 12 from an environment. 
+
+Typically, a function is defined in the global environment, so that the values of free variables are just found in the user’s workspace. This behavior is logical for most people and is usually the “right thing” to do. However, in R you can have functions defined inside other functions (languages like C don’t let you do this). Now things get interesting—in this case the environment in which a function is defined is the body of another function!
 
 
 ```{r}
@@ -22,24 +27,24 @@ mean(1:10)
 
 ## Rule 1: name masking  
 
-If a name is not defined in a function, R looks one level up, i.e., in the parent:
+R will check one level up in the partent if a name is not defined in a function:
 
 ```{r}
-a <- 10
+a <- 15
 
 f <- function(){
-  b <- 2
+  b <- 5
   a + b # same as return(a + b)
 }
 
 f()
 
-c <- 11
+c <- 9
 g <- function() {
-  d <- 4
+  d <- 2
   h <- function() {
-    e <- 5
-    c + 2*d + e
+    e <- 7
+    c + 4*d + e
   }
   h()
 }
@@ -48,13 +53,13 @@ g()
 
 
 
-c <- 11
-d <- 100
+c <- 9
+d <- 2
 g <- function() {
-  d <- 4
+  d <- 2
   h <- function() {
-    e <- 5
-    c + 2*d + e
+    e <- 7
+    c + 4*d + e
   }
   h()
 }
@@ -65,39 +70,39 @@ g <- function() {
 
 
 
-## Rule 2: fresh start
+## Rule 2: new start
 
-Every time a function is called, a new environment is created. In other words, the function does not know that it has been called before.
+After a function has been called, a new environment was created so that the function does not know that it has been called before. 
 
 ```{r}
 a 
-t <- function() {
+z <- function() {
   if (exists("a")) { 
-    a <- a + 2
+    a <- a + 3
     a
   } else {
-    a <- 20 
+    a <- 11 
     a
   } 
 }
-t()
+z()
 
-t()
-t()
+z()
+z()
 
 a <- 4
-# gives 6 because when the function t looks for 'a', NOW, it finds it in the parent 
-t() 
+# gives this output because when the function z looks for 'a', NOW, it finds it in the parent 
+z() 
 
 
 l <- function() {
   a <- 5 
-  # 'a' is defined in the environment, so there is no need to look into the parent 
+  # 'a' is defined in the environment, so no look into the parent required
   if (exists("a")) { 
-    a <- a + 2
+    a <- a + 3
     a
   } else {
-    a <- 10 
+    a <- 11 
     a
   } 
 }
@@ -107,22 +112,21 @@ l()
 
 ## Rule 3: dynamic lookup
 
-R looks for values when the function is called. If the environment where R will look for values has changed in between calls, the result of the function may be different. This is a source of error that should avoided.
+In case of a change in the environment in between calls, the values and the outcome of the function will be different. If it is possible, this type of error should be avoided
 
 ```{r}
-u <- function() a^2
-a <- 2
-u() 
+v <- function() a^3 #like we had in a chapter before it works also with exponents
+a <- 4
+v() 
 # needs a value for 'a' because it does not define one within its environment; 
 # therefore, u() looks up to, in this case, the global environment
-a <- 3
-u()
+a <- 6
+v()
 ```
 
 ## Functions inside functions
 
-Consider the following example of a function, it returns a function!
-
+Here is an example of a function that returns another function as its return value. Remember, in R functions are treated like any other object and so this is perfectly valid:
 
 ```{r}
 m.power <- function(pow){
@@ -131,21 +135,23 @@ m.power <- function(pow){
 }
 ```
 
-We can create many functions with that function. Importantly, notice that functions preserve the environment in which they were created.
+A function always preserves the environment in which it has been created and therefore R can create many functions with that function. 
+
+
 
 ```{r}
 
-mycube <- m.power(3)
-mycube(4)
+mycube <- m.power(3) #m.power() function is a kind of “constructor function” that can be used to construct other functions.
+mycube(9)
 
 mysquare <- m.power(2)
-mysquare(5)
+mysquare(7)
 
 # ls(environment(m.power)) gives the global environment
 ls(environment(mycube)) 
 
 w <- function(k){
-  q <- 10
+  q <- 6
   k*q
 }
 
@@ -176,8 +182,7 @@ ff(3)
 ```
 
 
-As another illustration, we could try to guess what  `g(2)` produces after the following commands. Hint: remember the in which environment the functions were created because it tells you what are the correct bindings (parent).
-
+In order to find out what `g(2)` produces after a set of commands it is important to keep the environment in which the function has been created in mind since it provides information about the correct bindings, also called parents. 
 
 ```{r}
 a <- 1
@@ -207,5 +212,52 @@ g(2)
 ```
 
 
+## Lexical vs Dynamic Scoping
 
+We can use the following example to demonstrate the difference between lexical and dynamic scoping rules:
 
+```{r}
+
+y <- 10
+ 
+f <- function(x) {
+         y <- 2
+         y^2 + g(x)
+ }
+ 
+ g <- function(x) { 
+         x*y
+ }
+ 
+f(3)
+
+```
+
+With lexical scoping the value of y in the function g is looked up in the environment in which the function was defined, in this case the global environment, so the value of y is 10. With dynamic scoping, the value of y is looked up in the environment from which the function was called (sometimes referred to as the calling environment). In R the calling environment is known as the parent frame. In this case, the value of y would be 2.
+
+When a function is defined in the global environment and is subsequently called from the global environment, then the defining environment and the calling environment are the same. This can sometimes give the appearance of dynamic scoping.
+
+Consider this example:
+
+```{r
+ g <- function(x) { 
+         a <- 3
+         x+a+y   
+         ## 'y' is a free variable
+ }
+ 
+g(2) Error in g(2): object 'y' not found
+y <- 3
+g(2)
+[1] 8
+```
+Here, y is defined in the global environment, which also happens to be where the function g() is defined.
+
+There are numerous other languages that support lexical scoping, including_
+
+-Scheme
+-Perl
+-Python
+-Common Lisp (all languages converge to Lisp, right?)
+
+Lexical scoping in R has consequences beyond how free variables are looked up. In particular, it’s the reason that all objects must be stored in memory in R. This is because all functions must carry a pointer to their respective defining environments, which could be anywhere. In the S language (R’s close cousin), free variables are always looked up in the global workspace, so everything can be stored on the disk because the “defining environment” of all functions is the same.
