@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # `dplyr` {#dplyr}
 
 
@@ -43,6 +48,7 @@ A few comments before we describe the verbs are in turn.
 For the examples below, we will be using the `starwars` data set from the `dplyr`package. So, we can first have a glimpse at it.
 
 ```{r}
+require(dplyr)
 starwars
 ```
 
@@ -72,25 +78,26 @@ piece_df <- df %>%
 Here is an example of a selection of variables.
 
 ```{r}
-starwars %>%
-  select(name, homeworld)
-
+require(MASS)
+require(dplyr)
+starwars %>% 
+  dplyr::select(name, species)
 # compare with base R
 
-starwars[,c("name", "homeworld")]
+starwars[,c("name", "species")]
 ```
 
-There are any ways of selecting variables
+There are any ways of selecting variables:
 
-```r
+```{r}
 ## columns/variables 1 to 4
-select(starwars, 1:4) 
+dplyr::select(starwars, 1:4) 
 ## works also with the name
-select(starwars, name:hair_color) 
+dplyr::select(starwars, name:hair_color) 
 ## with a negative number for all but some variable
-select(starwars, -3) 
+dplyr::select(starwars, -3) 
 ## works also with the name
-select(starwars, -mass) 
+dplyr::select(starwars, -mass) 
 ```
 
 
@@ -108,13 +115,13 @@ For instance, here, we select all the variables that have `color` in their name.
 ```{r}
 require(tidyverse)
 starwars %>%
-  select(
+  dplyr::select(
     name,
     contains("color")
     )
 
 starwars %>%
-  select(name, hair_color, films)
+  dplyr::select(name, hair_color, films)
 ```
 
 ## `mutate`
@@ -370,8 +377,6 @@ capitals <- tribble(
 )
 
 ```
-
-
 
 ## Joins
 
