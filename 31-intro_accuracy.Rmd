@@ -1,4 +1,4 @@
-# Introduction to accuracy assessment {#intro_accuracy}
+# Introduction to accuracy assessment
 
 
 ## (Root) Mean square error {#rmse}
@@ -35,7 +35,7 @@ data("Auto")
 # estimate the models
 model.pd1 <- lm(mpg ~ horsepower, data = Auto)
 model.pd2 <- lm(mpg ~ horsepower + I(horsepower^2), data = Auto)
-model.pd5 <- lm(mpg ~ poly(horsepower, 5), data = Auto)
+model.pd5 <- lm(mpg ~ poly(horsepower, 5), data = Auto)  # number in blue is the respective polynom
 model.pd9 <- lm(mpg ~ poly(horsepower, 9), data = Auto)
 
 
@@ -77,7 +77,8 @@ models.rmse$n.coef <- c(n.coef(model.pd1),
                         n.coef(model.pd5),
                         n.coef(model.pd9))
 ```
-Let's now plot this case.
+
+Now we plot to see the different polynoms with the respective RMSE:
 
 ```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "RMSE for various numbers of coefficients in the linear model."}
 models.rmse %>%
