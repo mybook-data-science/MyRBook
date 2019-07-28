@@ -160,38 +160,7 @@ boot(city, ratio, R=999, stype="w")
 
 ## Resampling Examples
 
-Here are two additional resampling examples, which we learned in the course of our semester.
-
-### Multiple 10 splits
-
-```{r}
-require(ISLR)
-require(magrittr)
-
-set.seed(7)
-
-degrees <- 1:10
-n.splits <- 12
-
-m.rmse <- matrix(NA, length(degrees), n.splits)
-
-for (s in 1:n.splits) {
-  
-  train <- sample(1:n, ceiling(n/2))
-  
-for (i in degrees) {
-  fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto, subset = train)
-  
-  m.rmse[i,s] <- c.rmse(Auto$mpg[-train], predict(fit1, newdata = Auto[-train,]))
-}
-  
-}
-
-plot(degrees, m.rmse[,1], type = "l", col = "red", ylim = c(min(m.rmse), max(m.rmse)))
-for (s in 2:n.splits) {
-  lines(degrees, m.rmse[,s], col=s)
-}
-```
+Here is an additional resampling example, which we learned in the course of our semester.
 
 ### Creating many data sets
 
@@ -266,40 +235,42 @@ The process:
 2. Apply the model to the test data set to predict the outcome of new unseen observations
 3. Quantify the prediction error as the mean squared difference between the observed and the predicted outcome values.
 
-Example:
+Example 1:
 
-Step 1 of the process: Split the data into training and test set
-
-```{r}
-set.seed(123)
-training.samples <- swiss$Fertility %>%
-  createDataPartition(p = 0.8, list = FALSE)
-train.data  <- swiss[training.samples, ]
-test.data <- swiss[-training.samples, ]
-```
-
-Step 2 of the process: Build the model
+Step 1 of the process: Choose a different training set (Expectation: Obtain different errors as opposed to the first example).
 
 ```{r}
-model <- lm(Fertility ~., data = train.data)
+require(ISLR)
+require(tidyverse)
+set.seed (2)
+train <- sample (392 ,196)
 ```
 
-Step 3 of the process: Make predictions and compute the R2, RMSE and MAE
+Step 2 of the process: Use the subset option in lm() to fit a linear regression.
 
 ```{r}
-predictions <- model %>% predict(test.data)
-data.frame( R2 = R2(predictions, test.data$Fertility),
-            RMSE = RMSE(predictions, test.data$Fertility),
-            MAE = MAE(predictions, test.data$Fertility))
+lm.fit = lm(mpg ~ horsepower , data = Auto, subset = train)
+EMSE <- mean((Auto$mpg - predict(lm.fit, newdata = Auto))[-train]^2)
+EMSE
 ```
 
-When comparing two models, the one that produces the lowest test sample RMSE is the preferred model.
-
-the RMSE and the MAE are measured in the same scale as the outcome variable. Dividing the RMSE by the average value of the outcome variable will give you the prediction error rate, which should be as small as possible:
+Step 3 of the process: Use the poly() function to estimate the test error for the quadratic and cubic regressions.
 
 ```{r}
-RMSE(predictions, test.data$Fertility)/mean(test.data$Fertility)
+lm.fit2=lm(mpg ~ poly(horsepower ,2) ,data=Auto ,subset =train )
+EMSE2 <- mean((Auto$mpg - predict(lm.fit2, newdata = Auto))[-train]^2)
+EMSE2
 ```
+
+```{r}
+lm.fit3=lm(mpg ~ poly(horsepower ,3) ,data=Auto ,subset =train )
+EMSE3 <- mean((Auto$mpg - predict(lm.fit3, newdata = Auto))[-train]^2)
+EMSE3
+```
+
+Result: Using this split of the observations into a training set and a validation set, we find that the validation set error rates for the models with linear, quadratic, and cubic terms are 23.30, 18.90, and 19.26.
+
+The next step is then to calculate the `Root Mean Squared Error`, where the model that produces the lowest test sample RMSE is the preferred model.
 
 ### k-fold Cross-Validation
 

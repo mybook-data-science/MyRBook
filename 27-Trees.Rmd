@@ -9,7 +9,7 @@ Regression and classification trees can be generated through the rpart package.
 ```{r}
 #load packages
 
-require(tree)
+require(data.tree)
 require(randomForest)
 require(rpart)
 
@@ -97,12 +97,14 @@ text(fit, use.n=TRUE, all=TRUE, cex=.8)
 
 #prune the tree
 pfit<- prune(fit, cp=   fit$cptable[which.min(fit$cptable[,"xerror"]),"CP"])
+```
 
-#plot the pruned tree
+>> Command, if you want to plot the pruned tree:
+
+```{r
 plot(pfit, uniform=TRUE, 
    main="Pruned Classification Tree for Kyphosis")
 text(pfit, use.n=TRUE, all=TRUE, cex=.8)
-
 ```
 
 ## Avoiding over-fitting of trees with Bagging

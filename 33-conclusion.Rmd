@@ -3,7 +3,7 @@
 
 # Conclusion {#conclusion}
 
-This brings us to the end of our book. It is built in the form of a tutorial and contains a variety of hints regarding the use of R in general and the us of R for data science or data analysis.
+This brings us to the end of our book. It is built in the form of a tutorial and contains a variety of hints regarding the use of R in general and the use of R for data science or data analysis.
 
 As mentioned before, the book itself is part of a university project in `Data Science` at Hochschule Fresenius in Cologne. The course itself was designed or intended to learn about the language R and how R can be used for `Data Science`. Please keep in mind that the entire project is a work-in-progress document and that it might contain "simple" errors, due to the fact that this is the first time we are working with R and data science. Since we are "first-time learners" of R and data science, we intended to pass on our knowledge and give the reader a basic understanding of R and how to make use of helpful and life-simplifying tools (e.g. for data science).
 
@@ -11,5 +11,5 @@ It was important for  us to get you started with R and data science, as well as 
 
 In our examples, we tried to give a simple understanding of the issue, as well as basic examples (and some advanced examples) for working with and presenting complex models. Our objective was and still is to demonstrate how R can be used to "read" data and convert it into data scientific output. Furthermore, we want to demonstrate how "easy" it can be to use R as a language for data science. When it comes to machine learning, we demonstrated the possible use of a variety of packages that support the use of machine learning with R. 
 
-In Case of any ambiguities, the authors are happy to support you and will try to give you valuable advice. 
+In case of any ambiguities, the authors are happy to support you and will try to give you valuable advice. 
 

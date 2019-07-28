@@ -22,7 +22,7 @@ Your vector of predictions will be evaluated with the root mean square error cri
 
 The file project_data.Rdata contains two data frames, train.data and test.data. These names are self-explanatory. Their dimensions are the following:
 
-```{r}
+```{r
 dim(train.data)
 ## [1] 200 18
 dim(test.data)

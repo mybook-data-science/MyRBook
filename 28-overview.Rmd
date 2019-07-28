@@ -15,8 +15,7 @@ The original postulate is that there exist a relationship between a _response_ \
 ```{r, out.width = "100%", message = FALSE, warning = FALSE}
 require(gridExtra)
 require(tidyverse)
-advertising <- read_csv("Advertising.csv") %>%
-	select(-X1) 
+advertising <- read_csv("Advertising.csv")
 advertising
 
 p1 <- advertising %>% ggplot(

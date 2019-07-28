@@ -32,8 +32,7 @@ require(tidyverse)
 advertising <- read_csv("Advertising.csv")
 advertising
 
-advertising <- read_csv("Advertising.csv") %>%
-	select(-X1) 
+advertising <- read_csv("Advertising.csv")
 advertising
 ```
 
