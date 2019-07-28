@@ -1,0 +1,351 @@
+# Resampling
+
+Resampling methods are a valuable and useful tool in statistics. They involve drawing samples from data or training sets and as the name already says, refitting a model on each sample, in order to obtain additional information about the fited model.
+
+Two commonly used resampling methods that you may encounter are k-fold cross-validation and the bootstrap.
+
+1. Bootstrap: Drawing samples from a dataset with replacement, where those instances not drawn into the data sample may be used for the test set.
+
+2. k-fold Cross-Validation: A dataset is partitioned into k groups, where each group is given the opportunity of being used as a held out test set leaving the remaining groups as the training set.
+
+## Replication Requirements
+
+In order to expain what resampling is about, we will focus on various examples of bootstraps , which is part of the ISLR package in R. We can also use tidyverse packages, in order to manipulate and visualize the data. Important: We will use the boot package to illustrate resampling methods, which is the most important part of resampling.
+
+Let us start with installing or using the required packages for resampling: 
+
+Packages:
+
+```{r
+library(tidyverse)  # data manipulation and visualization
+library(boot)       # resampling and bootstrapping
+```
+
+## Why Resampling?
+
+Resampling methods are very easy to use and require only basic mathematical knowledge. They are methods that are fairly easy to understand and implement. They don't require deep technical skill, in order to select and interpret.
+
+The resampling methods […] are easy to learn and easy to apply. They require no mathematics beyond introductory high-school algebra, et are applicable in an exceptionally broad range of subject areas.
+
+— Page xiii, Resampling Methods: A Practical Guide to Data Analysis, 2005.
+
+## Bootstrapping
+
+Bootstrapping can be a very useful tool in statistics and is very easily implemented in R. Bootstrapping plays a role, when there is doubt that the distributional assumptions and asymptotic results are valid and accurate. It is a nonparametric method, which helps you compute estimated standard errors, confidence intervals and hypothesis testing.
+
+The basic steps of bootstrapping:
+
+1. Resample a given data set a specified number of times.
+2. Calculate a specific statistic from each sample.
+3. Find the standard deviation of the distribution of that statistic.
+
+The following bootstrapping example is an example, where we are willing to obtain a standard error for the estimate of the median. 
+
+We will therefore make use of the lapply, sapply functions in combination with the sample function. Hint: For more information about the lapply and sapply function please consult the help manuals.
+
+### Sample function 
+
+A major component of bootstrapping is being able to resample a given data set. In R, this is done by using the `sample function`:
+
+Example sample function 
+
+Step 1: Use sample to generate a permutation of the sequence 1:10
+
+```{r}
+sample(10)
+```
+
+Step 2: Bootstrap the sample
+
+```{r}
+sample(10, replace=T)
+```
+
+Step 3: boostrap sample with probabilities that favor numbers from 1 to 5
+
+```{r}
+bootstrap1 <- c(rep(.15, 5), rep(.05, 5))
+bootstrap1
+```
+
+```{r}
+sample(10, replace=T, prob=bootstrap1)
+```
+
+Step 4: Sample of size 5 from elements of a matrix, in order to create the data matrix
+
+```{r}
+matrix1 <- matrix( round(rnorm(25,5)), ncol=5)
+matrix1
+```
+
+Step 5: Save the sample of size 5 in the vector `vector1`
+
+```{r}
+vector1 <- matrix1[sample(25, 5)]
+vector1
+```
+
+Step 6: Sample the rows of the matrix, in order to create the data matrix
+
+```{r}
+matrix2 <- matrix( round(rnorm(40, 5)), ncol=5)
+matrix2
+```
+
+Step 7: Save the sample of rows in vector 2
+
+```{r}
+vector2 <- matrix2[sample(8, 3),  ]
+vector2
+```
+
+### A bootstrap example
+
+Obtain 20 bootstrap samples and display the first of the bootstrap samples [1:10]
+
+```{r}
+data <- round(rnorm(100, 5, 3))
+data[1:10] 
+```
+
+```{r}
+resamples <- lapply(1:20, function(i) sample(data, replace = T))
+resamples
+```
+
+Calculate the median for each bootstrap sample 
+
+```{r}
+r.median <- sapply(resamples, median)
+r.median
+```
+
+Calculate the standard deviation of the distribution of medians
+
+```{r}
+sqrt(var(r.median))
+```
+
+Display a histogram of the distribution of the medians 
+
+```{r}
+hist(r.median)
+```
+
+### Built in bootstrapping functions
+
+R has numerous built in bootstrapping functions. Below, you will find an example of a bootstrapping function (others can be found in the bootstrap package):
+
+We are making use of the "city" data included in the boot package.
+
+Step 1: Make sure the boot package is installed using install.packages("boot") and obtain the data from the package
+
+```{r}
+library(boot)
+data(city)
+```
+
+Step 2: Define the ratio function
+
+```{r}
+ratio <- function(d, w) sum(d$x * w)/sum(d$u * w)
+```
+
+Step 3: Use the boot function
+
+```{r}
+boot(city, ratio, R=999, stype="w")
+```
+
+## Resampling Examples
+
+Here are two additional resampling examples, which we learned in the course of our semester.
+
+### Multiple 10 splits
+
+```{r}
+require(ISLR)
+require(magrittr)
+
+set.seed(7)
+
+degrees <- 1:10
+n.splits <- 12
+
+m.rmse <- matrix(NA, length(degrees), n.splits)
+
+for (s in 1:n.splits) {
+  
+  train <- sample(1:n, ceiling(n/2))
+  
+for (i in degrees) {
+  fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto, subset = train)
+  
+  m.rmse[i,s] <- c.rmse(Auto$mpg[-train], predict(fit1, newdata = Auto[-train,]))
+}
+  
+}
+
+plot(degrees, m.rmse[,1], type = "l", col = "red", ylim = c(min(m.rmse), max(m.rmse)))
+for (s in 2:n.splits) {
+  lines(degrees, m.rmse[,s], col=s)
+}
+```
+
+### Creating many data sets
+
+```{r}
+# another resampling method: creating many data sets
+library(boot)
+
+degrees <- 1:10
+
+loocv <- numeric()
+
+for (i in degrees) {
+  fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto)
+  
+  loocv[i] <- cv.glm(Auto, fit1)$delta[1] %>% sqrt
+  
+}
+
+plot(degrees, loocv, type = "b", col = "red" )
+```
+
+```{r}
+library(boot)
+
+degrees <- 1:10
+n.trys <- 12
+
+m.k10 <- matrix(NA, length(degrees), n.trys)
+
+for (s in 1:n.trys) {
+  
+  for (i in degrees) {
+    fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto)
+    m.k10[i,s] <- cv.glm(Auto, fit1, K=10)$delta[1] %>% sqrt
+    
+    
+  }
+    
+  
+}
+ plot(degrees, m.k10[,1], type = "l", col = "red", ylim = c(min(m.k10), max(m.k10)))   
+
+for (s in 2:n.trys) {
+  lines(degrees, m.k10[,s], col=s) 
+  
+}
+```
+
+## Cross-Validation 
+
+Definiton: Cross-validation is a resampling procedure used to evaluate machine learning models on a limited data sample.
+
+Procedure has:
+
+- `k` as a single parameter refering to the number of groups that a data sample is to be spit into
+
+Therefore, the procedure is also known as the k-fold cross-validation, as mentioned in the first part of the chapter.
+
+When you assign a specific value to k (e.g. k=10), it becomes a 10-fold cross-validation.
+
+This approach divides the set of observations into k groups, or folds, of approximately equal size. Within that, the first fold is treated as a validation set, and the method is then fit on the remaining k − 1 folds.
+
+### The Validation set Approach
+
+The validation set approach randomly splits the data into two sets: 
+
+- One set to train the model.
+- Remaining other set to test the model.
+
+The process:
+1. Build the model on the training data set
+2. Apply the model to the test data set to predict the outcome of new unseen observations
+3. Quantify the prediction error as the mean squared difference between the observed and the predicted outcome values.
+
+Example:
+
+Step 1 of the process: Split the data into training and test set
+
+```{r}
+set.seed(123)
+training.samples <- swiss$Fertility %>%
+  createDataPartition(p = 0.8, list = FALSE)
+train.data  <- swiss[training.samples, ]
+test.data <- swiss[-training.samples, ]
+```
+
+Step 2 of the process: Build the model
+
+```{r}
+model <- lm(Fertility ~., data = train.data)
+```
+
+Step 3 of the process: Make predictions and compute the R2, RMSE and MAE
+
+```{r}
+predictions <- model %>% predict(test.data)
+data.frame( R2 = R2(predictions, test.data$Fertility),
+            RMSE = RMSE(predictions, test.data$Fertility),
+            MAE = MAE(predictions, test.data$Fertility))
+```
+
+When comparing two models, the one that produces the lowest test sample RMSE is the preferred model.
+
+the RMSE and the MAE are measured in the same scale as the outcome variable. Dividing the RMSE by the average value of the outcome variable will give you the prediction error rate, which should be as small as possible:
+
+```{r}
+RMSE(predictions, test.data$Fertility)/mean(test.data$Fertility)
+```
+
+### k-fold Cross-Validation
+
+The k-fold cross-validation method evaluates the model performance on different subset of the training data and then calculate the average prediction error rate. 
+
+The algorithm is as follow:
+
+1. Randomly split the data set into k-subsets (or k-fold) (for example 5 subsets)
+2. Reserve one subset and train the model on all other subsets
+3. Test the model on the reserved subset and record the prediction error
+4. Repeat this process until each of the k subsets has served as the test set.
+5. Compute the average of the k recorded errors. This is called the cross-validation error serving as the performance metric for the model.
+
+How to choose the right k value?
+
+- Lower value of K = More biased and therefore undesirable. 
+- Higher value of K = :ess biased, but can suffer from large variability. 
+
+In practice, one typically performs k-fold cross-validation using k = 5 or k = 10. 
+
+These values have been shown empirically to yield test error rate estimates without excessively high bias and also without a very high variance.
+
+Example (10-fold cross validation):
+
+First of all: The package `caret` is needed for the k-fold cross-validation.
+
+```{r}
+require(caret)
+```
+
+Step 1: Define training control
+
+```{r}
+set.seed(123) 
+train.control <- trainControl(method = "cv", number = 10)
+```
+
+Step 2: Train the model
+
+```{r}
+model <- train(Fertility ~., data = swiss, method = "lm",
+               trControl = train.control)
+```
+
+Step 3: Summarize the results
+
+```{r}
+print(model)
+```
