@@ -305,18 +305,18 @@ Step 1: Define training control
 
 ```{r}
 set.seed(123) 
-train.control <- trainControl(method = "cv", number = 10)
+#train.control <- trainControl(method = "cv", number = 10)
 ```
 
 Step 2: Train the model
 
 ```{r}
-model <- train(Fertility ~., data = swiss, method = "lm",
+#model <- train(Fertility ~., data = swiss, method = "lm",
                trControl = train.control)
 ```
 
 Step 3: Summarize the results
 
 ```{r}
-print(model)
+#print(model)
 ```
