@@ -99,6 +99,7 @@ The other set of commands are typically definitions of new commands or environme
 \usepackage{totcount}
 \regtotcounter{section}
 \makeatletter
-    \renewcommand{\thesection}{\number\numexpr\c@section@totc-\c@section+1\relax}
+    \renewcommand{\thesection}
+    {\number\numexpr\c@section@totc-\c@section+1\relax}
 \makeatother
 ```

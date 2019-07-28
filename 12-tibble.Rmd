@@ -27,23 +27,11 @@ There are various ways to create a tibble.
 The simplest way is declare a data frame a tibble with the function `as_tibble`. 
 
 ```{r}
+require(tidyverse)
 data(iris)
 # print the data frame
 iris
 t_iris <- as_tibble(iris)
-# print the tibble
-class(t_iris)
-t_iris
-```
-
-Another example for using as_tibble:
-
-```{r}
-data(letters)
-# print the data frame
-letters
-
-t_iris <- as_tibble(letters)
 # print the tibble
 class(t_iris)
 t_iris

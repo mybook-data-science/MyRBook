@@ -135,7 +135,8 @@ separate(df, messy_var, into=c(tidy_var1, tidy_var2))
 We now illustrate the use of this verb.
 
 ```{r}
-tennisplayers <- tibble(info=c("Federer, Swiss","Kohlschreiber, German","Kyrgios, Australian"))
+tennisplayers <- tibble(info=c("Federer, Swiss","Kohlschreiber, 
+                               German","Kyrgios, Australian"))
 tennisplayers
 
 tidy_tennisplayers <- separate(tennisplayers,

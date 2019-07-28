@@ -63,9 +63,12 @@ Density plot: To see the distribution of the predictor variable.
 ```{r}
 library(e1071)
 par(mfrow=c(1, 2))  # divide graph area in 2 columns
-plot(density(advertising$sales), main="Density Plot: Sales", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(advertising$sales), 2)))  # density plot for 'Sales'
+plot(density(advertising$sales), 
+     main="Density Plot: Sales", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(advertising$sales), 2)))  # density plot for 'Sales'
 polygon(density(advertising$sales), col="red")
-plot(density(advertising$TV), main="Density Plot: TV", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(advertising$TV), 2)))  # density plot for 'TV'
+plot(density(advertising$TV), main="Density Plot: TV", 
+     ylab="Frequency", sub=paste("Skewness:", 
+      round(e1071::skewness(advertising$TV), 2)))  # density plot for 'TV'
 polygon(density(advertising$TV), col="blue")
 ```
 
@@ -118,7 +121,8 @@ summary(estimation.mod)$df
 advertising %>%
   mutate(y.hat1 = estimation.mod$fitted.values,
          y.hat2 <- predict(estimation.mod),
-         y.hat3 <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2]*TV)
+         y.hat3 <- estimation.mod$coefficients[1] + 
+           estimation.mod$coefficients[2]*TV)
 
 advertising
 advertising$TV
@@ -147,7 +151,8 @@ Prediction of sales: We can now use the model to predict for data that not in th
 # predict sales for TV=400, 500, 600...
 
 # brute force way, very tedious in general
-sales_tv_400 <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2]*400
+sales_tv_400 <- estimation.mod$coefficients[1] + 
+  estimation.mod$coefficients[2]*400
 sales_tv_400
 
 # 'predict' way
@@ -210,15 +215,18 @@ tibble(advertising$TV, advertising$sales, estimation.mod$fitted.values)
 Digging into the details, these fitted values  are simply obtained thanks to the estimated parameters using the \(X\) values (_TV_, in this case). 
 
 ```{r}
-manually.fitted <- estimation.mod$coefficients[1] + estimation.mod$coefficients[2] * advertising$TV
-all.equal(as.vector(estimation.mod$fitted.values), manually.fitted)
+manually.fitted <- estimation.mod$coefficients[1] + 
+  estimation.mod$coefficients[2] * advertising$TV
+all.equal(as.vector(estimation.mod$fitted.values), 
+          manually.fitted)
 ```
 
 2. The second approach uses the function `predict` from the built-in `stats` package. The function is a bit versatile as its behavior depends on which type of objects it is fed with.  
 Applied to a `lm` object, it will, by default, return **predictions** for each of the \(X\) values  used to fit the model. 
 
 ```{r}
-all.equal(as.vector(estimation.mod$fitted.values), manually.fitted, predict(estimation.mod))
+all.equal(as.vector(estimation.mod$fitted.values), 
+          manually.fitted, predict(estimation.mod))
 ```
 
 Thanks to the fitted/predicted value, we can calculate the values above about the quality of the fit. Here are a few lines of code to manually calculate these statistics.

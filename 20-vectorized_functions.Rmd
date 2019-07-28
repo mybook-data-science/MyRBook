@@ -79,14 +79,7 @@ var(coins)
 coins <- c(36, 73, 16, 98, 22, 23, 87, 19, 12)
 mean(coins)
 
-# for help on a command, simply type ? in front of unknown command to search for explanation
+# for help on a command, simply type ? in front 
+# of unknown command to search for explanation
 ?var
-
 ```
-
-
-
-
-
-
-

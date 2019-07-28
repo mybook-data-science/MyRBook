@@ -216,11 +216,13 @@ Some of these environments, however, have a perfect integration in `.Rmd` files,
 
 ```markdown
 \[
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  
+\lvert k \rvert < 1
 \]
 ```
 \[
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  
+\lvert k \rvert < 1
 \]
 
 ## Figures
@@ -259,7 +261,8 @@ As an example, notice that this line belongs to Subsection \@ref(cr-chapters), i
 These cross-references were obtained by the text/code: 
 
 ```markdown
-As an example, notice that this line belongs to Subsection \@ref(cr-chapters), 
+As an example, notice that this line belongs to 
+Subsection \@ref(cr-chapters), 
 included in Section \@ref(cr) of Chapter \@ref(rmd).
 ```
 
@@ -285,7 +288,8 @@ Below is a modified version of the equation in Section \@ref(latex) to include a
 This is Equation \@ref(eq:series).
 
 \begin{equation} 
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
+\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  
+\lvert k \rvert < 1
   (\#eq:series)
 \end{equation}
 

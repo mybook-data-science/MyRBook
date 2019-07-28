@@ -131,13 +131,16 @@ p <- length(names(Hitters)) -1
 
 Hitters <- Hitters %>%
   na.omit(Hitters)
-hit.bag <- randomForest(Salary ~ ., data = Hitters, mtry = p , importance = TRUE, ntrees = 500)
+hit.bag <- randomForest(Salary ~ ., data = Hitters, 
+                        mtry = p , importance = TRUE, ntrees = 500)
 hit.bag
 
-hit.rf <- randomForest(Salary ~ ., data = Hitters, mtry = round(sqrt(p),0) , importance = TRUE, ntrees = 1000)
+hit.rf <- randomForest(Salary ~ ., data = Hitters, mtry = 
+                         round(sqrt(p),0) , importance = TRUE, ntrees = 1000)
 hit.rf
 
-hit.rf2 <- randomForest(Salary ~ ., data = Hitters, mtry = round(p/2,0) , importance = TRUE, ntrees = 1000)
+hit.rf2 <- randomForest(Salary ~ ., data = Hitters, mtry = 
+                          round(p/2,0) , importance = TRUE, ntrees = 1000)
 hit.rf
 
 
@@ -148,13 +151,16 @@ hit.rf
 
 train.index <- sample(1:nrow(Hitters), ceiling(nrow(Hitters)/2))
 
-thit.bag <- randomForest(Salary ~ ., data = Hitters[train.index,], mtry = p , importance = TRUE, ntrees = 500)
+thit.bag <- randomForest(Salary ~ ., data = Hitters[train.index,], 
+                         mtry = p , importance = TRUE, ntrees = 500)
 hit.bag
 
-thit.rf <- randomForest(Salary ~ ., data = Hitters[train.index,], mtry = round(sqrt(p),0) , importance = TRUE, ntrees = 1000)
+thit.rf <- randomForest(Salary ~ ., data = Hitters[train.index,], 
+                        mtry = round(sqrt(p),0) , importance = TRUE, ntrees = 1000)
 hit.rf
 
-thit.rf2 <- randomForest(Salary ~ ., data = Hitters[train.index,], mtry = round(p/2,0) , importance = TRUE, ntrees = 1000)
+thit.rf2 <- randomForest(Salary ~ ., data = Hitters[train.index,], 
+                         mtry = round(p/2,0) , importance = TRUE, ntrees = 1000)
 hit.rf
 
 pre.thit.bag <- predict(thit.bag, newdata = Hitters[-train.index,])

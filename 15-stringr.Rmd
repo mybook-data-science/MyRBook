@@ -7,7 +7,7 @@ The stringr package focuses on and provides you with a set of functions designed
 
 Let's start with the installation of StringR:
 
-``{r
+```{r
 install.packages("stringr")
 ```
 
@@ -15,7 +15,8 @@ Usage
 All functions in stringr start with str_ and take a vector of strings as the first argument.
 
 ```{r}
-x <- c("stadium", "football", "players", "halftime", "referee", "goalkeeper")
+x <- c("stadium", "football", "players", 
+       "halftime", "referee", "goalkeeper")
 str_length(x) 
 
 str_c(x, collapse = ", ")

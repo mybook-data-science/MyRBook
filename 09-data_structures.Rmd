@@ -96,7 +96,8 @@ length(vector_A)
 
 This is a special type of vector. It has a limited number of values, called levels. These levels can be unordered (e.g., gender is either "Female" or "Male") or ordered (e.g. school level is "Primary", "Secondary", "Tertiary")
 ```{r factor}
-gender <- factor(c("Male", "Male", "Female", "Male", "Female", "Female", "Male"))
+gender <- factor(c("Male", "Male", "Female", 
+                   "Male", "Female", "Female", "Male"))
 gender
 levels(gender)
 summary(gender)
@@ -116,7 +117,9 @@ school2
 Matrices are a special vector in R. They are not a separate type of object but simply an atomic vector with dimensions added on to it. Matrices have rows and columns. However R is not often used for matrices calculations: it is too slow for that and there are better programs for it out there (e.g. Matlab).
 
 ```{r}
-# populate a matrix with the elements in of the vector, and give the dimensions
+# populate a matrix with the elements in of the vector,
+# and give the dimensions
+
 M <- matrix(c(4, 1, 0, 3, 6, 8), nrow=3, ncol=2) 
 M
 ```
@@ -188,9 +191,12 @@ names(df)
 ```
 
 ```{r}
-students <- data.frame(name= c("tr", "ga", "mi", "st", "eb", "ha", "fo", "fi"),
-                       age=c(23, 23, 24, 33, 28, 24, 33, 41),
-                       like= c(T, T, T, T, F, F, T, T)) 
+students <- data.frame(name= c("tr", "ga", "mi", "st", 
+                               "eb", "ha", "fo", "fi"),
+                       age=c(23, 23, 24, 33, 
+                             28, 24, 33, 41),
+                       like= c(T, T, T, T, 
+                               F, F, T, T)) 
 students
 ```
 

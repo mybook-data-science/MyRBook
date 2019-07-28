@@ -97,10 +97,6 @@ The placeholder can be used multiple times. Notice, however, that if the placeho
 
 - `x %>% {f(y = nrow(.), z = ncol(.))}` is equivalent to `f(y = nrow(x), z = ncol(x))`
 
-
-
-
-
 ```{r}
 require(tidyverse)
 data(iris)
@@ -117,8 +113,3 @@ av.sw2 <- iris %>%
             {mean(.$Sepal.Width)}
 av.sw2  
 ```
-
-
-
-
-

@@ -44,25 +44,27 @@ Very often, the data source is in an Excel format, and needs to be imported into
 The following example is an example of how to load an Excel spreadsheet named "datascienceproject.xls" into R (This method requires Perl runtime to be present in the system):
 
 ```{r
-library(gdata)                   # loading the above mentioned gdata package 
-help(read.xls)                   # documentation (help regarding read.xls) 
-mydata = read.xls("datascienceproject.xls")  # read from the excel spreadsheet
+library(gdata)    # loading the above mentioned gdata package 
+help(read.xls)    # documentation (help regarding read.xls) 
+mydata = read.xls("datascienceproject.xls")  
+                  # read from the excel spreadsheet
 ```
 
 An alternative solution would be to make use of the function loadWorkbook from the XLConnect package to read the entire workbook, and then load the worksheets with readWorksheet (The XLConnect package requires the software Java to be pre-installed).
 
 ```{r
-library(XLConnect)               # loading the above mentioned XLConnect package 
+library(XLConnect)    # loading the above mentioned XLConnect package 
 dsp1 = loadWorkbook("datascienceproject.xls") 
-dsp2 = readWorksheet(dsp1, sheet="Sheet1")                # Example of reading sheet 1 of the entire worksheet.
+dsp2 = readWorksheet(dsp1, sheet="Sheet1")
+                      # Example of reading sheet 1 of the entire worksheet.
 ```
 
 SPSS File
 For data files in the format of SPSS, it can be opened with the function read.spss, which is also part of the foreign package. There read.spss function also includes a "to.data.frame" option, in order to choose whether a data frame is to be returned. By default, it returns a list of components instead.
 
 ```{r
-library(foreign)                 # loading the above mentioned foreign package 
-help(read.spss)                  # documentation (help regarding read.spss) 
+library(foreign)    # loading the above mentioned foreign package 
+help(read.spss)     # documentation (help regarding read.spss) 
 mydata = read.spss("datascienceproject", to.data.frame=TRUE)
 ```
 
@@ -89,7 +91,7 @@ mydata
 2  200   a2   b2 
 3  300   a3   b3
 
-help(read.csv)            # If help is required for the read.csv function
+help(read.csv)    # If help is required for the read.csv function
 ```
 
 Working Directory
@@ -97,7 +99,7 @@ Working Directory
 Finally, the code samples above assume the data files are located in the R working directory, which can be found with the function getwd.
 
 ```{r
-getwd()               # get current working directory
+getwd()   # get current working directory
 ```
 
 You can select a different working directory with the function setwd(), and thus avoid entering the full path of the data files.
@@ -121,10 +123,17 @@ The base function `scan` can sometimes be useful, though it is not used to impor
 - `nlines` determines the number of lines to be read and imported.
 
 ```{r}
-df <- scan("AH001.txt", what=character())
+df <- scan("AH001.txt", 
+           what=character())
 #df
-df <- scan("AH001.txt", what=character(), skip=1, sep=",")
+df <- scan("AH001.txt", 
+           what=character(), 
+           skip=1, 
+           sep=",")
 #df
-given.line <- scan("AH001.txt", what=character(), nlines=1, sep=",")
+given.line <- scan("AH001.txt", 
+              what=character(), 
+              nlines=1, 
+              sep=",")
 given.line
 ```
