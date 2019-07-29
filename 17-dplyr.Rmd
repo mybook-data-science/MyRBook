@@ -143,18 +143,18 @@ We play a bit with it.
 ```{r}
 ## add variable bmi
 starwars %>%
-         mutate(bmi = mass / (height/100)^2 )  
+         dplyr::mutate(bmi = mass / (height/100)^2 )  
 
 ## two variables created, including one created in the same call
 df_b <- starwars %>%
-          mutate(
+           dplyr::mutate(
             bmi = mass / (height/100)^2,
             sr.bmi = sqrt(bmi)
             ) 
 df_b
 
 starwars %>%
-  mutate(
+   dplyr::mutate(
     g_b = sample(c("G", "B"),
                  87,
                  replace = TRUE
@@ -181,10 +181,10 @@ Here are examples for this function.
 
 ```{r}
 starwars %>%
-  filter(species != "Droid")
+   dplyr::filter(species != "Droid")
 
 starwars %>%
-  filter(
+   dplyr::filter(
     species != "Droid" &
     eye_color == "blu"
     )
@@ -224,12 +224,12 @@ Here is an example that combines these two points.
 
 ```{r, results='hide'}
 starwars %>%
-        arrange(
+         dplyr::arrange(
           height, 
           desc(mass))
 
 starwars %>%
-  arrange(desc(name))
+   dplyr::arrange(desc(name))
 ```
 
 ## `summarise`
@@ -249,7 +249,7 @@ In that sense, notice that `summarise` does not mean to make a summary but, inst
 
 ```{r}
 starwars %>%
-  summarise(min_h = min(height, na.rm = TRUE),
+   dplyr::summarise(min_h = min(height, na.rm = TRUE),
             av_m= mean(mass, na.rm = TRUE)
             )
 ```
@@ -260,16 +260,16 @@ These are functions to help `summarise`, but are essentially wrappers for the fu
 
 ```{r}
 starwars %>%
-  summarise(nth(species, 3))
+   dplyr::summarise(nth(species, 3))
 ```
 Other functions can be used as logical tests.
 
 ```{r}
 starwars %>%
-  summarise(sum(species == "Human", na.rm=TRUE))
+   dplyr::summarise(sum(species == "Human", na.rm=TRUE))
 
 starwars %>%
-  summarise(mean(species != "Human", na.rm=TRUE))
+   dplyr::summarise(mean(species != "Human", na.rm=TRUE))
 ``` 
 
 
@@ -281,8 +281,8 @@ Here is an example.
 ```{r}
 ## average mass of humans 
 starwars %>%
-  filter(species == "Human") %>%
-  summarise(av_m=mean(mass, na.rm=TRUE))
+   dplyr::filter(species == "Human") %>%
+   summarise(av_m=mean(mass, na.rm=TRUE))
 
 # without pipe
 summarise(filter(starwars, species == "Human"), av_m=mean(mass, na.rm=TRUE))
@@ -321,9 +321,9 @@ c_l <- function(ll){
 }
 
 starwars %>%
-  mutate(n_films = c_l(films)) %>%
-  select(name, n_films) %>%
-  filter( n_films >=5)
+   dplyr::mutate(n_films = c_l(films)) %>%
+   dplyr::select(name, n_films) %>%
+   dplyr::filter( n_films >=5)
 
 ```
 
@@ -338,7 +338,7 @@ starwars %>%
   summarise(
     n_per_group = n()
   ) %>%
-  filter(n_per_group > 1)
+   dplyr::filter(n_per_group > 1)
 ``` 
 
 ## Keys for joins

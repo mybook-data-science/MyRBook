@@ -158,57 +158,6 @@ Step 3: Use the boot function
 boot(city, ratio, R=999, stype="w")
 ```
 
-## Resampling Examples
-
-Here is an additional resampling example, which we learned in the course of our semester.
-
-### Creating many data sets
-
-```{r}
-# another resampling method: creating many data sets
-library(boot)
-
-degrees <- 1:10
-
-loocv <- numeric()
-
-for (i in degrees) {
-  fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto)
-  
-  loocv[i] <- cv.glm(Auto, fit1)$delta[1] %>% sqrt
-  
-}
-
-plot(degrees, loocv, type = "b", col = "red" )
-```
-
-```{r}
-library(boot)
-
-degrees <- 1:10
-n.trys <- 12
-
-m.k10 <- matrix(NA, length(degrees), n.trys)
-
-for (s in 1:n.trys) {
-  
-  for (i in degrees) {
-    fit1 <- glm(mpg ~ poly(horsepower,i), data = Auto)
-    m.k10[i,s] <- cv.glm(Auto, fit1, K=10)$delta[1] %>% sqrt
-    
-    
-  }
-    
-  
-}
- plot(degrees, m.k10[,1], type = "l", col = "red", ylim = c(min(m.k10), max(m.k10)))   
-
-for (s in 2:n.trys) {
-  lines(degrees, m.k10[,s], col=s) 
-  
-}
-```
-
 ## Cross-Validation 
 
 Definiton: Cross-validation is a resampling procedure used to evaluate machine learning models on a limited data sample.

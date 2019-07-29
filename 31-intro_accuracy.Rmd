@@ -1,3 +1,8 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Introduction to accuracy assessment
 
 
@@ -99,4 +104,4 @@ This implies that the RMSE must now be calcultated for two sets of predictions.
 \[\text{RMSE}_\text{train}(\hat{f}, \text{train data}) = \sqrt{\frac{1}{n_{\text{train}}}\sum_{i\in \text{train}} \big(y_i -\hat{f}(X_i)\big)^2}\]
 \[\text{RMSE}_\text{test}(\hat{f}, \text{test data}) = \sqrt{\frac{1}{n_{\text{test}}}\sum_{i \in \text{test}} \big(y_i -\hat{f}(X_i)\big)^2}\]
 
-How this works, will be illustrated in the solution to the final task of the project (Section: \@ref(solution_final_task) . This is a good example of how the whole process of calculating the RMSE works.
+How this works, will be illustrated in the solution to the final task of the project (Section: Solution to the final task) . This is a good example of how the whole process of calculating the RMSE works.
