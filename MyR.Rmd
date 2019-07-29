@@ -12,50 +12,11 @@ github-repo: rstudio/bookdown-demo
 description: "These are notes gathering our experience to set up R-Studio and use R for data science."
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,
-                      cache = TRUE,
-                      collapse= TRUE,
-                      comment = "#R>")
-
-library(tufte)
-library(tidyverse)
-library(magrittr)
-library(gridExtra)
-library(readxl)
-library(parallel)
-library(hflights)
-```
-
-
-
-```{r include=FALSE, eval=FALSE}
-# this generates an error message in my machine, hence the eval=FALSE
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown', 'tidyverse', 'tufte', 'gridExtra', 'magrittr', 'readxl', 'parallel'
-), 'packages.bib')
-
-```
-
-
 # Foreword {-}
 
+Placeholder
 
 
-> "The statistic is the rhetoric of the empirical sciences."   
->
-> --- paraphrase of Alexander Eiler's quote on statistics 
-
-
-
-Students with a focus on economics and science have to work a lot with statistical data sets and calculations in order to be able to carry out evaluations. Traditionally, educational institutions work with formula collections and calculators, which has several disadvantages. On the one hand, solutions have to be documented in a laborious way, on the other hand, statistical calculations with formula collections are very time-consuming. The programming language R in combination with R Studio enables students like us to analyze and visualize complex data sets and to adapt them according to our own criteria with less effort compared to the traditional methods. With this book we want to give a practical guide on how to apply these benefits of R to beginners.
-
-So we focus on three questions.
-
-1. What steps must be undertaken to be able to work productively with R and R studio?
-2. How can R be used for data science using practical examples?
-3. What does a complex project look like in R and what steps must be taken to solve it?
 
 <!--chapter:end:index.Rmd-->
 
@@ -70,9 +31,9 @@ output:
 
 Frederik Miebach (LinkedIn: Frederik Miebach) is a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Administration at Hochschule Fresenius in Cologne and is currently working in the field of human resources at the Bayer AG in Leverkusen.
 
-Moritz Ebach (LinkedIn: Moritz Ebach) is also a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Management at Hochschule Fresenius in Cologne and is currently working in the field of business consultancy at Deloitte in Düsseldorf.
+Niklas Strolz (LinkedIn: Niklas Strolz) is also a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Management (German) at Hochschule Fresenius in Cologne and is currently working in the field of business consultancy at Deloitte in Düsseldorf.
 
-Niklas Strolz (LinkedIn: Niklas Strolz) is also a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Management at Hochschule Fresenius in Cologne and just finished an internship in the field of M&A at BELGRAVIA & Co. GmbH in Cologne.
+Moritz Ebach (LinkedIn: Moritz Ebach) is also a business student at Hochschule Fresenius, currently studying in the master's degree of International Business Management. He earned his bachelor's degree in International Business Management at Hochschule Fresenius in Cologne and just finished an internship in the field of M&A at BELGRAVIA & Co. GmbH in Cologne.
 
 After working with R for the first time for a period of in total four months, the group of students is now working on a student project, which focuses on the design of a book about "R in Data Science". 
 
@@ -91,1278 +52,136 @@ To sum it up, this book is a reference for working with R as a tool or language 
 "Data science is the field of study that combines domain expertise, programming skills, and knowledge of math and statistics to extract meaningful insights from data" (DataRobot, 2019).
 It is therefore a discipline that allows you to convert raw data into a valuable source of understanding, insight, and knowledge. 
 
-This book is an introduction to R for the field of data science. It was designed in the course of a project study in data science at Hochschule Fresenius in Cologne and is a guide to the language of R with a linkage to the platform GitHub. It is therefore a guide on how to design a book or project with R and afterwards publish it. The goal of the book “An Introduction to R for the Field of Data Science” is therefore designed to help you learn some of the most important tools in R that will enable you to do data science or data analysis. After reading this book, you will have access to a variety of tools to tackle a wide range of data science challenges, using the fundamental parts of R. In order to understand every part of the book, it might be useful to acquire some basic knowledge about R and data science. Therefore, beginners can start with the cheatsheet, which is available at [RStudioCheatsheet](https://www.rstudio.com/resources/cheatsheets/).
+This book is an introduction to R for the field of data science. It was designed in the course of a project study in data science at Hochschule Fresenius in Cologne and is a guide to the language of R with a linkage to the platform GitHub and data science. It is therefore a guide on how to design a book or project with R and afterwards publish it. The goal of the book “An Introduction to R for the Field of Data Science” is therefore designed to help you learn some of the most important tools in R that will enable you to do data science or data analysis. After reading this book, you will have access to a variety of tools to tackle a wide range of data science challenges, using the fundamental parts of R. In order to understand every part of the book, it might be useful to acquire some basic knowledge about R and data science. Therefore, beginners can start with the cheatsheet, which is available at [RStudioCheatsheet](https://www.rstudio.com/resources/cheatsheets/).
 
 <!--chapter:end:03-introduction.Rmd-->
 
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # Explaining R - What is it?
 
-This chapter of the book starts with the explanation of what R is and how R can be used.
+Placeholder
+
 
 ## What is R?
-
-Let's start with a short definition of R: "R is a programming language developed by Ross Ihaka and Robert Gentleman in 1993, which possesses an extensive catalog of statistical and graphical methods." 
-
-R includes machine learning algorithm, linear regression, time series, statistical inference and many other features.
-
-Not only academic companies trust in R, but many large companies also use the R programming language, including Google, Airbnb, Facebook, Uber and many others.
-
-Focusing on data science or analysis with R, it is important to understand that this is done in a series of steps; programming, transforming, discovering, modeling and communicate the results.
-
-1. Program: R is a programming tool.
-2. Transform: R is consists of a collection of libraries designed for data science.
-3. Discover: Import the data, optimize them, rethink them and analyze them.
-4. Model: R offers a wide ranges of tools to capture an appropriate model for your data.
-5. Communicate: Integrate codes, graphs, and outputs to a report with R Markdown and share it with the world via different platforms.
-
 ## What is R used for?
-
-1. Statistical inference
-2. Data analysis
-3. Machine learning algorithm
-
 ## R package
-
-Many of the functions available in R come in packages. To install an R package, open an R session and type the following command into the command line:
-
-```{r
-install.packages("the package's name")
-```
-
-Once the package is installed, the content will be available for usasge.
-
-The fundamental or primary functions of R are statitical interference, visualization, and machine learning.
-
-The most important R packages are listed below, which are mainly uses for the workflow of data science (Data preparation and communication of the results):
-
-```{r
-1. dplyr (Command line: install.packages("dplyr"))
-2. ggplot2 (Command line: install.packages("ggplot2"))
-3. data.table (Command line: install.packages("data.table"))
-4. shiny (Command line: install.packages("shiny"))
-5. plyr (Command line: install.packages("plyr"))
-```
-
 ## Communication with R
-
-R offers a variety of ways to present and share work. As explained in previous chapters of the book, this mainly happens through an R Markdown file or document. The results of the work in R can then be published or shared on GitHub, on business websites or other platforms available for R.
-
-Rstudio therefore offers you via R Markdown files to write a document. You can then export the documents in many different formats:
-
-Document:
-- HTML
-- PDF/Latex
-- Word
-
-Presentation:
-- HTML
-- PDF beamer
-
 ## Why use R as a language for programming?
-
-1. R is not just a mix of statistical packages, it’s an own language.
-2. R is designed to operate the way that problems are thought about.
-3. R is both flexible and powerful.
-
-R is not the only language that can be used for data analysis.  Why R rather than another?  
-
-1. Data analysis can be described as an interactive process, which generally means that you can determine what to do next with what you see at one stage. Therefore, interactivity is very important for programming languages.  Language is very important.  And together, it is an interactive language, which can be used perfectly for programming and data analysis. 
-
-2. The mechanism that R offeres is fantastic for creating a variety of data structures. If you are working on data analysis, you of course want to be able to put data into natural form, which is a key function of R. 
-
-3. Producing graphs for data analysis is a fairly easy process when using R and offers a variety of different options for producing high quality graphs.
-
-4. As mentioned in this chapter R has a package system, which will also be explained in detail in the chapter of "Tidyverse". The packages offered in R give people the opportunity to add own functionalities, which distinguishes it from the central part of R.
-
-5. Important: Real data have missing values, which are a fundamental part of the R language. Functions in R therefore give you the opportunity to control how missing values should be handled. 
-
-6. The R community is very strong. Everyone is committed to the prcoess of improving the language of R and therefore also the process of data analysis. Questions and answers about problems with R are offered online and help optimize the working process with R.
 
 <!--chapter:end:04-explainingr.Rmd-->
 
----
-output:
-  pdf_document: default
-  html_document: default
----
+
 # The first steps
 
+Placeholder
+
+
 ## Installing the required applications
-
-The first step of working with R is to download the following free applications, which are available on the following platforms:
-
-  1. Download and install [R](https://cran.uni-muenster.de/) 
-  2. Download and install [RStudio, free Desktop version](https://www.rstudio.com/products/rstudio/download/#download)
-  3. Download and install [A Latex distribution](https://www.latex-project.org/get/) (e.g., MacTex for Mac or MiKTeX for Windows machines) 
-
-The first two applications are easily and quickly installed for Mac and Windows. The third application is very large (a few Gb) and needs some time to be installed.  
-
-Another application needed is a 
-
-  4. [Git distribution](https://git-scm.com/downloads)
-
-This application is also classified as a free software.  
-Once you have installed Git for version control, activate it in RStudio: _Tools> Global Options> Git/SVN_ and click on _Enable version control interface for RStudio projects_.  
-Also generate a SHH RSA key. Generating an SHH RSA key is required to link RStudio to a repository on GitHub.
-
-(GitHub is a website and cloud-based service that helps developers store and manage their code, as well as track and control changes to their code)
-
 ## Signing up for GitHub
-
-Create an account at GitHub at [https://github.com](https://github.com/join).
-
 ## Creating a new project
-
-RStudio projects are associated with working directories in R. RStudio projects can be created: 
-
-- In a new directory
-- In an existing directory (R code and data already exists)
-- By cloning a version control repository (Available on Git or any other subversion)
-
-Focusing on our our project in Data Science, we will focus on creating an an RStudio project in an existing directory
-
-_File> New project> Existing Directory_ and chose the suggested book folder. You can also change the location of the project working directory. 
-
-Important: Every time you create new content for your book, you must start an Rstudio session _File> Open Project..._  
-All the files of the project are the files of the folder (working directory), and vice versa.
-
 ## Create a new GitHub repository 
-
-The next step of the process is to create a new repository (pronounced 'repo') on GitHub.com. 
-1. Name the repository **exactly** by the name of the created R project / book folder (e.g., 'myRbook').   
-2. Enter a description for the repository (Optional)
-3. Select public visibility.
-4. Select initialize this repository with a README (Optional)
-5. Select add .ignore and select R.
-6. Create the repository.
-
-After having created the repository, go to the settings of the respective repo and deploy a new SSH key, which has been generated by RStudio. Go to _Settings> Deploy keys_ and click on 'add deploy key'. Copy and paste the SHH key generated by RStudio: _Tools> Global Options> Git/SVN_ and click on view public key.
-
-In RStudio go to _Tools> Project Options...> Git/SVN_. Under _Version control system_, select 'Git'.    
-
 ## Link the repository to RStudio 
-
-Still in RStudio, go to _Tools> Terminal> New Terminal_. This will open a Terminal where commands can be typed in.
-
-Start by initializing Git on the terminal.
-```{r, eval=FALSE
-git init
-```
-
-Then paste the message shown at the creation of the repo (changing the names, of course):
-
-```{r, eval=FALSE
-git remote add origin https://github.com/YOURNAME/YOURREPO.git
-git push -u origin master
-```
-
-After finalizing the above described process, the local `master` should now be connected to the `master` on GitHub.  
-If necessary, restart RStudio. At the restart, a Git thumbnail should appear in a pane. You are now ready to commit and push your files.
-
 ## Commit and push any changes to GitHub
-
-In the next chapter of the book, R Markdown documents or files are explained. In general, a R Markdown file is a record of your research. Whenever RMD files are changed or updated, it is time to commit and push them to your GitHub repository.
-
-1. In RStudio click the "Git" tab in the upper right pane.
-2. Click Commit.
-3. In the Review changes view, check the staged box for all files you want to commit and push to GitHub.
-4. Make sure to always include or add a commit message (e.g. Intial Commit).
-5. Click Commit.
-6. Click the Pull button to fetch any remote changes from GitHub.
-7. Click the Push button to push any changes to the repository on GitHub.
-8. On GitHub, navigate to the Code tab of the repository and refresh the page to see the changes.
-
-Important: Before you push any changes to GitHub, make sure to commit the files you want to add.
-
 ### Troubleshooting
-
-If this procedure works, great! You're good to go.
-
-Yet: Please be aware that the above described process sometimes hits unexpected problems. These problems are often difficult to understand (especially as a "beginner" of R). If this is the cas, the best sultion is to copy and google the error message. 
-
-The solutions offered on Google will definitely help solve the experienced problem.
-
 ## Collaboration on GitHub
-
-There are various established ways for collaborating on a GitHub repo. As a matter of facts, collaboration on a project is the _raison d'etre_ of GitHub.  
-We illustrate here the easiest of them, namely the joint reading and writing into one repo by all the members of a team.   
-Importantly, it is assumed that all members of the group are able to push/pull code from RStudio to an experimental repo on GitHub (see above).   
-The following are the steps in the collaboration's setup.  
-
 ### Creation of an organization
-
-The following section focuses on the creation of an organization, which enables a group of people to work on the same project and therefore collaborate via GitHub. Every member of the organization will then have the opportunity to commit, push and pull any changes of the prokject.
-
-Step 1: One member of the group creates an organization on GitHub under _Settings> Organizations> New organization_.  
-
-Step 2: Under the newly created organization, this member of the team creates a new repo whose name is the same as the folder and R project that the group will work on (e.g., 'ouRbook').  
-
-Step 3: The owner of the organization connects RStudio to the repo (Described process) and populates it with the current files of the project.  
-
 ### Creation of a team
-
-Step 1: Still as a task of the owner, create a team. Under the organization page in GitHub, simply click on 'New team' and give it a name. A team now appears in the organization page.  In the page of that team, click on 'Add a member'. A window appears where the member to be added can be searched for and added.  
-
-Step 2: Once that member is found and selected, make the double step of adding him/her to the team AND assign him/her to the repo. This second step can still be made later, but it is easier to do it right then.   
-
-Important: Make sure that the new member has reading and **writing** rights to the repo, in order to be able to also make changes. This again can be changed later by navigating the team's page.
-
 ### Member of the team
-
-After the steps above, the newly added member receives an email to confirm the participation of the organization and team.   
-After accepting or confirming the participation, navigate to the page of the team and locate the repo that the owner has created.  
-A button-menu allows to 'Clone or download the repo'. Click to show the https address of the repo, `https://github.com/ORGANIZATION/repo.git` and copy that link.  
-Open a simple RStudio session (not a project!). Open a new Terminal (_Tools> Terminal> New Terminal_) and type `cd` (change directory) and a path to the folder where you want the repo to be saved. For instance,
-
-```{r, eval=FALSE
-cd Desktop/DataScience/OurRProject 
-```
-
-The terminal is writing into that folder, as indicated by the path before the `$` sign in the command line of the terminal.  
-Recall that you copied the address of the team's repo. Then, in the command line, type the following commands and your copied address:
-
-```{r, eval=FALSE
-git clone https://github.com/ORGANIZATION/repo.git 
-```
-
-The whole repo is now a new folder in your directory. If all went well, you can now pull and push into that repo in GitHub.
 
 <!--chapter:end:05-thefirststepsofr.Rmd-->
 
----
-output:
-  pdf_document: default
-  html_document: default
----
-# (PART) Source and output files {-}
 
+# (PART) R Basics {-}
 # R Markdown files
 
-The following chapter gathers general comments and information about `.Rmd` files.
+Placeholder
+
 
 ## General description of R Markdown files
-
-What is R Markdown?
-
-An R Markdown file is a record of your research, or in other words, a format for making dynamic documents with R. In general, an R Markdwon file is written in "markdown", which is an easy-to-write plain text format. This particular text format contains chunks of embedded R codes. 
-
-Requirement for R Markdown files:
-
-R Markdown files are designed to be used with the "rmarkdown" package. "rmarkdown" comes installed with RStudio, yet you can install an own copy of rmarkdown by clicking on _Tools> Install packages_ and search for "rmarkdown".  You can also install the above mentioned package with the following command:
-
-```{r, eval=FALSE}
-install.packages("rmarkdown")
-
-```
-
-R Markdown files can be transformed in two ways: 1. Knit the file and 2. Convert the file.
-
-1. Knit - The rmarkdown package includes or calls the knitr package. knitr runs each chunk of R codes in the document and append the results of the codes to the document next to the code chunk. This workflow saves time and facilitates reproducible reports.
-
-In R Markdown, every single report contains codes or a code it needs to make own graphs, tables, numbers, etc. The report can therefore be automatically updated by the author via the process of re-knitting.
-
-2. Convert - The rmarkdown package will use the pandoc program to transform the R Markdown file into a new format. For example, .Rmd file can be converted into a PDF, HTML, or Microsoft Word file. 
-
 ## Getting started with R Markdown files
-
-1. Open a new .Rmd file: _File> New File> R Markdown_ and choose a name for the file.
-2. Write the document by editing the template.
-3. Knit the document to create a report and preview the output in a PDF, HTML or another output.
-4. Save the .Rmd file and (optional) publish the file to a web server (e.g. GitHub) by commiting and pushing it.
-
-This is the general process of creating or opening an R Markdwon file. 
-
 ## Options for R Markdown files
-
-The options of R Markdown files focus on the .rmd structure and render options with YAML, which will be explained in the following section. 
-
 ### .rmd structure
-
-YAML Header = Optional section of render (e.g. pandoc)
-
-Text = Narration formatted with markdown, mixed with "Code Chunks":
-
-A code chunk always begins with ```{r} and ends with ``` e.g.
-
-```{r} <- Starting point of the chunk.
-
-``` <- Ending point of the chunk.
-
-R Markdown will run the code and append the results to the document. It will use the location of the .Rmd file as the working directory.
-
 ### Render options with YAML
-
-When you render, R Markdown: 
-
-1. runs the R code, embeds results and text ino .md file with knitr
-2. then converts the .md file into the finished format with pandoc 
-
-Rmd -> knitr -> md -> pandoc -> Defined output value. 
-
-The defined output value can be defined as one of the following options: 
-
-html_document -> html
-pdf_document -> pdf
-word_document -> Microsoft Word
-md_document -> Markdown 
-etc.
-
-As a next step, the output can also be customized with sub-options: 
-
-Examples of sub-options:
-
-toc = Add a table of contents at start of document 
-highlight = Syntax highlighting "tango", "pygments", "kate" etc.
-css = CSS file to use to style document
-
-Please keep in mind that not every sub-option is applicable for all output values, which means that the "toc" for example is applicable for most of the outputs, yet not for all of them.
-
+## What is a Chunk?
 ## Improtant options for all chunks
-
-It is convenient to set options for all the R chunks of the document. This saves time when writing these chunks. A natural place to set these options is in a first R chunk.
-
-
-```{r, eval=FALSE}
-knitr::opts_chunk$set(OPTION1 = TRUE/FALSE,
-                      OPTION2 = TRUE/FALSE,
-                      ...)
-```
-
-
-Important: These options are overridden by the particular chunk options.
-
-````markdown
-`r ''````{r, OPTION2=FALSE}
-````
-
-
-
-
-Options actually take R code. So, the following are examples that could be used to define the option.
-
-
-````markdown
-`r ''````{r, eval=4>3, echo=format(Sys.Date(), '%Y-%B-%d') > '2019-March-10'}
-# eval is always TRUE
-# echo = TRUE if current date is after March 10, 2019
-```
-````
-
-The list of options can be found here [https://yihui.name/knitr/options/](https://yihui.name/knitr/options/). Below are some comments on some of these options (the least trivial for the author).
-
-- `collapse` determines whether the source code and the output should be merged into a single block.
-Here is the same chunk with different values of the option:
-
-`collapse=TRUE`
-
-(If TRUE, knitr will collapse all the source and output blocks created by the chunk into a single block.)
-
-```{r, collapse=TRUE}
-2+ 2
-3* 5
-```
-
-`collapse=FALSE`
-
-(If FALSE, knitr will not collapse all the source and output blocks created by the chunk into a single block.)
-
-    
-```{r, collapse=FALSE}
-2+ 2
-3* 5
-```
-
-Worth noting: a `#` as a first character of the comment string (with `collpase=TRUE`) turns the output font into a comment-like text.
-
-- `comment` is known as a character string. Knitr will append the string to the start of each line of results in the final document
-
-`comment='##'`
-
-```{r, comment='##'}
-2+ 2
-```
-
-`comment='R>'`
-    
-```{r, comment='R>'}
-2+ 2
-```
-
-- `echo` determines whether to display the code in the code chunk above it's results in the final document or not.
-
-`echo=FALSE`
-
-If FALSE, knitr will not display the code in the code chunk above it’s results in the final document.
-
-```{r, echo=FALSE}
-summary(cars)
-```
-
-`echo=TRUE`
-
-If TRUE, knitr will display the code in the code chunk above it’s results in the final document.
-
-```{r, echo=TRUE}
-summary(cars)
-```
-
-- `child` allows a document to call and use another file as input in the document.
-
-````markdown
-`r ''````{r, child='PATH/TO/OTHER/file.Rmd'}
-````
-
-The path can be either absolute or relative.  
-For relative paths, the following applies:  
-
-  - `~/` starts a path a the root,
-  - `../` indicates the parent directory,
-  - `../../` for parent of the parent directory,
-  - to move forward, start with the name of the included folder in the current directory.
-
-
-
 ## Latex code {#latex}
-
-The overwhelming reason to introduce Latex code in a `.Rmd` file is for typesetting mathematical expressions.  
-There are two main ways to type math in Latex:   
-
-  - in the text, surrounded by special delimiters, `\( math \)` (alternatively, one can use the deprecated `$ math $`),
-  - in an equation, surrounded by special delimiters, `\[ math equation \]`, or in a dedicated environment such as `\begin{equation} math equation \end{equation}` (also deprecated, `$$ math equation $$`).
-
-Math format is usually distinct from the text format. For instance, compare a^2^ + b^2^ = c^2^ (simple markdown) to \(a^2 + b^2 = c^2\) (Latex). Notice, however, that most mathematical symbols are not supported by markdown. This why basic knowledge of Latex is essential for producing documents with math formula.   
-The first part of that knowledge consists in the list of Latex symbols. These are typed into a document starting with a slash `\`. For instance, the Latex symbol \(\alpha\) is produced by the code `\alpha` while \(\sum\) is given by `\sum`.   
-Superscripts and subscripts are produced with the characters `^` and `_`, respectively, and the content of the super- and subscripts enclosed within `{ }`. For instance, \(x_{2}^{3}\) is produced by the code `x_{2}^{3}` (or `x^{3}_{2}`) and \(\sum_{i=1}^{4}\) is given by `\sum_{i=1}^{4}`.  
-A comprehensive list of symbols (some of them requiring special Latex packages) can be found in @latexlist. Shorter lists can be found online, including on [wiki](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols).  
-A web-based application helps beginners by offering suggestions to a hand-drawn symbol, [detexify](http://detexify.kirelabs.org/classify.html).    
-A second bulk in the knowledge of Latex is the understanding of special environments. But then, if a document requires lots of special Latex environments, then `.Rmd` files are not the most appropriate type of files to use.  
-Some of these environments, however, have a perfect integration in `.Rmd` files, such as the most common, the equation. Here is an example, given by the code
-
-```markdown
-\[
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
-\]
-```
-\[
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
-\]
-
-
 ## Figures
-
-
-Figures usually appear after the chunk that calls them, except on `.pdf` format because Latex makes them float and they may appear in the next page.  
-Beyond the actual R calls that produces the figure, the figure's appearance will be tweaked by the options specified in the R chunk. The following options are worth noticing:  
-
-  - `fig.width` and `fig.height` set in inches the graphical device size of the R plots.
-  - `out.width` and `out.height` set the size of the R plots, including possibly rescaled images. Easier use with percentages as `out-width = "50%"` means that the figure stretches over 50% of the page's width.
-  - `fig.align` takes the value `left`, `right` or `center` and is self-explained.
-  - `fig.cap` sets the caption of the figure.
-  - `fig.show` takes the default value `asis` to produce the command as it is read by R. Contrast this with the value `hold` which forces R to wait until the end of the chunk to produce the plots. It may be useful to hold if one wants to put multiple plots on the same line (side-by-side).
-
-As an example, the figure below was created with the chunk options
-
-Own Example for figure required
-
 ## Cross-references {#cr}
-
-Cross-references are references to different elements somewhere in the content such as a specific chapter, figure, equation, etc.  
-These work under a simple rule: the element to be referenced takes a **label**, e.g., 'foo', and this label is called from anywhere in the text with the command `\@ref(foo)`.  
-Slightly different rules apply depending on which element is to be referenced. Below is a selected list.  
-Notice that all labels in `bookdown` can only contain alphanumeric characters, or the special characters `:`, `-`, and `/`.
-
 ### Chapters, sections, ... {#cr-chapters}
-
-Headers (chapters, sections, ...) have an ID that serves as a label. By default, it is formed by the words of the header in small letters separated by dashes (e.g., `my-great-chapter`). It is better practice, however, to assign a label to useful headers by appending to them the code `{#foo}` where `foo` is the chosen label for the header.
-This subsection, for instance, has the header
-
-```markdown
-### Chapters, sections, ... {#cr-chapters}
-```
-
-The cross-reference is then achieved with `\@ref(foo)`.  
-As an example, notice that this line belongs to Subsection \@ref(cr-chapters), included in Section \@ref(cr) of Chapter \@ref(rmd).  
-These cross-references were obtained by the text/code: 
-
-```markdown
-As an example, notice that this line belongs to Subsection \@ref(cr-chapters), 
-included in Section \@ref(cr) of Chapter \@ref(rmd).
-```
-
-
-
-For `.html` formats, one may use a direct link to the header by using the format for regular links but with  `#label` as the destination. For instance, since the label of this section is `cr`, the code `[Cross-references](#cr)` produces this link: [Cross-references](#cr).
-
 ### Figures
-
-The label of a figure is given by the name of the chunk where it was created preceded by `fig:`.   
-The chunk that created Figure \@ref(fig:plot-one) had the name `plot-one`. Therefore, the cross-reference is achieved through `\@ref(fig:plot-one)`.
-
 ### Tables
-
-The label of a table is given by the name of the chunk where it was created preceded by `tab:`.   
-If the chunk that created a Table had the name `table-one`, then cross-reference is achieved through `\@ref(tab:table-one)`.
-
-
 ### Equations
-
-As explained in Section \@ref(latex), good rendering of equations requires coding in a Latex environment. For numbering of equations, various environments can be used, such as `equation`, `eqnarray`, etc.  
-The label is then included in this environment within parentheses and by adding the prefix `\#eq:`, e.g., `\#eq:foo`.  
-As for the cross-reference, one uses `\@ref(eq:foo)`.   
-Below is a modified version of the equation in Section \@ref(latex) to include a number and a label.  
-This is Equation \@ref(eq:series).
-
-\begin{equation} 
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
-  (\#eq:series)
-\end{equation}
-
-
-The previous lines were obtained with the code:
-```markdown
-This is Equation \@ref(eq:series).
-
-\begin{equation} 
-\sum_{i=0}^{\infty} ak^{i} = \frac{a}{1-k} \text{, for }  \lvert k \rvert < 1
-  (\#eq:series)
-\end{equation}
-
-```
-
-
-
 ## Citations
-
-It is of utmost importance to give credit to sources. This subsection illustrates a simple way to make citations in `bookdown`. For further details, including for changing references styles, see this [RStudio page](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html).   
-The general idea is similar to the cross-references. The source has a label `foo` and the citation is made with `@foo`.  
-There are numerous ways to tweak the format of the citation, but default format is often good enough.  
-The citation procedure in `bookdown` is borrowed from the Latex constellation.  
-Sources are listed in a separated bibliography file, `.bib`.  
-For use in `bookdown`, this file must be given in the `YAML` (along with its path if it is not in the same folder) under the entry `bibliography`:
-
-```yaml
----
-title: "Great title"
-output: pdf_document
-bibliography: BIBLIOGRAPHY_FILE.bib
----
-```
-
-The `BIBLIOGRAPHY_FILE.bib` is a simple text file that has one entry for each source.  
-The format of this entry depends on the type of source (article, book, blogpost, etc). Its construction, however, is quite similar and simply requires some fields (some compulsory, other optional) such as in the following example for a book.
-
-```markdown
-@book{wickham2014,
-  title={Advanced {R}},
-  author={Wickham, Hadley},
-  year={2014},
-  publisher={Chapman and Hall/CRC}
-}
-```
-
-All the fields shown (`title`, `author`, `year` and `publisher`) are required for a book. Further fields such as `volume` or `edition` would be optional.  
-Importantly, notice the very first element in the curly brackets: that is the label of the source, freely chosen by the author.  
-The citation of this particular book would then be made thanks to the label, with the code `@wickham2014`.  
-A few comments are the following:  
-
-  - a reference inside square brackets with or without a prefix and a suffix puts the citation inside parentheses: `[see the reference (prefix) @wickham2014 for further details (suffix)]` produces [see the reference (prefix) @wickham2014 for further details (suffix)],
-  - without square brackets, no parentheses in the output,
-  - multiple references are separated by a semi-column `;`: `[@wickham2014; @xie2015]`produces [@wickham2014; @xie2015],
-  - a minus sign `-` in front of the `@` suppresses the name of the author in the text:  `-@wickham2014` produces -@wickham2014,
-  - the references are **automatically** put at the end of the book; the last level-one header should therefore be 'Bibliography' or 'References'.
-
 ### Writing `.bib` entries
-
-One advantage of using `.bib` files is that the fields for each entry, i.e., all the information about the source, are usually available online in the easiest of forms.  
-The site Google Scholar, for instance, provides these entries in `.bib` form.  
-As an example, search there the book mentioned above, e.g., "wickham advanced r".  Under each hit, there is an icon of inverted commas. By clicking it, the reference is given in different formats but also with a link to the BibTeX code (along with others). One can then simply copy this BibTex code and paste it anywhere in the bibliography file. For easier use, the label could be changed.
 
 <!--chapter:end:06-rmd_files.Rmd-->
 
+
 # Import data to R {#import}
 
+Placeholder
 
-
-Analyzing data with R is an important part of data science. Therefore, it is vital to understand the procedure of how to import data into R. Generally speaking, the process of importing data into R is very simple. Data out there exists in many formats and there are number of ways in importing data into R. Speakin the language of R, we will need to `read` the data and put or convert it into an object, wich often is a data frame. 
-
-Base R has has base functions to read some types of files. For special types of files, special packages are needed.
-
-**Important note:** these base functions are introduced here for documentation purpose only. 
 
 ## Reading rectangular data
-
-Rectangular data is intended here as a data set with values of variables in columns and each row representing a case. Arguably, this is the simplest and probably most common way to store data sets.  
-The ad hoc function in R is `read.table`. Other similar functions exist, e.g., `read.csv`, but they are essentially a wrapper of `read.table`.   
-This function reads rectangular data and assigns it to an object, in almost all cases a data frame. The arguments of the function are numerous are, depending on the case, potentially very useful (check `?read.table`).  We mention here a few of them in the typical call:
-
-```{r
-my.data <- read.table(`file`)
-``` 
-
-`file` is the name of the file to be read. It requires a valid path. It can also be an `url`, with some adaptations.  
-`header` is a logical indicating whether the data's first line gives the names of the variables.  
-`sep` indicates the character that separates the values between columns.
-
-```{r}
-# assuming we have the file AH001.txt in the same folder
-df <- read.table(file="AH001.txt",
-				header=TRUE,
-				sep=",")
-head(df)
-```
-
-
 ## Read other data types
-
-R can import virtually all types of data. For special types, a ad hoc package will be necessary. `foreign` is one of them and it allows to import data from other applications. Its functions are of the form
-
-```r
-read.XXX
-```
- where the `XXX` is an extension specific to the external software. Examples include "read.dta" for Stata data files, `read.spss` for SPSS files or `read.dbf` for dBASE files.   
-
-A very important data source type is Excel. Functions for this type of data are covered in Chapter \@ref(readr) from the part on `tidyverse`.
-
-Very often, the data source is in an Excel format, and needs to be imported into R prior to using it. Therefore, we can make use the function read.xls from the gdata package (Install the package: _Tools> Install packages_). It reads the data from an Excel spreadsheet and returns a data frame. 
-
-The following example is an example of how to load an Excel spreadsheet named "datascienceproject.xls" into R (This method requires Perl runtime to be present in the system):
-
-```{r
-library(gdata)                   # loading the above mentioned gdata package 
-help(read.xls)                   # documentation (help regarding read.xls) 
-mydata = read.xls("datascienceproject.xls")  # read from the excel spreadsheet
-```
-
-An alternative solution would be to make use of the function loadWorkbook from the XLConnect package to read the entire workbook, and then load the worksheets with readWorksheet (The XLConnect package requires the software Java to be pre-installed).
-
-```{r
-library(XLConnect)               # loading the above mentioned XLConnect package 
-dsp1 = loadWorkbook("datascienceproject.xls") 
-dsp2 = readWorksheet(dsp1, sheet="Sheet1")                # Example of reading sheet 1 of the entire worksheet.
-```
-
-SPSS File
-For data files in the format of SPSS, it can be opened with the function read.spss, which is also part of the foreign package. There read.spss function also includes a "to.data.frame" option, in order to choose whether a data frame is to be returned. By default, it returns a list of components instead.
-
-```{r
-library(foreign)                 # loading the above mentioned foreign package 
-help(read.spss)                  # documentation (help regarding read.spss) 
-mydata = read.spss("datascienceproject", to.data.frame=TRUE)
-```
-
-CSV File
-
-The sample data can also be in comma separated values (CSV) format. Each cell inside such data file is separated by a special character, which usually is a comma, although other characters can be used as well.
-
-The first row of the data file should contain the column names instead of the actual data. Here is a sample of the expected format.
-
-```{r
-Col1,Col2,Col3 
-100,a1,b1 
-200,a2,b2 
-300,a3,b3
-```
-
-After we copy and paste the data above in a file named "datascienceproject.csv" with a text editor, we can read the data with the function read.csv.
-
-```{r
-datascienceproject = read.csv("datascienceproject.csv")  # read the csv file 
-mydata 
-  Col1 Col2 Col3 
-1  100   a1   b1 
-2  200   a2   b2 
-3  300   a3   b3
-
-help(read.csv)            # If help is required for the read.csv function
-```
-
-Working Directory
-
-Finally, the code samples above assume the data files are located in the R working directory, which can be found with the function getwd.
-
-```{r
-getwd()               # get current working directory
-```
-
-You can select a different working directory with the function setwd(), and thus avoid entering the full path of the data files.
-
-```{r
-setwd("<new path>")   # set working directory
-```
-
-Note that the forward slash should be used as the path separator even on Windows platform.
-
-```{r
-setwd("C:/MyDoc")
-```
-
-
-
 ## Scanning a file
-
-The base function `scan` can sometimes be useful, though it is not used to import data. `scan()` imports to a vector (or a list), which can then be used.   
-
-- `what` gives the type of vector to be imported.  
-- `skip` is the number of lines to be skipped in the file.  
-- `nlines` determines the number of lines to be read and imported.
-
-```{r}
-df <- scan("AH001.txt", what=character())
-#df
-df <- scan("AH001.txt", what=character(), skip=1, sep=",")
-#df
-given.line <- scan("AH001.txt", what=character(), nlines=1, sep=",")
-given.line
-```
-
-
-
-
-
 
 <!--chapter:end:07-import.Rmd-->
 
+
 # Customize output {#custom-ouptut}
 
-This chapter is about choosing and/or modifying the way the output file looks like.
-If you do not select a format, R Markdown renders the file to its default format, which you can set in the output field of a .Rmd file’s header.
-
-The RStudio knit button renders a file to the first format listed in its output field. You can render to additional formats by clicking the dropdown menu beside the knit button.
-
-Set the output_format argument of render to render your .Rmd file into any of R Markdown’s supported formats. For example, the chunk below renders this .Rmd file to a HTML document.
-
-```
-library(rmarkdown)
-render("customize_output.Rmd", output_format = "html_document")
-```
+Placeholder
 
 
 ## Multiple built-in output types
-
-However, there are a variety of output possibilities and formats that can be individually adapted to the user. In general, different formats offer advantages and disadvantages when compared with each other.
-
-The following output formats are available to use with R Markdown:
-"html_notebook"" - Interactive R Notebooks
-"html_document" - HTML document w/ Bootstrap CSS
-"pdf_document" - PDF document (via LaTeX template)
-"word_document" - Microsoft Word document (docx)
-"odt_document" - OpenDocument Text document
-"rtf_document" - Rich Text Format document
-"md_document" - Markdown document (various flavors)
-
-Each output format is implemented as a function in R. You can customize the output by passing arguments to the function as sub-values of the output field. To learn which arguments a format takes, read the format’s help page in R, e.g. ?pdf_document.
-
-If a certain option has sub-options (which means the value of this option is a list in R), the sub-options need to be further indented, e.g.:
-
-output:
-  html_document:
-    toc: true
-    includes:
-      in_header: header.html
-      before_body: before.html
-      
-
-Furthermore, there are several additional output formats that are suitable for special situations, such as slide presentations, dashboards, websites and interactive documents.
-
-A helpful overview of formats and other useful information can be found in the official cheatsheet, available in RStudio at:
-Go to File > Help > Cheatsheets > R Markdown Cheat Sheet to open the main R Markdown cheatsheet, pictured above
-
-Additionally, general information about the structure of a rmd in RStudio can be accessed via the Quick Reference:
-Go to File > Help > Markdown Quick Reference to open the Markdown Quick Reference in your help pane.
-
-
 ## New types provided by packages
-
-Packages are bundles of code which extend the functionality of RStudio and R.
-
-Anyone can make an R package, and anyone can install anyone else’s R package (if they make it available). This is part of the open source world, and using different R packages is essential to modern R workflows.
-
-You can get packages from many different places, but the most common one: CRAN. CRAN is the Comprehensive R Archive Network, a global network of servers which make available for download a set of vetted R packages.
-
-Most packages need to be loaded into the current environment to be accessible. RMarkdown is specially integrated in RStudio in a way that avoids this, but in general you should load packages with the library command:
-
-```
-library(name_of_the_package)
-
-```
-
 ## CSS: custom html
-
-Shiny apps use an HTML interface, which means that you can change the visual appearance of your apps quickly and simply with CSS files.
-You can use CSS to customize the typefaces used in dygraph labels. In example CSS is used to make the main label bold and to reduce the size of the typefaces used on the axes:
-
-```
-.dygraph-title {
-  color: navy;
-  font-weight: bold;
-}
-.dygraph-axis-label {
-  font-size: 11px;
-}
-
-dygraph(nhtemp, main = "New Haven Temperatures") %>%
-  dyCSS("dygraph.css")
-``  
-
-
 ## Latex preamble
-
-This file is added to the preamble of the Latex file to modify how the `.pdf` output is compiled.   
-Literally, these commands are placed in the Latex file before the self-explaining command: 
-```latex
-\begin{document}
-```  
-The most common commands call the packages to be used in the compilation of the Latex file, e.g.,
-```latex
-\usepackage{multirow}
-```
-Each package, in turn, includes a set of functions that can be used in the file to produce some particular output.  
-The other set of commands are typically definitions of new commands or environments as well as redefinitions of existing commands to produced a special output.  
-
-```latex
-\usepackage{totcount}
-\regtotcounter{section}
-\makeatletter
-    \renewcommand{\thesection}{\number\numexpr\c@section@totc-\c@section+1\relax}
-\makeatother
-```
 
 <!--chapter:end:08-customize_output.Rmd-->
 
+
 # Data stuctures {#datastructures}
 
-This chapter lists the most common objects to store data. To make the best of the R language, you need a strong understanding of the basic data types and data structures and how to operate on those.
-
-It is very important to understand because these are the objects to manipulate on a day-to-day basis in R. Dealing with object conversions is one of the most common sources of frustration for beginners.
-
-To understand computations in R, two slogans are helpful:
-
-Everything that exists is an object.
-Everything that happens is a function call.
+Placeholder
 
 
 ## Atomic vectors
-The basic data structure in R is the vector. Vectors have three characteristics:
-
-  - a type, `typeof()`,
-  - a length, `length()`,
-  - some attributes, `attributes()`. 
-  
-To illustrate:
-
-typeof()  # what is it?
-length()  # how long is it? What about two dimensional objects?
-attributes()  # does it have any metadata?
-
-e.g.:
-
-```
-x <- "dataset"
-typeof(x)
-attributes(x)
-
-y <- 1:10
-typeof(y)
-length(y)
-attributes(y)
-
-z <- c(1L, 2L, 3L)
-typeof(z)
-
-```
-
 ### Types of data 
-
-There are five common types of atomic vectors:
-
-  - logical,
-  - complex
-  - integer,
-  - double (often called numeric- real or decimal),
-  - character.
-
-Note that if vector elements not all of the same type, R makes coercion.  In that case, the order becomes:
-"logical < numeric < character".
-
-Here are a few illustrations.
-
-
-```{r}
-# logical vector
-log_vector <- c(TRUE, FALSE, FALSE)
-log_vector
-
-# numeric vector
-num_vector <- c(12, 10, 3)
-typeof(num_vector)
-
-# integer vector
-int_vector <- c(12L, 10L, 3L)
-typeof(int_vector)
-
-
-# character vector
-chr_vector <- c("a", "b", "c")
-typeof(chr_vector)
-
-# mixed types vector
-mix_vector <- c(2, "a")
-is.numeric(mix_vector)
-typeof(mix_vector)
-```
-
-Numeric vectors can be created with the shortcut `:`, which is used to imply all the integers from the number on the left of `:` to the number on its right. Even if it is not good practice, these do not require the `c()` call. 
-
-```{r vectors}
-vector_A <- 1:5
-vector_A
-length(vector_A)
-```
-
 ### Factor vector
-
-This is a special type of vector. It has a limited number of values, called levels. These levels can be unordered (e.g., gender is either "Female" or "Male") or ordered (e.g. school level is "Primary", "Secondary", "Tertiary")
-```{r factor}
-gender <- factor(c("Male", "Male", "Female", "Male", "Female", "Female", "Male"))
-gender
-levels(gender)
-summary(gender)
-school <- factor(c("Primary", "Secondary", "Tertiary"),
-					ordered=TRUE)
-school
-
-school2 <- factor(c("Primary", "Secondary","Secondary", "Tertiary"),
-					labels=c( "Secondary", "Tertiary","Primary"),
-					ordered=TRUE)
-school2
-
-```
-
 ## Matrices and arrays
-
-Matrices are a special vector in R. They are not a separate type of object but simply an atomic vector with dimensions added on to it. Matrices have rows and columns. However R is not often used for matrices calculations: it is too slow for that and there are better programs for it out there (e.g. Matlab).
-
-```{r}
-# populate a matrix with the elements in of the vector, and give the dimensions
-M <- matrix(c(4, 1, 0, 3, 6, 8), nrow=3, ncol=2) 
-M
-```
-
-If we think of a matrix as a 2 dimensions vector, then arrays are $n$ dimensions vectors. Is it important? It might be in some very specific cases.
-
-```{r array example}
-mya <- array(data=1:18, dim=c(2,3,3))
-mya
-```
-
 ## Lists
-These are the one-size fit all structure... A list is an object composed of any other object, even... another list! Very useful data structure!
-
-```{r list example}
-school<-factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE)
-mylist <- list(numbers=c(1:60),
-				somenames=c("Jim","Jules"),
-				results= c(T,F,F,T),
-				school=school)
-mylist
-
-# change the names of the elements of the list
-names(mylist) <- c("N", "O","R","S")
-```
-
 ## Data frames
-
-Data frames are the second most important data structure in R. We can think of it as a better version of a data set in Excel. It stacks together observations over many variables, each of these variables being a vector. A data frame is a special type of list where every element of the list has same length.
-
-Data frames can have additional attributes such as rownames(), which can be useful for annotating data, like subject_id or sample_id. But most of the time they are not used.
-
-Some additional information on data frames:
-
-Usually created by read.csv() and read.table().
-Can convert to matrix with data.matrix()
-Coercion will be forced and not always what you expect.
-Can also create with data.frame() function.
-Find the number of rows and columns with nrow(df) and ncol(df), respectively.
-Rownames are usually 1..n.
-
-e.g.:
-
-```{r dataframe}
-# mtcars is a built-in data set
-data(mtcars)
-class(mtcars)
-mtcars
-head(mtcars)
-str(mtcars)
-
-# names of the variables in the data frame
-names(mtcars) 
-length(mtcars)
-nrow(mtcars)
-```
 ### Data frame creation
-
-A data frame can be created manually by providing the function `data.frame` with the corresponding vectors or with the use of one method above. The vectors should be of same length, otherwise R recycles values. The data frame requires a name for each vector.
-
-
-```{r}
-df <- data.frame(let=LETTERS[1:7],
-                 num1=10:16, 
-                 num2=floor(rnorm(7,100,10)))
-df
-names(df)
-```
-
-```{r}
-students <- data.frame(name= c("tr", "ga", "mi", "st", "eb", "ha", "fo", "fi"),
-                       age=c(23, 23, 24, 33, 28, 24, 33, 41),
-                       like= c(T, T, T, T, F, F, T, T)) 
-students
-```
-
-Useful functions:
-
-head() - see first 6 rows
-tail() - see last 6 rows
-dim() - see dimensions
-nrow() - number of rows
-ncol() - number of columns
-str() - structure of each column
-names() - will list the names attribute for a data frame (or any object really), which gives the column names.
-
 ### Data frame combination
-
-Example for data set combination:
-
-```
-df <- data.frame(id = letters[1:10], x = 1:10, y = rnorm(10))
-df
-```
-     id x       y
- 1   a  1 -1.37593
- 2   b  2  0.47094
- 3   c  3 -0.16046
- 4   d  4 -1.36914
- 5   e  5  0.39763
- 6   f  6 -1.92516
- 7   g  7  0.04107
- 8   h  8 -1.04832
- 9   i  9 -0.16875
- 10  j 10  0.82251
-
-```
-cbind(df, data.frame(z = 4))
-``
-
- 
-     id x    y    z
- 1   a  1 -1.37593 4
- 2   b  2  0.47094 4
- 3   c  3 -0.16046 4
- 4   d  4 -1.36914 4
- 5   e  5  0.39763 4
- 6   f  6 -1.92516 4
- 7   g  7  0.04107 4
- 8   h  8 -1.04832 4
- 9   i  9 -0.16875 4
- 10  j 10  0.82251 4
-
-
-
 ## A word about attributes
-
-Attributes are important characteristics of vectors (and other data structures).   
-They can be seen as some meta data that defines the nature of the object. This is to say that a given attribute can determine how a function applies to an object. Here are three important attributes:
-
-  - the names, `names()`,
-  - the dimensions, `dim()`,
-  - the class, `class`.
-
-To illustrate the use of attributes, recall the case of a factor vector. The fact that the vector on which it builds is given the attribute of a class (factor) turns that vector into a special one.
-
-```{r}
-vec <- c(1.7, 1.3, 4, 3.3, 3.3, 2, 2.3, 2.3)
-vec
-table(vec)
-
-vec.f <- factor(vec,
-                levels=c(1, 1.3, 1.7, 2, 2.3, 2.7, 3, 3.3, 3.7, 4, 5),
-                ordered=TRUE)
-vec.f
-table(vec.f)
-```
-
-
 ## Environments
-
-An environment is similar to a bag/list of names. It can be seen as the space were these names "live".   
-Environments can include environments. In that case, the enclosing environment is called the parent environment.  
-The most common environment is the `globalenv()` also called the `workspace`. 
-
-
 
 <!--chapter:end:09-data_structures.Rmd-->
 
-<<<<<<< HEAD
----
-output:
-  pdf_document: default
-  html_document: default
----
-# (PART) R Basics {-}
 
 # R as a calculator {#rcalc}
 
-R can also be used as a simple calculator. For instance, 25+12=`r 25+12`.
+Placeholder
 
-Here are a few more examples of how R can be used as a calculator with different commands:
 
 ## Usual operators
-
 ### Simple operations
-
-The usual symbols `+, -, *, /` apply .
-```{r}
-2 + 6
-56/ 6
-```
-
 ## Order of operations
-
-The order of arithmetic operations is determined by the PEMDAS (Parenthesis, exponents, multiplication, division, addition, subtraction) convention, which implies that parentheses get highest priority, followed by exponentiation, followed by multiplication and division, followed by addition and subtraction. The second example of using R in the calculator mode is listed below:
-
-```{r
-4 + 9 * 6 # PEMDAS (Multiplication before addition)
-```
-[1] 58
-
-For R operations, it is not necessary to use an equal sign is. The return key serves that role and gives you the result of the operation As you can see above, the response from R is [1] 58, which shows you that R made use of the PEMDAS convention (Multiplication before addition). The [1] that appears before the 38 indicates that the result is a vector of length one. More details on vectors will be given in the final chapter of the book.
-
-Operation without making use of spaces: 
-```{r
-> 5+9*6 # no spaces
-[1] 58
-```
-
-This still works, yet you could imagine how difficult this would be to read if it was 40 or 50 characters long.
-
 ## Number of digits displayed
-
-The default number of digits displayed in R is seven digits. Yet, R must make the decision on how many digits to display. Therefore, the number of digits shown can be altered, as shown below (Important: R does not include commas to separate groups of three digits when displaying the result): 
-
-```{r
-10 * 10 ˆ 3 # exponentiation first
-```
-[1] 10000
-
-Now consider a calculation of larger numbers.
-
-```{r
-55555555 * 55555555 # result in scientific notation
-[1] 3.08642e+15
-```
-
-The result of this calculation is expressed in scientific notation: 3.08642 · 1015. With only seven digits displayed, it is not possible to know the exact value of the product.
-
-By default, R displays seven digits, but more digits are stored. As an illustration, the built-in constant π is designated with pi.
-
-```{r
-pi # built in constant
-```
-[1] 3.141593
-
 ### Parentheses 
-
-Parentheses are or can be used to alter the order of operations. But they are also a common source of error when they are not matched.
-
-```{r}
-(4+3)*((7-3)/(1+.05))
-```
-The next expression will generate an error and prevent the compilation of the whole book.
-```r
-(4+3)*((7-3/(1+.05))
-```
-
-Other examples of different orders through adding parantheses:
-
-```{r
-5 + (6 / 7) ˆ 2 # division first, then exponentiation, then addition
-```
-[1] 5.73
-
-```{r
-(2 + 1) / 5 ˆ 2 # addition first, then exponentiation, then division
-```
-[1] 0.12
-
-```{r
-(9 + 3 / 4) ˆ 2 # division first, then addition, then exponentiation
-```
-[1] 95.06
-
-```{r
-((4 + 7) / 10) ˆ 2 # addition first, then division, then exponentiation
-```
-[1] 1.21
-
 ### Exponents 
-
-There are two ways of expressing the power of a number: `^` and `**`.
-
-```{r}
-3^4
-3**4
-```
-
 ## Unusual operators
-
 ### Special operations
-
-The symbols `%/%` and `%%` return the entire part of the result of the division and the rest of the division, respectively.
-```{r}
-56/6
-56%/%6
-56%%6
-```
-
 ## Usual functions
-
-The common functions found in any calculator also have an equivalent on R. The following examples need no further comment.
-
-```{r}
-log(100)
-sqrt(100)
-```
-
 ## Unusual functions
-
-There are several other functions applied to numbers that one does not usually find in a calculator.  
-A few examples below:
-
-```{r}
-# floor / ceiling for the closest integer
-floor(13.47)
-ceiling(13.47)
-```
-
-
-
-
-
-
-
-
 
 <!--chapter:end:10-calculator.Rmd-->
 
 # (PART) Tidyverse Packages {-}
 
-# What is `tidyverse` {#tidyverse}
+# What is `tidyverse`? {#tidyverse}
 
 As already mentioned in the preface of the book, many of the functions available in R come in packages. The tidyverse is a collection or bundle of open source R packages introduced by Hadley Wickham (Statistician from New Zealand who is currently Chief Scientist at RStudio) and his team. The fundamental packages of `tidyverse` are dplyr, tidyr, readr, tibble, stringr, ggplot2 and many other packages that provide the functionality to model, transform and visualize data. In general, the packages provided with `tidyverse` make R even better, faster, simpler and just more beautiful. The huge benefits of embracing the `tidyverse` come at the cost needing to learn a sub-dialect of R. This can be daunting for a beginner in R programming that put lots of effort into learning basic R functions. In general, tidyverse packages are intended to make the various processes of statistics and data science more productive through a variety of workflows. It is also the case that the tidyverse is work in progress. 
 
@@ -1376,3821 +195,317 @@ install.packages("tidyverse")
 
 <!--chapter:end:11-tidyverse.Rmd-->
 
+
 # `tibble` {#tibble}
 
-A tibble is the equivalent of a data frame in the `tidyverse`. The specific package of the bundle is called `tibble`.  
-All the packages in the `tidyverse` work with tibbles.   
-Notice that all the functions applicable to a data frame will also work on a tibble. This is because **all tibbles are data frames** (while the reverse is not true, all data frames are not necessarily tibbles).  
-So why bother?  
-The reasons to choose tibbles include: 
-
-- faster calculations,
-- better printing of the content,
-- more information about the content,
-- more useful warnings of errors,
-- simpler and more limited functionalities.
+Placeholder
 
 
 ## Creating a tibble
-
-There are various ways to create a tibble.
-
 ### `as_tibble`
-
-The simplest way is declare a data frame a tibble with the function `as_tibble`. 
-
-```{r}
-data(iris)
-# print the data frame
-iris
-t_iris <- as_tibble(iris)
-# print the tibble
-class(t_iris)
-t_iris
-```
-
-Another example for using as_tibble:
-
-```{r}
-data(letters)
-# print the data frame
-letters
-
-t_iris <- as_tibble(letters)
-# print the tibble
-class(t_iris)
-t_iris
-```
-
 ### Manually
-
-A tibble can also be created manually. Notice the following two points:
-
-- vectors of length 1 (only) are recycled,  
-- vectors that depend on others can be directly created.
-  
-```{r}
-my_tbl <- tibble(
-  x1 = 1:10, 
-  x2 = 5, 
-  x3 = x1^2 * x2
-)
-my_tbl
-```
-
-Another example for manually creating a tibble:
-
-```{r}
-tibble(x = 1:10, y = x ^ 3)
-```
-
-
 ### `tribble`
-
-A tribble is a tibble created in a transposed way. To be noticed:
-
-- column headings are entered (as a formula) with a `~`,
-- data are entered in rows,
-- all values are separated by commas.
-
-```{r}
-my_tr <- tribble(
-	~x1, ~x2, ~x3,
-	"A", 2, 7,
-	"B", 5, 12,
-	"C", 4, 8 
-	)
-my_tr
-```
 
 <!--chapter:end:12-tibble.Rmd-->
 
+
 # `readr`  and `readxl`  {#readr}  
- 
- 
+
+Placeholder
 
 
 ## `readr`
-
-
-
-As shown in Chapter \@ref(import), base R has many functions to read some types of files. Readr therefore provides a fast and simple way to read rectangular data, such as csv, fwf etc. 
-
-
-
-`readr` improves on them because it:  
-
-- is much faster,
-- has mainly functionalities,
-- converts data directly into tibbles,
-- handles the conversion of the type of data in a better way.
-
-
-Notice that `readr` uses names of functions that are very close to the base R functions: e.g., `read_csv` instead of `read.csv` in base R.    
-The functions form  a `read_xxx` family where 'xxx' stands for the way the data you want read was recorded:
-
-read_csv(): comma separated (CSV) files
-read_tsv(): tab separated files
-read_delim(): general delimited files
-read_fwf(): fixed width files
-read_table(): tabular files where columns are separated by white-space.
-read_log(): web log files
-
-In my experience, using the right member of the family yields better results, for instance in parsing the columns.
-
 ### `read.csv`
-
-read_csv() reads comma delimited files and is one of the most common forms of data storage. Therefore, if you understand how read.csv() works, the other functions of readr are also fairly easy to understand. 
-
-When you run read_csv() it prints out a column specification that gives the name and type of each column. Example:
-
-```{r}
-read_csv
-```
-
-The first step of the process is then the selection of the path to the file to read (As shown in the following example CSV File:
-
-```{r}
-read_csv("Insurance_sample.csv")
-```
-
-The data might not have column names. You can use col_names = FALSE to tell read_csv() not to treat the first row as headings, and instead label them sequentially from X1 to Xn:
-
-```{r
-read_csv("Insurance_sample.csv", col_names = FALSE)
-```
-
-The insurance example above has column names and it is therefore not necessary to tell read_csv() to treat the first row as headings.
-
-At this point in time, this is all you need to now about reading or treating CSV files. There are many other functions with regards to reading and writing CSV files, yet for the sake of this project, it is not necessary to have that level of detail.
-
 ### `read_delim`  
-
-We'll also describe `read_delim` because functions of the family behave are special cases of this function. For instance, `read_csv` is equivalent to `read_delim` with a `,` as a character to separate the columns.  
-
-- The `file` argument gives the name of a file, possibly with the path to it, if it is not in the same folder. Again, the path can also be an url.  
-- `delim` provides the character that separates columns in the data.
-
-
-```{r}
-# assuming that the AH001.txt is in the folder
-df <- read_delim ("AH001.txt", delim = "," , trim_ws=TRUE)
-df
-class(df)
-```
-
-Notice an important message, the types of the columns were guessed by the function. For instance, the column "`r names(df)[1]`" was guessed to be of type "`r class(names(df)[1])`". With that respect, the next arguments are particularly useful.    
-- First, `trim_ws` is a logical for whether the leading white space in each recording should be erased before parsing. With a white space, columns of numeric values with different number of digits could be guessed as character vectors.  
-Second, we can override the guess of `read_delim` by specifying the types: this is called "to parse" a file.  
-We can parse into many types and use abbreviations to set them: c = character, i = integer, n = number, d = double, l = logical, D = date, T = date time, t = time, ? = guess.
-
-All of these parsing calls can cause unexpected problems. For instance, one may need to change the symbol for decimal with the extra argument for the column type `locale=locale(decimal_mark=",")`. 
-Notice the behavior when an observation is not of the same type as expected: it is changed to `NA`.  
-The function `problems` lists the rows with problems.
-
-```{r}
-df <- read_delim("AH001.txt", delim=",", trim_ws=TRUE,
-                col_types = cols(LPrice="d", HPrice ="d") )
-df
-problems(df)
-```
-
-Notice that the names of the variables are not within `" "`. This is a general feature of the `tidyverse`.   
-By default, the first line of the data file is used for naming the columns. This can be changed.  
-- `col_names` is the vector of names set for the variables.
-- `skip` determines how many lines to be skipped in the file. This is useful when the file does contain names that one does not want to keep.
-
-```{r}
-df <- read_delim("AH001.txt", delim = "," , trim_ws=TRUE,
-                skip = 1, col_names = FALSE)
-df
-colnames(df) <- LETTERS[1:length(df)]
-df
-```
-
-Data often contain specific special character, in particular for comments and NA's.
-
-- `comment` takes the character that signals comments.
-- `na` signals what values should be consider as NA's.
-
-
-```r
-df <- read_delim("AH001.txt", delim = "," , trim_ws=TRUE,
-                skip = 1, col_names = FALSE, 
-                comment = "%", na = "9999")
-```
-
-
-
 ## `readxl`
-
-Lots of rectangular data out there is in Excel files. One way is to handle it could be to first transform the data into a `.csv` file and then import it as described above.  
-Thanks to the `readxl` package, one can also read it directly.[^Notice that R can also write to an Excel file. Why would one do that? Maybe because collaborators only work with Excel. This is achieved with the package `XLConnect` but we won't dig into these details here.]
-As part of the `tidyverse` bundle, `readxl` shares features and rules with `readr`.   
-Below are some of the specific features.  
-
-- `read_excel` is the function that reads the data in the file and assigns it to an object, as illustrated in the following chunk.
-
-```{r}
-df <- readxl::read_excel("data_china.xlsx")
-df 
-```
-Importantly, notice that the exact extension does not matter as `readxl` recognizes both `.xls` and `.xlsx`.  
-Notice that if the file contains multiple sheets, these can all be accessed.
-
-- `excel_sheets` is a function that yields the names of the different sheets in a file.  
-
-```{r}
-readxl::excel_sheets("data_china.xlsx")
-```
-
-To know the specific sheets allows to call them directly by name. Alternatively, this can also be done by a number.
-
-- The `sheet` argument specifies the required sheet either by a name or by a number.
-```r
-df <- read_excel("data_china.xlsx", sheet="FJ") 
-```
-
-A specific range for the data to be read can also be specified. Here are arguments that allow that.  
-
-- `n_max` for the maximum number of line to be read.
-- `range` for a specific range, describe in one of the possible ways:
-  - extreme cells of rectangular data: `range="B1:D10"`,
-  - with `cell_rows` for the required rows: `range=cell_rows(1:10)`,
-  - with `cell_cols` for the required columns: `range=cell_cols("B:E")`.
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--chapter:end:13-readr.Rmd-->
 
+
 # `magrittr` {#magrittr}
 
+Placeholder
 
-The package `magrittr` introduces an operator, the pipe `%>%`, that allows a fully new way of coding in R. 
-In a few words, that are not as clear as the examples below, the functions calls are now decomposed into steps and these steps are "_piped_" thanks to the operator `%>%`.    
-The advantages of this way include:  
-
-- the functions are read in steps from the left to right, as opposed to from the outside to the inside,  
-- extra steps can easily be added at any point in the sequence,
-- nested calls are avoided.
 
 ## How to pipe
-
-A basic pipeline is constructed under the following general idea: the call to the left of the pipe is used as an argument (by default the first argument) in the call to the right of the pipe.  
-Using the mathematical notation for functions, the following statements give a pretty accurate idea of the procedure.  
-
-
-- `x %>% f` is equivalent to `f(x)`
-
-This is the most basic rule for piping.
-
-```{r}
-my_data <- c(2:10, 20, 42)
-mean(my_data)
-
-my_data %>%
-	mean()
-```
-
-Notice that it is usual to break lines after the pipe `%>%` as it facilitates reading and addition of new steps. Also, the `()` pasted to `mean` is not necessary, but, again, it makes it clear that we pipe a vector into a function.  
-Generally, the construction of the code must be re-thought as the calls above are read in reverse ways: `mean(my_data)` reads use the function `mean` on the vector `my_data`, while `my_data %>% mean()` reads take the vector `my_data` and apply the function `mean` to it.
-
-
-- `x %>% f(y)` is equivalent to `f(x, y)`
-
-This rule shows how the left-to-pipe element is used as first argument in the right-to-pipe call. Recall this property as the _first argument rule_.
-
-```{r}
-library(magrittr)
-my_data <- c(2:10, 20, 42)
-mean(my_data, trim=0.1)
-
-my_data %>%
-	mean(trim=0.1)
-```
-
-
-- `x %>% f %>% g %>% h` is equivalent to `h(g(f(x)))`
-
-This rule shows that the pipeline can include many steps.
-
-```{r}
-my_data <- c(2:10, 20, 42)
-round(sqrt(mean(my_data)),2)
-
-my_data %>%
-	mean() %>%
-	sqrt() %>%
-	round(2)
-```
-
-
 ## Using a placeholder
-
-One can actually decide where the left-to-pipe element should be included in the right-to-pipe call. For that, use a dot, `.`, as a placeholder in the right-to-pipe call.
-
-- `x %>% f(y, .)` is equivalent to `f(y, x)`
-
-The `.` indicates where the left-to-pipe element should be used.
-
-```{r}
-round(17.23893,3)
-
-3 %>%
-	round(17.23893, .)
-
-```
-
-
-- `x %>% f(y, z = .)` is equivalent to `f(y, z = x)`
-
-Notice that the left-to-pipe element need not be an argument, but can also be the value of an argument.
-
-
 ## Multiple placeholders
-
-The placeholder can be used multiple times. Notice, however, that if the placeholder is not an argument (but simply a value of an argument), then `magrittr` still applies the _first argument rule_, unless the call on the right-to-pipe is enclosed in curly brackets.
-
-- `x %>% f(y = nrow(.), z = ncol(.))` is equivalent to `f(x, y = nrow(x), z = ncol(x))`
-
-- `x %>% {f(y = nrow(.), z = ncol(.))}` is equivalent to `f(y = nrow(x), z = ncol(x))`
-
-
-
-
-
-```{r}
-library(tidyverse)
-data(iris)
-
-
-t_iris <- as_tibble(iris)
-t_iris2 <- t_iris[t_iris$Sepal.Length==5, ]
-av.sw <- mean(t_iris2$Sepal.Width) 
-av.sw
-
-av.sw2 <- iris %>%
-            as_tibble() %>%
-            .[.$Sepal.Length==5, ] %>%
-            {mean(.$Sepal.Width)}
-av.sw2  
-```
-
-
-
-
-
 
 <!--chapter:end:14-magrittr.Rmd-->
 
----
-title: "StringR"
-output: html_document
----
-
-The stringr package focuses on and provides you with a set of functions designed to make working with strings as easy as possible. Stringr focusses on the most important and commonly used string manipulation functions.
-
-Let's start with the installation of StringR:
-
-``{r
-install.packages("stringr")
-```
-
-Usage
-All functions in stringr start with str_ and take a vector of strings as the first argument.
-
-```{r}
-x <- c("stadium", "football", "players", "halftime", "referee", "goalkeeper")
-str_length(x) 
-
-str_c(x, collapse = ", ")
-
-str_sub(x, 1, 3)
-```
-
-There are seven main verbs that work with patterns:
-
-str_detect(x, pattern) tells you if there’s any match to the pattern.
-
-```{r}
-str_detect(x, "[a]")
-```
-
-str_count(x, pattern) counts the number of patterns.
-
-```{r}
-str_count(x, "[a]")
-```
-
-str_subset(x, pattern) extracts the matching components.
-
-```{r}
-str_subset(x, "[r]")
-```
-
-str_locate(x, pattern) gives the position of the match.
-
-```{r}
-str_locate(x, "[a]")
-```
-
-str_extract(x, pattern) extracts the text of the match.
-
-```{r}
-str_extract(x, "[a]")
-```
-
-str_match(x, pattern) extracts parts of the match defined by parentheses.
 
 # extract the characters on either side of the vowel
-```{r}
-str_match(x, "(.)[ae](.)")
-```
 
-str_replace(x, pattern, replacement) replaces the matches with new text.
+Placeholder
 
-```{r}
-str_replace(x, "[aei]", "X")
-```
 
-str_split(x, pattern) splits up a string into multiple pieces.
-```{r}
-str_split(c("a,b", "c,d,e"), ",")
-```
 
 <!--chapter:end:15-stringr.Rmd-->
 
+
 # `tidyr` {#tidyr}
 
+Placeholder
 
-Among the many ways of organizing a dataset, the `tidyr` way is a convenient, thought-through and consistent way of thinking of a dataset.  
-There are many types of messy data. We introduce here the tools to bring each to a tidy version.  
-The general principle for creating tidy data is expressed in these three rules:
-
-- every column is a variable,
-- every row is an observation,
-- every type of observation in a different table.
-
-The tidying of a data set is mainly obtained with two functions/verbs: `gather` and `spread`.  
-Further tidying is obtained with the functions/verbs `separate` and `unite`.
 
 ## `gather`
-
-`gather` takes multiple columns, and gathers them into key-value pairs. From a wide data set, we obtain a (vertically) longer data set.  
-Let's illustrate this verb with an example.
-
-Consider the following data set that gives the gains of each person in a lottery between Monday and Thursday.
-
-```{r}
-lottery <- tibble(person= c("Andre","Beth","Charles"),
-                  mon= c(2, 5, 1),
-                  tue= c(3, 7, 4),
-                  wed= c(10,3,4),
-                  thu= c(1,2,7)
-                  )
-lottery
-```
-
-This data set has 5 columns. Clearly, this does not correspond to 5 variables. Instead, a tidy data set should only include 3 columns for the variables 'name', 'day' and 'gains'. Each row would then be an observation with one value for each of these variables: e.g., Beth won 7 on Tuesday.  
-For the tidying, observe that the appropriate variable 'day' is spread across four columns 'mon', 'tue', 'wed' and 'thu'. These must `gather`ed into one column/variable.
-
-- `tidyr` calls `key` the tidy variable whose values are the names of the messy columns
-('day' in the example above),   
-- `tidyr` calls `value` the tidy variable whose values are spread over the messy cells
-('gains' in the example above).
-
-The call of the function is then:
-
-```r
-gather(df, key, value, messy_col1, ..., messy_coln)
-```
-
-In the example above, we would obtain the tidy data set in the following way.
-```{r}
-
-tidy_lottery <- gather(lottery,
-                        key= "day",
-                        value= "gains",
-                        mon:thu
-                        ) 
-tidy_lottery
-```
-Notice how `tidyr` understands the name of the columns when separated by `:`. It simply uses all the columns in the positions from (including) the first column given to the last (including) column given.   
-Alternatively, one can obtain the same result by excluding variables to be gathered using the minus symbol `-`.
-
-```r
-tidy_lottery <- gather(lottery, key="day", value="gains", -person)
-```
-
-
-```{r}
-bisou <- tribble(
-  ~name, ~`2016`, ~`2017`, ~`2018`,
-  "gau", 23, 45, 12,
-  "tri", 8, 14, 30,
-  "han", 12, 43, 8
-)
-
-bisou
-
-tidy_bisou <- gather(bisou, key=year, value=kisses, `2016`, `2017`, `2018`)
-  
-tidy_bisou
-```
-
-
 ## `spread`
-
-`spread` does the opposite of `gather`. It takes two columns (key & value), and spreads into multiple columns: From a (vertically) long data set, we obtain a wider data set.  
-Let's illustrate this verb with an example.
-
-
-```{r}
-people <- tibble(name= rep(c("Andre","Beth","Charles"),2),
-                  info= rep(c("eyes","age"),3),
-                  measure= c("blue", 23, "brown", 31, "brown", 19)
-                  )
-people
-
-people3 <- rbind(people, c("David", "height", 175))
-people3
-
-people2 <- tibble(
-name= c(rep(c("Andre","Beth","Charles"),2),   "David"),
-info= c(rep(c("eyes","age"),3),    "height"),
-measure= c("blue", 23, "brown", 31, "brown", 19,   175)
-                  )
-people2
-
-tidy_people2 <- spread(people2, key=info, value=measure)
-tidy_people2
-```
-
-Clearly, here, each single observation (of one person) has information over different rows. These must be `spread` into appropriate variables.  
-Recall that the `key` refers to the tidy variable _vs_ messy columns.  
-Also, recall that `value` refers to the tidy variable _vs_ messy cells.
-
-```{r}
-tidy_people <- spread(people, key=info, value=measure)
-tidy_people
-
-
-```
-
-
-
 ## `separate` 
-
-`separate` is used on a column to separate its content into various columns.  
-The simplest call is generally the following:
-
-```r
-separate(df, messy_var, into=c(tidy_var1, tidy_var2))
-```  
-
-We now illustrate the use of this verb.
-
-```{r}
-clients <- tibble(info=c("Andre, Boston","Beth, Tokyo","Charles, Porto"))
-clients
-
-tidy_clients <- separate(clients,
-                          info,
-                          into= c("name", "city")
-                          )
-tidy_clients
-```
-
-By default, the separation is made on a character that is neither a number nor a letter. But we can also define the separation character.
-```{r}
-separate(clients,
-          info,
-          into= c("name", "city"),
-          sep= "t"
-          )
-```
-
-Furthermore, we can also `separate` based on the number of characters in the values of the variable. Positive integers are used to start from the left while negative integers start from the right.
-
-```{r}
-separate(clients,
-          info,
-          into=c("name", "city"),
-          sep=4
-          )
-
-separate(clients,
-          info,
-          into= c("name", "city"),
-          sep= -3
-          )
-```
-
 ## `unite`
-
-`unite` is used on columns to gather their content into one variable.  
-The simplest call is generally the following:
-
-```r
-unite(df, tidy_var, messy_var1, messy_var2, sep="")
-```
-
-A main use of this verb is to paste characters from various columns.  
-By default, these character values are united with a `_` in between, but the separator can be chosen.
-
-
-```{r}
-mail <- unite(tidy_clients, mail, name, city, sep="@")
-mail
-```
-
-
-
-
-
 
 <!--chapter:end:16-tidyr.Rmd-->
 
+
 # `dplyr` {#dplyr}
 
+Placeholder
 
-There are essentially two parts in this package, both dealing with manipulating data set.  
-The first gives tools to work on a given data frame, the second to combine data frames. We describe both in turn.  
 
 ## Grammar of data manipulation  
-
-`dplyr` introduces a easier and faster way to manipulate datasets and extract information from them.   
-Hence, all the functions introduced here are redundant with other functions in base R. As for the rest of the `tidyverse`, they just happen to do the job in a clearer way (among other advantages).  
-The approach builds on "verbs" (functions) applied successively thanks to the pipe operator `%>%`.
-
-The five main verbs are the following:
-
-
-
-- `select`
-- `mutate`
-- `filter`
-- `arrange`
-- `summarize`
-
-These operations can be made on groups thanks to the function `group_by`.  
-A few comments before we describe the verbs are in turn.
-
-- These verbs are better used in tidy data: 
-  - each column is a variable,  
-  - each row is an observation.
-
-- `select` and `mutate` manipulate/apply on the variables (columns).  
-
-- `filter` and `arrange` manipulate/apply on the observations (rows).
-
-- `summarise` manipulates groups of observations.
-
-- Like in other packages of the `tidyverse`, there is no need for the usual quotes `" "` for the names.  
-
-
-For the examples below, we will be using the `starwars` data set from the `dplyr`package. So, we can first have a glimpse at it.
-
-```{r}
-starwars
-```
-
 ## `select`
-
-The call for this function is of the form:
-
-```r
-select(df, var1, ..., varn)
-```
-
-where `df` is the original data frame from which one wishes to select data.    
-Alternatively, we can write the above code. with the pipe operator
-
-```r
-df %>%
-  select(var1, ..., varn)
-```
-
-Notice that the underlying data frame is not modified. However, the extracted data can be saved in the usual way, i.e., as an object with a name. 
-
-```r
-piece_df <- df %>%
-              select(var1, ..., varn)
-```
-
-Here is an example of a selection of variables.
-
-```{r}
-starwars %>%
-  select(name, species)
-
-# compare with base R
-
-starwars[,c("name", "species")]
-```
-
-There are any ways of selecting variables
-
-```r
-## columns/variables 1 to 4
-select(starwars, 1:4) 
-## works also with the name
-select(starwars, name:hair_color) 
-## with a negative number for all but some variable
-select(starwars, -3) 
-## works also with the name
-select(starwars, -mass) 
-```
-
-
 ### Helper arguments
-
-These are arguments to help `select` the variables/columns. Here are a few of them (see `?select` for a complete list):
-
-- `starts_with("x")`
-- `ends_with("x")`
-- `contains("x")`
-- `matches("x")`
-
-Notice the use of the quotes `" "` for the strings because they are not variables names.   
-For instance, here, we select all the variables that have `color` in their name.
-```{r}
-starwars %>%
-  select(
-    name,
-    matches("color")
-    )
-
-starwars %>%
-  select(name, gender, films)
-```
-
 ## `mutate`
-
-The `mutate` function allows to create new variables/columns, based on the existing variables.   
-The generic call is as follows.
-
-```r
-mutate(df, new_variable = expression)
-
-# with pipe
-
-df %>%
-  mutate(new_variable = expression)
-``` 
-
-We play a bit with it.  
-
-```{r}
-## add variable bmi
-starwars %>%
-         mutate(bmi = mass / (height/100)^2 )  
-
-## two variables created, including one created in the same call
-df_b <- starwars %>%
-          mutate(
-            bmi = mass / (height/100)^2,
-            sr.bmi = sqrt(bmi)
-            ) 
-df_b
-
-starwars %>%
-  mutate(
-    g_b = sample(c("G", "B"),
-                 87,
-                 replace = TRUE
-                 )
-    )
-```
-
-
 ## `filter`
-
-The `filter` function is equivalent of a selection, but for rows. The call is generically
-
-```r
-filter(df, condition)
-
-# with the pipe
-
-df %>%
-  filter(condition) 
-```
-
-At this stage, it might be useful to recall the operators for conditions under `?Comparison`.  
-Here are examples for this function.
-
-```{r}
-starwars %>%
-  filter(species != "Human")
-
-starwars %>%
-  filter(
-    species != "Human" &
-    eye_color == "red"
-    )
-
-# in base R
-
-starwars[starwars$species!="Human" & starwars$eye_color=="red" , ]
-```
-
-
 ## `arrange`
-
-This function reorders the rows of the data set, by default in ascending order of a given variable. The typical call, for a reordering over `var1`, is:
-
-```r
-arrange(df, var1)
-
-# with pipe
-
-df %>%
-  arrange(var1)
-
-```
-
-The use of multiple variables for reordering is sometimes necessary in order to break ties.
-
-```r
-## in case of several rows with same value of var1, use var2
-df %>%
-  arrange(
-    var1,
-    var2)
-```
-
-Use `desc` on the variable to show in descending order.  
-Here is an example that combines these two points.
-
-```{r, results='hide'}
-starwars %>%
-        arrange(
-          height, 
-          desc(mass))
-
-starwars %>%
-  arrange(desc(name))
-```
-
 ## `summarise`
-
-Contrary to the other verbs, the `summarise` function creates a new data frame. The usual call is:
-
-```r
-summarise(df, name = expr)
-
-# with the pipe
-df %>%
-  summarise(name = expr)
-```  
-
-where `expr` stands for any function on a vector (most of the time, one of the variables) that returns a single value. That function can either be built-in or a function provided by the user.  
-In that sense, notice that `summarise` does not mean to make a summary but, instead, to collapse a full vector into one single value.
-
-```{r}
-starwars %>%
-  summarise(min_h = min(height, na.rm = TRUE),
-            av_m= mean(mass, na.rm = TRUE)
-            )
-```
-
 ### Helper functions
-
-These are functions to help `summarise`, but are essentially wrappers for the function `[[`. These include `first(x)`, `last(x)`, `nth(x,n)`, `n()`... where `x` is the variable.
-
-```{r}
-starwars %>%
-  summarise(nth(species, 3))
-```
-Other functions can be used as logical tests.
-
-```{r}
-starwars %>%
-  summarise(sum(species == "Human", na.rm=TRUE))
-
-starwars %>%
-  summarise(mean(species != "Human", na.rm=TRUE))
-``` 
-
-
 ## Piping verbs
-
-Since each verb requires a data frame and returns a data frame, we can combine verbs in a pipe.  
-Here is an example.
-
-```{r}
-## average mass of humans 
-starwars %>%
-  filter(species == "Human") %>%
-  summarise(av_m=mean(mass, na.rm=TRUE))
-
-# without pipe
-summarise(filter(starwars, species == "Human"), av_m=mean(mass, na.rm=TRUE))
-
-temp1 <- filter(starwars, species == "Human")
-summarise(temp1, av_m=mean(mass, na.rm=TRUE))
-
-# with base R
-temp2 <- starwars[starwars$species=="Human",]
-av_m <- mean(temp2$mass, na.rm=TRUE)
-
-av_m <- mean(starwars[starwars$species=="Human",]$mass, na.rm=TRUE)
-av_m
-```
-
-Another example.
-
-```{r}
-# create the variable n_films for each name
-
-# with base R
-aa <- numeric(length(starwars$films))
-for (i in 1:length(starwars$films)){
-  aa[i] <- length(starwars$films[[i]])
-}
-
-starwars$n_films <- aa
-
-# with dplyr 
-c_l <- function(ll){
-  aa <- numeric(length(ll))
-  for (i in 1:length(ll)){
-   aa[i] <- length(ll[[i]])
-  }
-  return(aa)
-}
-
-starwars %>%
-  mutate(n_films = c_l(films)) %>%
-  select(name, n_films) %>%
-  filter( n_films >=5)
-
-```
-
 ## `group_by`
-
-The function `group_by` allows to make manipulations on groups.  
-Let's make an example.
-
-```{r}
-starwars %>%
-  group_by(eye_color) %>%
-  summarise(
-    n_per_group = n()
-  ) %>%
-  filter(n_per_group > 1)
-``` 
-
 ## Keys for joins
-
-`dplyr` also contains tools to join data sets. We have a glimpse at them here.  
-Notice that joining data sets means forming a third data set with columns of a first and a second data set.  
-
-A key is a column or a combination of columns.  
-In order to join two data sets, two keys: a primary and a secondary key.  
-The primary key must **uniquely identify the rows** of the primary data set; hence it can consist on many variables.  
-The secondary key only needs to match the primary key.  
-
-An example to illustrate this point uses the two following data sets `population` and `capital`.  
-
-- If `population` was the primary data set, then the variable `country` alone could not be the primary key because it has repeated values.  
-
-- On the other hand, if `capitals` was the primary data set, then the variable `country` could be that primary key.
-
-```{r}
-population <- tribble(
-~country, ~year, ~population,
-"UK", 2010, 62.7,
-"UK", 2000, 58.9,
-"FR", 2010, 65,
-"FR", 2000, 60.9,
-"RSA", 2010, 50.7,
-"PT", 2010, 10.5
-)
-
-capitals <- tribble(
-  ~country, ~capital, 
-  "RSA", "Pretoria",
-  "FR", "Paris",
-  "UK", "London",
-  "SP", "Madrid"
-)
-
-```
-
-
-
 ## Joins
-
-Some joins are called mutate because they create a new data set: left_, right_, inner_ or full_ joins are of this type. Filter joins include semi_ and anti_join and they filter one data set.
-
-- `left_join` and `right_join`
-
-The usage is, for instance,
-
-```r
-left_join(df1, df2, by=c("key1", "key2"))
-# with pipe
-df1 %>%
-  left_join(
-    df2,
-    by=c("key1", "key2")
-    )
-
-```
-This call will keep all the rows of `df1` and augment it with columns of `df2`. Notice that some `NA`s will be created and the rows on `df2` that do not match the primary key will not appear.  
-`right_join` would do for `df2` what `left_join` join does for `df1`.
-
-```{r}
-capitals %>%
-  left_join(
-    population,
-    by = "country"
-    )
-
-population %>%
-  left_join(
-    capitals,
-    by= "country"
-    )
-
-```
-
-
-- `inner_join` and `full_join` 
-
-The call is similar to above.  
-`inner` takes the rows that match in **both** datasets while `full` takes all the rows that match and those that do not match.
-
-```{r}
-capitals %>%
-  inner_join(
-    population,
-    by = "country"
-    )
-
-capitals %>%
-  full_join(
-    population,
-    by = "country"
-    )
-
-```
-
-
-- `semi_join` and `anti_join`
-
-These give a copy of the first data set filtered with the second data set. Hence, it's a way to filter data from the first dataset based on information in a second dataset.  
-It can be used to quickly check which rows appear in both datasets
-
-```{r}
-capitals %>%
-  semi_join(
-    population,
-    by = "country"
-    )
-
-capitals %>%
-  anti_join(
-    population,
-    by = "country"
-    )
-
-```
-
-
 ## Operations on data sets
-
-A few other functions allow to compare data sets. These include  the self-explanatory `union`, `intersect` and `setdiff`
-
-```{r}
-population2 <- add_row(population, country="CH", year=2010, population=8)
-
-setdiff(population, population2)
-setdiff(population2, population)
-```
-
-Other useful functions are `setequal` and `identical`.
-Use `setequal(df1, df2)` which will be `TRUE` if the datasets have the same data even if the rows are not in the same order, opposed to `identical(df1, df2)`
-
-
-```{r}
-capitals <- tribble(
-  ~country, ~capital, 
-  "RSA", "Pretoria",
-  "FR", "Paris",
-  "UK", "London",
-  "SP", "Madrid"
-)
-
-capitals2 <- tribble(
-  ~country, ~capital, 
-  "RSA", "Pretoria",
-  "UK", "London",
-  "FR", "Paris",
-  "SP", "Madrid"
-)
-
-identical(capitals, capitals2)
-setequal(capitals,capitals2)
-```
-
 
 <!--chapter:end:17-dplyr.Rmd-->
 
+
 # `ggplot2` {#ggplot2}
 
-
-
-Data visualization is part of the skill set of a data scientist.  
-It is made to, either
-    - explore (confirm, analyse)
-    - explain (inform, convince)
-Depends who you communicate to (can be you).
+Placeholder
 
 
 ## Comparison with base `plot`
-
-Limitations of base plot
-    - plot does not redraw, i.e., the range will not adapt to new data 
-    - plot is drawn as an image, i.e., it's not an object
-    - manual legend
-    - no unified framework for plotting, i.e., need to master other commands for other types of graphs
-
-
-```{r, fig.show='hold', results='hide', tidy=FALSE}
-library(ggplot2)
-rm(mtcarts)
-data("mtcars")
-mtcars$cyl <- as.factor(mtcars$cyl) # treat 'cyl' as a factor
-
-plot(mtcars$wt, mtcars$mpg, col = mtcars$cyl)
-abline(lm(mpg ~ wt, data = mtcars), lty = 2)
-lapply(mtcars$cyl, function(x) {
-  abline(lm(mpg ~ wt, mtcars, subset = (cyl == x)), col = x)
-  })
-legend(x = 5, y = 33, legend = levels(mtcars$cyl),col = 1:3, pch = 1, bty = "n")
-       
-plot1 <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) +
-         geom_point() +
-         geom_smooth(method=lm , se=FALSE, aes(col=cyl)) +
-         geom_smooth(method=lm , se=FALSE, linetype=2, col="grey", aes(group=1))       
-plot1 # print the object 'plot1'
-```
-
-
-
 ## Grammar of graphics - Leland Wilkinson
-
 ### A graphic = layers of grammatical elements
-The layers are the adjectives and the nouns
-Seven grammatical elements, three are essential
-
 ### Meaningful plots are built around appropriate aesthetic mappings
-The mappings are the rules to assemble the nouns and adjectives
-
-
 ## Understanding the grammar
-
-
-Building an example
-```{r}
-
-p1 <- ggplot(data=diamonds, mapping= aes(x=carat, y= price)) # data and mappings
-
-#p2 <- p1 + geom_point()  # + the general form
-
-p2 <- p1 + geom_line()  # + the general form
-
-p3 <- ggplot(diamonds, aes(x=carat, y= price, col=clarity)) +
-      geom_point() # adding a mapping / variable
-
-p3b <- ggplot(diamonds, aes(x=carat, y= price)) +
-      geom_point(col="red") # adding a attribute
-
-
-p4 <- p1 + geom_point(aes(col=clarity)) # or changing some attributes
-grid.arrange(p1, p2, p3, p4, ncol=2)
-```
-
 ### Data and proper data format
-The data being plotted
-Includes: variables of interest
-Tidy data helps make good `ggplot()`s
-```{r, fig.show='hold', tidy=FALSE}
-iris.tidy <- iris %>%
-  gather(key, Value, -Species) %>%
-  separate(key, c("Part", "Measure"), "\\.")
-
-p1 <- ggplot(iris.tidy, aes(x = Species, y = Value, col = Part)) +
-geom_jitter() +
-facet_grid(. ~ Measure)
-
-p2 <- ggplot(iris.tidy, aes(x = Measure, y = Value, col = Part)) +
-geom_jitter() +
-facet_grid(. ~ Species)
-
-
-p3 <- ggplot(iris.tidy, aes(x = Species, y = Value, col = Part)) +
-geom_point()
-
-grid.arrange(p1, p2, p3, ncol=2)
-
-```
-
-
 ### Aesthetics
-The scales onto which we map our data
-Includes: x-axis, y-axis, colour, fill, size, labels, line width, line type,...
-
 ### Geometries
-The visual elements (shape) used for our data in the plot
-Includes: point, line, histogram, bar, boxplot,...
-
 ### Other grammatical elements
-These are
-    - facets
-    - statistics
-    - coordinates
-    - themes
-
-
-
-
-
 ### Juggling with `aes`
-```{r}
-data("mtcars")
-p1 <- ggplot(mtcars, aes(x = wt, y = mpg)) +
-      geom_point()
-
-# color dependent on 'disp',
-# 'disp' is continuous, hence the shades of same colour
-p2 <- ggplot(mtcars, aes(x = wt, y = mpg, col = disp)) +
-      geom_point()  + geom_smooth(se=FALSE)
-
-# changing the colour depending on the variable 'clarity', 
-# 'clarity' is a factor, hence the different colours
-p3 <- ggplot(diamonds, aes(x = carat, y = price, col=clarity)) +
-      geom_smooth()
-
-# size dependent on 'disp'
-p4 <- ggplot(mtcars, aes(x = wt, y = mpg, size = disp)) +
-      geom_point()
-
-grid.arrange(p1, p2, p3, p4, ncol=2)
-```
-
-
 ### Juggling with `geom`
-
-```{r,  fig.show='hold'}
-# points and smoother layer
-p1 <- ggplot(diamonds, aes(x = carat, y = price)) + 
-      geom_point() + 
-      geom_smooth(se=TRUE) # se = T by default
-
-# only the smoother layer
-p2 <- ggplot(diamonds, aes(x = carat, y = price)) + 
-      geom_smooth()
-
-# changing the parameters of the point geometry, much more transparent, here
-p3 <- ggplot(diamonds, aes(x = carat, y = price)) + 
-      geom_point(alpha=.04)
-
-# only the smoother layer and different aesthetics,
-# aes recognizes the groups and therefore separates for them
-p4 <- ggplot(diamonds, aes(x = carat, y = price, col=clarity)) +
-      geom_smooth() + geom_point(alpha=.04)
-
-grid.arrange(p1, p2, p3,p4,  ncol=2)
-```
-
-
-
-
-
 ## Aesthetics
-
 ### Understanding aesthetics
-Usually considered as how something looks, as attributes: that's *notcorrect in `ggplot()` 
-Aesthetics refers to what a variable is *mappedonto it
-*Aesthetics is mapping*
-We want to map as many variables as possible in a plot, that's visible aesthetics
-Aesthetics/mappings are called in `aes()` while attributes are called in `geom_()`
-
-For instance:
-    - `aes(x = variable1, ...)`  means 'variable1' is mapped onto the x-axis
-    - `aes(..., col = variable2)` means that 'variable2' is mapped onto a colour
-
-Simply changing the colour of the dots, is NOT aesthetics
-    - `ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point(col="red")`
-because there is no mapping
-`aes()` includes: x-axis, y-axis, colour, fill, size, alpha, labels, line width, line type,...
-Some aesthetics are only applicable to categorical variables: e.g., label and shape 
-
-```{r, fig.show='hold'}
-p1 <- ggplot(mtcars, aes(x = wt, y = mpg, col = cyl)) +
-      geom_point(shape = 1, size = 4)
-p2 <- ggplot(mtcars, aes(x=mpg, y=qsec,size=(hp/wt), shape=factor(am), col=factor(cyl))) + 
-      geom_point()
-
-grid.arrange(p1, p2,  ncol=2)
-```
-
-Attributes go to `geom_`
-
-
 ### Modifying aesthetics
-
-Modifying aesthetics is modifying the mapping
-
-`position` defaults to `identity`, `jitter` adds some random noise to the observations so that they do not overlap
-```{r}
-
-p1 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
-      geom_point()
-p2 <- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, col=Species)) +
-      geom_point(position="jitter")
-
-grid.arrange(p1, p2,  ncol=2)
-```
-
-`scale_..._...(variable1, args)` modifies the scale of the mapping of 'variable1' with several arguments such as `limits`, `breaks`, etc...
-Sometimes, you need to assign a dummy to the aesthetics, e.g., when you want to plot only one variable
-
-```{r}
-mtcars$mydummy <- 1
- 
-ggplot(mtcars, aes(x = mpg, y=mydummy, col=factor(cyl))) + 
-geom_jitter() + 
-scale_y_continuous(limits=c(-0,2)) + 
-labs(title="My nice graph", x="Miles per gallon", y="", col="Cylindres")
-```
-
-
-
-
 ## Geometries
-
-Geometries control how your plot is going to look like: currently, there are more than 37 gemoetries available
-Common plots are: scatter, bar, line plots
-Geometries required some aesthetics and can take other aesthetics as optional
-Geometries can take their own aesthetics (useful to control mappings of each layer)
-Geometries can take their own data, too!
-
 ### Scatter plots
-We've seen a lot, already: recall `geom_point()`
-
 ### Bar plots
-The simplest is a histogram
-```{r}
-p1 <- ggplot(iris, aes(x=Sepal.Length)) + geom_histogram()
-p2 <- ggplot(iris, aes(x=Sepal.Length)) + 
-      geom_histogram(binwidth = 1)
-p3 <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
-      geom_histogram()
-p4 <- ggplot(iris, aes(x=Sepal.Length, fill=Species)) +
-      geom_histogram(position="dodge") # or "stack", or "fill"
-
-grid.arrange(p1, p2, p3, p4,  ncol=2)
-```
-
-
-A more general bar plot can be obtained with `geom_bar()`
-```{r}
-data("mtcars")
-mtcars$cyl <- as.factor(mtcars$cyl) # changing 'cyl' to factor, which is actually is 
-mtcars$am <- as.factor(mtcars$am)
-p1 <- ggplot(mtcars, aes(x=cyl, fill=am)) +
-      geom_bar(position="stack")
-p2 <- ggplot(mtcars, aes(x=cyl, fill=am)) +
-      geom_bar(position="dodge") # or "stack", or "fill"
-
-posn_d <- position_dodge(width=.2) # like for jitter
-p3 <- ggplot(mtcars, aes(x=cyl, fill=am)) +
-      geom_bar(position=posn_d, alpha=.6)
-
-p4 <- ggplot(mtcars, aes(mpg, fill=cyl)) +
-      geom_histogram(binwidth = 1, position="identity", alpha=.4)
-
-
-grid.arrange(p1, p2, p3, p4,  ncol=2)
-```
-
-
-```{r}
-data <- data.frame(a=1:6, b=rep(1/6,6))
-
-p1 <- ggplot(data, aes(x=a, y=b)) +
-      geom_bar(position="stack", alpha = 0.7, stat = "identity") +
-      labs(title = "Probability distribution of die roll", x = "Value on the die (x)", y = "P(x)") +
-  scale_x_discrete(limits=1:6, labels=c("1", "2", "3", "4", "5", "6"))
-      
-p1
-```
-
 ### Line plots
-
-Particularly suited for line plots over time
-```{r}
-p1 <- ggplot(economics, aes(x = date, y = unemploy)) + 
-geom_line()
-
-data("beavers")
-p2 <- ggplot(beaver1, aes(x = time, y = temp, col=factor(activ))) + 
-geom_line(aes(group=1)) # group = 1 indicates you want a single line connecting all the points, you can set group=variable
-
-grid.arrange(p1, p2, ncol=2)
-```
-
-
 
 <!--chapter:end:18-ggplot.Rmd-->
 
+---
+output:
+  word_document: default
+  html_document: default
+---
 # (PART) Use R for Data Science  {-}
+
+After learning about the various functions of R and how they can be used in the previous two chapters, this chapter of the book focuses on how R can be and is used for data science. 
 
 # Introduction to Data Science {#introduction}
 
+In general, Data Science can be described as the overlap of computer science and IT, mathematics and statistics as well as domains and business knowledge. Data Science uses scientific methods, processes, algorithms and systems to extract knowledge. In this case, the focus lies on structured and unstructured data. It uses the above-mentioned methods to solve a variety of problems. It is of great importance to understand a set of data as well as to structure and analyze this data. 
 
+One of the most efficient ways to conduct data science is the use of the programing language R. Due to the fact that many people study R programming during their academic years based on the fact that it is legally free available, R is a well-known tool for data science with many people having at least basic knowledge in the coding language. The huge amount of complex data that is usually processed in data science makes it difficult to structure and conduct data for further analysis. R therefore offers a number of packages that can be used to for reading various forms of data into R, which are explained in detail in the `tidyverse` chapter.
 
+## Data Science = Artificial intelligence - Yes or No?
 
-## Ubiquity of predictions and role of  data science
+Artificial Intelligence can generally be seen as intelligence that is demonstrated by machines. Machine learning as part of artificial intelligence enables IT systems to recognize patterns and laws on the basis of existing data and algorithms and to develop solutions.
 
-Predictions are an essential part of the human experience as they permeate our day-by-day lives:
+Additionally, R offers the opportunity to train the algorithm and therefore offers the opportunity to bring in automation for future predictions. R makes machine learning a lot easier and more approachable with the number of packages available especially for machine learning. In conclusion, due to the fact that data science uses statistical learning algorithms such as machine learning, data science can be seen as artificial intelligence. The fact that, broadly speaking, machine learning connects data science and AI, leads to the conclusion that data science and AI can complement each other perfectly. 
 
-> What will come out of that shaking bush?  
->  
-> --- Anonymous hunter's last thought. 
+## R for Data Data Science
 
-A few simple examples of actual predictions can emphasize the point:
-
-- will a given drug cure a disease?
-- how long will a trip last?
-- how many units will the firm sell?  
-
-But predictions are more ubiquitous than these direct questions indicate. Indeed, predictions are at the heart of judgment and decision making. Consider the following illustrations: 
-
-- "should parole be granted?": the answer to that question depends on the committee _prediction_ about the future behavior of a inmate. 
-- "is this email a spam?": when services such as Gmail classify email as spam, they make a _prediction_ about the classification that the user would make, had he/she read the email.
-- "what candidate ought to be hired?": the hiring process is based on the _prediction_ about each candidate's future performance.
-
-
-The perspective adopted in these notes is that "data science" is a set of tools using data in order to make more accurate predictions.^[There are many terms forming the seemingly nebulous concept of data science: "data mining", "machine learning", "deep learning", "prediction modeling", "data analytics", among others. Beyond their distinctive specificities, however, these fields are here unified under their core task of making predictions about any relevant, measurable issue.]    
-
-
-
-## Heuristics, algorithms and AI
-
-Seeing predictions as part of the judgment and decision process puts forward the documented human fallibility in that matter.  
-Here, the background reference is the compelling  literature on heuristics and bias to which Kahneman and Tversky are two preeminent contributors (see, for instance, @kahneman2011).  
-In short, humans' mental apparatus is prone to systematic and predictable erroneous judgments and decisions because of its reliance on (time-, energy-) efficient but ultimately potentially misleading mental rules (**heuristics**) and biased reasoning.         
-In that perspective, data science is a tool for _slow thinking_ type of judgment. Because it follows rules (**algorithms**) that are separated from, though not independent of a human judgment, data science is potentially immune to these biases.^[This is not to say, of course, that the data science process does not produce errors or that it is free of prejudice (see below).]   
-We encounter here a common theme: the struggle between humans and machines over intelligence status. As the top contender of the non-human side, **AI** is often depicted as a almighty force. It might be. Our understanding, makes a less grandiose vision of AI. This latter is _simply_ the highest point in the scale starting at heuristics and going over algorithms. In other words, the true power of AI is its ability to make the best predictions (see @pmai for a full argument along these lines).    
-
-
-## AI, not why: predicting vs understanding  {#aiwhy}
-
-By nature, humans crave understanding by drawing causal relationships between the phenomena that they observe. A discussion of this psychological drive goes beyond the scope of these notes. It is mentioned here, however, in order to emphasize a crucial tension arising in the practice of data science, namely the usual trade-off in predictions between their accuracy and their interpretability (i.e., their understanding).  
-The techniques used to treat the data do not always allow for an interpretation of this treatment. Using a common yet appropriate image, the prediction process resembles a black-box.   
-As such, the main deliverable of a prediction process is a statement based on complex and sophisticated correlations, almost never on causation.  
-The balance between the advantages and disadvantages of the approach are context-specific. In some situations, understanding why a consequence followed (i.e., causation) is not necessary, not possible and sometimes not even desirable.^[Add examples.] In other cases, the cause of the effect is required. For instance, applicants would like to know why their loan was refused by the bank ('s algorithm).^[Also, some web services such as Amazon or Netflix post an approximate reason for their suggestions.]   
-In the former cases, data science will be associated with the great benefits of accuracy, and, in the latter, it will  cause frustration to the inquiring mind.   
-Back to AI as the best data scientist as it is able to make the most accurate predictions. It follows from the above remarks that AI, and all the more so for its less intelligent avatars, will always be bounded by the barrier of 'why', i.e., they will generally not be able to make statements about causation (see @pearlwhy for a thorough discussion).   
-Inference is the setting in data science that addresses the causality relationships.^[Add example to emphasize the difficulty.] This is a much more difficult setting as it faces two huge hurdles:
-
-- it requires a previous  theoretical modeling  of a relationship,
-- the functional specification of the relationship must be correctly estimated.
-
-A problem with that approach is that practitioners often aim at collecting its sweet fruits of causal statements without paying the harsh price of the modeling and the specification. As a consequence, the fruits of these empirical investigations, despite their glowing appearance, are actually not edible and sometimes even poisonous.  
-This is why we opt to not attempt incursions in the high spheres of inference but remain on the ground of predictions. 
-
-
-## Plus
-
-- Black-box algorithms can inherit prejudice and other discriminating rules (see @wmd).
-- Knowing the context is of utmost importance in any data science project.
-- "No free lunch theorem" (@nfl).
-- "Some of the figures in this notes are taken from "An Introduction to Statistical Learning, with applications in R"  (Springer, 2013) with permission from the authors: G. James, D. Witten,  T. Hastie and R. Tibshirani". 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+In this chapter of the book, we will discuss data science in the form of conditions, subsets, vectorized functions, plots, loops, functions and many other forms. 
 
 <!--chapter:end:19-introductionDS.Rmd-->
 
-# Simple functions on vectors 
 
-In this section, we illustrate calculations with a single vector.  
+# (PART) Use R for Data Science {-}
+# Simple functions and operations on vectors 
+
+Placeholder
 
 
 ## Element by element evaluation
-
-The main point to notice is how these functions are carried **element by element**. This means that the function is typically applied for each element individually and in sequence. 
-
-The following simple example illustrates this procedure and emphasizes the effect on the length of the vectors.
-```{r}
-# create two numeric vector of same length
-visits1 <-  c(12, 2, 45, 75, 65, 11, 3)
-visits2 <- c(23, 4, 5, 78, 12, 0, 200)
-length(visits1)
-length(visits1) == length(visits2)
-
-total <- visits1 + visits2
-# their sum is the vector of same length, with the element by element sums
-
-length(total)
-total
-
-```
-
-Another clear example with the function `^2`.
-
-
-```{r}
-total.p2 <- total^2
-total.p2
-
-(trop <- total - 2)
-length(trop)
-```
-
-
-
 ## Recycling rule
-
-
-With the emphasis on the length of the vectors above, one could wonder what happens when vectors' length differ. This is an important point to remember: the shortest vector has its elements **recycled** as much as it is necessary.
-
-```{r}
-l3 <- c(12, 34, 50)
-l2 <- c(10, 3)
-tt <- l3 + 5
-tt
-
-ltotal <- l3+l2 # recycling!!!
-ltotal
-```
-
-
 ## Functions for the whole vector
-
-Some functions are meant to be applied to whole vector and do not necessarily return a vector of the same length of the vector to which it is applied.   
-Here is an illustration of some of these functions.
-
-```{r}
-ages <- c(28, 33, 39, 56, 34, 45, 27, 40)
-ages
-max(ages)
-sum(ages)
-length(ages)
-
-ages <- c(28, 33, 39, 56, 34, 45, 27, 40, NA)
-mean(ages)
-
-# for help on a command, simply type ? in front of it
-?mean
-
-```
-
-
-
-
-
-
-
 
 <!--chapter:end:20-vectorized_functions.Rmd-->
 
+
 # Subsetting {#subset}
 
+Placeholder
 
-There are three subsetting operators: `$`, `[]` and `[[]]`.  
-Some functions also allow to create subsets. 
-We can combine subsetting and assignment to change some parts of an object.  
-Sub-setting is better used in complement with `str()`.
-```{r}
-va <- c(13.1, -15.2, 0.3, 2.4, 10.5, -3.6, 9.7) # create the vector va
-str(va)
-str(mtcars)
-```
-
-One can see from this call, that `va` is a simple vector with `r length(va)` elements. Subsetting means choosing among these.
 
 ## `[]`
-Applies to vectors, matrices, lists and data frames.  
-Can be used with:
-
-    - positive or negative values,
-    - many values in a vector,
-    - logical, `NA`,
-    - character vectors when names exist.
-
 ### On a vector
-Here are a few examples of that object used on a vector.
-
-```{r} 
-va <- c(13.1, -15.2, 0.3, 2.4, 10.5, -3.6, 9.7)
-va[1] # element 1
-va[c(3:5)] # elements 3 to 5
-va[c(2,7)]
-va[-1] # all elements minus the element 1
-va[c(-2,-7)]
-va[c(-2,-7)]
-va[c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE)] 
-va[c(TRUE,FALSE)] # notice the recycling at play here
-va[NA] 
-va[] # nothing selected gives the full vector
-names(va)<-letters[1:length(va)] # give names to va
-# notice that we subset the vector letters (given by R) and that we don't
-# specify the length but give a general value
-# now we can subset using names
-va
-va[c("a","e","b")]
-
-```
 ### On a list
-```{r}
-mylist<- list(numbers=c(1:20), 
-              ournames=c("Jim","Jules"), 
-              results= c(T,F,F,T), 
-              school=factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE))
-str(mylist)
-
-mylist[1] # first element of the list
-class(mylist[1])
-mylist[[3]][3]
-```
-Notice that the result of this subsetting is a `r class(mylist[1])`!
-
 ### On a matrix
-
-```{r}
-set.seed(42)
-my.mat <- matrix(floor(runif(30)*10), nrow=5)
-my.mat
-str(my.mat)
-length(my.mat)
-```
-The structure shows that there are r length(dim(my.mat)) dimensions. For subsetting, we must give r length(dim(my.mat)) dimensions! Same rules as for the vectors apply.
-
-```{r}
-# 2nd row, 3rd column
-my.mat[2,3] 
-# all but first row, all columns
-my.mat[-1,]
-colnames(my.mat) <- letters[1:ncol(my.mat)] # give names to the columns
-rownames(my.mat) <- LETTERS[1:nrow(my.mat)] # give names to the rows
-my.mat
-my.mat["C",c("a","c","e")]
-```
-
 ## `[[]]`
-This object is used mainly for lists.
-
-```{r}
-mylist<- list(numbers=c(1:20), 
-              ournames=c("Jim","Jules"), 
-              results= c(T,F,F,T), 
-              school=factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE))
-str(mylist)
-mylist[[1]]
-```
-
-
 ## `$`
-This object is usually for data frames, where it gives the variable.  
-It allows partial matching (e.g., `mtcars$gear` is the same as `mtcars$gea`)
-
-```{r}
-data(mtcars)
-mtcars
-mtcars[1:5, 4]
-aa <- mtcars[1:5, c("cyl","hp")]
-class(aa)
-aa
-
-names(mtcars)
-mtcars$hp[1:5]
-
-mtcars[["mpg"]] # just exactly the same, but R users prefer the $
-mtcars["mpg"] # NOT the same at all! [] preserves the class
-class(mtcars["mpg"])
-```
-
 ## Combining subsetting
-Notice that we can often subset further until having the desired subset. Here are a few examples.
-```{r}
-mtcars$mpg[1:4]
-mylist[["ournames"]][1]
-mylist$ournames[1]
-
-```
-
-
-
 ## Subsetting  with one condition
-We can use conditions for subsetting
-```{r }
-mtcars[mtcars$mpg<=20, ]
-mtcars[mtcars$cyl==8,]
-mtcars[mtcars$cyl==8 & mtcars$carb==4,]
-mtcars[mtcars$cyl==8, c("cyl", "mpg", "wt")]
-
-```
-
 ## Subsetting and assignment
-Subsetting can be used to change a part of an object through assignment.  Assign `NULL` to delete subset
-```{r}
-my.mat
-my.mat[,1]<-1:nrow(my.mat)
-my.mat
-mtcars$mpg[1]<-1234
-names(mtcars)
-mtcars$drat<-NULL # delete variable drat in data frame mtcars
-# does not delete in matrix
-names(mtcars)
-
-```
-
-
-
 ## Using `which()`
-`which()` gives the integers that correspond to the boolean (logical) `TRUE`.  
-This can help subsetting
-```{r}
-vb<-1500:1530
-vb
-which(vb%%5==0) # which is divisible by 5 (modulo is 0) ?
-# notice that this is asking each element of vb, 
-# which() reports the positions for which the answer is TRUE 
-vb[which(vb%%5==0)] 
-```
-
 ## More advanced stuff
-
 ### Difference between simplifying and preserving
-We say 'preserve' to say the same structure is maintained when subsetting (e.g., a subset of a data frame remains a data frame).  
-Simplifying does not keep the structure but gives the simplest output possible.  
-`drop` argument allows to preserve (`drop=FALSE`) or not (`drop= TRUE`).  
-`[]` usually preserves, `[[]]` usually simplifies.  
-To better understand, check the classes:
-```{r}
-all.equal(class(mylist[1]), class(mylist[[1]]))
-class(mylist[1])
-class(mylist[[1]])
-all.equal(class(mylist), class(mylist[1]))
-all.equal(class(mylist), class(mylist[[1]]))
-```
-
-We see that `[]` has preserved the class of `mylist` (r class(mylist)), while `[[]]` has not! 
-Another striking example is the following.
-```{r}
-ma2 <- my.mat[1:2,1:3]
-class(ma2)
-ma3 <- my.mat[1,1:3]
-class(ma3)
-```
-`ma3` is NOT a matrix anymore!!! This is because one of its dimensions is 1.
-Losing track of the class when subsetting can generate lots of problems in the middle of a large code. And it is a common source of error!
-To be sure of keeping the class, we can use `drop=FALSE` (the class will not be dropped to, usually, a vector).
-```{r}
-ma4 <- my.mat[1,1:3, drop=FALSE]
-ma4
-class(ma4)
-```
-
 
 <!--chapter:end:21-subset.Rmd-->
 
+
 # Conditions {#conditions}
 
-The general purpose of conditions is to control the flow of our code when executed by R.  
-In R, it builds on statements such as `if` and `else`.
+Placeholder
+
 
 ## `if` statement
-The simplest form for a condition uses a `if` statement.  
-The form is then:
-
-```r 
-if (condition) {
-# code to be executed if the condition is TRUE
-}
-```
-
-The key point is that R will run the code until it finds a condition that is met. If it doesn't find any, it continues to the next lines of code.  
-Here is an example.
-
-
-
-```{r}
-gains <- c(10, 3, -5, 0, -4, 12, 4)
-gains
-sum(gains)
-
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
-}
-
-# change the -4 in 'gains' to -40
-
-gains[gains==-4] <- -40
-gains
-
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
-} # notice that there is no output, because the condition was not met
-```
-
 ## `else` statement
-
-What happens when the condition is not met? It's on the user to decide. It can be nothing or... something else!
-
-```r
-if (condition) { 
-# code to be executed if the condition is TRUE
-} else {
-# code to be executed if the condition FALSE
-}
-```
-
-Here is an example.
-
-```{r}
-gains<- c(10, 3, -5, 0, -4, 12, 4)
-gains[1] <- -10 # change the first element of gains
-sum(gains)
-
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
-} else {
-  print("You are not winning!")
-} # notice that now there is an output!
-```
-
 ## `else if` statement
-
-`else if` allows us to introduce another condition to our flow of code
-
-```r
-if (condition_1) { 
-# code to be executed if the condition_1 is TRUE
-} else if (condition_2) {
-# code to be executed if the condition_2 is TRUE
-} else {
-# code to be executed if NEITHER condition_1 NOR condition_2 is TRUE
-}
-```
-
-We can use as many `else if` statements as we want.  
-Here is an example with only one `else if`
-```{r}
-gains <- c(10, 3, -5, 0, -4, 12, 4)
-gains[1] <- -20 # change the first element of 'gains'
-sum(gains)
-
-if (sum(gains) > 0) {
-  print("Congratulations, you are winning!")
-} else if (sum(gains)==0) {
-  print("You just break even!")
-} else {
-  print("You are losing!")
-}
-```
-
-Notice the potential problem of not putting a  `else` statement at the end of the conditions system.
-
 ## `ifelse` statement
-
-For **short** conditions, we can use `ifelse`.  
-The form is
-```r
-ifelse(condition, value if condition met, value if value not met)
-```
-Here is an example.
-```{r}
-gains <- c(10, 3, -5, 0, -4, 12, 4)
-sign <- ifelse(sum(gains)>=0,"+","-")
-sign
-```
-
 ## Logical operators: `&`, `|` and `!`
-Logical operators are used to combine, mix or negate several conditions:
-- `&` means AND
-- `|` means OR
-- `!` means NOT
-
-De Morgan's laws may help here.
-
-```{r}
-(10%%2==0 & 27%%3==0) # equivalent to (TRUE and TRUE), hence TRUE
-TRUE & FALSE
-!TRUE 
-!(TRUE & TRUE)
-!(TRUE & !TRUE)
-((10%%2==0 & 27%%2==0)) # equivalent to (TRUE and FALSE), hence FALSE
-((10%%2==0 | 27%%2==0)) # equivalent to (TRUE or FALSE), hence TRUE
-```
-
 ## Writing and interpreting a condition
-
-Notice that what R looks for in a condition is a either a TRUE or a FALSE.  
-If it encounters a TRUE, it executes the commands, otherwise, it doesn't.  
-Remember there are many ways to obtain one of these two logicals. Any of these ways will work as a condition.  
-Here are examples of less trivial ways of writing a condition 
-```{r}
-gains<- c(10, 3,-5,0,-4,12,4)
-
-if (is.numeric(gains)) {
-  print("Seems like it is a numeric vector...")
-}
-# here, is.numeric(gains) evaluates to TRUE, hence, the code is executed!
-# the beginner's way would be to replace the condition by
-# if (class(gains)=="numeric")
-
-if (!is.factor(gains)) {
-  print("Yeah! We avoided the factor...")
-}
-# the beginner would write if (class(gains)!="factor")
-```
-
 
 <!--chapter:end:22-conditions.Rmd-->
 
+
 # Functions {#functions}
 
-Everything that happens in R is a function call. If we want R to do something, we must use a function, may it be as simple as a parentheses `(`. 
-If the function is not built-in or coming in a package, one must write it.
-A function is itself an object. When applied to another object, the function "makes something" to that object and returns an object.
+Placeholder
+
 
 ## Structure of a simple function
-
-Here is a simple example of a function that returns the square of the object provided.
-
-```{r}
-pow_two <- function(a){
-  a^2
-}
-pow_two(12)
-
-```
-
-
-
 ### Name of the function
-In our example above, the name was `pow_two`. To call, i.e., to use the function later in the code, type `pow_two()`.
-
 ### Arguments
-
-The arguments are given in the parentheses right after `function`.  
-Here, we use an argument `a`, which can be any object, e.g., a vector
-```{r}
-pow_two(1:10)
-```
-When using this function, we can see that one argument only must be passed.  
-A value for the argument is then given in the parentheses when calling the function, e.g., `pow_two(12)`.  
-A function can have several arguments
-
 ### Commands
-The commands will be executed, if possible.  
-One command source of error is when the class of the argument provided is NOT compatible with the commands in the function
-
-```{r , error=TRUE}
-pow_two("hello") # this can't work
-```
-
-
 ### Return of a function
-
-The return of a function is given by the last expression executed inside the function.
-
-```{r }
-my_f <- function(a){
-  a^2
-  a^3 # THIS is the last expression executed
-}
-my_f(5)
-```
-
-We can use `return()` in the function in order to chose what it  returns.
-
-```{r }
-my_f2 <- function(a){
-  return(a^2)
-  a^3
-}
-my_f2(5)
-```
-
-A function can return only one object; this is not really a  problem as we  can always stack everything in a `list()` and have the function return the list.
-
-```{r }
-my_f3 <- function(a){
-  list(ptwo=a^2, pthree=a^3, pfour=a^4) 
-}
-my_f3(5:20)
-```
-
-If we want to use the return of our function, we must assign it to an object.
-
-```{r }
-x <- my_f3(1:5) # evaluates the function above on the vector 1:5
-x$pthree # shows the element pthree of the saved list x
-```
-
-An example where we better use `return` is the following
-
-```{r}
-pow_three <- function(a){
-  if (!is.numeric(a)) {
-    return(print("You must give a numeric vector!"))
-  } else {
-    return(a^3)
-  }
-  
-}
-pow_three(1:4)
-```
-
-
-
 ## Multiple arguments and their identification
-
-```{r}
-pow <- function(a, p){
-  a^p
-}
-pow(12, 0.5)
-```
-
-
-As mentioned above, a function can have several arguments.
-
-```{r , error= TRUE}
-my_f4 <- function(abc, xyz){
-  c(abc^2, xyz^3)
-}
-my_f4(5) # this won't work because xyz is missing
-my_f4(5, 10)
-```
-
-R has at least two ways of identifying arguments, by position and by name.  
-If no name is specified, R uses the arguments according to their positions in the definition of the function.  
-In the example above, R understands that `abc=5` and `xyz=10` because of the way they are given in the call `my_f4(5, 10)`.  
-Identification by names would be
-```{r , error= TRUE}
-my_f4(5, 10)
-my_f4(abc=5, xyz=10) # same as before
-my_f4(xyz=5, abc=10) 
-# different from before because the names are more important than the position
-my_f4(xyz=5, 10) # a mix between name and position 
-```
-
 ### Default values
-
-A function can be defined with default values for their arguments.  
-R will use the values provided in the call; if one is missing, R will use the default value.
-
-```{r , error= TRUE}
-
-my_f4 <- function(abc, xyz=2){
-  c(abc^2, xyz^3)
-}
-my_f4(5) 
-
-my_f5 <- function(a, tada){
-  if (tada==TRUE){
-    plot(a)
-  } else {
-    sum(a)
-  }
-}
-
-
-my_f5(1:20, tada=FALSE)
-
-my_f6 <- function(a, tada=TRUE){
-  if (tada==TRUE){
-    plot(a)
-  } else {
-    sum(a)
-  }
-}
-
-my_f6(1:30, tada=FALSE)
-```
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--chapter:end:23-functions.Rmd-->
 
+
 # Loops (avoid them) {#loops}
 
+Placeholder
 
 
-## Introduction to loops with a silly example (bad R coding)
-
-Loops allow to iterate a set of functions / lines of code over a predefined list of elements.  
-They are common in many languages but are not highly regarded in R because:
-
-  - they do not represent an efficient way of producing a result,
-  - functionals, functions that return a vector such as the `apply` family, are preferred.
-    
-This section serves as an introduction to the functionals because it helps understand the structure of the problem.  
-
-Now the silly example. Suppose our gains at a game over the week are, in euros,
-
-```{r}
-gains <- c(10, 3,-5,0,-4,12,4)
-gains
-```
-Now, suppose we want to transform each gain into dollars, i.e., we must multiply each gain by 1.30. An intuitive way would be to take each gain _separately_ and multiply it 1.12. Let's do it by hand:
-
-```{r}
-gains_d <-numeric(length(gains)) # create a numeric vector of same length as gains
-gains_d[1] <- gains[1]*1.12 
-gains_d[2] <- gains[2]*1.12
-gains_d[3] <- gains[3]*1.12
-gains_d[4] <- gains[4]*1.12
-gains_d[5] <- gains[5]*1.12
-gains_d[6] <- gains[6]*1.12
-gains_d[7] <- gains[7]*1.12
-gains_d
-```
-
-We recognize that the structure of each line of code: the first line is for the element 1 of the vectors, the second line for the second element of the vectors, etc.  
-Doing a loop builds on that observation. But it asks the program to make the change between each line automatically.  
-In this silly case, we want the program to evaluate a line with the value 1 and then, when it has finished, do the same line but with a 2 instead of a 1. And we want it to do it **for** the elements 1, 2, 3, 4, ..., `r length(gains)`.  
-This is what a loop does!
-
-
-```{r}
-# create an empty numeric vector of same length as gains
-gains_d2 <-numeric(length(gains)) 
-
-# now the loop
-# first for i=1, then i=2, then i=3, etc... until i=length(gains)
-for (i in 1:length(gains)) {  
-  gains_d2[i] <- gains[i]*1.12 
-}
-gains_d2
-```
-
-
-
-## General form of a `for` loop
-
-The general form of a loop is the following
-
-```r
-for (i in list-of-elements) {
-# code invoking i identifier
-}
-```
-A few words about this simple form are the following.  
-
-  - The `i` is the identifier to be used in the code; we can use anything (e.g., `x`, `kk`, `element`, ...); we only need to be consistent and, if any, use that identifier in the code inside the loop.
-  - The `in` is self-describing.
-  - The list of elements is generally a vector, but it can also be a list.
-  - The loop executes some code but does not need to return an object.
-
-### No identifier in the code?
-
-The program will run the code in the loop until it finds the identifier, replaces it with the current value of the loop and executes all the commands.  
-If it doesn't find it, then the program executes everything till the end of the loop and then starts again with the next value of the loop. 
-```{r}
-for (kk in 1:4) {
-  print("I'm working on it...")
-}
-
-for (kk in 1:5) {
-  print(paste("This is loop number", kk))
-}
-
-```
-
+## Introduction to loops with two examples
+## A silly example of loops (Bad R Coding)
 ## A good example of a loop
-
-Suppose we want to know, every day, what is our cumulative gain until and including that day. This implies that we must to create another `cumulative_gains` with the same length as `gains`. 
-
-Then, we could run the following loop.
-```{r}
-# create an empty vector
-cumulative_gains <-numeric(length(gains)) 
-
-cumulative_gains[1] <- gains[1]  
- 
-for (k in 2:length(gains)){
-  cumulative_gains[k]<-cumulative_gains[k-1] + gains[k]
-}
-gains
-cumulative_gains
-```
-
-
-## Looping over non-numeric elements 
-
-The examples above could give the impression that we must loop over numeric values. But it is not so!  
-The identifiers above simply took the values, one after the other, of the vector provided. Since we always gave a numeric vector, the identifier was always numeric.  
-Here, we show that we can also loop over other types of vectors, for instance a character vector.  
-The example is simple: we want to count the number of letters in each element of the character vector and print the result in the console. You can use the built-in function `nchar()`; `nchar("Cologne")=``r nchar("Cologne")`. 
-
-```{r}
-cities <- c("Lisbon", "Paris", "Washington", "Antananarivo")
-cities
-
-for (cit in cities) {
-  print(paste(cit, "has", nchar(cit), "letters."))
-}
-```
-To store these values in a vector `number_letters`, we could write
-```{r}
-number_letters <- NULL
-
-for (cit in cities) {
-  number_letters <- c(number_letters, nchar(cit)) 
-}
-
-names(number_letters) <- cities
-number_letters
-```
-
-
-
-## More advanced stuff
-
-### Loop over a `list`
-
-We can loop over the elements of a `list`. Remember, however, that the elements of a `list` can be of any type. Therefore, we must make sure that the code inside the loop can be applied to each element of the `list`.
-
-```{r}
-mylist<- list(numbers=c(1:20), 
-              cities=c("Cologne","Lisbon"), 
-              results= c(T,F,F,T), 
-              school=factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE))
-
-for (kk in mylist) {
-  print(length(kk))
-}
-```
-Notice that the previous call could be done with a loop over a numeric vector.
-
-```{r}
-# (kk in 1:4)
-for (kk in 1:length(mylist)) { 
-  print(length(mylist[[kk]]))
-}
-```
-
-### `while` loop
-
-The command `while` introduces a loop that is run while a certain condition is satisfied. Here is an example.
-
-```{r}
-kk <- 6
-while (kk < 10) {
-  print(kk)
-  kk <- kk + 1
-}
-```
-Notice that the most important line is the last in the loop `kk <- kk + 1`. This makes the identifier change value, in this case, it increases of 1. 
-
-If the identifier does not change, the program keeps running as long as the condition `(kk < 10)` is satisfied... i.e., forever! Make sure that the condition is not satisfied at some point after some loops!
-
-```{r}
-repetition <- 0
-while (repetition <= 9 ) {
-  print(paste("That's " , repetition, "! One more! Come on!", sep="")) 
-  repetition<- repetition +1
-}
-```
-
-### `break` & `next`
-
-If we insert `break` in a loop, the program stops everything, i.e., the remaining code in the loop is skipped and the loop is not iterated over anymore.
-
-You may want to use it in combination of a condition 
-```r
-if (condition==TRUE) {
-  break
-} 
-```
-
-
-```{r}
-repetition <- 0
-while (repetition <= 9 ) {
-  if (repetition==5){
-    print(paste("That's " , repetition,
-                "! Well done! I know we said 10, but that's enough for today!", sep=""))
-    break
-  }
-  print(paste("That's " , repetition, "! One more! Come on!", sep="")) 
-  repetition<- repetition +1
-}
-```
-
-If we insert `next` in a loop, the program skips the remainder of the code in the loop and starts with the next value in the loop. Again, it's usually combined with a condition.
-
-
 
 <!--chapter:end:24-loops.Rmd-->
 
+
 # Simple plots {#splots}
 
-This short chapter has also only an information purpose. The package `ggplot2` described in Chapter \@ref(ggplot2) allows to make much richer and elegant plots.  
+Placeholder
+
 
 ## Line plots
-
-The simplest plot is a scatter plot of one variable plotted against an index (1, 2, 3, ...) on the horizontal axis.  
-In order to (scatter) plot one vector against the other, it is compulsory that they are both numeric and have the same length.  
-The following plots illustrate the creation of a line plot in incremental steps. In the steps, the following functions and arguments are introduced:  
-
-- `plot` is the main function for the plot.
-
-```{r, echo=FALSE, include=FALSE, eval=FALSE}
-
-d.plot <- data.frame(a = c("type", "col"),
-                    d = c("p, l, c, o, s, h, n", "character"),
-                    w = c("How the vector should be rendered in the plot in the plot",
-                    "Determines the color; see this [Rcolor.pdf online](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf) for details.") )
-names(d.plot) <- c("Argument", "Value", "Description")
-knitr::kable(d.plot, caption = '`plot` arguments.')                    
-```
-
-- `type` argument type gives how the vector should be rendered in the plot; the `type` of the plot is any of Table \@ref(tab:table-p-types). 
-
-
-```{r table-p-types, echo=FALSE, align="c"}
-p.types <- data.frame(Symbol = c("p", "l", "b", "c", "o", "s", "h", "n"),
-                      Description=c("Points", "Lines", "Both", "The lines part alone of b", 
-                      "Both overplotted", "Steps", "Histogram like (vertical lines)", "No plotting"))
-
-knitr::kable(p.types, caption = 'Plot types.')
-```
-  
-
-```{r simple-plots-1, out.width="25%", fig.align="center", fig.height=7, fig.cap="Creating a simple line plot.", fig.show="hold"}
-sales <- c(20, 18, 24, 36, 30)
-date <- c(15, 16, 17, 18, 19)
-# left
-plot(sales)
-# middle
-plot(date, sales)
-# right
-plot(date, sales, type="l")
-```
-
-
-
-We now add further customization with new functions and arguments.  
-
-- `col` determines the color; see this [Rcolor.pdf online](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf) for details.
-- The `lty` argument refers to the type of line, to be chosen from the values shown in Figure \@ref(fig:line-types),
-- `lines` adds the plot of a vector to a previously opened plot.
-- `axis` is a function that changes the axis given in its first argument with 1, 2, 3, 4 referring to the bottom, left, top, and right axis, respectively.
-- `at` simply states for what values of the axis the labels should correspond.
-- `las` gives the orientation of the labels (e.g., `1=horizontal`).
-- `xlab` and `ylab` are the x and y axes labels, respectively.
-- `xlim` and `ylim` set a numerical limit for the x and y axes labels, respectively, notice that a vector of length 2 is necessary for each.
-
-
-```{r line-types, echo=FALSE, out.width="50%", fig.height=3, fig.align="center", fig.cap="Line types."}
-# adapted form http://www.sthda.com/english/wiki/line-types-in-r-lty
-generateRLineTypes<-function(){
-  oldPar<-par()
-  par(font=2, mar=c(0,0,0,0))
-  plot(1, pch="", ylim=c(0,3), xlim=c(0,0.5),  axes=FALSE,xlab="", ylab="")
-  for(i in 0:6) lines(c(0.2,0.5), c(i/2,i/2), lty=i, lwd=3)
-  text(rep(0.1,6), (0:6)/2, labels=c("0.'blank'", "1.'solid'", "2.'dashed'", "3.'dotted'",
-                                 "4.'dotdash'", "5.'longdash'", "6.'twodash'"))
-  par(mar=oldPar$mar,font=oldPar$font )
-}
-generateRLineTypes()
-```
-
-
-
-```{r simple-plots-2, out.width="25%", fig.align="center", fig.height=7, fig.cap="Custom a simple line plot.", fig.show="hold"}
-sales2 <- c(12, 19, 22, 28, 32) 
-# left
-plot(date, sales, type="l", col="blue")
-lines(date, sales2, type="b", col="red", lty=3)
-# middle
-s.range <- c(min(sales,sales2),max(sales,sales2))
-plot(date, sales, type="l", col="blue", ylim=s.range)
-lines(date, sales2, type="b", col="red", lty=3)
-# right
-plot(date, sales, type="l", col="blue",
-     ylim=s.range,
-     axes= FALSE, 
-     xlab = "Day",
-     ylab= "Sales")
-lines(date, sales2, type="b", col="red", lty=3)
-axis(1, at=date, lab=c("Mon","Tue","Wed","Thu","Fri"))
-axis(2, las=1, at=seq(min(s.range),max(s.range),5)) 
-```
-
-
-
-We now add further elements such as a legend or a title.
-
-- `legend` gives and places a legend; its first arguments are the location on the x and y axis respectively (this can be replaced by expressions such as `topleft`); the third is the legend itself, completed with colors and other formatting; notice that since the legend specifies two series, the formatting must also be given for each of them in vectors of length 2.
-- `pch` determines the shape of the point in the plot, to be chosen from Figure \@ref(fig:point-types).
-- `cex` gives the expanding factor of the text.
-- `bty` specifies whether of not the legend should be in a box (default, "o") or not "n".
-- `title` gives the title to the plot.
-
-
-```{r point-types, echo=FALSE, out.width="50%", fig.height=3, fig.align="center", fig.cap="Point types."}
-# adapted from http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r
-generateRPointShapes<-function(){
-  oldPar<-par()
-  par(font=2, mar=c(0.5,0,0,0))
-  y=rev(c(rep(1,6),rep(2,5), rep(3,5), rep(4,5), rep(5,5)))
-  x=c(rep(1:5,5),6)/2
-  plot(x, y, pch = 0:25, cex=1.5, ylim=c(1,5.5), xlim=c(1,3), 
-       axes=FALSE, xlab="", ylab="", bg="blue")
-  text(x, y, labels=0:25, pos=3)
-  par(mar=oldPar$mar,font=oldPar$font )
-}
-generateRPointShapes()
-```
-
-
-
-```{r simple-plots-3, out.width="50%", fig.align="center", fig.height=7, fig.cap="Further customization of a simple line plot.", fig.show="hold"}
-plot(date, sales, type="l", col="blue", ylim=s.range,
-      axes= FALSE, xlab = "Day", ylab= "Sales")
-lines(date, sales2, type="b", col="red", lty=3)
-axis(1, at=date, lab=c("Mon","Tue","Wed","Thu","Fri"))
-axis(2, las=1, at=seq(min(s.range),max(s.range),5)) 
-legend(date[1], s.range[2], c("Tom","Mark"), cex=1, 
-   col=c("blue","red"), pch=c(NA,1), lty=c(1,3), bty="n")
-title(main="Week Sales", col.main="black", font.main=2)
-```
-
-
-One can help but notice how cumbersome the coding of the graph is, in particular when one needs to retype the whole code for the same graph.
-
-
-
 ## Bar graphs and histograms
-
-
-This subsection illustrates the creation of these graphs with a few commented examples.
-
-- `barplot` takes a vector or a matrix as first argument. It is therefore important to double check how this latter is created.
-- `density` applies to the colors and a single value would be recycled.
-- `horiz` defaults to `FALSE` and gives the direction of the plot.
-- `border` applies to the borders of the bars.
-- `beside` forces side-by-side bars instead of stacking bars.
-
-```{r bar-plots, out.width="25%", fig.align="center", fig.height=7, fig.cap="Simple bar plots.", fig.show="hold"}
-barplot(sales,
-        main="Week Sales - Tom",
-        names.arg=c("Mon","Tue","Wed","Thu","Fri"),
-        border="lightblue",
-        col = "blue")
-barplot(sales,
-        main="Week Sales - Mark",
-        names.arg=c("Mon","Tue","Wed","Thu","Fri"),
-        border="red",
-        col = "red",
-        horiz = TRUE)
-
-barplot(matrix(c(sales, sales2), ncol=5, byrow = TRUE),
-        beside = TRUE,
-        names.arg=c("Mon","Tue","Wed","Thu","Fri"),
-        col=c("blue", "red"),
-        density = 30, 
-        main="Week Sales")
-
-
-```
-
-Turning to histogram, the function and some arguments are the following.
-
-- `hist` is the function to create an histogram from the values of a vector.
-- `breaks` is the important argument as it controls the width of the bars.
-- `freq` determines whether the frequency (default) of the density should be plotted.
-
-
-```{r hist-plots, out.width="35%", fig.align="center", fig.height=7, fig.cap="Simple histograms.", fig.show="hold"}
-hist(c(sales, sales2))
-
-brks <- seq(min(s.range), max(s.range)+3, 5)
-hist(c(sales, sales2),
-    col=rev(heat.colors(length(brks))),
-    breaks=brks,
-    main="Histogram of Week Sales",
-    las=1, cex.axis=0.8,
-    freq=TRUE,
-    xlab="Sales")
-
-```
-
-
 ### Other plots
-
-Other types of plots are called by the following functions.
-
-- `pie` for the pie (round) charts.
-- `boxplot` for the box-and-whisker plot.
-- `dotchart` for the Cleveland dot plot.
-- ...
-
-
-
-
-
 
 <!--chapter:end:25-plots.Rmd-->
 
-# (PART) Intermediate R  {-}
 
+# Resampling
 
-# Functionals {#functionals}
+Placeholder
 
-## The `apply` family
 
-The `apply` family are examples of functionals, functions that take a function as an input and return a vector as output.
-They are an alternative to loops.
-The members of the family differ in the kind of input and output they use / return
+## Replication Requirements
+## Why Resampling?
+## Bootstrapping
+### Sample function 
+### A bootstrap example
+### Built in bootstrapping functions
+## Cross-Validation 
+### The Validation set Approach
+### k-fold Cross-Validation
 
-## `apply`
+<!--chapter:end:26-resampling.Rmd-->
 
-The `apply` function operates on matrices (in general, on arrays, but we'll only use 2D arrays, i.e., matrices).  
-The generic call is
 
-```r
-apply(X, MARGIN, FUN, ...)`
-```
+# Trees
 
-- `X` is the object to which we want to apply the function.
-- `MARGIN` is the dimension of the matrix (array) to be used in the calculation. `MARGIN=1` makes the function apply to rows of `X` while `MARGIN=2` makes the function apply to columns of `X`.
-- `FUN` is a function to be applied, which can also be defined by the user.
-- `...` stands for possible further arguments.
-
-Importantly, notice that the function called in `apply` **applies to a vector**.  
-The following examples illustrate the use of this function.
-```{r}
-# create a matrix
-myM  <- matrix(floor(runif(30)*20), nrow=5, ncol=6)
-myM 
-# sum of rows
-sofr <- apply(myM , 1, sum)  
-sofr
-# standard deviation of columns
-sdofc <- apply(myM , 2, sd)  
-sdofc
-```
-
-The dimension of the return is non-trivial, though understandable after careful examination.
-```{r}
-
-sqrtofr <- apply(myM , 1,sqrt) ## careful with the dimension of the output; 
-sqrtofr
-```
-
-The function can be defined by the user.
-```{r}
-# define own function; e.g., take the max of the vector and add 100 
-myf <- function(k) { 
-  max(k)+100
-}
-
-myfofr <- apply(myM ,1,myf)
-myfofr
-
-```
-
-Notice that the function can also be defined inside the `apply` function (not recommended, though).
-```r
-dofc <- apply(myM , 2, function(k) max(k)+1)
-```
-
-### Extra argument `...`
-
-The extra argument `...` serves as a placeholder for further arguments to be passed to the function. Here is an example that requires the extra argument `n`. 
-
-```{r}
-# define a function that requires two arguments
-myf2 <- function(k,n){
-  max(k) + n
-}
-
-myf2ofr <- apply(myM, 1, myf2, 25)
-myf2ofr
-```
-
-Notice that if `n` was defined in the global environment, then it would be used as default in the previous.
-
-
-## `lapply`
-
-`lapply` applies a given function to every element of a list and returns a list as result. Of course, it can also be applied to a vector.  
-The generic call is
-
-```r
-apply(X, FUN, ...)`
-```
-
-- `X` is the **list** to which we want to apply the function.
-- `FUN` is a function to be applied to each element of the list which can also be defined by the user.  
-- `...` stands for possible further arguments.
-
-
-Here is an example.
-
-```{r}
-# first, create a list on which apply the functions
-mylist<- list(numbers=c(1:20), 
-              cities=c("Cologne","Lisbon"), 
-              results= c(T,F,F,T), 
-              school=factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE))
-
-# list of lengths 
-lofl <- lapply(mylist, length) 
-lofl
-
-# unlist a list gives, if possible, a vector
-vofl <- unlist(lapply(mylist, length)) 
-vofl
-```
-
-This other example shows that indeed anything that happens in R, including `[`, is a function.
-
-```{r}
-## "[" is the function of subsetting, 2 is the argument to that function,
-## hence, this gives the second element of each element of mylist
-sofl <- lapply(mylist,"[",2) 
-sofl
-```
-
-Alternatively, we can also define a function for subsetting before making the `lapply` call.
-```r
-mysubset <- function(x,n) {
-  x[n]
-}
-
-sofl <- lapply(mylist, mysubset, 2) 
-```
-
-
-
-## `sapply`
-
-`sapply` works like `lapply` but tries to return a simplified version.
-
-The same example as above.
-```{r}
-mylist<- list(numbers=c(1:20), 
-              cities=c("Cologne","Lisbon"), 
-              results= c(T,F,F,T), 
-              school=factor(c("Primary", "Secondary", "Tertiary"), ordered=TRUE))
-
-# vector of lengths 
-sofl2 <- sapply(mylist, length) 
-sofl2
-```
-
-Another example, this time applied on a vector of a list. 
-```{r}
-sd2ofl <- sapply(mylist$numbers, function(x) x^2 /2 )
-
-```
-
-
-
-## Multicore implementation
-
-The `apply()` family runs, by nature, "embarrassingly parallel tasks". As it turns out, it is very easy on Mac to exploit parallelism.
-
-```{r}
-library(parallel)
-cores <- detectCores()
-cores
-# the function Sys.sleep(n) makes the computer sleep for the n seconds
-system.time(lapply(1:4, function(x) Sys.sleep(1)))
-system.time(mclapply(1:4, function(x) Sys.sleep(1), mc.cores = cores ))
-```
-
-
-
-
-
-
-
-<!--chapter:end:26-functionals.Rmd-->
-
-# Overview {#overview}
-
-
-This chapter aims at providing an overview of the main issues addressed in a data science project. Ideally, the next chapters would then elaborate on each of them. Because time is limited, however, these notes will cover a selected set of topics.  
-Actually, this constraint makes this overview even more important because it builds the framework where to place the future techniques learned in or outside this course.
-
-## Universal scope
-
-Data science addresses a very large set of issues. This latter has been expanding in the last decades thanks to the availability of computing power, data sets, new software and theoretical developments.  
-Here is a very short list of cases handled by data science (sources: @esl, @isl and @isln).
-
-### Wage vs demographic variables
-
-Determining what demographic variables influence the worker's wage.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Wage as function of various variables."}
-include_graphics("figures/islr/1_1.png")
-```
-
-### Probability of heart attack
-
-Predicting the probability of suffering a heart attack on the with demographic, diet and clinical measurements.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Factors influencing the risk of a heart attack."}
-include_graphics("figures/islr/s_1_11.png")
-```
-
-
-### Spam detection
-
-Devising a spam detection system.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Frequencies for main words in email (to George)."}
-include_graphics("figures/islr/s_1_13.png")
-```
-
-
-### Identifying hand-written numbers
-
-Identifying hand-written numbers of zip codes in letters.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Sample of hand-writen numbers."}
-include_graphics("figures/esl/1_2.png")
-```
-
-### Classify LANDSAT image
-
-Classify the pixels in a LANDSAT image, by usage.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="LANDSAT images and classification."}
-include_graphics("figures/islr/s_1_21.png")
-```
-
-
-
-
-## Statistical learning
-
-The original postulate is that there exist a relationship between a _response_ \(Y\) variable and, **jointly** a set \(X\) of variables ( _independent variables_, _predictors_, _explanatory variables_).
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Relationships between individual variables."}
-include_graphics("figures/islr/2_1.png")
-```
-
-
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=is_latex_output()}
-advertising <- read_csv("data/islr/Advertising.csv") %>%
-	select(-X1) 
-advertising
-
-p1 <- advertising %>% ggplot(
-	mapping= aes(x=TV, y= sales)
-	) +
-	geom_point() +
-	geom_smooth(method='lm', se = FALSE)
-
-p2 <- advertising %>% ggplot(
-	mapping= aes(x=radio, y= sales)
-	) +
-	geom_point() +
-  geom_smooth(method='lm', se = FALSE)
-
-p3 <- advertising %>% ggplot(
-	mapping= aes(x=newspaper, y= sales)
-	) +
-	geom_point() +
-  geom_smooth(method='lm', se = FALSE)
-
-grid.arrange(p1, p2, p3, ncol=3)
-
-# require(GGally)
-# ggpairs(advertising)
-```
-
-
-Then, the general form of the relationship between these variables is as follows.
-\[Y=f(X) + \varepsilon \]
-where \(\varepsilon\) captures various sources of error.  
-We will denote by \(n\) the number of observations, i.e., the number of tuples containing a value of response and a value for each predictor. Also, \(p\) is the number of predictors.   
-It is useful to see the different objects of the equation above.
-\[\left( \begin{array}{l} y_1 \\ y_2 \\ \vdots \\ y_n \end{array}\right) =f\left( \begin{array}{llll} x_{11} & x_{12} & \dots & x_{1p} \\
-x_{21} & x_{22} & \dots & x_{2p} \\
-\vdots & \vdots & \ddots & \vdots \\
-x_{n1} & x_{n2} & \dots & x_{np} \end{array}\right) 
-+
-\left( \begin{array}{l} \varepsilon_1 \\ \varepsilon_2 \\ \vdots \\ \varepsilon_n \end{array}\right)
-\] 
-
-
-The **goal of statistical learning is to estimate** (learn, determine, guess,...)  \(f()\).  
-Figure \@ref(fig:plot-simf12-book) illustrates the data learning process by plotting \(Y\) for the values of \(X\), a unique vector (left) along with the errors measured as the difference between the observations and the true function (right). Notice that the true function is known in this case because the data is simulated.  
-The different techniques explored here are designed to come as close as possible to the true, blue line.  
-
-
-
-```{r plot-simf12-book, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Instance of simulated Income data along with true $f()$ and errors."}
-include_graphics("figures/islr/2_2.png")
-```
-
-Figure \@ref(fig:plot-simf13-book) illustrates the same idea as Figure \@ref(fig:plot-simf12-book), but with a true function over two variables.
-
-```{r plot-simf13-book, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Instance of simulated Income data along with true $f()$ and errors (two predictors)."}
-include_graphics("figures/islr/2_3.png")
-```
-
-
-```{r plot-simf12, out.width = "100%", message = FALSE, warning = FALSE, include=is_latex_output()}
-set.seed(2)
-income <- read_csv("data/islr/Income1.csv") %>%
-	select(-X1, -Income) %>%
-  mutate(Income = 20 + 600* dnorm(Education, 22, 4) + rnorm(length(Education),0,4),
-         tIncome = 20 + 600* dnorm(Education, 22, 4))
-
-
-
-p1 <- income %>%
-  ggplot(mapping = aes(x=Education, y=Income)) +
-  geom_point() 
-
-p2 <- income %>%
-  ggplot(mapping = aes(x=Education, y=Income)) +
-  geom_point() +
-  stat_function(fun = function(Education) 20 + 600*dnorm(Education, 22, 4)) +
-  geom_segment(aes(x = Education, y = Income, xend = Education, yend = tIncome, colour = "red"),
-  	data = income) +
-  theme(legend.position = "none")
-
-grid.arrange(p1, p2, ncol=2)
-```
-
-```{r message = FALSE, warning = FALSE, include=is_latex_output()}
-income %>%
-  mutate(error = Income - tIncome) 
-
-
-```
-
-
-
-
-## Use of statistical learning
-
-There are two main reasons one would want to estimate \(f()\).  
-
-### Prediction
-
-In many occasions, the independent variables are known but the response is not. Therefore, \(f()\) can be used to _predict_ these values. These predictions are noted by
-\[\hat{Y}=\hat{f}(X)\]
-where \(\hat{f}\) is the estimated function for \(f()\).
-
-### Inference
-
-The estimated \(\hat{f}()\) is also used to answer questions about the relationship between the independent variables and the response variables, such as:
-
-  - which predictors contributes the response,
-  - how much each predictor contributes to the response,
-  - what is the form of the relationship.
-
-This use of statistical learning is not the main interest of these notes (see Section \@ref(aiwhy)).     
-
-
-
-## Ideal $f()$ vs $\hat{f}()$
-
-For a solution to be ideal of optimal, one has to first specify a criterion.  
-If one wants to predict \(Y\) given \(X\), i.e., to get \(\hat{Y}=\hat{f}(X)\),  a common criterion used in statistical learning is the mean-squared error defined thanks to the squared error
-\[\text{squared error }= (Y - \hat{Y})^2\] 
-It can be shown that, using that criterion, the optimal $f()$ that minimizes the expected value of the squared error, 
-\[\min\ E[(Y - \hat{Y})^2\vert X=x]\] is given by
-\[f(x) = E[Y\vert X=x]\]
-This function \(f(x)\) is the called the _regression function_.  
-Of course, the regression function is not known and must be estimated. In other words, we can have \(\hat{f}(x)\) instead of \(f(x)\).  
-A very important feature must then be emphasized.
-\[E[(Y - \hat{Y})^2\vert X=x]=E[\big(f(X) + \varepsilon - \hat{f}(X) \big)^2\vert X=x]\]
-Carrying the conditioning on \(X\), we can write
- \[E[(Y - \hat{Y})^2]= \underbrace{\big(f(x) -\hat{f}(x)\big)^2}_{\text{Reducible}} + \underbrace{Var(\varepsilon)}_{\text{Irreducible}}\]
-
-
-## Estimating $f()$
-
-Theoretically, it is easy to estimate \(f()\). Since \(f(x) = E[Y\vert X=x]\), we could just take the average of \(Y\) of each value of \(X\), i.e.,
-\[\hat{f}(x)=\text{Ave}(Y\vert X =x)\]
-
-Figure \@ref(fig:plot-eyx01) illustrates that calculation for \(p=1\), where \(X=4\).  
-
-```{r plot-eyx01, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Averaging $Y$ for the value $X=4$."}
-include_graphics("figures/islr/s_2_6.png")
-```
-
-The practical difficulty with this approach is clear: there may have no \(Y\) for some values of \(X\).  
-This hurdle is overtaken by allowing _local averaging_, i.e.,
-
-\[\hat{f}(x)=\text{Ave}(Y\vert X \in N(x) )\]
-where \(N(x)\) is a _neighborhood_ of \(x\).  
-
-However, even this relaxing in the estimation of the regression function hits a major problem, called the _curse of dimensionality_.  
-This happens when the dimension, \(p\),  gets large, i.e., when there are many predictors.  
-There are two equivalent ways of describing the problem.  
-
-  - in high-dimensions, data get sparse, meaning that there are not many data points in some neighborhoods, making the averaging unreliable,
-  - if one insists in having enough data points for the averaging, say \(5\%\) in each neighborhood, then one has to increase the size of the neighborhood up to a level that defeats the idea of neighborhood.
-
- Feasible approaches to estimation, therefore, require some imposed structure.  
- **Parametric methods** imposed the functional form and estimate the parameters for such function. The simplest and most common of these is the linear model of the form:
- \[f(X)=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p\]    
-
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Linear fit."}
-include_graphics("figures/islr/2_4.png")
-```
-
-**Non-parametric methods** do not impose any functional form. But they have tuning parameters, for instance, the level of smoothness.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Smooth non-parametric fit."}
-include_graphics("figures/islr/2_5.png")
-```
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Rough non-parametric fit."}
-include_graphics("figures/islr/2_6.png")
-```
-
-## Trade-offs
-
-The estimation techniques, as hinted in the discussion above, present the researcher with various trade-offs: 
-
-* Accuracy _versus_ interpretability,
-* Good _versus_ over or under-fit,
-* Parsimony _versus_ all-in. 
-
-Depending on the researchers choice in these axes, there are more or less appropriate techniques.
-
-## Types of cases statistical problems
-
-From the examples above, and others, we can distinguish types of statistical learning problems:
-
-  - **Regression** versus **classification** problems.
-  - **Supervised** versus **unsupervised** learning.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Unsupervised learning."}
-include_graphics("figures/islr/2_8.png")
-```
-
-
-## Assessing model accuracy
-
-The most common measure for quality of a fit is the **mean squared error**, _MSE_ (or the square root of that number), given by
-
-\[MSE=\frac{1}{n}\sum_i^n \big(y_i-\hat{f}(x_i)\big)^2\]
-
-At this stage, we must introduce a fundamental feature of the statistical learning philosophy.  
-Any chosen method/technique is given data to learn, the **train data**. However, the crucial attribute of the method should be measure on data not previously seen, the **test data**.  
-In other words, the important measure is the _test MSE_. We compute it as
-\[\text{Ave}\big(y_0-\hat{f}(x_0)\big)^2 \]
-where \((y_0, x_0)\) are the test observations.  
-
-The next examples should nourish our intuition about a fundamental trade-off explained below. 
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="B-V case 1."}
-include_graphics("figures/islr/2_9.png")
-```
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="B-V case 2."}
-include_graphics("figures/islr/2_10.png")
-```
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="B-V case 3."}
-include_graphics("figures/islr/2_11.png")
-```
-
-
-## Bias-Variance trade-off
-
-The U-shape of the test MSE curves is an important result in statistical learning. It derives from the following property.
-If the true model is \(Y = f(X) + \varepsilon\) (with \(f(x) = E[Y\vert X = x]\) ), then we can show
-\[E[\big( y_0-\hat{f}(x_0)\big)^2]= Var\big(\hat{f}(x_0)\big) + \big(Bias(\hat{f}(x_0))\big)^2 + Var(\varepsilon)\]
-
-\(Var\big(\hat{f}(x_0)\big)\) is the how much \(\hat{f}()\) would change if estimated with a different training data.  
-\(Bias(\hat{f}(x_0))\) is the discrepancy between the estimated function and the true function.   
-The trade-off exist because more flexible methods do tend to reduce bias but they increase the volatility of \(\hat{f}()\).
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Bias-Variance trade-off."}
-include_graphics("figures/islr/2_12.png")
-```
-
-## Classification setting
-
-In classification problems, one cannot calculate the MSE. Instead, the common measure to assess accuracy if the **error rate**, the proportion or miss-classified observations, defined in the training set as
-\[\frac{1}{n}\sum_i^n I\big(y_i\neq\hat{y}_i\big)\]
-Similarly, in the test data, we can calculate
-\[\text{Ave}\big(I(y_i\neq\hat{y}_i)\big)\] 
-
-
-### Bayes classifier
-
-It can be shown that the error rate in the test data is minimized by a classifier that assigns the observation to the class  for which it has the highest probability of belonging.  
-This classifier is called _Bayes classifier_ and is based on the conditional probabilities for each \(j\) 
-\[Pr(Y=j \vert X=x_0)\]
-The problem is that, unless the data is simulated (as below), these probabilities are not known.
-Figure \@ref(fig:plot-bayesc01) illustrates a simulated case and draws the contours given by the Bayes classifier. 
-
-
-```{r plot-bayesc01, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Bayes classifier."}
-include_graphics("figures/islr/2_13.png")
-```
-
-### K-nearest neighbors 
-
-As a feasible solution, one could try to estimate the conditional probabilities. Some techniques attempt precisely that.  
-Here, we quickly introduce a very simple non-parametric method, _K-nearest neighbors_. As it names indicates, the probability of a class is estimaded by an averaging of the \(K\) closest observations. Formely
-
-\[Pr(Y=j \vert X=x_0)= \frac{1}{K}\sum_{i \in N(x_0)}I(y_i=j) \]
-
-The following Figures illustrate the method and give an application to the case above along with a comparison with the Bayes classifier.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="K-nearest neighbors approach."}
-include_graphics("figures/islr/2_14.png")
-```
-
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="K-nearest neighbors classification for K=10."}
-include_graphics("figures/islr/2_15.png")
-```
-
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="K-nearest neighbors classification for K=1 and K=100."}
-include_graphics("figures/islr/2_16.png")
-```
-
-Notice that this non-parametric method requires the tuning parameter \(K\). It value give flexibility to the estimation and is subject to the usual bias-variance trade-off.
-
-```{r, out.width = "100%", echo=FALSE, fig.align='center', fig.cap="Bias-Variance trade-off."}
-include_graphics("figures/islr/2_17.png")
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--chapter:end:27-overview.Rmd-->
-
-# Linear regression {#linreg}
-
-The linear regression approach is the workhorse of many empirical investigations. It is also the _classical method_ because of its simplicity and its easiness of computation (an important argument in times of little or cumbersome computing capabilities).  
-Various important reasons explain why it is often the first tool in any analyst's toolbox.
-
-* It can straightforwardly be extended and produce reasonably good estimates in many applications. 
-* Despite its simplicity, it allows to clearly illustrate advanced concepts. In particular, it lays the ground for the need of more complicated techniques.
-
-As a reference, recall that the basis of the linear model is a fit of the data with the following assume functional form.
-
-\[Y=\beta_0 + \beta_1X_1 + \beta_2X_2 + \dots + \beta_pX_p + \varepsilon\]
-
-This form assumes **linearity in the coefficients**, \(\beta\)'s, with \(p\) predictors, \(X\)'s,  for \(n\) observations. The response \(Y\) is also assumed to be influenced by shocks/errors capture by \(\varepsilon\). The standard deviation of these errors is assumed to be \(\sigma\). In other words, even if the estimated model would correctly fit the data, the predictions would still be off because of this irreducible error.  
-Notice that the linear function is almost never believed to fit the true data generating process but, instead, to more or less appropriately approximate it.       
-
-The notes below first follow the exposition of @isln (Chap. 3) and focus on its R implementation. They then introduced simulations based on the linear model.
-
-## Simple linear regression
-
-This section builds around the example of the simple linear regression of _sales_ on the amount of _TV_ advertising in the _Advertising_ data set.  
-To fix ideas, the linear model estimated here is
-\[\text{sales} = \beta_0 + \beta_1\times \text{TV}  + \varepsilon\]
-
-We start by loading the **data** and manipulate it to make it usable.
-
-```{r, warning = FALSE, message = FALSE}
-advertising <- read_csv("data/islr/Advertising.csv")
-advertising
-
-advertising <- read_csv("data/islr/Advertising.csv") %>%
-	select(-X1) 
-advertising
-```
-
-
-The **estimation** of the model is carried with the function `lm` from the built-in `stats` package. The result of the estimation is an object to assigned to a name.
-
-```{r}
-model.slr <- lm(sales ~ TV, data = advertising)
-```
-
-The content of this linear regression object is better described with the function `summary`.
-
-```{r}
-summary(model.slr)
-names(model.slr)
-
-model.slr$fitted.values
-
-names(summary(model.slr))
-summary(model.slr)$r.squared
-summary(model.slr)$df
-
-
-
-```
-
-```{r}
-# tidyverse alternative
-advertising %>%
-  mutate(y.hat1 = model.slr$fitted.values,
-         y.hat2 <- predict(model.slr),
-         y.hat3 <- model.slr$coefficients[1] + model.slr$coefficients[2]*TV)
-
-advertising
-advertising$TV
-advertising$y.hat1 <- model.slr$fitted.values
-advertising$y.hat2 <- predict(model.slr)
-advertising$y.hat3 <- model.slr$coefficients[1] + model.slr$coefficients[2]*advertising$TV
-
-
-advertising
-
-plot(advertising$TV, advertising$sales)
-lines(advertising$TV, advertising$y.hat2, col="blue")
-lines(advertising$TV, advertising$y.hat1, col="red")
-```
-
-Let's see the **errors/ residuals** of our prediction.
-```{r}
-advertising$residuals <- advertising$sales - advertising$y.hat2
-
-sum(advertising$residuals)
-```
-
-We can use the model to predict for data not in the training data.
-
-```{r}
-# predict sales for TV=400, 500, 600...
-
-# brute force way, very tedious in general
-sales_tv_400 <- model.slr$coefficients[1] + model.slr$coefficients[2]*400
-sales_tv_400
-
-# 'predict' way
-# step 1: create a data.frame for the new X data
-# step 2: predict with newdata= newdata
-
-my.boss.question <- data.frame(TV=c(400, 500, 600))
-my.boss.question
-
-sales_tv_boss <- predict(model.slr, newdata = my.boss.question ) 
-sales_tv_boss
-
-```
-
-
-This last call alone provides most of the statistics explained in @isln (Chapter 3).  
-Notice that parts of this regression object can be accessed through sub-setting of the object and used, once we know under what name they are stored, which we obtain by the next call (see `?lm` for the value of the function, i.e., what the function returns).
-
-```{r}
-names(model.slr)
-# model.slr %>% names
-```
-Alternatively, and somehow more surprising, all the numbers given by the `summary` function can also be accessed in the same fashion.
-
-```{r}
-model.slr %>% summary %>% names
-```
-As an example, the following table can be built by inline R-code (@isln, Chap. 3, slide 13), with calls such as `summary(model.slr)$fstatistic[1]`, possibly with rounding as well.
-
-| Quantity | Value |
-|:--|:--|
-| Residual Standard Error | `r summary(model.slr)$sigma %>% round(2)` |
-| \(R^2\) | `r summary(model.slr)$r.squared %>% round(3)` |
-| \(F\)-statistic | `r summary(model.slr)$fstatistic[1] %>% round(1)` |
-
-Table: Results for simple linear regression (Advertising)
-
-
-As for the **confidence interval** of \(\beta_1\) (@isln, Chap. 3, slide 13), i.e., the random interval in which, under repeated sampling, the true parameter would fall \(95\%\) of the time, we type the code below.
-
-```{r}
-c.i.beta1 <- c(summary(model.slr)$coefficients[2,1] -
-                 2 * summary(model.slr)$coefficients[2,2],
-               summary(model.slr)$coefficients[2,1] +
-                 2 * summary(model.slr)$coefficients[2,2])
-c.i.beta1 %>% round(3)
-```
-
-One of the main reasons the simple linear regression is exposed is its graphical appeal. In particular, the _ordinary least squares_ criterion can be visualized with a graph of the residuals with respect to the fit.  
-This visualization builds on the regression fit which we obtain first below in two alternative ways.  
-
-1. The **fitted line** can be obtained with the fitted values of the model given by the `lm` function, i.e., `.$fitted.values`.
-
-```{r}
-tibble(advertising$TV, advertising$sales, model.slr$fitted.values)
-```
-
-Digging into the details, these fitted values  are simply obtained thanks to the estimated parameters using the \(X\) values (_TV_, in this case). 
-```{r}
-manually.fitted <- model.slr$coefficients[1] + model.slr$coefficients[2] * advertising$TV
-all.equal(as.vector(model.slr$fitted.values), manually.fitted)
-```
-
-
-2. The second approach uses the function `predict` from the built-in `stats` package. The function is a bit versatile as its behavior depends on which type of objects it is fed with.  
-Applied to a `lm` object, it will, by default, return **predictions** for each of the \(X\) values  used to fit the model. 
-
-```{r}
-all.equal(as.vector(model.slr$fitted.values), manually.fitted, predict(model.slr))
-```
-
-Thanks to the fitted/predicted value, we can calculate the values above about the quality of the fit. Here are a few lines of code to manually calculate these statistics.
-
-```{r}
-## R2
-TSS <- sum((advertising$sales - mean(advertising$sales))^2)
-TSS
-
-RSS <- sum((advertising$sales -  predict(model.slr))^2)
-RSS
-
-R2 <- 1 - RSS/TSS
-R2 %>% round(3)
-
-## RSE
-n <- length(advertising$sales)
-p <- length(model.slr$coefficients) - 1
-RSE <- sqrt(RSS /(n - p - 1))
-RSE %>% round(2)
-# notice that this is more or less the sd of the errors
-sd(advertising$sales -  predict(model.slr)) %>% round(2)
-
-## F-statistic
-F <- (TSS - RSS)/p * (RSS/(n-p-1))^(-1)
-F %>% round(1)
-```
-
-
-
-We can now turn to the **graph** of the fit.  
-As much as possible, we want to use `ggplot` for our graphs. In this case, we must first add the predicted/fitted values to the data frame. There are various, though similar ways to achieve that first step, including one with `geom_smooth`.
-
-
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE}
-
-advertising <- advertising %>%
-	mutate(fit_TV= model.slr$fitted.values)
-	# mutate(fit_TV= predict(model.slr))
-	# mutate(fit_TV = predict(lm(sales ~ TV), interval = "confidence")[,"fit"])
-         
-
-p1 <- advertising %>% ggplot(
-	mapping= aes(x=TV, y= sales)
-	) +
-	geom_point(size=1, shape=21) +
-	#geom_smooth(method='lm', se = TRUE) + # another alternative for the fit
-	geom_line(aes(y=fit_TV), color ="blue", size =1) +
-	geom_segment(aes(x = TV, y = sales, xend = TV, yend = fit_TV, colour = "red")) +
-	theme(legend.position = "none")
-p1
-```
-
-
-
-## Multiple linear regression
-
-The treatment of the multiple linear regression is similar to the part above. The differences include:
-
-* The command for the `lm` function;
-* No graphical representation;
-* The often tedious interpretation of the coefficients.
-
-We proceed by estimating 
-
-\[\text{sales} = \beta_0 + \beta_1\times \text{TV} + \beta_2\times \text{radio} + \beta_3\times \text{newspaper}  + \varepsilon\]
-
-
-```{r}
-model.mlr <- lm(sales ~ TV + radio + newspaper, data = advertising)
-```
-
-Importantly, the `+` sign does not mean that the regression is on the sum of the variables. Instead, the expression should be read "regression of sales on TV _plus on_ radio _plus on_ newspaper".
-
-```{r}
-summary(model.mlr)
-```
-
-For the interpretation of the coefficients, the correlations between the predictors is often useful.
-
-```{r}
-advertising %>% {cor(.[,c("TV", "radio", "newspaper")])} %>% round(4)
-```
-
-## Categorical regressors
-
-The predictors of the model need not be numeric variables. They can also be factors.
-
-In order to closely follow @isln (Chap. 3), we now load another data set, `Credit` from the package `ISLR`.
-
-```{r}
-require(ISLR)
-data("Credit")
-str(Credit)
-```
-
-The scatter plots for each pair of variables is a useful visualization.
-
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE}
-require(GGally)
-ggpairs(Credit[,c("Balance", "Age", "Cards", "Education",
-                  "Income", "Limit", "Rating")])
-```
-
-The key element in this section is the qualitatitive / categorical predictors, also called factor variables.   
-In the `Credit` data set, variables such `gender` or `student` are factors.  
-
-We illustrate here how these variables can be used in a linear regression.
-
-```{r}
-model.cr1 <- lm(Balance ~ Gender, data = Credit)
-summary(model.cr1)
-```
-
-This seems to work seemlessly. There is a detail, however that must be brought into the light.  
-`R` has automatically created a dummy variable. This may or may not be the intended choice.  
-The exact choice can be examined with the following call.
-
-```{r}
-contrasts(Credit$Gender)
-```
-We see that the variable `GenderFemale` (read in the upper part of the table) shown in the summary of the model takes the value \(0\) if the individual is Male and \(1\) if the individual is Female.   
-With multiple factors in the variable, the reading of the table must be well understood.
-
-```{r}
-contrasts(Credit$Ethnicity)
-```
-
-These values are used in the next model.
-
-```{r}
-model.cr2 <- lm(Balance ~ Ethnicity, data = Credit)
-summary(model.cr2)
-```
-
-Notice that these dummy values are created in alphabetical order. Hence, the first will always server as reference.  
-This behavior can be changed thanks to the `relevel` function.
-
-```{r}
-Credit$Ethnicity <- relevel(Credit$Ethnicity, ref = "Caucasian")
-contrasts(Credit$Ethnicity)
-```
-
-
-## Interactions terms
-
-Notice that the \(\beta\)'s represent the average effect of a one unit change in the predictor on the response.  
-The assumption of a constant effect on the response, i.e., constant \(\beta_i\), is often difficult to sustain. For instance, in case of synergies of the advertising media, the effect of one particular media depends on how much of the other media are already been run.  
-Interactions terms constitute a variation of the linear regression whose aim is precisely to allow for non-constant effects of variables on the response.  
-The interaction between variables are built with the `:` symbol. For instance, the result in @isln, Chap. 3, slide 37 is obtained through the following call.
-
-```{r}
-model.it1 <- lm(sales ~ TV + radio + TV:radio, data = advertising)
-summary(model.it1) 
-
-## alternatively, use the cross *
-lm(sales ~ TV*radio, data = advertising)
-```
-
-Interactions can be done between quantitative and categorical variables. This case is actually the very easy to interpret and even visualize, despite the multiple variables.
-
-
-```{r}
-model.it2 <- lm(Balance ~  Income + Student, data = Credit)
-summary(model.it2) 
-model.it3 <- lm(Balance ~  Income + Student + Income:Student, data = Credit)
-summary(model.it3) 
-
-
-y.hat4 <- predict(model.it2)
-
-plot(Credit$Income, Credit$Balance)
-lines(Credit$Income, y.hat4, col="red")
-
-s.data <- Credit
-s.data$Student <- "Yes"
-
-n.data <- Credit
-n.data$Student <- "No"
-
-y.hat5 <- predict(model.it2, newdata = s.data)
-
-y.hat6 <- predict(model.it2, newdata = n.data)
-
-plot(Credit$Income, Credit$Balance)
-lines(Credit$Income, y.hat5, col="red")
-lines(Credit$Income, y.hat6, col="black")
-Credit
-```
-
-We can plot these different models.
-
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "Fits of models without (left) and with (right) interactions terms of Income and Student for Students (red) and not Students (black)."}
-s.data <- Credit
-s.data$Student <- "Yes"
-
-ns.data <- Credit
-ns.data$Student <- "No"
-
-cols <- c("Student"="red", "Yes" ="red", "Not student"="black", "No"="black")
-p1 <- Credit %>%
-	mutate(fit.student = predict(model.it2, newdata = s.data),
-		fit.not.student = predict(model.it2, newdata = ns.data)) %>%
-	ggplot(aes(x=Income, y=Balance)) +
-  geom_point(aes(x=Income, y=Balance, color=Student)) +
-  geom_line(aes(y=fit.student, color="Student")) +
-  geom_line(aes(y=fit.not.student, color="Not student")) +
-  scale_colour_manual(values=cols) +
-  theme(legend.position = "none")
-
-p2 <- Credit %>%
-	mutate(fit.student = predict(model.it3, newdata = s.data),
-	       fit.not.student = predict(model.it3, newdata = ns.data)) %>%
-  ggplot(aes(x=Income, y=Balance)) +
-  geom_point(aes(x=Income, y=Balance, color=Student)) +
-  geom_line(aes(y=fit.student, color="Student")) +
-  geom_line(aes(y=fit.not.student, color="Not student")) +
-  scale_colour_manual(values=cols) +
-  theme(legend.position = c(50, 1000),
-          legend.direction = "horizontal")
-
-grid.arrange(p1, p2, ncol=2)
-```
-
-
-
-
-
-
-
-
-
-
-
-## Polynomials of degree n {#polyn}
-
-Another very useful extension of the linear model is to include powers of variables in order to capture non-linear effects. This seems to be a contradiction in terms, but a possible answer could be that the model is still linear in the coefficients.  
-
-To fix ideas, here is an example of fitting a quadratic model.
-
-\[\text{mpg} = \beta_0 + \beta_{1}\times \text{horsepower} + \beta_{2}\times \text{horsepower}^2 + \varepsilon\]
-
-This model can be estimated in the `Auto` data set of the `ISLR` package.
-
-```{r}
-require(ISLR)
-data("Auto")
-model.pd1 <- lm(mpg ~ horsepower, data = Auto)
-summary(model.pd1)
-model.pd2 <- lm(mpg ~ horsepower + I(horsepower^2), data = Auto)
-summary(model.pd2) 
-```
-Notice the use of the `I` function which, in a formula, inhibits the interpretation of operators such as `+` and `^` as formula operators but, instead, makes them be used as arithmetical operators.  
-
-For higher degrees of polynomial, it can become cumbersome to write all the degrees. That is where the function `poly` is handy.
-
-```{r}
-require(ISLR)
-data("Auto")
-model.pd5 <- lm(mpg ~ poly(horsepower, 5), data = Auto)
-model.pd9 <- lm(mpg ~ poly(horsepower, 9), data = Auto)
-
-```
-
-Again, the advantage of the linear regression with a single predictor is the visualization of its fits, as illustrated below.
-
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "Fits of mpg for various degrees of the polynomial of horsepower."}
-Auto <- Auto %>%
-	mutate(fit1 = predict(model.pd1),
-	fit2 = predict(model.pd2),
-	fit5 = predict(model.pd5),
-	fit9 = predict(model.pd9))
-
-cols <- c("Deg.1", "Deg.2", "Deg.5", "Deg.9")
-Auto %>% 
-	ggplot(aes(x=horsepower, y=mpg)) +
-	geom_point() +
-	geom_line(aes(y=fit1, color="Deg.1"), size =2) +
-	geom_line(aes(y=fit2, color="Deg.2"), size =2) +
-	geom_line(aes(y=fit5, color="Deg.5"), size =2) +
-  geom_line(aes(y=fit9, color="Deg.9"), size =2) +
-	theme(legend.title = element_blank(), 
-		legend.position = "bottom", 
-		legend.direction = "horizontal")
-
-```
-
-
-
-
-```{r}
-fita1 <- lm(sales ~ TV + radio + newspaper, data=advertising )
-summary(fita1)
-
-fita2 <- lm(sales ~ poly(TV,5) + radio + newspaper , data=advertising )
-summary(fita2)
-
-fita3 <- lm(sales ~ poly(TV,5) + poly(radio,3) + poly(newspaper,6) , data=advertising )
-summary(fita3)
-
-fita4 <- lm(sales ~ TV + radio + newspaper + TV:radio, data=advertising )
-summary(fita4)
-
-fita5 <- lm(sales ~ TV*radio*newspaper, data=advertising )
-summary(fita5)
-
-fita6 <- lm(sales ~ poly(TV,2)*poly(radio,2)*poly(newspaper,2), data=advertising )
-summary(fita6)
-
-length(fita6$coefficients)
-```
-
-
-
-
-
-
-
-
-
-
-
-
-<!--chapter:end:28-linear_regression.Rmd-->
-
-# Scoping {#scoping}
+Placeholder
 
 
 ## Introduction
+## Regression trees
+## Classification trees
+## Avoiding over-fitting of trees with Bagging
+## Random Forest
 
-A function creates its own environment. In turn, this environment of the function is a child of the environment where the function was created.  
-Scoping refers to the set of rules on what environment R looks for the value of a name. For instance, if the code contains `myv <- 12`, then later typing `myv` forces R to retrieve 12 from an environment.  
-R uses lexical scoping and, under some circumstances, dynamic scoping. We're interested in lexical scoping.
-
-
-```{r}
-mean <- function(x) {
-  x+1
-}
-mean(1:10)
-
-rm(mean)
-
-mean(1:10)
-```
+<!--chapter:end:27-Trees.Rmd-->
 
 
+# Overview {#overview}
+
+Placeholder
+
+
+## Universal scope
+## Statistical learning
+## Use of statistical learning
+### Prediction
+### Inference
+## Classification setting
+### Bayes classifier
+### K-nearest neighbors 
+
+<!--chapter:end:28-overview.Rmd-->
+
+
+# Linear Regression
+
+Placeholder
+
+
+## Graphical Analysis
+## Simple linear regression
+## Multiple linear regression
+## Categorical regressors
+## Interactions terms
+## Polynomials of degree n {#polyn}
+
+<!--chapter:end:29-linear_regression.Rmd-->
+
+
+# Scoping {#scoping}
+
+Placeholder
+
+
+## Introduction Part 
 ## Rule 1: name masking  
-
-If a name is not defined in a function, R looks one level up, i.e., in the parent:
-
-```{r}
-a <- 10
-
-f <- function(){
-  b <- 2
-  a + b # same as return(a + b)
-}
-
-f()
-
-c <- 11
-g <- function() {
-  d <- 4
-  h <- function() {
-    e <- 5
-    c + 2*d + e
-  }
-  h()
-}
-
-g()
-
-
-
-c <- 11
-d <- 100
-g <- function() {
-  d <- 4
-  h <- function() {
-    e <- 5
-    c + 2*d + e
-  }
-  h()
-}
- g()
-  
- 
-```
-
-
-
-## Rule 2: fresh start
-
-Every time a function is called, a new environment is created. In other words, the function does not know that it has been called before.
-
-```{r}
-a 
-t <- function() {
-  if (exists("a")) { 
-    a <- a + 2
-    a
-  } else {
-    a <- 20 
-    a
-  } 
-}
-t()
-
-t()
-t()
-
-a <- 4
-# gives 6 because when the function t looks for 'a', NOW, it finds it in the parent 
-t() 
-
-
-l <- function() {
-  a <- 5 
-  # 'a' is defined in the environment, so there is no need to look into the parent 
-  if (exists("a")) { 
-    a <- a + 2
-    a
-  } else {
-    a <- 10 
-    a
-  } 
-}
-l()
-
-```
-
+## Rule 2: new start
 ## Rule 3: dynamic lookup
-
-R looks for values when the function is called. If the environment where R will look for values has changed in between calls, the result of the function may be different. This is a source of error that should avoided.
-
-```{r}
-u <- function() a^2
-a <- 2
-u() 
-# needs a value for 'a' because it does not define one within its environment; 
-# therefore, u() looks up to, in this case, the global environment
-a <- 3
-u()
-```
-
 ## Functions inside functions
-
-Consider the following example of a function, it returns a function!
-
-
-```{r}
-m.power <- function(pow){
-  m.exp <- function(b){ b^pow }
-  m.exp # return the m.exp function
-}
-```
-
-We can create many functions with that function. Importantly, notice that functions preserve the environment in which they were created.
-
-```{r}
-
-mycube <- m.power(3)
-mycube(4)
-
-mysquare <- m.power(2)
-mysquare(5)
-
-# ls(environment(m.power)) gives the global environment
-ls(environment(mycube)) 
-
-w <- function(k){
-  q <- 10
-  k*q
-}
-
-z <- function() w(2) # z is itself a function that inherits the environment of w
-# but z, here, is forced to use 2 as an argument 
-
-z()
-```
-
-
 ## Examples
+## Lexical vs Dynamic Scoping
 
+<!--chapter:end:30-scoping.Rmd-->
 
-The following example illustrates lexical scoping.
-```{r}
-yy <- 10
-
-ff <- function(xx){
-  yy <- 2
-  yy^2 + gg(xx)
-}
-
-gg <- function(xx){
-  xx*yy
-}
-
-ff(3) 
-```
-
-
-As another illustration, we could try to guess what  `g(2)` produces after the following commands. Hint: remember the in which environment the functions were created because it tells you what are the correct bindings (parent).
-
-
-```{r}
-a <- 1
-b <- 2
-f <- function(x){
-  a*x + b
-}
-g <- function(x){
-  a <- 2
-  b <- 1
-  f(x)
-}
-
-g(2)
-```
-
-Compare to `g(2)` here.
-
-```{r}
-a <- 1
-b <- 2
-f <- function(a,b){
-  return( function(x) {a*x + b})
-}
-g <- f(2,1)
-g(2)
-```
-
-
-
-
-
-<!--chapter:end:29-scoping.Rmd-->
-
-# Introduction to accuracy assessment {#intro_accuracy}
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Introduction to accuracy assessment
 
 
 ## (Root) Mean square error {#rmse}
@@ -5227,7 +542,7 @@ data("Auto")
 # estimate the models
 model.pd1 <- lm(mpg ~ horsepower, data = Auto)
 model.pd2 <- lm(mpg ~ horsepower + I(horsepower^2), data = Auto)
-model.pd5 <- lm(mpg ~ poly(horsepower, 5), data = Auto)
+model.pd5 <- lm(mpg ~ poly(horsepower, 5), data = Auto)  # number in blue is the respective polynom
 model.pd9 <- lm(mpg ~ poly(horsepower, 9), data = Auto)
 
 
@@ -5244,8 +559,6 @@ models.rmse <- tibble(
 					)
 models.rmse
 ```
-
-
 
 ## Over-fitting
 
@@ -5269,7 +582,8 @@ models.rmse$n.coef <- c(n.coef(model.pd1),
                         n.coef(model.pd5),
                         n.coef(model.pd9))
 ```
-Let's now plot this case.
+
+Now we plot to see the different polynoms with the respective RMSE:
 
 ```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "RMSE for various numbers of coefficients in the linear model."}
 models.rmse %>%
@@ -5284,133 +598,56 @@ models.rmse %>%
 
 What should become apparent there is always a way to improve the accuracy of the fit when calculating the RMSE using the data that was used to estimate the model. This is a very general conclusion illustrated above by adding terms of a polynomial in the linear model.  
 
-
 ## Train versus test data
 
 In order to avoid over-fitting, one could assess how the model fits the data by calculating the RMSE on data never seen in the estimation of the model. This data is called **test data**.  
 Test data may or may not appear naturally in a given context. If it is not, a common strategy is to randomly select a part of the data that will not be used to estimate the model but simply to assess its accuracy. This division is referred to as the train-test split of the data.  
-This implies that the RMSE must now be calcultated for two set of predictions.  
+This implies that the RMSE must now be calcultated for two sets of predictions.  
 \[\text{RMSE}_\text{train}(\hat{f}, \text{train data}) = \sqrt{\frac{1}{n_{\text{train}}}\sum_{i\in \text{train}} \big(y_i -\hat{f}(X_i)\big)^2}\]
 \[\text{RMSE}_\text{test}(\hat{f}, \text{test data}) = \sqrt{\frac{1}{n_{\text{test}}}\sum_{i \in \text{test}} \big(y_i -\hat{f}(X_i)\big)^2}\]
 
+How this works, will be illustrated in the solution to the final task of the project (Section: \@ref(solution_final_task) . This is a good example of how the whole process of calculating the RMSE works.
 
-We illustrate this idea with the models estimated in Section \@ref(rmse).  
-To simplify matters, we first define functions that involved in the calculations.
-
-
-```{r}
-# a function to calculate the rmse from a model
-m.rmse <- function(model, data, i.response) {
-	data %>%
-	select(i.response) %>%
-  {.[,1]} %>%
-  c.rmse(predict(model, data))
-}
-
-m.rmse(model.pd2, Auto, 1)
-
-Auto %>%
-  select(1)
-
-```
-
-The first step is to split the data. For our illustration, we will take only one train and one test data sets. We chose here a \(1/2\)--\(1/2\) proportions.  
-
-```{r}
-set.seed(42)
-n <- nrow(Auto)
-
-train.index <- sample(1:n, ceiling((1/2)*n))
-
-train.data <- Auto[train.index,]
-test.data <- Auto[-train.index,]
-```
-
-We can now calculate the RMSE in the train and the test data for each of these models.
-
-```{r}
-model.tpd1 <- lm(mpg ~ horsepower, data = train.data)
-model.tpd2 <- lm(mpg ~ horsepower + I(horsepower^2), data = train.data)
-model.tpd5 <- lm(mpg ~ poly(horsepower, 5), data = train.data)
-model.tpd9 <- lm(mpg ~ poly(horsepower, 9), data = train.data)
-
-models.ttrmse <- tibble(
-  model = paste0("model.tpd",c(1,2,5,9)),
-  train.RMSE= c(
-    c.rmse(train.data$mpg,predict(model.tpd1)),
-    c.rmse(train.data$mpg,predict(model.tpd2)),
-    c.rmse(train.data$mpg,predict(model.tpd5)),
-    c.rmse(train.data$mpg,predict(model.tpd9))
-							)
-					)
-models.ttrmse
+<!--chapter:end:31-intro_accuracy.Rmd-->
 
 
+# Final Task
 
-models.ttrmse$n.coef <- c(
-  n.coef(model.tpd1),
-  n.coef(model.tpd2),
-  n.coef(model.tpd5),
-  n.coef(model.tpd9)
-  )
-
-models.ttrmse$test.RMSE <- c(
-  m.rmse(model.tpd1, test.data, 1),
-  m.rmse(model.tpd2, test.data, 1),
-  m.rmse(model.tpd5, test.data, 1),
-  m.rmse(model.tpd9, test.data, 1)
-  )
-
-models.ttrmse
-```
-
-We can again plot this sitatuation.
-
-```{r, out.width = "100%", message = FALSE, warning = FALSE, include=TRUE, fig.cap= "Train vs test RMSE for various numbers of coefficients in the linear model."}
-
-cols <- c("Train" = "dodgerblue", "Test" = "red")
-models.ttrmse %>%
-  ggplot(aes(x=n.coef)) +
-  geom_line(aes(y= train.RMSE, color = "Train")) + 
-  geom_line(aes(y= test.RMSE, color = "Test")) +
-  scale_x_continuous(breaks = c(1,2,5,9) ) +
-  theme(legend.title = element_blank(), 
-		legend.position = "bottom", 
-		legend.direction = "horizontal") +
-  ylab("RMSE") +
-  xlab("Number of coefficients")
-
-# alternatively
-# plot(models.rmse$n.coef, models.rmse$RMSE, type="b", col = "dodgerblue")
-```
+Placeholder
 
 
+## Data
+## Some specifics
+### Models and their selection
+### NA’s
+## Solution to the final task 
+## Trial and error 
+### First attempt
+### Second attempt
+## Model used for the solution of the final task (#THE SOLUTION)
+### Solution: Multiple linear regression model to cross validation
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--chapter:end:30-intro_accuracy.Rmd-->
+<!--chapter:end:32-Final_Task.Rmd-->
 
 # (PART) Conclusion {-}
 
 
 # Conclusion {#conclusion}
 
-We did a great book!
+This brings us to the end of our book. It is built in the form of a tutorial and contains a variety of hints regarding the use of R in general and the use of R for data science or data analysis.
 
-<!--chapter:end:31-conclusion.Rmd-->
+As mentioned before, the book itself is part of a university project in `Data Science` at Hochschule Fresenius in Cologne. The course itself was designed or intended to learn about the language R and how R can be used for `Data Science`. Please keep in mind that the entire project is a work-in-progress document and that it might contain "simple" errors, due to the fact that this is the first time we are working with R and data science. Since we are "first-time learners" of R and data science, we intended to pass on our knowledge and give the reader a basic understanding of R and how to make use of helpful and life-simplifying tools (e.g. for data science).
+
+It was important for  us to get you started with R and data science, as well as all related machine learning and artificial intelligence tools. 
+
+In our examples, we tried to give a simple understanding of the issue, as well as basic examples (and some advanced examples) for working with and presenting complex models. Our objective was and still is to demonstrate how R can be used to "read" data and convert it into data scientific output. Furthermore, we want to demonstrate how "easy" it can be to use R as a language for data science. When it comes to machine learning, we demonstrated the possible use of a variety of packages that support the use of machine learning with R. 
+
+In case of any ambiguities, the authors are happy to support you and will try to give you valuable advice. 
+
+
+<!--chapter:end:34-conclusion.Rmd-->
 
 `r if (knitr::is_html_output()) '# References {-}'`
 
-<!--chapter:end:32-references.Rmd-->
+<!--chapter:end:35-references.Rmd-->
 
